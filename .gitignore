@@ -24,6 +24,12 @@ ExportedObj/
 *.svd
 *.pdb
 
+# Wwise
+Assets/Wwise/Editor/ProjectData.meta
+WwiseSettings.xml
+WwiseSettings.xml.meta
+AkWwiseProjectData*.asset
+AkWwiseProjectData*.asset.meta
 
 # Unity3D generated meta files
 *.pidb.meta
