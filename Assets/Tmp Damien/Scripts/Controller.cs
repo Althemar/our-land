@@ -7,6 +7,7 @@ public class Controller : MonoBehaviour
 {
     public Tilemap tilemap;
     public Movable tmpMovable;
+    public HexagonalGridPositions gridPositions;
 
     Camera cam;
 
@@ -18,8 +19,6 @@ public class Controller : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
-            Debug.Log(cellPosition);
-
 
             CustomTile tile = tilemap.GetTile<CustomTile>(cellPosition);
             if (tile.canWalkThrough) {
@@ -27,5 +26,10 @@ public class Controller : MonoBehaviour
                 tmpMovable.MoveTo(cellWorldPosition);
             }
         }
+        if (Input.GetKeyDown(KeyCode.P)) {
+            gridPositions.SwitchDisplay();
+        }
     }
+
+    
 }

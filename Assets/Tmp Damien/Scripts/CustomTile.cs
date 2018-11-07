@@ -13,20 +13,21 @@ public class CustomTile : TileBase
     public int walkCost = 1;
 
     Vector3Int position;
+    ITilemap tilemap;
 
     public enum Direction { NW, W, SW, SE, E, NE }
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         position = location;
+        this.tilemap = tilemap;
         return true;
     }
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
         tileData.sprite = sprite;
     }
-    
-  
 
+  
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/CustomTile")]
     public static void CreateCustomTile() {
