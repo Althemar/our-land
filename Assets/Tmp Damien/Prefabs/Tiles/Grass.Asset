@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d1d066781f7553444830fa6240d927d1, type: 3}
+  go: {fileID: 2368644894744130655, guid: 8f8f3988e58a4b94f9ce5db643d8ce6e, type: 3}
   canWalkThrough: 1
   walkCost: 1

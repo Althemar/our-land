@@ -7,26 +7,44 @@ using TMPro;
 public class HexagonalGridPositions : MonoBehaviour
 {
     public Tilemap tilemap;
+    public HexagonalGrid hexagonalGrid;
     public TMP_Text tilePositionPrefab;
+
+    List<TMP_Text> coordinatesTexts;
 
     void Start()
     {
-        BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+        
+        
+    }
 
-        for (int x = 0; x < bounds.size.x; x++) {
-            for (int y = 0; y < bounds.size.y; y++) {
-                TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile != null) {
-                    Vector3Int textPosition = new Vector3Int(x + bounds.position.x, y + bounds.position.y, 0);
-                    TMP_Text text = Instantiate(tilePositionPrefab, tilemap.GetCellCenterWorld(textPosition), Quaternion.identity, transform);
-                    text.text = textPosition.x + "," + textPosition.y;
-                }
+    private void Update() {
+        if (Time.frameCount == 3) {
+            coordinatesTexts = new List<TMP_Text>();
+
+            for (int i = 0; i < hexagonalGrid.Tiles.Count; i++) {
+                TileDatas tileDatas = hexagonalGrid.Tiles[i];
+                Vector3Int cellCoordinates = new Vector3Int(tileDatas.Position.x, tileDatas.Position.y, 0);
+                TMP_Text text = Instantiate(tilePositionPrefab, tilemap.GetCellCenterWorld(cellCoordinates), Quaternion.identity, transform);
+                text.text = (tileDatas.Coordinates.x) + "," + (tileDatas.Coordinates.y);
+                coordinatesTexts.Add(text);
             }
         }
     }
 
     public void SwitchDisplay() {
         gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    public void Refresh() {
+        for (int i = 0; i < hexagonalGrid.Tiles.Count; i++) {
+            TileDatas tileDatas = hexagonalGrid.Tiles[i];
+            Vector3Int cellCoordinates = new Vector3Int(tileDatas.Position.x, tileDatas.Position.y, 0);
+            TMP_Text text = coordinatesTexts[i];
+            text.text = (tileDatas.Coordinates.x) + "," + (tileDatas.Coordinates.y);
+            if (tileDatas.Coordinates.coordinatesType == HexCoordinates.HexCoordinatesType.cubic) {
+                text.text += "\n" + tileDatas.Coordinates.z;
+            }
+        }
     }
 }
