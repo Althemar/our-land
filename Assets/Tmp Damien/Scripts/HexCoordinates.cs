@@ -1,21 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
+﻿using UnityEngine;
+
+/*
+ * HexCoordinates
+ * Coordinates for an hexagonal grid
+ * Can be converted in offset, axial, or cubic coordinates
+ */
 
 public class HexCoordinates
 {
-    public enum HexCoordinatesType { offset, axial, cubic}
-
     public int x, y, z;
     public HexCoordinatesType coordinatesType;
 
     public HexCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
+        z = 0;
         coordinatesType = HexCoordinatesType.offset;
     }
 
+    public HexCoordinates(Vector3Int position) {
+        x = position.x;
+        y = position.y;
+        z = position.z;
+        coordinatesType = HexCoordinatesType.cubic;
+    }
+
+  
     public void ChangeCoordinatesType(HexCoordinatesType type) {
         switch (type) {
             case HexCoordinatesType.offset:
@@ -89,7 +99,24 @@ public class HexCoordinates
     }
 
     void CubicToAxial() {
+        z = 0;
         coordinatesType = HexCoordinatesType.axial;
+    }
+
+    public static HexCoordinates GetOffsetCoordinates(HexCoordinates coordinates) {
+        HexCoordinates newCoordinates = coordinates;
+        coordinates.ChangeCoordinatesType(HexCoordinatesType.offset);
+        return coordinates;
+    }
+
+    public static HexCoordinates GetCubicCoordinates(HexCoordinates coordinates) {
+        HexCoordinates newCoordinates = coordinates;
+        coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
+        return coordinates;
+    }
+
+    public Vector3Int toVector3Int() {
+        return new Vector3Int(x, y, z);
     }
 }
 

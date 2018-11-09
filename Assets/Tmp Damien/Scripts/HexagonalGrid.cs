@@ -5,33 +5,52 @@ using UnityEngine.Tilemaps;
 
 public class HexagonalGrid : MonoBehaviour
 {
-    List<TileDatas> tiles;
-    Tilemap tilemap;
-    public HexCoordinates.HexCoordinatesType coordinatesType;
-    
+    public Dictionary<Vector3Int, TileProperties> tiles;
 
-    public List<TileDatas> Tiles
+    Tilemap tilemap;
+    HexCoordinatesType coordinatesType;
+
+    public Dictionary<Vector3Int, TileProperties> Tiles
     {
         get { return tiles; }
     }
 
     private void Awake() {
-        tiles = new List<TileDatas>();
-        coordinatesType = HexCoordinates.HexCoordinatesType.offset;
+        tiles = new Dictionary<Vector3Int, TileProperties>();
+        coordinatesType = HexCoordinatesType.offset;
     }
 
-    void Start() {
-
+    private void Update() {
+        if (Time.frameCount == 1) {
+            foreach (KeyValuePair<Vector3Int, TileProperties> tile in tiles) {
+                tile.Value.SetNeighbors();
+            }
+        }
     }
 
 
-    public void AddTile(TileDatas tile) {
-        tiles.Add(tile);
+    public void AddTile(TileProperties tile) {
+        if (tiles != null) {
+            tiles.Add(tile.Position, tile);
+        }
     }
 
-    public void ChangeCoordinateSystem(HexCoordinates.HexCoordinatesType type) {
-        for (int i = 0; i < tiles.Count; i++) {
-            tiles[i].Coordinates.ChangeCoordinatesType(type);
+    public TileProperties GetTile(HexCoordinates coordinates) {
+        if (coordinates.coordinatesType != HexCoordinatesType.offset) {
+            coordinates = HexCoordinates.GetOffsetCoordinates(coordinates); 
+        }
+        TileProperties tile;
+        if (tiles.TryGetValue(coordinates.toVector3Int(), out tile)) {
+            return tile;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void ChangeCoordinateSystem(HexCoordinatesType type) {
+        foreach (KeyValuePair<Vector3Int, TileProperties> tile in tiles) {
+            tile.Value.Coordinates.ChangeCoordinatesType(type);
         }
         coordinatesType = type;
     }

@@ -10,24 +10,16 @@ public class HexagonalGridPositions : MonoBehaviour
     public HexagonalGrid hexagonalGrid;
     public TMP_Text tilePositionPrefab;
 
-    List<TMP_Text> coordinatesTexts;
-
-    void Start()
-    {
-        
-        
-    }
+    Dictionary<Vector3Int, TMP_Text> coordinatesTexts;
 
     private void Update() {
-        if (Time.frameCount == 3) {
-            coordinatesTexts = new List<TMP_Text>();
-
-            for (int i = 0; i < hexagonalGrid.Tiles.Count; i++) {
-                TileDatas tileDatas = hexagonalGrid.Tiles[i];
-                Vector3Int cellCoordinates = new Vector3Int(tileDatas.Position.x, tileDatas.Position.y, 0);
+        if (Time.frameCount == 1) {
+            coordinatesTexts = new Dictionary<Vector3Int, TMP_Text>();
+            foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
+                Vector3Int cellCoordinates = new Vector3Int(tile.Value.Position.x, tile.Value.Position.y, 0);
                 TMP_Text text = Instantiate(tilePositionPrefab, tilemap.GetCellCenterWorld(cellCoordinates), Quaternion.identity, transform);
-                text.text = (tileDatas.Coordinates.x) + "," + (tileDatas.Coordinates.y);
-                coordinatesTexts.Add(text);
+                DisplayTileCoordinate(tile.Value, text);
+                coordinatesTexts.Add(tile.Key, text);
             }
         }
     }
@@ -37,14 +29,17 @@ public class HexagonalGridPositions : MonoBehaviour
     }
 
     public void Refresh() {
-        for (int i = 0; i < hexagonalGrid.Tiles.Count; i++) {
-            TileDatas tileDatas = hexagonalGrid.Tiles[i];
-            Vector3Int cellCoordinates = new Vector3Int(tileDatas.Position.x, tileDatas.Position.y, 0);
-            TMP_Text text = coordinatesTexts[i];
-            text.text = (tileDatas.Coordinates.x) + "," + (tileDatas.Coordinates.y);
-            if (tileDatas.Coordinates.coordinatesType == HexCoordinates.HexCoordinatesType.cubic) {
-                text.text += "\n" + tileDatas.Coordinates.z;
-            }
+        foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
+            Vector3Int cellCoordinates = new Vector3Int(tile.Value.Position.x, tile.Value.Position.y, 0);
+            TMP_Text text = coordinatesTexts[tile.Key];
+            DisplayTileCoordinate(tile.Value, text);
+        }
+    }
+
+    void DisplayTileCoordinate(TileProperties tileProperties, TMP_Text text) {
+        text.text = (tileProperties.Coordinates.x) + "," + (tileProperties.Coordinates.y);
+        if (tileProperties.Coordinates.coordinatesType == HexCoordinatesType.cubic) {
+            text.text += "\n" + tileProperties.Coordinates.z;
         }
     }
 }

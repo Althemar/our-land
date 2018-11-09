@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
-using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,17 +11,17 @@ public class CustomTile : TileBase
     public bool canWalkThrough = true;
     public int walkCost = 1;
 
-    
     ITilemap tilemap;
-
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
 
-        if (go != null) {
-            TileDatas tileDatas = go.GetComponent<TileDatas>();
-            tileDatas.Position = location;
-            tileDatas.Tile = this;
-            tilemap.GetComponent<HexagonalGrid>().AddTile(tileDatas);
+        if (go) {
+            TileProperties properties = go.GetComponent<TileProperties>();
+            if (properties) {
+                HexagonalGrid grid = tilemap.GetComponent<HexagonalGrid>();
+                properties.InitializeTile(location, this, grid, tilemap);
+                grid.AddTile(properties);
+            }
         }
 
         this.tilemap = tilemap;
@@ -36,8 +33,6 @@ public class CustomTile : TileBase
         tileData.gameObject = go;
     }
 
-   
-    
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/CustomTile")]
