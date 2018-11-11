@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DebugMovable : MonoBehaviour
 {
-    public enum DebugMode{
+    public enum DebugMode
+    {
         Coordinates,
         Neighbors
     }
@@ -22,6 +23,7 @@ public class DebugMovable : MonoBehaviour
     public void UpdateDebug() {
         if (mode == DebugMode.Neighbors) {
             for (int i = 0; i < coloredTiles.Count; i++) {
+
                 coloredTiles[i].Tilemap.SetColor(coloredTiles[i].Position, Color.white);
             }
             coloredTiles.Clear();
@@ -35,4 +37,8 @@ public class DebugMovable : MonoBehaviour
             }
         }
     }
+
+    
 }
+    
+

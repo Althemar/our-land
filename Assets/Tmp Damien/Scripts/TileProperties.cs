@@ -16,7 +16,6 @@ public class TileProperties : MonoBehaviour
     static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
-    
 
     public HexCoordinates Coordinates
     {
@@ -42,8 +41,6 @@ public class TileProperties : MonoBehaviour
     {
         get { return tilemap; }
     }
-
-
 
     private void Awake() {
         neighbors = new TileProperties[6];
@@ -73,10 +70,8 @@ public class TileProperties : MonoBehaviour
     public void SetNeighbors() {
         for (int i = 0; i < 6; i++) {
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
-            //direction.ChangeCoordinatesType(HexCoordinatesType.offset);
-            HexCoordinates cubicPosition = new HexCoordinates(position.x, position.y);
-            cubicPosition.ChangeCoordinatesType(HexCoordinatesType.cubic);
-            TileProperties tile = grid.GetTile(new HexCoordinates(cubicPosition.toVector3Int() + direction.toVector3Int()));
+            HexCoordinates cubicPosition = coordinates.GetCoordinatesOfType(HexCoordinatesType.cubic);
+            TileProperties tile = grid.GetTile(cubicPosition + direction);
             if (tile != null) {
                 SetNeighbor((HexDirection)i, tile);
             }

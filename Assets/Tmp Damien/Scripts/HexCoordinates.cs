@@ -18,14 +18,17 @@ public class HexCoordinates
         coordinatesType = HexCoordinatesType.offset;
     }
 
-    public HexCoordinates(Vector3Int position) {
+    public HexCoordinates(Vector3Int position, HexCoordinatesType coordinatesType = HexCoordinatesType.cubic) {
         x = position.x;
         y = position.y;
         z = position.z;
-        coordinatesType = HexCoordinatesType.cubic;
+        this.coordinatesType = coordinatesType;
     }
 
-  
+    public HexCoordinates(HexCoordinatesType coordinatesType) {
+        this.coordinatesType = coordinatesType;
+    }
+
     public void ChangeCoordinatesType(HexCoordinatesType type) {
         switch (type) {
             case HexCoordinatesType.offset:
@@ -103,20 +106,32 @@ public class HexCoordinates
         coordinatesType = HexCoordinatesType.axial;
     }
 
-    public static HexCoordinates GetOffsetCoordinates(HexCoordinates coordinates) {
-        HexCoordinates newCoordinates = coordinates;
-        coordinates.ChangeCoordinatesType(HexCoordinatesType.offset);
-        return coordinates;
+    public HexCoordinates GetCoordinatesOfType(HexCoordinatesType type) {
+        if (coordinatesType != type) {
+            HexCoordinates newCoordinates = this;
+            newCoordinates.ChangeCoordinatesType(type);
+            return newCoordinates;
+        }
+        else {
+            return this;
+        }
     }
 
-    public static HexCoordinates GetCubicCoordinates(HexCoordinates coordinates) {
-        HexCoordinates newCoordinates = coordinates;
-        coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
-        return coordinates;
-    }
-
-    public Vector3Int toVector3Int() {
+    public Vector3Int ToVector3Int() {
         return new Vector3Int(x, y, z);
+    }
+
+    public static HexCoordinates operator +(HexCoordinates c1, HexCoordinates c2) {
+        if (c1.coordinatesType == c2.coordinatesType) {
+            HexCoordinates c = new HexCoordinates(c1.coordinatesType);
+            c.x = c1.x + c2.x;
+            c.y = c1.y + c2.y;
+            c.z = c1.z + c2.z;
+            return c;
+        }
+        else {
+            return null;
+        }
     }
 }
 

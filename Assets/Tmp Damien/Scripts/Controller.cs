@@ -20,7 +20,6 @@ public class Controller : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
-            Debug.Log(cellPosition);
             CustomTile tile = tilemap.GetTile<CustomTile>(cellPosition);
             if (tile.canWalkThrough) {
                 Vector3 cellWorldPosition = tilemap.GetCellCenterWorld(cellPosition);

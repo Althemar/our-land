@@ -28,7 +28,6 @@ public class HexagonalGrid : MonoBehaviour
         }
     }
 
-
     public void AddTile(TileProperties tile) {
         if (tiles != null) {
             tiles.Add(tile.Position, tile);
@@ -37,15 +36,11 @@ public class HexagonalGrid : MonoBehaviour
 
     public TileProperties GetTile(HexCoordinates coordinates) {
         if (coordinates.coordinatesType != HexCoordinatesType.offset) {
-            coordinates = HexCoordinates.GetOffsetCoordinates(coordinates); 
+            coordinates.ChangeCoordinatesType(HexCoordinatesType.offset); 
         }
-        TileProperties tile;
-        if (tiles.TryGetValue(coordinates.toVector3Int(), out tile)) {
-            return tile;
-        }
-        else {
-            return null;
-        }
+        TileProperties tile = null;
+        tiles.TryGetValue(coordinates.ToVector3Int(), out tile);
+        return tile;
     }
 
     public void ChangeCoordinateSystem(HexCoordinatesType type) {

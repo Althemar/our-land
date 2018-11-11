@@ -39,7 +39,7 @@ public class Movable : MonoBehaviour
                 moving = false;
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition));
+                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
                 debug.UpdateDebug();
             }
         }
