@@ -22,7 +22,8 @@ public class Controller : MonoBehaviour
 
             CustomTile tile = hexagonalGrid.Tilemap.GetTile<CustomTile>(cellPosition);
             if (tile.canWalkThrough) {
-                tmpMovable.MoveTo(hexagonalGrid.GetTile(new HexCoordinates(cellPosition, HexCoordinatesType.offset)));
+                HexCoordinates coordinates = new HexCoordinates(cellPosition, HexCoordinatesType.offset);
+                tmpMovable.MoveTo(hexagonalGrid.GetTile(coordinates));
             }
         }
         if (Input.GetKeyDown(KeyCode.P)) {

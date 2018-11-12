@@ -72,46 +72,6 @@ public class HexagonalGrid : MonoBehaviour
         coordinatesType = type;
     }
 
-    public Stack<TileProperties> Path(TileProperties begin, TileProperties end) {
-        PriorityQueue<TileProperties> frontier = new PriorityQueue<TileProperties>();
-        frontier.Enqueue(begin, 0);
-        Dictionary<TileProperties, TileProperties> cameFrom = new Dictionary<TileProperties, TileProperties>();
-        Dictionary<TileProperties, int> costSoFar = new Dictionary<TileProperties, int>();
-        cameFrom.Add(begin, begin);
-        costSoFar.Add(begin, 0);
-
-        while (frontier.Count != 0) {
-            TileProperties current = frontier.Dequeue();
-            if (current == end) {
-                break;
-            }
-
-            TileProperties[] neighbors = current.GetNeighbors();
-            foreach (TileProperties next in neighbors) {
-                if (next == null || !next.Tile.canWalkThrough) {
-                    continue;
-                }
-                int newCost = costSoFar[current] + 1;
-                if (!costSoFar.ContainsKey(next) || newCost < costSoFar[next]) {
-                    costSoFar[next] = newCost;
-                    double priority = newCost + next.Coordinates.Distance(end.Coordinates);
-                    frontier.Enqueue(next, priority);
-                    cameFrom[next] = current;
-                }
-            }
-        }
-
-        Stack<TileProperties> path = new Stack<TileProperties>();
-        path.Push(end);
-        TileProperties currentTile = cameFrom[end];
-        path.Push(currentTile);
-        while (currentTile != begin) {
-            currentTile = cameFrom[currentTile];
-            path.Push(currentTile);
-        }
-
-        return path;
-
-    }
+    
 }
 

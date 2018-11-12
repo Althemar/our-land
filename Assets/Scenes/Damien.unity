@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b13999d92a5194d9848ba3e02cfd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 2071166888}
   hexagonalGrid: {fileID: 2071166889}
   tmpMovable: {fileID: 1270030397}
   gridPositions: {fileID: 1868588908}
@@ -2409,7 +2408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b6b713d589fb14997dd4f85a5a60cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5
   tilemap: {fileID: 2071166888}
   hexGrid: {fileID: 2071166889}
 --- !u!1 &1444321389

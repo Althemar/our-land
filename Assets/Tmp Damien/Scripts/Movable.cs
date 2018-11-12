@@ -70,7 +70,7 @@ public class Movable : MonoBehaviour
 
     public void MoveTo(TileProperties goal) {
         if (!moving) {
-            path = hexGrid.Path(currentTile, goal);
+            path = AStarSearch.Path(currentTile, goal);
             goalTile = goal;
 
             debug.Mode = DebugMovable.DebugMode.Path;
