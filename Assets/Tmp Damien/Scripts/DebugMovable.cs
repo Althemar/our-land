@@ -7,16 +7,19 @@ public class DebugMovable : MonoBehaviour
     public enum DebugMode
     {
         Coordinates,
-        Neighbors
+        Neighbors, 
+        Distance
     }
+
+    public Movable movable;
+    public HexagonalGridPositions gridPositions;
 
     List<TileProperties> coloredTiles;
 
     DebugMode mode = DebugMode.Neighbors;
-    Movable movable;
 
     private void Start() {
-        movable = GetComponent<Movable>();
+        movable.DebugMovable = this;
         coloredTiles = new List<TileProperties>();
     }
 

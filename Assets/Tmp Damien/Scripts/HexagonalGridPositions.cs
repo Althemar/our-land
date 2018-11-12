@@ -28,9 +28,8 @@ public class HexagonalGridPositions : MonoBehaviour
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
-    public void Refresh() {
+    public void RefreshCoordinates() {
         foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
-            Vector3Int cellCoordinates = new Vector3Int(tile.Value.Position.x, tile.Value.Position.y, 0);
             TMP_Text text = coordinatesTexts[tile.Key];
             DisplayTileCoordinate(tile.Value, text);
         }
@@ -42,4 +41,13 @@ public class HexagonalGridPositions : MonoBehaviour
             text.text += "\n" + tileProperties.Coordinates.z;
         }
     }
+
+    public void RefreshDistances(TileProperties origin) {
+        foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
+            TMP_Text text = coordinatesTexts[tile.Key];
+            text.text = origin.Coordinates.Distance(tile.Value.Coordinates).ToString();
+        }
+    }
+
+    
 }

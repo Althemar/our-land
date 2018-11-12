@@ -133,5 +133,9 @@ public class HexCoordinates
             return null;
         }
     }
+
+    public int Distance(HexCoordinates c2) {
+        return (Mathf.Abs(x - c2.x) + Mathf.Abs(y - c2.y) + Mathf.Abs(z - c2.z)) / 2;
+    }
 }
 

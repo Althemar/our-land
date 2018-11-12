@@ -22,8 +22,10 @@ public class Movable : MonoBehaviour
         get { return currentTile; }
     }
 
-    void Start() {
-        debug = GetComponent<DebugMovable>();
+    public DebugMovable DebugMovable
+    {
+        get { return debug; }
+        set { debug = value; }
     }
 
 

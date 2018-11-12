@@ -31,15 +31,18 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.offset);
-            gridPositions.Refresh();
+            gridPositions.RefreshCoordinates();
         }
         if (Input.GetKeyDown(KeyCode.A)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.axial);
-            gridPositions.Refresh();
+            gridPositions.RefreshCoordinates();
         }
         if (Input.GetKeyDown(KeyCode.C)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.cubic);
-            gridPositions.Refresh();
+            gridPositions.RefreshCoordinates();
+        }
+        if (Input.GetKeyDown(KeyCode.D)) {
+            gridPositions.RefreshDistances(tmpMovable.CurrentTile);
         }
     }
 
