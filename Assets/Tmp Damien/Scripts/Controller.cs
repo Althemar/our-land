@@ -20,10 +20,10 @@ public class Controller : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+
             CustomTile tile = tilemap.GetTile<CustomTile>(cellPosition);
             if (tile.canWalkThrough) {
-                Vector3 cellWorldPosition = tilemap.GetCellCenterWorld(cellPosition);
-                tmpMovable.MoveTo(cellWorldPosition);
+                tmpMovable.MoveTo(hexagonalGrid.GetTile(new HexCoordinates(cellPosition, HexCoordinatesType.offset)));
             }
         }
         if (Input.GetKeyDown(KeyCode.P)) {

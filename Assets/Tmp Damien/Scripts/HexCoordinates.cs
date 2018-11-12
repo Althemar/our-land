@@ -135,6 +135,12 @@ public class HexCoordinates
     }
 
     public int Distance(HexCoordinates c2) {
+        if (coordinatesType != HexCoordinatesType.cubic) {
+            ChangeCoordinatesType(HexCoordinatesType.cubic);
+        }
+        if (c2.coordinatesType != HexCoordinatesType.cubic) {
+            c2.ChangeCoordinatesType(HexCoordinatesType.cubic);
+        }
         return (Mathf.Abs(x - c2.x) + Mathf.Abs(y - c2.y) + Mathf.Abs(z - c2.z)) / 2;
     }
 }

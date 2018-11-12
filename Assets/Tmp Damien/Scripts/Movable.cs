@@ -16,6 +16,7 @@ public class Movable : MonoBehaviour
     TileProperties currentTile;
 
     DebugMovable debug;
+    Stack<TileProperties> path;
 
     public TileProperties CurrentTile
     {
@@ -26,6 +27,11 @@ public class Movable : MonoBehaviour
     {
         get { return debug; }
         set { debug = value; }
+    }
+
+    public Stack<TileProperties> Path
+    {
+        get { return path; }
     }
 
 
@@ -42,15 +48,17 @@ public class Movable : MonoBehaviour
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
                 currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-                debug.UpdateDebug();
+                //debug.UpdateDebug();
             }
         }
     }
 
-    public void MoveTo(Vector3 targetPos) {
+    public void MoveTo(TileProperties goal) {
         if (!moving) {
+            path = hexGrid.Path(currentTile, goal);
+            debug.UpdateDebug(DebugMovable.DebugMode.Path);
             beginPos = transform.position;
-            this.targetPos = targetPos;
+            //this.targetPos = goal;
             moving = true;
             progress = 0;
         }
