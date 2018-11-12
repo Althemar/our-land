@@ -4,14 +4,17 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 #endif
 
+/*
+ * CustomTile
+ * Tile that inherate from TileBase
+ */
+
 public class CustomTile : TileBase
 {
     public Sprite sprite;
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
-
-    ITilemap tilemap;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
 
@@ -23,8 +26,6 @@ public class CustomTile : TileBase
                 grid.AddTile(properties);
             }
         }
-
-        this.tilemap = tilemap;
         return true;
     }
 
@@ -42,6 +43,5 @@ public class CustomTile : TileBase
             return;
         AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<CustomTile>(), path);
     }
-    
 #endif
 }

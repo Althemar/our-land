@@ -18,7 +18,7 @@ public class HexagonalGridPositions : MonoBehaviour
             foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
                 Vector3Int cellCoordinates = new Vector3Int(tile.Value.Position.x, tile.Value.Position.y, 0);
                 TMP_Text text = Instantiate(tilePositionPrefab, tilemap.GetCellCenterWorld(cellCoordinates), Quaternion.identity, transform);
-                DisplayTileCoordinate(tile.Value, text);
+                text.text = "";
                 coordinatesTexts.Add(tile.Key, text);
             }
         }
@@ -31,14 +31,10 @@ public class HexagonalGridPositions : MonoBehaviour
     public void RefreshCoordinates() {
         foreach (KeyValuePair<Vector3Int, TileProperties> tile in hexagonalGrid.Tiles) {
             TMP_Text text = coordinatesTexts[tile.Key];
-            DisplayTileCoordinate(tile.Value, text);
-        }
-    }
-
-    void DisplayTileCoordinate(TileProperties tileProperties, TMP_Text text) {
-        text.text = (tileProperties.Coordinates.x) + "," + (tileProperties.Coordinates.y);
-        if (tileProperties.Coordinates.coordinatesType == HexCoordinatesType.cubic) {
-            text.text += "\n" + tileProperties.Coordinates.z;
+            text.text = (tile.Value.Coordinates.x) + "," + (tile.Value.Coordinates.y);
+            if (tile.Value.Coordinates.coordinatesType == HexCoordinatesType.cubic) {
+                text.text += "\n" + tile.Value.Coordinates.z;
+            }
         }
     }
 

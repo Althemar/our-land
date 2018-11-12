@@ -14,6 +14,7 @@ public class Movable : MonoBehaviour
     bool moving;
     float progress;
     TileProperties currentTile;
+    TileProperties goalTile;
 
     DebugMovable debug;
     Stack<TileProperties> path;
@@ -21,6 +22,11 @@ public class Movable : MonoBehaviour
     public TileProperties CurrentTile
     {
         get { return currentTile; }
+    }
+
+    public TileProperties TargetTile
+    {
+        get { return goalTile; }
     }
 
     public DebugMovable DebugMovable
@@ -44,11 +50,20 @@ public class Movable : MonoBehaviour
             progress += speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {
-                moving = false;
+                if (path.Count == 0) {
+                    moving = false;
+                    debug.Mode = DebugMovable.DebugMode.Neighbors;
+                    debug.UpdateDebug();
+                }
+                else {
+                    debug.UpdateDebug();
+                    beginPos = transform.position;
+                    targetPos = tilemap.CellToWorld(path.Pop().Position);
+                }
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
                 currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-                //debug.UpdateDebug();
+
             }
         }
     }
@@ -56,9 +71,13 @@ public class Movable : MonoBehaviour
     public void MoveTo(TileProperties goal) {
         if (!moving) {
             path = hexGrid.Path(currentTile, goal);
-            debug.UpdateDebug(DebugMovable.DebugMode.Path);
+            goalTile = goal;
+
+            debug.Mode = DebugMovable.DebugMode.Path;
+            debug.UpdateDebug();
+
+            targetPos = tilemap.CellToWorld(path.Pop().Position);
             beginPos = transform.position;
-            //this.targetPos = goal;
             moving = true;
             progress = 0;
         }

@@ -30,6 +30,9 @@ public class HexCoordinates
     }
 
     public void ChangeCoordinatesType(HexCoordinatesType type) {
+        if (coordinatesType == type) {
+            return;
+        }
         switch (type) {
             case HexCoordinatesType.offset:
                 ToOffset();
@@ -106,22 +109,11 @@ public class HexCoordinates
         coordinatesType = HexCoordinatesType.axial;
     }
 
-    public HexCoordinates GetCoordinatesOfType(HexCoordinatesType type) {
-        if (coordinatesType != type) {
-            HexCoordinates newCoordinates = this;
-            newCoordinates.ChangeCoordinatesType(type);
-            return newCoordinates;
-        }
-        else {
-            return this;
-        }
-    }
-
     public Vector3Int ToVector3Int() {
         return new Vector3Int(x, y, z);
     }
 
-    public static HexCoordinates operator +(HexCoordinates c1, HexCoordinates c2) {
+    public static HexCoordinates operator+(HexCoordinates c1, HexCoordinates c2) {
         if (c1.coordinatesType == c2.coordinatesType) {
             HexCoordinates c = new HexCoordinates(c1.coordinatesType);
             c.x = c1.x + c2.x;
@@ -134,6 +126,7 @@ public class HexCoordinates
         }
     }
 
+    // Get the distance between two cubic coordinates
     public int Distance(HexCoordinates c2) {
         if (coordinatesType != HexCoordinatesType.cubic) {
             ChangeCoordinatesType(HexCoordinatesType.cubic);

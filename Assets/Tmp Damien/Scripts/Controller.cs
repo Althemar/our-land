@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Controller : MonoBehaviour
 {
-    public Tilemap tilemap;
     public HexagonalGrid hexagonalGrid;
     public Movable tmpMovable;
     public HexagonalGridPositions gridPositions;
@@ -19,9 +18,9 @@ public class Controller : MonoBehaviour
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
             Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+            Vector3Int cellPosition = hexagonalGrid.Tilemap.WorldToCell(worldPosition);
 
-            CustomTile tile = tilemap.GetTile<CustomTile>(cellPosition);
+            CustomTile tile = hexagonalGrid.Tilemap.GetTile<CustomTile>(cellPosition);
             if (tile.canWalkThrough) {
                 tmpMovable.MoveTo(hexagonalGrid.GetTile(new HexCoordinates(cellPosition, HexCoordinatesType.offset)));
             }
@@ -43,6 +42,9 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.D)) {
             gridPositions.RefreshDistances(tmpMovable.CurrentTile);
+        }
+        if (Input.GetKeyDown(KeyCode.S)) {
+            tmpMovable.DebugMovable.SwitchMode();
         }
     }
 

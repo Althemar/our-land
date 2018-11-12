@@ -70,8 +70,8 @@ public class TileProperties : MonoBehaviour
     public void SetNeighbors() {
         for (int i = 0; i < 6; i++) {
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
-            HexCoordinates cubicPosition = coordinates.GetCoordinatesOfType(HexCoordinatesType.cubic);
-            TileProperties tile = grid.GetTile(cubicPosition + direction);
+            coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
+            TileProperties tile = grid.GetTile(coordinates + direction);
             if (tile != null) {
                 SetNeighbor((HexDirection)i, tile);
             }

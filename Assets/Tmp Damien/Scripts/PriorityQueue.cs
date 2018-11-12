@@ -1,7 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
+/*
+ * PriorityQueue
+ * Container that place element with the best priority first
+ * (used for a* algorithm)
+ */
 
 public class PriorityQueue<T>
 {

@@ -2,20 +2,43 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/*
+ * HexagonalGrid
+ */
+
+[RequireComponent(typeof(Tilemap))]
 public class HexagonalGrid : MonoBehaviour
 {
+    /*
+     * Members
+     */
+
     public Dictionary<Vector3Int, TileProperties> tiles;
 
     Tilemap tilemap;
     HexCoordinatesType coordinatesType;
 
+    /*
+     * Properties
+     */
+
     public Dictionary<Vector3Int, TileProperties> Tiles
     {
-        get { return tiles; }
+        get => tiles;
     }
 
+    public Tilemap Tilemap
+    {
+        get => tilemap;
+    }
+
+    /*
+     * Methods
+     */
+   
     private void Awake() {
         tiles = new Dictionary<Vector3Int, TileProperties>();
+        tilemap = GetComponent<Tilemap>();
         coordinatesType = HexCoordinatesType.offset;
     }
 
