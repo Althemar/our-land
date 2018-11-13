@@ -7,13 +7,16 @@ public class Controller : MonoBehaviour
 {
     public HexagonalGrid hexagonalGrid;
     public Movable tmpMovable;
-    public HexagonalGridPositions gridPositions;
+    public HexGridLabels gridPositions;
 
     Camera cam;
+    ReachableTilesDisplay reachableTiles;
 
     void Start() {
         cam = Camera.main;
+        reachableTiles = GetComponent<ReachableTilesDisplay>();
     }
+
 
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
@@ -46,6 +49,26 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S)) {
             tmpMovable.DebugMovable.SwitchMode();
+        }
+        if (Input.GetMouseButtonDown(1)) {
+            Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = hexagonalGrid.Tilemap.WorldToCell(worldPosition);
+            HexCoordinates coordinates = new HexCoordinates(cellPosition, HexCoordinatesType.offset);
+            TileProperties tile = hexagonalGrid.GetTile(coordinates);
+            reachableTiles.InitReachableTiles(tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance), tile, tmpMovable);
+        }
+        else if (Input.GetMouseButtonUp(1)) {
+            reachableTiles.UndisplayReachables();
+            Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = hexagonalGrid.Tilemap.WorldToCell(worldPosition);
+            HexCoordinates coordinates = new HexCoordinates(cellPosition, HexCoordinatesType.offset);
+            tmpMovable.MoveTo(hexagonalGrid.GetTile(coordinates));
+        }
+        if (reachableTiles.Displaying) {
+            Vector3 worldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = hexagonalGrid.Tilemap.WorldToCell(worldPosition);
+            HexCoordinates coordinates = new HexCoordinates(cellPosition, HexCoordinatesType.offset);
+            reachableTiles.RefreshPath(hexagonalGrid.GetTile(coordinates));
         }
     }
 

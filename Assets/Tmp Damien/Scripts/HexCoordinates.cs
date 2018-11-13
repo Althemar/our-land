@@ -18,6 +18,13 @@ public class HexCoordinates
         coordinatesType = HexCoordinatesType.offset;
     }
 
+    public HexCoordinates(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        coordinatesType = HexCoordinatesType.cubic;
+    }
+
     public HexCoordinates(Vector3Int position, HexCoordinatesType coordinatesType = HexCoordinatesType.cubic) {
         x = position.x;
         y = position.y;

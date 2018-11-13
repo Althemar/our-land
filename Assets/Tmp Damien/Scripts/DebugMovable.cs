@@ -12,7 +12,7 @@ public class DebugMovable : MonoBehaviour
     }
 
     public Movable movable;
-    public HexagonalGridPositions gridPositions;
+    public HexGridLabels gridPositions;
 
     List<TileProperties> coloredTiles;
 
@@ -61,7 +61,7 @@ public class DebugMovable : MonoBehaviour
     public void SwitchMode() {
         mode++;
         if ((int)mode == 2) {
-            mode = (DebugMode)0;
+            mode = 0;
         }
     }
 }

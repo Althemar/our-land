@@ -5,10 +5,19 @@ using UnityEngine.Tilemaps;
 
 public class Movable : MonoBehaviour
 {
+    /*
+     * Members
+     */
+     
     public float speed;
-    public Tilemap tilemap;
+    public int walkDistance;
     public HexagonalGrid hexGrid;
+    
+    Tilemap tilemap;
+    DebugMovable debug;
 
+    //movement
+    Stack<TileProperties> path;
     Vector3 beginPos;
     Vector3 targetPos;
     bool moving;
@@ -16,8 +25,11 @@ public class Movable : MonoBehaviour
     TileProperties currentTile;
     TileProperties goalTile;
 
-    DebugMovable debug;
-    Stack<TileProperties> path;
+    
+
+    /*
+     * Properties
+     */
 
     public TileProperties CurrentTile
     {
@@ -40,6 +52,13 @@ public class Movable : MonoBehaviour
         get { return path; }
     }
 
+    /*
+     * Methods
+     */
+
+    private void Start() {
+        tilemap = hexGrid.GetComponent<Tilemap>();
+    }
 
     private void Update() {
         if (Time.frameCount == 1) {
@@ -52,11 +71,11 @@ public class Movable : MonoBehaviour
             if (transform.position == targetPos) {
                 if (path.Count == 0) {
                     moving = false;
-                    debug.Mode = DebugMovable.DebugMode.Neighbors;
-                    debug.UpdateDebug();
+                    //debug.Mode = DebugMovable.DebugMode.Neighbors;
+                    //debug.UpdateDebug();
                 }
                 else {
-                    debug.UpdateDebug();
+                    //debug.UpdateDebug();
                     beginPos = transform.position;
                     targetPos = tilemap.CellToWorld(path.Pop().Position);
                 }
@@ -73,8 +92,9 @@ public class Movable : MonoBehaviour
             path = AStarSearch.Path(currentTile, goal);
             goalTile = goal;
 
-            debug.Mode = DebugMovable.DebugMode.Path;
-            debug.UpdateDebug();
+
+            //debug.Mode = DebugMovable.DebugMode.Path;
+            //debug.UpdateDebug();
 
             targetPos = tilemap.CellToWorld(path.Pop().Position);
             beginPos = transform.position;
