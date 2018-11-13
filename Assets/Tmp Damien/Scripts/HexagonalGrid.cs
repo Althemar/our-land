@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 
 /*
  * HexagonalGrid
+ * Contains informations about the grid
  */
 
 [RequireComponent(typeof(Tilemap))]
@@ -13,7 +14,7 @@ public class HexagonalGrid : MonoBehaviour
      * Members
      */
 
-    public Dictionary<Vector3Int, TileProperties> tiles;
+    public Dictionary<Vector3Int, TileProperties> tiles; // Key : Tile position in offset, Value : tile
 
     Tilemap tilemap;
     HexCoordinatesType coordinatesType;
@@ -60,8 +61,13 @@ public class HexagonalGrid : MonoBehaviour
         if (coordinates.coordinatesType != HexCoordinatesType.offset) {
             coordinates.ChangeCoordinatesType(HexCoordinatesType.offset); 
         }
+        return GetTile(coordinates.ToVector3Int());
+    }
+
+    // Must be offset coordinates
+    public TileProperties GetTile(Vector3Int coordinates) {
         TileProperties tile = null;
-        tiles.TryGetValue(coordinates.ToVector3Int(), out tile);
+        tiles.TryGetValue(coordinates, out tile);
         return tile;
     }
 

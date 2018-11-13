@@ -104,28 +104,34 @@ public class TileProperties : MonoBehaviour
         return tilesInRange;
     }
 
-    // Get reachable tiles
+    // Get reachable tiles (take in count if tile is walkable and walk cost)
     public List<TileProperties> TilesReachable(int movement) {
         List<TileProperties> visited = new List<TileProperties>();
         visited.Add(this);
 
         List<TileProperties>[] fringes = new List<TileProperties>[movement+1];
+        
         fringes[0] = new List<TileProperties>();
         fringes[0].Add(this);
 
         for (int i = 1; i <= movement; i++) {
             fringes[i] = new List<TileProperties>();
+        }
+
+        for (int i = 1; i <= movement; i++) {
             foreach (TileProperties previousTile in fringes[i - 1]) {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 foreach (TileProperties neighbor in neighbors) {
                     if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
-                        visited.Add(neighbor);
-                        fringes[i].Add(neighbor);
+                        int distance = i-1 + neighbor.Tile.walkCost;
+                        if (distance <= movement) {
+                            fringes[distance].Add(neighbor);
+                            visited.Add(neighbor);
+                        }
                     }
                 }
             }
         }
-
         return visited;
     }
     

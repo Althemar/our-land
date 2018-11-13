@@ -30,11 +30,14 @@ public class ReachableTilesDisplay : MonoBehaviour
 
 
     public void InitReachableTiles(List<TileProperties> reachables, TileProperties tile, Movable movable) {
+        if (movable.Moving) {
+            return;
+        }
         this.movable = movable;
         this.reachables = reachables;
         displaying = true;
         for (int i = 0; i < reachables.Count; i++) {
-            reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0,0,100,0.5f));
+            reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
         }
     }
 
@@ -55,12 +58,12 @@ public class ReachableTilesDisplay : MonoBehaviour
     public void RefreshPath(TileProperties tile) {
         if (tile != currentTile) {
             if (reachables.Contains(currentTile)) {
-                ColorPath(currentPath, new Color(0, 0, 100, 0.5f));
+                ColorPath(currentPath, new Color(0.6f, 0.6f, 1f, 1f));
             }
             currentTile = tile;
             if (reachables.Contains(currentTile)) {
                 currentPath = AStarSearch.Path(movable.CurrentTile, tile);
-                ColorPath(new Stack<TileProperties>(currentPath), new Color(100, 0, 0, 0.5f));
+                ColorPath(new Stack<TileProperties>(currentPath), new Color(1f, 0.6f, 0.6f, 1f));
             }
         }
     }

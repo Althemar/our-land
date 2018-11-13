@@ -52,6 +52,11 @@ public class Movable : MonoBehaviour
         get { return path; }
     }
 
+    public bool Moving
+    {
+        get => moving;
+    }
+
     /*
      * Methods
      */

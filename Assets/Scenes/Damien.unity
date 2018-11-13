@@ -142,9 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b13999d92a5194d9848ba3e02cfd8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagonalGrid: {fileID: 2071166889}
+  hexGrid: {fileID: 2071166889}
   tmpMovable: {fileID: 1270030397}
-  gridPositions: {fileID: 1868588908}
 --- !u!4 &129252700
 Transform:
   m_ObjectHideFlags: 0
@@ -706,6 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922361464}
   - component: {fileID: 1922361463}
+  - component: {fileID: 1922361465}
   m_Layer: 0
   m_Name: Debug
   m_TagString: Untagged
@@ -741,6 +741,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1922361465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922361462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec7ac6d537a76445affa10789b7323b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexagonalGrid: {fileID: 0}
+  tmpMovable: {fileID: 0}
+  gridPositions: {fileID: 0}
 --- !u!1 &2071166885
 GameObject:
   m_ObjectHideFlags: 0
