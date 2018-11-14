@@ -49,6 +49,10 @@ public class ReachableTilesDisplay : MonoBehaviour
             //reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
         }
         GetLimits();
+
+        foreach (TileProperties reachable in reachables) {
+            reachable.IsInReachables = false;
+        }
     }
 
     public void GetLimits() {
@@ -85,7 +89,8 @@ public class ReachableTilesDisplay : MonoBehaviour
         }
         int rectangleCount = 0;
 
-        while (currentDirection != end) {
+        
+        while (currentDirection != end+1 || begin.Next() == currentDirection) {
             TileProperties neighbor = current.GetNeighbor(currentDirection);
             if (neighbor && !neighbor.IsInReachables) {
                 rectangleCount++;
@@ -107,8 +112,10 @@ public class ReachableTilesDisplay : MonoBehaviour
             else if (neighbor && neighbor.IsInReachables) {
                 begin = (currentDirection).Opposite();
                 current = neighbor;
-                neighbor.IsInReachables = false;
                 return rectangleCount;
+            }
+            else {
+                currentDirection = currentDirection.Next();
             }
         }
         return rectangleCount;
