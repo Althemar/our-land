@@ -13,10 +13,12 @@ public class HexagonalGrid : MonoBehaviour
      * Members
      */
 
+    public Grid grid;
     public Dictionary<Vector3Int, TileProperties> tiles; // Key : Tile position in offset, Value : tile
 
     Tilemap tilemap;
     HexCoordinatesType coordinatesType;
+    HexMetrics metrics;
 
     /*
      * Properties
@@ -32,6 +34,11 @@ public class HexagonalGrid : MonoBehaviour
         get => tilemap;
     }
 
+    public HexMetrics Metrics
+    {
+        get => metrics;
+    }
+
     /*
      * Methods
      */
@@ -40,6 +47,7 @@ public class HexagonalGrid : MonoBehaviour
         tiles = new Dictionary<Vector3Int, TileProperties>();
         tilemap = GetComponent<Tilemap>();
         coordinatesType = HexCoordinatesType.offset;
+        metrics = new HexMetrics(grid.cellSize.y / 2);
     }
 
     private void Update() {

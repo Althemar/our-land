@@ -15,6 +15,8 @@ public class TileProperties : MonoBehaviour
     HexagonalGrid grid;
     Tilemap tilemap;
 
+    bool isInReachables;
+
     public TileProperties[] neighbors;
 
     static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
@@ -54,6 +56,12 @@ public class TileProperties : MonoBehaviour
     {
         get => grid;
         set => grid = value;
+    }
+
+    public bool IsInReachables
+    {
+        get => isInReachables;
+        set => isInReachables = value;
     }
 
     /*
@@ -119,6 +127,7 @@ public class TileProperties : MonoBehaviour
         
         fringes[0] = new List<TileProperties>();
         fringes[0].Add(this);
+        isInReachables = true;
 
         for (int i = 1; i <= movement; i++) {
             fringes[i] = new List<TileProperties>();
@@ -133,6 +142,7 @@ public class TileProperties : MonoBehaviour
                         int distance = i-1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
+                            neighbor.isInReachables = true;
                             visited.Add(neighbor);
                         }
                     }

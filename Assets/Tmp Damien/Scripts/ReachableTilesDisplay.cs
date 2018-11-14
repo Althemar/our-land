@@ -16,7 +16,10 @@ public class ReachableTilesDisplay : MonoBehaviour
     TileProperties currentTile;
 
 
+    List<Vector3> vertices;
+    Mesh mesh;
 
+   
 
     public bool Displaying
     {
@@ -30,6 +33,8 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     private void Start() {
         movable = GetComponent<Movable>();
+        mesh = GetComponent<MeshFilter>().mesh;
+        vertices = new List<Vector3>();
     }
 
 
@@ -43,32 +48,62 @@ public class ReachableTilesDisplay : MonoBehaviour
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
         }
-        //GetLimits();
+        GetLimits();
     }
 
     public void GetLimits() {
+        TileProperties begin = reachables[reachables.Count - 1];
+        TileProperties current = begin;
+        HexDirection neighborIndexBegin = HexDirection.NW;
 
-        HexagonalGrid newGrid = new GameObject().AddComponent<HexagonalGrid>();
-        for (int i = 0; i < reachables.Count; i++) {
-            newGrid.AddTile(new GameObject().AddComponent<TileProperties>());
+        GetNextReachable(ref current, ref neighborIndexBegin);
+
+        while (current != begin) {
+            GetNextReachable(ref current, ref neighborIndexBegin);
         }
-        newGrid.SetNeighbors();
 
-        Dictionary<TileProperties, HexDirection> limits;
-        TileProperties farest = reachables[reachables.Count - 1];
-        TileProperties currentLimit;
-        foreach (TileProperties neighbor in farest.GetNeighbors()) {
-            if (neighbor == null) {
-                currentLimit = neighbor;
+        GetNextReachable(ref current, ref neighborIndexBegin, true);
+    }
+
+    public void GetNextReachable(ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
+        HexDirection currentDirection = begin.Next();
+        HexDirection end = begin;
+        if (stopAtNW) {
+            end = HexDirection.NE;
+        }
+
+        while (currentDirection != end) {
+            TileProperties neighbor = current.GetNeighbor(currentDirection);
+            if (neighbor && !neighbor.IsInReachables) {
+                Vector3 left = current.transform.position + current.Grid.Metrics.GetCorner(false, currentDirection);
+                //Vector3 right = current.transform.position + current.Grid.Metrics.GetCorner(true, currentDirection);
+                vertices.Add(left);
+                //vertices.Add(right);
+                currentDirection = currentDirection.Next();
+            }
+            else if (neighbor && neighbor.IsInReachables) {
+                begin = (currentDirection).Opposite();
+                current = neighbor;
+                return;
             }
         }
-        
     }
 
     public void UndisplayReachables() {
         displaying = false;
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, Color.white);
+        }
+        //vertices.Clear();
+    }
+
+    private void OnDrawGizmos() {
+        if (vertices == null) {
+            return;
+        }
+        Gizmos.color = Color.black;
+        for (int i = 0; i < vertices.Count; i++) {
+            Gizmos.DrawSphere(vertices[i], 0.1f);
         }
     }
 
