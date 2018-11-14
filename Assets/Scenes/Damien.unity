@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  walkDistance: 1
+  walkDistance: 4
   hexGrid: {fileID: 2071166889}
 --- !u!1 &1444321389
 GameObject:
