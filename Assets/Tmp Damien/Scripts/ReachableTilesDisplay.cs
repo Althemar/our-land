@@ -18,7 +18,7 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     List<Vector3> vertices;
     Mesh mesh;
-
+    TileProperties meshBegin;
    
 
     public bool Displaying
@@ -46,47 +46,72 @@ public class ReachableTilesDisplay : MonoBehaviour
         this.reachables = reachables;
         displaying = true;
         for (int i = 0; i < reachables.Count; i++) {
-            reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
+            //reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
         }
         GetLimits();
     }
 
     public void GetLimits() {
-        TileProperties begin = reachables[reachables.Count - 1];
-        TileProperties current = begin;
+        vertices.Clear();
+        meshBegin = reachables[reachables.Count - 1];
+        TileProperties current = meshBegin;
         HexDirection neighborIndexBegin = HexDirection.NW;
-
-        GetNextReachable(ref current, ref neighborIndexBegin);
-
-        while (current != begin) {
-            GetNextReachable(ref current, ref neighborIndexBegin);
+        
+        int nbRectangles = GetNextReachable(ref current, ref neighborIndexBegin);
+        while (current != meshBegin) {
+            nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin);
         }
 
-        GetNextReachable(ref current, ref neighborIndexBegin, true);
+        nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin, true);
+        vertices.Add(vertices[0]);
+        vertices.Add(vertices[1]);
+        mesh.vertices = vertices.ToArray();
+        
+        int[] triangles = new int[nbRectangles * 6];
+        for (int ti = 0, vi = 0, i = 0; i < nbRectangles; ti+=6, vi+=2, i++) {
+            triangles[ti] = vi;
+            triangles[ti + 1] = triangles[ti + 4] = vi + 1;
+            triangles[ti + 2] = triangles[ti + 3] = vi + 2;
+            triangles[ti + 5] = vi + 3;
+        }
+        mesh.triangles = triangles;
     }
 
-    public void GetNextReachable(ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
+    public int GetNextReachable(ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
         HexDirection currentDirection = begin.Next();
         HexDirection end = begin;
         if (stopAtNW) {
             end = HexDirection.NE;
         }
+        int rectangleCount = 0;
 
         while (currentDirection != end) {
             TileProperties neighbor = current.GetNeighbor(currentDirection);
             if (neighbor && !neighbor.IsInReachables) {
+                rectangleCount++;
                 Vector3 left = current.transform.position + current.Grid.Metrics.GetCorner(false, currentDirection);
-                //Vector3 right = current.transform.position + current.Grid.Metrics.GetCorner(true, currentDirection);
+                Vector3 other;
+                if (currentDirection != begin.Next() || (current == meshBegin && currentDirection == HexDirection.NE)) {
+                    other = left + current.Grid.Metrics.GetCorner(false, currentDirection) * 0.15f;
+                }
+                else {
+                    HexDirection previousBorder = begin.Previous().Opposite();
+                    Vector3 currentOffset = current.Grid.Metrics.GetCorner(false, currentDirection) + current.Grid.Metrics.GetCorner(true, currentDirection);
+                    Vector3 previousOffset = current.Grid.Metrics.GetCorner(false, previousBorder) + current.Grid.Metrics.GetCorner(true, previousBorder);
+                    other = left + (currentOffset + previousOffset) * 0.05f;
+                }                
                 vertices.Add(left);
-                //vertices.Add(right);
+                vertices.Add(other);
                 currentDirection = currentDirection.Next();
             }
             else if (neighbor && neighbor.IsInReachables) {
                 begin = (currentDirection).Opposite();
                 current = neighbor;
-                return;
+                neighbor.IsInReachables = false;
+                return rectangleCount;
             }
         }
+        return rectangleCount;
     }
 
     public void UndisplayReachables() {
@@ -94,7 +119,8 @@ public class ReachableTilesDisplay : MonoBehaviour
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, Color.white);
         }
-        //vertices.Clear();
+        
+        mesh.Clear();
     }
 
     private void OnDrawGizmos() {
@@ -103,7 +129,7 @@ public class ReachableTilesDisplay : MonoBehaviour
         }
         Gizmos.color = Color.black;
         for (int i = 0; i < vertices.Count; i++) {
-            Gizmos.DrawSphere(vertices[i], 0.1f);
+            Gizmos.DrawSphere(vertices[i], 0.05f);
         }
     }
 
@@ -117,12 +143,12 @@ public class ReachableTilesDisplay : MonoBehaviour
     public void RefreshPath(TileProperties tile) {
         if (tile != currentTile) {
             if (reachables.Contains(currentTile)) {
-                ColorPath(currentPath, new Color(0.6f, 0.6f, 1f, 1f));
+                ColorPath(currentPath, Color.white);
             }
             currentTile = tile;
             if (reachables.Contains(currentTile)) {
                 currentPath = AStarSearch.Path(movable.CurrentTile, tile);
-                ColorPath(new Stack<TileProperties>(currentPath), new Color(1f, 0.6f, 0.6f, 1f));
+                ColorPath(new Stack<TileProperties>(currentPath), new Color(1f, 0.3f, 0.3f, 1f));
             }
         }
     }

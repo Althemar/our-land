@@ -7,6 +7,7 @@ public class HexMetrics{
     public float outerRadius;
     public float innerRadius;
     public Vector3[] corners = new Vector3[6];
+    public Vector3[] edgesMiddle = new Vector3[6];
 
     public static Vector3[] directions = { new Vector3Int(1, 1, 0), new Vector3Int(1, 0, 0), new Vector3Int(1, -1, 0),
                                            new Vector3Int(-1, -1, 0), new Vector3Int(-1, 0, 0), new Vector3Int(-1, 1, 0)
