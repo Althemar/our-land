@@ -7,7 +7,6 @@ using UnityEngine.Tilemaps;
  * Contains informations about the grid
  */
 
-[RequireComponent(typeof(Tilemap))]
 public class HexagonalGrid : MonoBehaviour
 {
     /*
@@ -45,15 +44,14 @@ public class HexagonalGrid : MonoBehaviour
 
     private void Update() {
         if (Time.frameCount == 1) {
-            foreach (KeyValuePair<Vector3Int, TileProperties> tile in tiles) {
-                tile.Value.SetNeighbors();
-            }
+            SetNeighbors();
         }
     }
 
     public void AddTile(TileProperties tile) {
         if (tiles != null) {
             tiles.Add(tile.Position, tile);
+            tile.Grid = this;
         }
     }
 
@@ -66,9 +64,14 @@ public class HexagonalGrid : MonoBehaviour
 
     // Must be offset coordinates
     public TileProperties GetTile(Vector3Int coordinates) {
-        TileProperties tile = null;
-        tiles.TryGetValue(coordinates, out tile);
+        tiles.TryGetValue(coordinates, out TileProperties tile);
         return tile;
+    }
+
+    public void SetNeighbors() {
+        foreach (KeyValuePair<Vector3Int, TileProperties> tile in tiles) {
+            tile.Value.SetNeighbors();
+        }
     }
 
     public void ChangeCoordinateSystem(HexCoordinatesType type) {

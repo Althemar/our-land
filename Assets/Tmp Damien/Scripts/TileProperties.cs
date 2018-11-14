@@ -50,6 +50,12 @@ public class TileProperties : MonoBehaviour
         get => tilemap;
     }
 
+    public HexagonalGrid Grid
+    {
+        get => grid;
+        set => grid = value;
+    }
+
     /*
      * Methods
      */
@@ -118,10 +124,11 @@ public class TileProperties : MonoBehaviour
             fringes[i] = new List<TileProperties>();
         }
 
-        for (int i = 1; i <= movement; i++) {
+        for (int i = 1; i <= movement+1; i++) {
             foreach (TileProperties previousTile in fringes[i - 1]) {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
-                foreach (TileProperties neighbor in neighbors) {
+                for (int j = 0; j < neighbors.Length; j++) {
+                    TileProperties neighbor = neighbors[j];
                     if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
                         int distance = i-1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {

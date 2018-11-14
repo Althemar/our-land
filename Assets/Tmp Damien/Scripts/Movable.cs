@@ -25,7 +25,7 @@ public class Movable : MonoBehaviour
     TileProperties currentTile;
     TileProperties goalTile;
 
-    
+    List<TileProperties> reachableTiles;
 
     /*
      * Properties
@@ -57,6 +57,12 @@ public class Movable : MonoBehaviour
         get => moving;
     }
 
+    public List<TileProperties> ReachableTiles
+    {
+        get => reachableTiles;
+        set => reachableTiles = value;
+    }
+
     /*
      * Methods
      */
@@ -76,11 +82,8 @@ public class Movable : MonoBehaviour
             if (transform.position == targetPos) {
                 if (path.Count == 0) {
                     moving = false;
-                    //debug.Mode = DebugMovable.DebugMode.Neighbors;
-                    //debug.UpdateDebug();
                 }
                 else {
-                    //debug.UpdateDebug();
                     beginPos = transform.position;
                     targetPos = tilemap.CellToWorld(path.Pop().Position);
                 }
@@ -96,10 +99,6 @@ public class Movable : MonoBehaviour
         if (!moving) {
             path = AStarSearch.Path(currentTile, goal);
             goalTile = goal;
-
-
-            //debug.Mode = DebugMovable.DebugMode.Path;
-            //debug.UpdateDebug();
 
             targetPos = tilemap.CellToWorld(path.Pop().Position);
             beginPos = transform.position;

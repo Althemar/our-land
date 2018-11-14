@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MouseController : MonoBehaviour
 {
@@ -16,11 +19,14 @@ public class MouseController : MonoBehaviour
     void Update() {
         if (Input.GetMouseButtonDown(1)) {
             TileProperties tile = GetTile();
-            reachableTiles.InitReachableTiles(tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance), tile, tmpMovable);
+            tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
+            reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
         }
         else if (Input.GetMouseButtonUp(1)) {
             reachableTiles.UndisplayReachables();
-            tmpMovable.MoveTo(GetTile());
+            if (tmpMovable.ReachableTiles.Contains(GetTile())) {
+                tmpMovable.MoveTo(GetTile());
+            }
         }
         if (reachableTiles.Displaying) {
             reachableTiles.RefreshPath(GetTile());
@@ -38,6 +44,4 @@ public class MouseController : MonoBehaviour
         Vector3Int cellPosition = hexGrid.Tilemap.WorldToCell(worldPosition);
         return cellPosition;
     }
-
-    
 }

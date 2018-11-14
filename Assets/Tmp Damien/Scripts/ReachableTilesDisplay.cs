@@ -7,11 +7,15 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Movable))]
 public class ReachableTilesDisplay : MonoBehaviour
 {
+    public GameObject edgePrefab;
+
     List<TileProperties> reachables;
     Stack<TileProperties> currentPath;
     bool displaying;
     Movable movable;
     TileProperties currentTile;
+
+
 
 
     public bool Displaying
@@ -39,6 +43,26 @@ public class ReachableTilesDisplay : MonoBehaviour
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
         }
+        //GetLimits();
+    }
+
+    public void GetLimits() {
+
+        HexagonalGrid newGrid = new GameObject().AddComponent<HexagonalGrid>();
+        for (int i = 0; i < reachables.Count; i++) {
+            newGrid.AddTile(new GameObject().AddComponent<TileProperties>());
+        }
+        newGrid.SetNeighbors();
+
+        Dictionary<TileProperties, HexDirection> limits;
+        TileProperties farest = reachables[reachables.Count - 1];
+        TileProperties currentLimit;
+        foreach (TileProperties neighbor in farest.GetNeighbors()) {
+            if (neighbor == null) {
+                currentLimit = neighbor;
+            }
+        }
+        
     }
 
     public void UndisplayReachables() {
