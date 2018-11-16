@@ -57,16 +57,28 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     public void GetLimits() {
         vertices.Clear();
-        meshBegin = reachables[reachables.Count - 1];
-        TileProperties current = meshBegin;
-        HexDirection neighborIndexBegin = HexDirection.NW;
-        
-        int nbRectangles = GetNextReachable(ref current, ref neighborIndexBegin);
-        while (current != meshBegin) {
-            nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin);
-        }
 
-        nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin, true);
+        TileProperties current = reachables[0];
+        for (int i = 1; i < reachables.Count; i++) {
+            if (reachables[i].Position.y > current.Position.y) {
+                current = reachables[i];
+            }
+        }
+        meshBegin = current;
+
+        HexDirection neighborIndexBegin = HexDirection.NW;
+        int nbRectangles = GetNextReachable(ref current, ref neighborIndexBegin);
+        bool quitBegin = true;
+        while (true) {
+            TileProperties previous = current;
+            bool isBeginAgain = (current == meshBegin && quitBegin);
+            nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin, isBeginAgain);
+            if (previous == meshBegin && neighborIndexBegin == HexDirection.NE) {
+                break;
+            }
+        }
+        
+        
         vertices.Add(vertices[0]);
         vertices.Add(vertices[1]);
         mesh.vertices = vertices.ToArray();
@@ -80,6 +92,7 @@ public class ReachableTilesDisplay : MonoBehaviour
         }
         mesh.triangles = triangles;
     }
+    
 
     public int GetNextReachable(ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
         HexDirection currentDirection = begin.Next();
@@ -92,7 +105,7 @@ public class ReachableTilesDisplay : MonoBehaviour
         
         while (currentDirection != end+1 || begin.Next() == currentDirection) {
             TileProperties neighbor = current.GetNeighbor(currentDirection);
-            if (neighbor && !neighbor.IsInReachables) {
+            if ((neighbor && !neighbor.IsInReachables) || !neighbor) {
                 rectangleCount++;
                 Vector3 left = current.transform.position + current.Grid.Metrics.GetCorner(false, currentDirection);
                 Vector3 other;
@@ -114,9 +127,9 @@ public class ReachableTilesDisplay : MonoBehaviour
                 current = neighbor;
                 return rectangleCount;
             }
-            else {
-                currentDirection = currentDirection.Next();
-            }
+        }
+        if (stopAtNW) {
+            begin = HexDirection.NE;
         }
         return rectangleCount;
     }

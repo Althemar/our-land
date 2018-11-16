@@ -47,7 +47,7 @@ public class HexagonalGrid : MonoBehaviour
         tiles = new Dictionary<Vector3Int, TileProperties>();
         tilemap = GetComponent<Tilemap>();
         coordinatesType = HexCoordinatesType.offset;
-        metrics = new HexMetrics(grid.cellSize.y / 2);
+        metrics = new HexMetrics(grid.cellSize.y / 2, grid.cellSize.x / 2);
     }
 
     private void Update() {

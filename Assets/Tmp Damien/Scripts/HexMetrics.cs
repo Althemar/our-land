@@ -13,9 +13,9 @@ public class HexMetrics{
                                            new Vector3Int(-1, -1, 0), new Vector3Int(-1, 0, 0), new Vector3Int(-1, 1, 0)
                                          };
 
-    public HexMetrics(float outer) {
+    public HexMetrics(float outer, float inner) {
         outerRadius = outer;
-        innerRadius = outer * 0.866025404f;
+        innerRadius = inner;
         corners[0] = new Vector3(0f, outerRadius, 0f);
         corners[1] = new Vector3(innerRadius, 0.5f * outerRadius, 0f);
         corners[2] = new Vector3(innerRadius, -0.5f * outerRadius, 0f);
