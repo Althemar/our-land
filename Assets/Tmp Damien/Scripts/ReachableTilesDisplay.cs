@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
-using UnityEngine.Tilemaps;
+
+/*
+ * ReachableTilesDisplay
+ * Display a preview for the movement : 
+ *      - Procedural mesh that cover the limit of the available tiles
+ *      - Color the tiles in the path to the pointed tile
+ */
 
 [RequireComponent(typeof(Movable))]
 public class ReachableTilesDisplay : MonoBehaviour
 {
-    public GameObject edgePrefab;
+    bool displaying;                    // If the preview is displayed
+    Movable movable;                    // The selected movable
+    TileProperties currentTile;         // The pointed tile
 
-    List<TileProperties> reachables;
-    Stack<TileProperties> currentPath;
-    bool displaying;
-    Movable movable;
-    TileProperties currentTile;
+    List<TileProperties> reachables;    // Reachable tiles
+    Stack<TileProperties> currentPath;  // Current path
 
-
-    List<Vector3> vertices;
     Mesh mesh;
-    TileProperties meshBegin;
-   
 
     public bool Displaying
     {
@@ -32,9 +32,7 @@ public class ReachableTilesDisplay : MonoBehaviour
     }
 
     private void Start() {
-        movable = GetComponent<Movable>();
         mesh = GetComponent<MeshFilter>().mesh;
-        vertices = new List<Vector3>();
     }
 
 
@@ -45,9 +43,6 @@ public class ReachableTilesDisplay : MonoBehaviour
         this.movable = movable;
         this.reachables = reachables;
         displaying = true;
-        for (int i = 0; i < reachables.Count; i++) {
-            //reachables[i].Tilemap.SetColor(reachables[i].Position, new Color(0.6f, 0.6f, 1f,1f));
-        }
         GetLimits();
 
         foreach (TileProperties reachable in reachables) {
@@ -56,7 +51,7 @@ public class ReachableTilesDisplay : MonoBehaviour
     }
 
     public void GetLimits() {
-        vertices.Clear();
+        List<Vector3> vertices = new List<Vector3>();
 
         TileProperties current = reachables[0];
         for (int i = 1; i < reachables.Count; i++) {
@@ -64,37 +59,29 @@ public class ReachableTilesDisplay : MonoBehaviour
                 current = reachables[i];
             }
         }
-        meshBegin = current;
+        TileProperties meshBegin = current;
 
         HexDirection neighborIndexBegin = HexDirection.NW;
-        int nbRectangles = GetNextReachable(ref current, ref neighborIndexBegin);
+        int nbRectangles = GetNextReachable(ref vertices, ref current, ref neighborIndexBegin);
         bool quitBegin = true;
+
         while (true) {
             TileProperties previous = current;
             bool isBeginAgain = (current == meshBegin && quitBegin);
-            nbRectangles += GetNextReachable(ref current, ref neighborIndexBegin, isBeginAgain);
+            nbRectangles += GetNextReachable(ref vertices, ref current, ref neighborIndexBegin, isBeginAgain);
             if (previous == meshBegin && neighborIndexBegin == HexDirection.NE) {
                 break;
             }
         }
         
         
-        vertices.Add(vertices[0]);
-        vertices.Add(vertices[1]);
         mesh.vertices = vertices.ToArray();
-        
-        int[] triangles = new int[nbRectangles * 6];
-        for (int ti = 0, vi = 0, i = 0; i < nbRectangles; ti+=6, vi+=2, i++) {
-            triangles[ti] = vi;
-            triangles[ti + 1] = triangles[ti + 4] = vi + 1;
-            triangles[ti + 2] = triangles[ti + 3] = vi + 2;
-            triangles[ti + 5] = vi + 3;
-        }
-        mesh.triangles = triangles;
+
+        CreateTriangles(vertices, nbRectangles);
     }
     
-
-    public int GetNextReachable(ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
+    // Get the next rechable tiles for a tile limit. Read tiles clockwise
+    public int GetNextReachable(ref List<Vector3> vertices, ref TileProperties current, ref HexDirection begin, bool stopAtNW = false) {
         HexDirection currentDirection = begin.Next();
         HexDirection end = begin;
         if (stopAtNW) {
@@ -102,26 +89,18 @@ public class ReachableTilesDisplay : MonoBehaviour
         }
         int rectangleCount = 0;
 
-        
+        // Iterate through neighbors clockwise
         while (currentDirection != end+1 || begin.Next() == currentDirection) {
+
             TileProperties neighbor = current.GetNeighbor(currentDirection);
+
+            // If neighbor is not reachable, add vertices
             if ((neighbor && !neighbor.IsInReachables) || !neighbor) {
                 rectangleCount++;
-                Vector3 left = current.transform.position + current.Grid.Metrics.GetCorner(false, currentDirection);
-                Vector3 other;
-                if (currentDirection != begin.Next() || (current == meshBegin && currentDirection == HexDirection.NE)) {
-                    other = left + current.Grid.Metrics.GetCorner(false, currentDirection) * 0.15f;
-                }
-                else {
-                    HexDirection previousBorder = begin.Previous().Opposite();
-                    Vector3 currentOffset = current.Grid.Metrics.GetCorner(false, currentDirection) + current.Grid.Metrics.GetCorner(true, currentDirection);
-                    Vector3 previousOffset = current.Grid.Metrics.GetCorner(false, previousBorder) + current.Grid.Metrics.GetCorner(true, previousBorder);
-                    other = left + (currentOffset + previousOffset) * 0.05f;
-                }                
-                vertices.Add(left);
-                vertices.Add(other);
+                AddVertices(ref vertices, current, currentDirection, begin);
                 currentDirection = currentDirection.Next();
             }
+            // else current is next neighbor
             else if (neighbor && neighbor.IsInReachables) {
                 begin = (currentDirection).Opposite();
                 current = neighbor;
@@ -134,23 +113,44 @@ public class ReachableTilesDisplay : MonoBehaviour
         return rectangleCount;
     }
 
+    // Add 2 vertices to the mesh
+    public void AddVertices(ref List<Vector3> vertices, TileProperties current, HexDirection currentDirection, HexDirection begin) {
+        Vector3 left = current.transform.position + current.Grid.Metrics.GetCorner(false, currentDirection);
+        Vector3 other;
+        if (currentDirection != begin.Next()) {
+            other = left + current.Grid.Metrics.GetCorner(false, currentDirection) * 0.15f;
+        }
+        else {
+            HexDirection previousBorder = begin.Previous().Opposite();
+            Vector3 currentOffset = current.Grid.Metrics.GetCorner(false, currentDirection) + current.Grid.Metrics.GetCorner(true, currentDirection);
+            Vector3 previousOffset = current.Grid.Metrics.GetCorner(false, previousBorder) + current.Grid.Metrics.GetCorner(true, previousBorder);
+            other = left + (currentOffset + previousOffset) * 0.05f;
+        }
+        vertices.Add(left);
+        vertices.Add(other);
+    }
+
+    public void CreateTriangles(List<Vector3> vertices, int nbRectangles) {
+        int[] triangles = new int[nbRectangles * 6];
+        for (int ti = 0, vi = 0, i = 0; i < nbRectangles - 1; ti += 6, vi += 2, i++) {
+            triangles[ti] = vi;
+            triangles[ti + 1] = triangles[ti + 4] = vi + 1;
+            triangles[ti + 2] = triangles[ti + 3] = vi + 2;
+            triangles[ti + 5] = vi + 3;
+        }
+        triangles[(nbRectangles * 6) - 6] = vertices.Count - 2;
+        triangles[(nbRectangles * 6) - 5] = triangles[(nbRectangles * 6) - 2] = vertices.Count - 1;
+        triangles[(nbRectangles * 6) - 4] = triangles[(nbRectangles * 6) - 3] = 0;
+        triangles[(nbRectangles * 6) - 1] = 1;
+        mesh.triangles = triangles;
+    }
+
     public void UndisplayReachables() {
         displaying = false;
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, Color.white);
         }
-        
         mesh.Clear();
-    }
-
-    private void OnDrawGizmos() {
-        if (vertices == null) {
-            return;
-        }
-        Gizmos.color = Color.black;
-        for (int i = 0; i < vertices.Count; i++) {
-            Gizmos.DrawSphere(vertices[i], 0.05f);
-        }
     }
 
     public void ColorPath(Stack<TileProperties> path, Color color) {
