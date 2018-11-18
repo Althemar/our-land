@@ -9,17 +9,17 @@ public class TileProperties : MonoBehaviour
      * Members
      */
 
-    Vector3Int position;
-    HexCoordinates coordinates;
-    CustomTile tile;
-    HexagonalGrid grid;
-    Tilemap tilemap;
-
-    bool isInReachables;
-
     public TileProperties[] neighbors;
 
-    static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
+    private Vector3Int position;
+    private HexCoordinates coordinates;
+    private CustomTile tile;
+    private HexagonalGrid grid;
+    private Tilemap tilemap;
+
+    private bool isInReachables;
+
+    private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
 

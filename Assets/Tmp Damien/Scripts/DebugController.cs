@@ -9,31 +9,34 @@ public class DebugController : MonoBehaviour
 {
     public HexagonalGrid hexagonalGrid;
     public Movable tmpMovable;
-    public HexGridLabels gridPositions;
+    public HexGridLabels gridLabels;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P)) {
-            gridPositions.SwitchDisplay();
+            gridLabels.SwitchDisplay();
         }
         if (Input.GetKeyDown(KeyCode.O)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.offset);
-            gridPositions.RefreshCoordinates();
+            gridLabels.RefreshCoordinates();
         }
         if (Input.GetKeyDown(KeyCode.A)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.axial);
-            gridPositions.RefreshCoordinates();
+            gridLabels.RefreshCoordinates();
         }
         if (Input.GetKeyDown(KeyCode.C)) {
             hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.cubic);
-            gridPositions.RefreshCoordinates();
+            gridLabels.RefreshCoordinates();
         }
         if (Input.GetKeyDown(KeyCode.D)) {
-            gridPositions.RefreshDistances(tmpMovable.CurrentTile);
+            gridLabels.RefreshDistances(tmpMovable.CurrentTile);
         }
         if (Input.GetKeyDown(KeyCode.S)) {
             tmpMovable.DebugMovable.SwitchMode();
+        }
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            tmpMovable.DebugMovable.ActivateDebug();
         }
     }
 }

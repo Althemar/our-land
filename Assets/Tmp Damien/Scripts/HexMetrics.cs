@@ -3,19 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HexMetrics{
-
-    public float outerRadius;
-    public float innerRadius;
+    
     public Vector3[] corners = new Vector3[6];
-    public Vector3[] edgesMiddle = new Vector3[6];
 
-    public static Vector3[] directions = { new Vector3Int(1, 1, 0), new Vector3Int(1, 0, 0), new Vector3Int(1, -1, 0),
-                                           new Vector3Int(-1, -1, 0), new Vector3Int(-1, 0, 0), new Vector3Int(-1, 1, 0)
-                                         };
-
-    public HexMetrics(float outer, float inner) {
-        outerRadius = outer;
-        innerRadius = inner;
+    public HexMetrics(float outerRadius, float innerRadius) {
         corners[0] = new Vector3(0f, outerRadius, 0f);
         corners[1] = new Vector3(innerRadius, 0.5f * outerRadius, 0f);
         corners[2] = new Vector3(innerRadius, -0.5f * outerRadius, 0f);

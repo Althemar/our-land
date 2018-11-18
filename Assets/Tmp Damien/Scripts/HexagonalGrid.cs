@@ -16,9 +16,9 @@ public class HexagonalGrid : MonoBehaviour
     public Grid grid;
     public Dictionary<Vector3Int, TileProperties> tiles; // Key : Tile position in offset, Value : tile
 
-    Tilemap tilemap;
-    HexCoordinatesType coordinatesType;
-    HexMetrics metrics;
+    private Tilemap tilemap;
+    private HexCoordinatesType coordinatesType;
+    private HexMetrics metrics;
 
     /*
      * Properties

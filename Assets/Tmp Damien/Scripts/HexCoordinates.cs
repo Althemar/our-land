@@ -8,8 +8,13 @@
 
 public class HexCoordinates
 {
-    public int x, y, z;
     public HexCoordinatesType coordinatesType;
+
+    private int x, y, z;
+
+    public int X { get => x; }
+    public int Y { get => y; }
+    public int Z { get => z; }
 
     public HexCoordinates(int x, int y) {
         this.x = x;

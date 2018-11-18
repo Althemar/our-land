@@ -8,18 +8,17 @@ using UnityEngine;
  *      - Procedural mesh that cover the limit of the available tiles
  *      - Color the tiles in the path to the pointed tile
  */
-
-[RequireComponent(typeof(Movable))]
+ 
 public class ReachableTilesDisplay : MonoBehaviour
 {
-    bool displaying;                    // If the preview is displayed
-    Movable movable;                    // The selected movable
-    TileProperties currentTile;         // The pointed tile
+    private bool displaying;                    // If the preview is displayed
+    private Movable movable;                    // The selected movable
+    private TileProperties currentTile;         // The pointed tile
 
-    List<TileProperties> reachables;    // Reachable tiles
-    Stack<TileProperties> currentPath;  // Current path
+    private List<TileProperties> reachables;    // Reachable tiles
+    private Stack<TileProperties> currentPath;  // Current path
 
-    Mesh mesh;
+    private Mesh mesh;
 
     public bool Displaying
     {

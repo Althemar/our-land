@@ -7,20 +7,21 @@ public class MouseController : MonoBehaviour
 {
     public HexagonalGrid hexGrid;
     public Movable tmpMovable;
+    public ReachableTilesDisplay reachableTiles;
 
-    Camera cam;
-    ReachableTilesDisplay reachableTiles;
-
+    private Camera cam;
+   
     void Start() {
         cam = Camera.main;
-        reachableTiles = GetComponent<ReachableTilesDisplay>();
     }
 
     void Update() {
         if (Input.GetMouseButtonDown(1)) {
-            TileProperties tile = GetTile();
-            tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
-            reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
+            if (!tmpMovable.Moving) {
+                TileProperties tile = GetTile();
+                tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
+                reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
+            }
         }
         else if (Input.GetMouseButtonUp(1)) {
             reachableTiles.UndisplayReachables();

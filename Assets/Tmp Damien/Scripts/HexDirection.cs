@@ -21,9 +21,3 @@ public static class HexDirectionExtensions
         return (int)direction < 5 ? (direction + 1) : (0);
     }
 }
-
-public class HexDirectionValues 
-{
-    
-
-}

@@ -12,7 +12,7 @@ public class HexGridLabels : MonoBehaviour
     public HexagonalGrid grid;
     public TMP_Text tilePositionPrefab;
 
-    Dictionary<Vector3Int, TMP_Text> cellTexts;
+    private Dictionary<Vector3Int, TMP_Text> cellTexts;
 
     private void Update() {
         if (Time.frameCount == 1) {
@@ -33,9 +33,9 @@ public class HexGridLabels : MonoBehaviour
     public void RefreshCoordinates() {
         foreach (KeyValuePair<Vector3Int, TileProperties> tile in grid.Tiles) {
             TMP_Text text = cellTexts[tile.Key];
-            text.text = (tile.Value.Coordinates.x) + "," + (tile.Value.Coordinates.y);
+            text.text = (tile.Value.Coordinates.X) + "," + (tile.Value.Coordinates.Y);
             if (tile.Value.Coordinates.coordinatesType == HexCoordinatesType.cubic) {
-                text.text += "\n" + tile.Value.Coordinates.z;
+                text.text += "\n" + tile.Value.Coordinates.Z;
             }
         }
     }
