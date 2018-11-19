@@ -11,12 +11,12 @@ using UnityEngine;
  
 public class ReachableTilesDisplay : MonoBehaviour
 {
-    private bool displaying;                    // If the preview is displayed
-    private Movable movable;                    // The selected movable
-    private TileProperties currentTile;         // The pointed tile
+    private bool displaying;                   
+    private Movable movable;                    
+    private TileProperties currentPointedTile;      // current pointed tile by the mouse. used to refresh the path   
 
-    private List<TileProperties> reachables;    // Reachable tiles
-    private Stack<TileProperties> currentPath;  // Current path
+    private List<TileProperties> reachables;    
+    private Stack<TileProperties> currentPath;  
 
     private Mesh mesh;
 
@@ -27,7 +27,7 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     public TileProperties CurrentTile
     {
-        get => currentTile;
+        get => currentPointedTile;
     }
 
     private void Start() {
@@ -130,17 +130,19 @@ public class ReachableTilesDisplay : MonoBehaviour
     }
 
     public void CreateTriangles(List<Vector3> vertices, int nbRectangles) {
-        int[] triangles = new int[nbRectangles * 6];
+        int trianglesSize = nbRectangles * 6;
+        int[] triangles = new int[trianglesSize];
         for (int ti = 0, vi = 0, i = 0; i < nbRectangles - 1; ti += 6, vi += 2, i++) {
             triangles[ti] = vi;
             triangles[ti + 1] = triangles[ti + 4] = vi + 1;
             triangles[ti + 2] = triangles[ti + 3] = vi + 2;
             triangles[ti + 5] = vi + 3;
         }
-        triangles[(nbRectangles * 6) - 6] = vertices.Count - 2;
-        triangles[(nbRectangles * 6) - 5] = triangles[(nbRectangles * 6) - 2] = vertices.Count - 1;
-        triangles[(nbRectangles * 6) - 4] = triangles[(nbRectangles * 6) - 3] = 0;
-        triangles[(nbRectangles * 6) - 1] = 1;
+        
+        triangles[trianglesSize - 6] = vertices.Count - 2;
+        triangles[trianglesSize - 5] = triangles[trianglesSize - 2] = vertices.Count - 1;
+        triangles[trianglesSize - 4] = triangles[trianglesSize - 3] = 0;
+        triangles[trianglesSize - 1] = 1;
         mesh.triangles = triangles;
     }
 
@@ -160,12 +162,12 @@ public class ReachableTilesDisplay : MonoBehaviour
     }
 
     public void RefreshPath(TileProperties tile) {
-        if (tile != currentTile) {
-            if (reachables.Contains(currentTile)) {
+        if (tile != currentPointedTile) {
+            if (reachables.Contains(currentPointedTile)) {
                 ColorPath(currentPath, Color.white);
             }
-            currentTile = tile;
-            if (reachables.Contains(currentTile)) {
+            currentPointedTile = tile;
+            if (reachables.Contains(currentPointedTile)) {
                 currentPath = AStarSearch.Path(movable.CurrentTile, tile);
                 ColorPath(new Stack<TileProperties>(currentPath), new Color(1f, 0.3f, 0.3f, 1f));
             }
