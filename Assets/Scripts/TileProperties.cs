@@ -16,6 +16,7 @@ public class TileProperties : MonoBehaviour
     private CustomTile tile;
     private HexagonalGrid grid;
     private Tilemap tilemap;
+    public Movable currentMovable;
 
     private bool isInReachables;
 

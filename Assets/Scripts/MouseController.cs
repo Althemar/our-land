@@ -17,16 +17,18 @@ public class MouseController : MonoBehaviour
 
     void Update() {
         if (Input.GetMouseButtonDown(1)) {
-            if (!tmpMovable.Moving) {
+            if (!tmpMovable.Moving && TurnManager.Instance.state == TurnManager.TurnState.Player) {
                 TileProperties tile = GetTile();
                 tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
                 reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
             }
         }
         else if (Input.GetMouseButtonUp(1)) {
-            reachableTiles.UndisplayReachables();
-            if (tmpMovable.ReachableTiles.Contains(GetTile())) {
-                tmpMovable.MoveTo(GetTile());
+            if (reachableTiles.Displaying) {
+                reachableTiles.UndisplayReachables();
+                if (tmpMovable.ReachableTiles.Contains(GetTile())) {
+                    tmpMovable.MoveTo(GetTile());
+                }
             }
         }
         if (reachableTiles.Displaying) {

@@ -26,6 +26,10 @@ public class Movable : MonoBehaviour
 
     private List<TileProperties> reachableTiles;
 
+    public delegate void OnMovableDelegate();
+
+    public event OnMovableDelegate OnReachEndTile;
+
     /*
      * Properties
      */
@@ -69,20 +73,23 @@ public class Movable : MonoBehaviour
         if (Time.frameCount == 1) {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition));
+            currentTile.currentMovable = this;
         }
         if (moving) {
             progress += speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {
                
-                
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-                debug.UpdateDebug();
+                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));                
 
                 if (path.Count == 0) {
                     moving = false;
+                    if (OnReachEndTile != null) {
+                        OnReachEndTile();
+                    }
+                    
                 }
                 else {
                     beginPos = transform.position;
@@ -97,9 +104,13 @@ public class Movable : MonoBehaviour
             path = AStarSearch.Path(currentTile, goal);
 
             targetPos = tilemap.CellToWorld(path.Pop().Position);
+
             beginPos = transform.position;
             moving = true;
             progress = 0;
+
+            currentTile.currentMovable = null;
+            goal.currentMovable = this;
         }
     }
 

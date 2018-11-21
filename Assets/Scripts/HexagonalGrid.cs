@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -87,6 +88,13 @@ public class HexagonalGrid : MonoBehaviour
             tile.Value.Coordinates.ChangeCoordinatesType(type);
         }
         coordinatesType = type;
+    }
+
+    public TileProperties GetRandomTile() {
+        if (tiles.Count == 0) {
+            return null;
+        }
+        return tiles.ElementAt(Random.Range(0, tiles.Count)).Value;
     }
 }
 
