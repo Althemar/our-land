@@ -23,8 +23,6 @@ public class CustomTile : TileBase
     
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
-
-       
         if (go) {
             TileProperties properties = go.GetComponent<TileProperties>();
             if (properties) {
@@ -37,16 +35,16 @@ public class CustomTile : TileBase
     }
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-        tileData.sprite = centers[Random.Range(0, centers.Count)];
+        if (centers.Count > 0) {
+            tileData.sprite = centers[Random.Range(0, centers.Count)];
+        }
+        else {
+            tileData.sprite = null;
+        }
+        
         tileData.gameObject = go;
     }
-
-    public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
-
-        tilemap.RefreshTile(position);
-        Debug.Log(tilemap.GetTile(position));
-    }
-
+    
 
 #if UNITY_EDITOR
     [MenuItem("Assets/Create/CustomTile")]

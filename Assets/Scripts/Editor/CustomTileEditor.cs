@@ -42,7 +42,8 @@ public class CustomTileEditor : Editor
 
     public override void OnInspectorGUI() {
         tile.go = EditorGUILayout.ObjectField("Game Object", tile.go, typeof(GameObject), false) as GameObject;
-        tile.canWalkThrough = (bool)EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
+        tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
+        tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
 
         EditorGUILayout.Space();
 
