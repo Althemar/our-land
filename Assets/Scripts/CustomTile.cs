@@ -20,6 +20,7 @@ public class CustomTile : TileBase
     public List<Sprite> bordersNW;
     public List<Sprite> bordersW;
     public List<Sprite> bordersSW;
+    
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
 

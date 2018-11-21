@@ -94,8 +94,11 @@ public class TileProperties : MonoBehaviour
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)opposite] = this;
 
-        SetBorder(direction);
-        cell.SetBorder(opposite);
+        if (cell.tile != tile) {
+            SetBorder(direction);
+            cell.SetBorder(opposite);
+        }
+        
     }
 
     public void SetNeighbors() {
@@ -124,7 +127,7 @@ public class TileProperties : MonoBehaviour
                 borders = tile.bordersSW;
                 break;
         }
-        if (tile.bordersNW.Count > 0) {
+        if (borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = transform;
             spriteRenderer.transform.position = transform.position;
