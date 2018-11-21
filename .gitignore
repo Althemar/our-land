@@ -45,3 +45,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/Resources/i18n/
+
+Assets/Resources/i18n\.meta
