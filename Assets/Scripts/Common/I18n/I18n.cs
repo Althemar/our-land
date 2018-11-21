@@ -36,7 +36,7 @@ public static class I18N {
 
     public static void LoadText() {
         Debug.Log("Load!");
-        I18nData data = Resources.Load<I18nData>("Data");
+        I18nData data = Resources.Load<I18nData>("i18n/Data");
         i18n = new Dictionary<string, I18nText>();
         foreach (I18nTextSave l in data.i18nData) {
             i18n.Add(l.key, new I18nText(){fr = l.fr, en = l.en});

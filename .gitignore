@@ -44,3 +44,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Resources/i18n/

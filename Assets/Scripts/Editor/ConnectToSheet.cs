@@ -124,7 +124,9 @@ public class ConnectToSheet : EditorWindow {
         
         if(!AssetDatabase.IsValidFolder("Assets/Resources"))
             AssetDatabase.CreateFolder("Assets", "Resources");
-        AssetDatabase.CreateAsset(i18nFile, "Assets/Resources/Data.asset");
+        if(!AssetDatabase.IsValidFolder("Assets/Resources/i18n"))
+            AssetDatabase.CreateFolder("Assets/Resources", "i18n");
+        AssetDatabase.CreateAsset(i18nFile, "Assets/Resources/i18n/Data.asset");
 
         I18N.LoadText();
 
