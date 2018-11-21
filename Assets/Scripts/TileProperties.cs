@@ -89,12 +89,17 @@ public class TileProperties : MonoBehaviour
     }
 
     void SetNeighbor(HexDirection direction, TileProperties cell) {
+        HexDirection opposite = direction.Opposite();
+
         neighbors[(int)direction] = cell;
-        cell.neighbors[(int)direction.Opposite()] = this;
+        cell.neighbors[(int)opposite] = this;
+
+        SetBorder(direction);
+        cell.SetBorder(opposite);
     }
 
     public void SetNeighbors() {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
             coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
             TileProperties tile = grid.GetTile(coordinates + direction);
@@ -103,6 +108,33 @@ public class TileProperties : MonoBehaviour
             }
         }
     }
+
+    public void SetBorder(HexDirection direction) {
+        List<Sprite> borders;
+        switch (direction) {
+            case HexDirection.NW:
+            case HexDirection.NE:
+                borders = tile.bordersNW;
+                break;
+            case HexDirection.W:
+            case HexDirection.E:
+                borders = tile.bordersW;
+                break;
+            default:    // if direction == SW || SE
+                borders = tile.bordersSW;
+                break;
+        }
+        if (tile.bordersNW.Count > 0) {
+            SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+            spriteRenderer.transform.parent = transform;
+            spriteRenderer.transform.position = transform.position;
+            spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
+            if ((int)direction <= 2) {
+                spriteRenderer.flipX = true;
+            }
+        }
+    }
+
 
     // Get all tiles at range
     public List<TileProperties> InRange(int range) {

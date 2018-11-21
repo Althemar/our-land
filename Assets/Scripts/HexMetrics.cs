@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class HexMetrics{
     
-    public Vector3[] corners = new Vector3[6];
+    Vector3[] corners = new Vector3[6];
+
+    float outerRadius;
+    float innerRadius;
+
 
     public HexMetrics(float outerRadius, float innerRadius) {
+        CalculateCorners(outerRadius, innerRadius);
+    }
+
+    public HexMetrics(float outerRadius) {
+        CalculateCorners(outerRadius, outerRadius * 0.866025404f);
+    }
+
+    private void CalculateCorners(float outerRadius, float innerRadius) {
         corners[0] = new Vector3(0f, outerRadius, 0f);
         corners[1] = new Vector3(innerRadius, 0.5f * outerRadius, 0f);
         corners[2] = new Vector3(innerRadius, -0.5f * outerRadius, 0f);
@@ -27,5 +39,9 @@ public class HexMetrics{
                 return corners[0];
             }
         }
+    }
+
+    public Vector3 GetCorner(int index) {
+        return corners[index];
     }
 }

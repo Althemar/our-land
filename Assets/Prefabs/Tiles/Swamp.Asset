@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
   m_Name: Swamp
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1401149cc65ae3543928dc744cd2be78, type: 3}
   go: {fileID: 2368644894744130655, guid: 8f8f3988e58a4b94f9ce5db643d8ce6e, type: 3}
   canWalkThrough: 1
   walkCost: 3
+  centers:
+  - {fileID: 21300000, guid: 1401149cc65ae3543928dc744cd2be78, type: 3}
+  bordersNW: []
+  bordersW: []
+  bordersSW: []

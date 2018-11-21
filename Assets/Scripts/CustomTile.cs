@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,13 +12,18 @@ using UnityEditor;
 
 public class CustomTile : TileBase
 {
-    public Sprite sprite;
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
 
+    public List<Sprite> centers;
+    public List<Sprite> bordersNW;
+    public List<Sprite> bordersW;
+    public List<Sprite> bordersSW;
+
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
 
+       
         if (go) {
             TileProperties properties = go.GetComponent<TileProperties>();
             if (properties) {
@@ -30,8 +36,14 @@ public class CustomTile : TileBase
     }
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-        tileData.sprite = sprite;
+        tileData.sprite = centers[Random.Range(0, centers.Count)];
         tileData.gameObject = go;
+    }
+
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap) {
+
+        tilemap.RefreshTile(position);
+        Debug.Log(tilemap.GetTile(position));
     }
 
 
