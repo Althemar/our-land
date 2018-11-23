@@ -132,6 +132,8 @@ public class CustomTileEditor : Editor
         sprite = EditorGUI.ObjectField(rect, sprite, typeof(Sprite), false) as Sprite;
         if (EditorGUI.EndChangeCheck()) {
             sprites[index] = sprite;
+            EditorUtility.SetDirty(target);
+            SceneView.RepaintAll();
         }
             
     }

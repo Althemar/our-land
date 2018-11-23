@@ -114,7 +114,7 @@ public class TileProperties : MonoBehaviour
     }
 
     public void SetBorder(HexDirection direction) {
-        List<Sprite> borders;
+        List<Sprite> borders = null;
         switch (direction) {
             case HexDirection.NW:
             case HexDirection.NE:
@@ -124,15 +124,17 @@ public class TileProperties : MonoBehaviour
             case HexDirection.E:
                 borders = tile.bordersW;
                 break;
-            default:    // if direction == SW || SE
+            case HexDirection.SW:
+            case HexDirection.SE:
                 borders = tile.bordersSW;
                 break;
         }
         if (borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position;
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.03f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
+            spriteRenderer.sortingOrder = 1;
             if ((int)direction <= 2) {
                 spriteRenderer.flipX = true;
             }

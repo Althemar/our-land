@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : Updatable
 {
     public EntitySO entitySO;
 
@@ -10,22 +10,30 @@ public class Entity : MonoBehaviour
 
     public void Start() {
         GetComponent<SpriteRenderer>().sprite = entitySO.sprite;
-        TurnManager.Instance.AddToUpdate(this);
+        AddToTurnManager();
         if (entitySO.canMove) {
             movable = gameObject.AddComponent<Movable>();
-            movable.speed = 6;
+            movable.speed = 15;
             movable.hexGrid = TurnManager.Instance.grid;
             movable.OnReachEndTile += EndMoving;
         }
     }
 
-    public void UpdateEntity() {
+    public override void UpdateTurn() {
         if (entitySO.canMove) {
             movable.MoveTo(TurnManager.Instance.grid.GetRandomTile());
         }
     }
 
     void EndMoving() {
-        TurnManager.Instance.EntityUpdated();
+        EndTurn();
+    }
+
+    public override void AddToTurnManager() {
+        TurnManager.Instance.AddToUpdate(entitySO, this);
+    }
+
+    public override void RemoveFromTurnManager() {
+        TurnManager.Instance.RemoveFromUpdate(entitySO, this);
     }
 }

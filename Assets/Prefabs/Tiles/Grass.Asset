@@ -16,7 +16,12 @@ MonoBehaviour:
   canWalkThrough: 1
   walkCost: 1
   centers:
-  - {fileID: 0}
-  bordersNW: []
-  bordersW: []
-  bordersSW: []
+  - {fileID: 21300000, guid: 0571fed728622d44bad764e2f2df9533, type: 3}
+  - {fileID: 21300000, guid: 22d1f7bc0961ccc409e799feacf15d56, type: 3}
+  - {fileID: 21300000, guid: fa2c108cbac79ff45b2a2f13e5640653, type: 3}
+  bordersNW:
+  - {fileID: 21300000, guid: 5a622635a504b9a438e7682b6e7998c2, type: 3}
+  bordersW:
+  - {fileID: 21300000, guid: c231d93dc75dfe948950563f2ac631cf, type: 3}
+  bordersSW:
+  - {fileID: 21300000, guid: 19c5ed10acaaa7a489014df8ab4aa400, type: 3}

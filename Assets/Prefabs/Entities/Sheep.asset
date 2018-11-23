@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4639e28dfadc8cd459d5c9a1545a99bd, type: 3}
-  m_Name: Entity
+  m_Name: Sheep
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 70de50257e568da41b111acc5f72adc6, type: 3}
+  sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
   canMove: 1
