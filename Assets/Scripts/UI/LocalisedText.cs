@@ -14,6 +14,12 @@ public class LocalisedText : MonoBehaviour {
 
     void OnEnable() {
         UpdateText();
+        I18N.OnLangChange += UpdateText;
+    }
+
+    void OnDisable() {
+        UpdateText();
+        I18N.OnLangChange -= UpdateText;
     }
 
     public void UpdateText() {

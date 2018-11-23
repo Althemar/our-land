@@ -15,6 +15,10 @@ public static class I18N {
 
     public static Dictionary<string, I18nText> i18n;
     public static bool initialized = false;
+    public static Lang lang = Lang.FR;
+
+    public delegate void CallbackFunction();
+    public static CallbackFunction OnLangChange;
 
     public static string GetText(string key) {
         Initialize();
@@ -22,7 +26,9 @@ public static class I18N {
         if(!i18n.ContainsKey(key))
             return "_" + key;
         
-        return i18n[key].fr;
+        if(lang == Lang.FR)
+            return i18n[key].fr;
+        return i18n[key].en;
     }
 
     public static void Initialize() {
@@ -41,6 +47,11 @@ public static class I18N {
         foreach (I18nTextSave l in data.i18nData) {
             i18n.Add(l.key, new I18nText(){fr = l.fr, en = l.en});
         }
+    }
+
+    public static void ChangeLang(Lang l) {
+        lang = l;
+        OnLangChange();
     }
 
 }
