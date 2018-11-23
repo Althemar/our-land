@@ -1,32 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class TitleMenu : MonoBehaviour {
-
-    Canvas canvas;
-    
+public class PauseMenu : MonoBehaviour
+{
     public GameObject optionPrefab;
     GameObject optionInstance = null;
-
-    void Awake () {
-        canvas = GetComponent<Canvas>();
-    }
+    public GameObject buttonsObject;
     
     void Update() {
         if(optionInstance != null)
-            canvas.enabled = false;
+            buttonsObject.SetActive(false);
         else
-            canvas.enabled = true;
+            buttonsObject.SetActive(true);
+    }
+
+    public void Resume() {
+        Destroy(this.gameObject);
     }
 
     public void ShowOptions() {
         optionInstance = Instantiate(optionPrefab);
     }
 
-    public void Play() {
-        SceneManager.LoadScene("Damien");
+    public void Exit() {
+        Application.Quit();
     }
-
 }
