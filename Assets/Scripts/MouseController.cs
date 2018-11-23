@@ -16,6 +16,7 @@ public class MouseController : MonoBehaviour
     }
 
     void Update() {
+
         if (Input.GetMouseButtonDown(1)) {
             if (!tmpMovable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
                 TileProperties tile = GetTile();

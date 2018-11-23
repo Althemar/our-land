@@ -82,9 +82,10 @@ public class Movable : MonoBehaviour
                
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));                
-
+                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+                //debug.UpdateDebug();
                 if (path.Count == 0) {
+                    
                     moving = false;
                     if (OnReachEndTile != null) {
                         OnReachEndTile();

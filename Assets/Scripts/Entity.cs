@@ -2,31 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : Updatable
+public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
 
-    private Movable movable;
+    protected float population;
+    protected TileProperties tile;
 
-    public void Start() {
+    protected virtual void Start() {
         GetComponent<SpriteRenderer>().sprite = entitySO.sprite;
-        AddToTurnManager();
-        if (entitySO.canMove) {
-            movable = gameObject.AddComponent<Movable>();
-            movable.speed = 15;
-            movable.hexGrid = TurnManager.Instance.grid;
-            movable.OnReachEndTile += EndMoving;
-        }
-    }
-
-    public override void UpdateTurn() {
-        if (entitySO.canMove) {
-            movable.MoveTo(TurnManager.Instance.grid.GetRandomTile());
-        }
-    }
-
-    void EndMoving() {
-        EndTurn();
+        
     }
 
     public override void AddToTurnManager() {
@@ -36,4 +21,62 @@ public class Entity : Updatable
     public override void RemoveFromTurnManager() {
         TurnManager.Instance.RemoveFromUpdate(entitySO, this);
     }
+
+
+    public virtual void Initialize() {
+        if (tile == null) {
+            Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+            tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition));
+        }
+        AddToTurnManager();
+        population = entitySO.basePopulation;
+        GetComponent<SpriteRenderer>().sortingOrder = 3;
+    }
+
+    public override void UpdateTurn() {
+    }
+    
+   
+
+    public TileProperties GetFreeAdjacentTile(EntityType type) {
+        TileProperties[] neighbors = tile.GetNeighbors();
+        List<TileProperties> freeTiles = new List<TileProperties>();
+        foreach (TileProperties neighbor in neighbors) {
+
+            if (neighbor && 
+                    ((type == EntityType.Moving && neighbor.movingEntity == null)
+                 || (type == EntityType.Static && neighbor.staticEntity == null))) {
+                freeTiles.Add(neighbor);
+            }
+        }
+        if (freeTiles.Count > 0) {
+            return freeTiles[Random.Range(0, freeTiles.Count)];
+        }
+        else {
+            return null;
+        }
+    }
+
+    public void IncreasePopulation() {
+        population += population * entitySO.reproductionRate;
+    }
+
+    public void TryCreateAnotherEntity(EntityType type) {
+        if (population > entitySO.populationMax) {
+            TileProperties adjacent = GetFreeAdjacentTile(type);
+            if (adjacent != null) {
+                Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity).GetComponent<Entity>();
+                entity.tile = adjacent;
+                if (type == EntityType.Moving) {
+                    adjacent.movingEntity = entity as MovingEntity;
+                }
+                else {
+                    adjacent.staticEntity = entity as StaticEntity;
+                }
+                entity.Initialize();
+            }
+            
+        }
+    }
+
 }

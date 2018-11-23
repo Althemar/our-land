@@ -13,6 +13,7 @@ public class HexagonalGrid : MonoBehaviour
     /*
      * Members
      */
+    public static HexagonalGrid Instance;
 
     public Grid grid;
     public Dictionary<Vector3Int, TileProperties> tiles; // Key : Tile position in offset, Value : tile
@@ -45,10 +46,16 @@ public class HexagonalGrid : MonoBehaviour
      */
    
     private void Awake() {
-        tiles = new Dictionary<Vector3Int, TileProperties>();
-        tilemap = GetComponent<Tilemap>();
-        coordinatesType = HexCoordinatesType.offset;
-        metrics = new HexMetrics(grid.cellSize.y / 2, grid.cellSize.x / 2);
+        if (Instance == null) {
+            Instance = this;
+            tiles = new Dictionary<Vector3Int, TileProperties>();
+            tilemap = GetComponent<Tilemap>();
+            coordinatesType = HexCoordinatesType.offset;
+            metrics = new HexMetrics(grid.cellSize.y / 2, grid.cellSize.x / 2);
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
 
     private void Update() {

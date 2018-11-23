@@ -6,5 +6,10 @@ using UnityEngine;
 public class EntitySO : ScriptableObject
 {
     public Sprite sprite;
-    public bool canMove;
+
+    public int basePopulation;
+    public int populationMax;
+
+    public float reproductionRate;
+    public float deathRate;
 }

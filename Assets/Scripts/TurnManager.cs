@@ -75,7 +75,7 @@ public class TurnManager : MonoBehaviour
     }
 
     public void AddToUpdate<T, T2>(T id, T2 obj) {
-        if (id.GetType() == typeof(EntitySO)) {
+        if (id.GetType().BaseType == typeof(EntitySO)) {
             entitiesToUpdate[id as EntitySO].Add(obj as Entity);
         }
     }

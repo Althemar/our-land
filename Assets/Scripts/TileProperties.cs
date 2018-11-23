@@ -20,6 +20,11 @@ public class TileProperties : MonoBehaviour
 
     private bool isInReachables;
 
+    [HideInInspector]
+    public StaticEntity staticEntity;
+    [HideInInspector]
+    public MovingEntity movingEntity;
+
     private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };

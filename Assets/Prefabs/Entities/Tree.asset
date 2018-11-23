@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4639e28dfadc8cd459d5c9a1545a99bd, type: 3}
-  m_Name: Sheep
+  m_Script: {fileID: 11500000, guid: 2f36ee55967f34b4dbc30a67574414a5, type: 3}
+  m_Name: Tree
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
-  canMove: 1
+  sprite: {fileID: 21300000, guid: 7fc5b50856e991743a0cc55319f4cb14, type: 3}
+  basePopulation: 3
+  populationMax: 10
+  reproductionRate: 0.2
+  deathRate: 0
