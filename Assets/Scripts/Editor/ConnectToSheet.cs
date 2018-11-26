@@ -58,20 +58,20 @@ public class ConnectToSheet : EditorWindow {
         }
     }
 
-    [MenuItem ("Sheets/Fetch Data")]
+    [MenuItem ("Sheets/Fetch Test Data")]
     static void FetchData() {
         ProcessData = Show;
         RequestGoogleSheet(GoogleSheetID, TableDataID);
     }
 
-    [MenuItem ("Sheets/Fetch Text")]
+    [MenuItem ("Sheets/Fetch i18n Text")]
     static void FetchText() {
         ProcessData = UpdateI18N;
         RequestGoogleSheet(GoogleSheetID, TableI18nID);
     }
 
-    [MenuItem ("Sheets/Fetch Data", true)]
-    [MenuItem ("Sheets/Fetch Text", true)]
+    [MenuItem ("Sheets/Fetch Test Data", true)]
+    [MenuItem ("Sheets/Fetch i18n Text", true)]
     static bool Validate() {
         if(www == null)
             return true;
@@ -136,7 +136,8 @@ public class ConnectToSheet : EditorWindow {
 
     class Styles {
         public GUIContent sheetID = EditorGUIUtility.TrTextContent ("Google Sheet ID", "The ID of the Google Sheet");
-        public GUIContent dataID = EditorGUIUtility.TrTextContent ("Data Table ID", "The ID of the Data table");
+        public GUIContent dataID = EditorGUIUtility.TrTextContent ("Test Data Table ID", "The ID of the test data table");
+        public GUIContent i18nID = EditorGUIUtility.TrTextContent ("i18n Table ID", "The ID of the i18n table");
     }
     static Styles ms_Styles;
 
@@ -152,7 +153,7 @@ public class ConnectToSheet : EditorWindow {
         GUILayout.Space (5);
 
         TableDataID = EditorGUILayout.TextField (ms_Styles.dataID, TableDataID);
-        TableI18nID = EditorGUILayout.TextField (ms_Styles.dataID, TableI18nID);
+        TableI18nID = EditorGUILayout.TextField (ms_Styles.i18nID, TableI18nID);
     }
 
     static void EditorUpdate () {

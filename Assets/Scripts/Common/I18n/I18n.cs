@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void CallbackFunction();
+
 public static class I18N {
 
     public struct I18nText {
@@ -17,7 +19,6 @@ public static class I18N {
     public static bool initialized = false;
     public static Lang lang = Lang.FR;
 
-    public delegate void CallbackFunction();
     public static CallbackFunction OnLangChange;
 
     public static string GetText(string key) {
@@ -42,8 +43,12 @@ public static class I18N {
 
     public static void LoadText() {
         Debug.Log("Load!");
-        I18nData data = Resources.Load<I18nData>("i18n/Data");
         i18n = new Dictionary<string, I18nText>();
+
+        I18nData data = Resources.Load<I18nData>("i18n/Data");
+        if(data == null)
+            return;
+            
         foreach (I18nTextSave l in data.i18nData) {
             i18n.Add(l.key, new I18nText(){fr = l.fr, en = l.en});
         }
