@@ -26,6 +26,7 @@ public class Movable : MonoBehaviour
 
     private int movementPoints;
     private bool useMovementPoints;
+    private bool stopBefore;
 
     private List<TileProperties> reachableTiles;
 
@@ -92,7 +93,7 @@ public class Movable : MonoBehaviour
                 currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
                 currentTile.currentMovable = this;
                 //debug.UpdateDebug();
-                if (path.Count == 0) {
+                if (path.Count == 0 || (path.Count == 1 && stopBefore)) {
                     EndMoving();
                 }
                 else {
@@ -121,13 +122,14 @@ public class Movable : MonoBehaviour
             moving = true;
             progress = 0;
             useMovementPoints = false;
+            stopBefore = false;
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
         }
     }
 
-    public void MoveToward(Stack<TileProperties> path, int movementPoints) {
+    public void MoveToward(Stack<TileProperties> path, int movementPoints, bool stopBefore = false) {
         this.path = path;
         targetPos = tilemap.CellToWorld(path.Pop().Position);
 
@@ -137,6 +139,7 @@ public class Movable : MonoBehaviour
 
         this.movementPoints = movementPoints;
         useMovementPoints = true;
+        this.stopBefore = stopBefore;
 
         currentTile.currentMovable = null;
 

@@ -59,6 +59,7 @@ public class MovingEntity : Entity
             TileProperties nearest = tile.NearestEntity(movingEntitySO.foods.ToArray());
             if (nearest) {
                 bool move = true;
+                bool stopBefore = false;
                 Entity food;
                 if (!nearest.movingEntity || nearest.movingEntity == this) {
                     food = nearest.staticEntity;
@@ -71,10 +72,14 @@ public class MovingEntity : Entity
                     if (nearest.Coordinates.Distance(tile.Coordinates) == 1) {
                         move = false;
                     }
+                    else {
+                        stopBefore = true;
+                    }
                 }
                 if (move) {
+                    
                     Stack<TileProperties> path = AStarSearch.Path(tile, nearest);
-                    movable.MoveToward(path, movingEntitySO.movementPoints);        // Stop before tile if food is moving entity
+                    movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
                     waitForMove = true;
                 }
                 else {
