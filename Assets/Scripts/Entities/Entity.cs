@@ -26,7 +26,7 @@ public abstract class Entity : Updatable
     public virtual void Initialize() {
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
-            tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition));
+            tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         }
         AddToTurnManager();
         population = entitySO.basePopulation;
@@ -58,11 +58,20 @@ public abstract class Entity : Updatable
     }
 
     public void IncreasePopulation() {
-        population += population * entitySO.reproductionRate;
+        if (population < entitySO.populationMax) {
+            population += population * entitySO.reproductionRate;
+            if (population > entitySO.populationMax) {
+                population = entitySO.populationMax;
+            }
+        }
+    }
+
+    public void DecreasePopulation() {
+        population -= population * entitySO.deathRate;
     }
 
     public void TryCreateAnotherEntity(EntityType type) {
-        if (population > entitySO.populationMax) {
+        if (population >= entitySO.populationMax) {
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity).GetComponent<Entity>();
@@ -75,7 +84,6 @@ public abstract class Entity : Updatable
                 }
                 entity.Initialize();
             }
-            
         }
     }
 

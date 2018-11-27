@@ -24,11 +24,16 @@ public class Movable : MonoBehaviour
     private float progress;
     private TileProperties currentTile;
 
+    private int movementPoints;
+    private bool useMovementPoints;
+
     private List<TileProperties> reachableTiles;
 
     public delegate void OnMovableDelegate();
 
     public event OnMovableDelegate OnReachEndTile;
+
+
 
     /*
      * Properties
@@ -67,6 +72,7 @@ public class Movable : MonoBehaviour
 
     private void Start() {
         tilemap = hexGrid.GetComponent<Tilemap>();
+        movementPoints = -1;
     }
 
     private void Update() {
@@ -82,25 +88,30 @@ public class Movable : MonoBehaviour
                
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+                currentTile.currentMovable = null;
                 currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+                currentTile.currentMovable = this;
                 //debug.UpdateDebug();
                 if (path.Count == 0) {
-                    
-                    moving = false;
-                    if (OnReachEndTile != null) {
-                        OnReachEndTile();
-                    }
-                    
+                    EndMoving();
                 }
                 else {
-                    beginPos = transform.position;
-                    targetPos = tilemap.CellToWorld(path.Pop().Position);
+                    TileProperties nextTile = path.Pop();
+                    if (!useMovementPoints || movementPoints > 0) {
+                        beginPos = transform.position;
+                        targetPos = tilemap.CellToWorld(nextTile.Position);
+
+                        movementPoints -= nextTile.Tile.walkCost;
+                    }
+                    else {
+                        EndMoving();
+                    }
                 }
             }
         }
     }
 
-    public void MoveTo(TileProperties goal) {
+    public void MoveToTile(TileProperties goal) {
         if (!moving) {
             path = AStarSearch.Path(currentTile, goal);
 
@@ -109,9 +120,32 @@ public class Movable : MonoBehaviour
             beginPos = transform.position;
             moving = true;
             progress = 0;
+            useMovementPoints = false;
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
+        }
+    }
+
+    public void MoveToward(Stack<TileProperties> path, int movementPoints) {
+        this.path = path;
+        targetPos = tilemap.CellToWorld(path.Pop().Position);
+
+        beginPos = transform.position;
+        moving = true;
+        progress = 0;
+
+        this.movementPoints = movementPoints;
+        useMovementPoints = true;
+
+        currentTile.currentMovable = null;
+
+    }
+
+    public void EndMoving() {
+        moving = false;
+        if (OnReachEndTile != null) {
+            OnReachEndTile();
         }
     }
 

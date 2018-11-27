@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Entity", menuName = "Entity/Moving Entity", order = 1)]
 public class MovingEntitySO : EntitySO
 {
-    public int maxFood;
+    public int movementPoints;
+
     public float foodConsumption;
 
     public float satietyThreshold;

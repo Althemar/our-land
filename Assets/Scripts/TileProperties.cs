@@ -194,5 +194,58 @@ public class TileProperties : MonoBehaviour
         }
         return visited;
     }
-    
+
+    public TileProperties NearestEntity(EntitySO[] entities) {
+        List<TileProperties> visited = new List<TileProperties>();
+        visited.Add(this);
+
+        List<List<TileProperties>> fringes = new List<List<TileProperties>>();
+
+        fringes.Add(new List<TileProperties>());
+        fringes[0].Add(this);
+
+        int i = 1;
+        while (true) {
+            foreach (TileProperties previousTile in fringes[i - 1]) {
+                TileProperties[] neighbors = previousTile.GetNeighbors();
+                for (int j = 0; j < neighbors.Length; j++) {
+                    TileProperties neighbor = neighbors[j];
+                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
+                        int distance = i - 1 + neighbor.Tile.walkCost;
+
+                        while (fringes.Count <= distance) {
+                            fringes.Add(new List<TileProperties>());
+                        }
+
+                        if ((neighbor.staticEntity || neighbor.movingEntity) && neighbor.ContainsEntity(entities)) {
+                            return neighbor;
+                        }
+
+                        fringes[distance].Add(neighbor);
+                        visited.Add(neighbor);
+                    }
+                }
+            }
+            i++;
+            if (i >= fringes.Count) {
+                break;
+            }
+        }
+        return null;
+    }
+
+    public bool ContainsEntity(EntitySO[] entities) {
+        for (int i = 0; i < entities.Length; i++) {
+            if (ContainsEntity(entities[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsEntity(EntitySO entity) {
+        return ((entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity)
+             || (entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity));
+    }
+
 }

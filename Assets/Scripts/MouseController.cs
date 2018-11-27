@@ -28,7 +28,7 @@ public class MouseController : MonoBehaviour
             if (reachableTiles.Displaying) {
                 reachableTiles.UndisplayReachables();
                 if (tmpMovable.ReachableTiles.Contains(GetTile())) {
-                    tmpMovable.MoveTo(GetTile());
+                    tmpMovable.MoveToTile(GetTile());
                 }
             }
         }
