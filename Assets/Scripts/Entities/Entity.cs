@@ -9,6 +9,8 @@ public abstract class Entity : Updatable
     protected float population;
     protected TileProperties tile;
 
+    public TextMesh text;
+
     protected virtual void Start() {
         GetComponent<SpriteRenderer>().sprite = entitySO.sprite;
         
@@ -30,6 +32,7 @@ public abstract class Entity : Updatable
         }
         AddToTurnManager();
         population = entitySO.basePopulation;
+        text.text = population.ToString();
         GetComponent<SpriteRenderer>().sortingOrder = 3;
     }
 
@@ -64,10 +67,12 @@ public abstract class Entity : Updatable
                 population = entitySO.populationMax;
             }
         }
+        text.text = population.ToString();
     }
 
     public void DecreasePopulation() {
         population -= population * entitySO.deathRate;
+        text.text = population.ToString();
     }
 
     public void TryCreateAnotherEntity(EntityType type) {

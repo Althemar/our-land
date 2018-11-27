@@ -203,6 +203,9 @@ public class TileProperties : MonoBehaviour
 
         fringes.Add(new List<TileProperties>());
         fringes[0].Add(this);
+        if ((staticEntity || movingEntity) && ContainsEntity(entities, true)) {
+            return this;
+        }
 
         int i = 1;
         while (true) {
@@ -216,11 +219,10 @@ public class TileProperties : MonoBehaviour
                         while (fringes.Count <= distance) {
                             fringes.Add(new List<TileProperties>());
                         }
-
-                        if ((neighbor.staticEntity || neighbor.movingEntity) && neighbor.ContainsEntity(entities)) {
+                        
+                        if (neighbor.ContainsEntity(entities, true)) {
                             return neighbor;
                         }
-
                         fringes[distance].Add(neighbor);
                         visited.Add(neighbor);
                     }
@@ -234,18 +236,22 @@ public class TileProperties : MonoBehaviour
         return null;
     }
 
-    public bool ContainsEntity(EntitySO[] entities) {
+    public bool StaticEntityIsReachable() {
+        return !movingEntity;
+    }
+
+    public bool ContainsEntity(EntitySO[] entities, bool checkIfReachable = false) {
         for (int i = 0; i < entities.Length; i++) {
-            if (ContainsEntity(entities[i])) {
+            if (ContainsEntity(entities[i], checkIfReachable)) {
                 return true;
             }
         }
         return false;
     }
 
-    public bool ContainsEntity(EntitySO entity) {
-        return ((entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity)
-             || (entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity));
+    public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
+        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !movingEntity))
+             || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);
     }
 
 }

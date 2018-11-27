@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 08cdcabafde84a7489773fb1d7686e6f, type: 3}
-  basePopulation: 0
-  populationMax: 0
-  reproductionRate: 0
-  deathRate: 0
+  basePopulation: 5
+  populationMax: 10
+  reproductionRate: 0.1
+  deathRate: 0.2
   movementPoints: 2
-  foodConsumption: 0
-  satietyThreshold: 0
-  starvationThreshold: 0
+  foodConsumption: 0.1
+  satietyThreshold: 1
+  starvationThreshold: 0.2
   foods:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}

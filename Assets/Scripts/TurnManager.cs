@@ -81,7 +81,7 @@ public class TurnManager : MonoBehaviour
     }
 
     public void RemoveFromUpdate<T, T2>(T id, T2 obj) {
-        if (id.GetType().GetGenericTypeDefinition() == typeof(EntitySO)) {
+        if (id.GetType().BaseType == typeof(EntitySO)) {
             entitiesToUpdate[id as EntitySO].Remove(obj as Entity);
         }
     }
