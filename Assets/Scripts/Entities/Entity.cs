@@ -54,7 +54,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && neighbor.Tile.canWalkThrough && 
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && 
                     ((type == EntityType.Moving && neighbor.movingEntity == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);

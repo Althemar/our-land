@@ -20,5 +20,8 @@ public class EntitySO : ScriptableObject
 
     [BoxGroup("Food")]
     public float foodWhenHarvested;
+
+    [ReorderableList]
+    public List<CustomTile> availableTiles;
    
 }

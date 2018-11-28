@@ -85,7 +85,7 @@ public class MovingEntity : Entity
                     }
                 }
                 if (move) {
-                    Stack<TileProperties> path = AStarSearch.Path(tile, nearest);
+                    Stack<TileProperties> path = AStarSearch.Path(tile, nearest, entitySO.availableTiles);
                     if (path == null) {
                         EndTurn();
                     }

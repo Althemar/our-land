@@ -18,6 +18,8 @@ MonoBehaviour:
   reproductionRate: 0.2
   deathRate: 0.2
   foodWhenHarvested: 3
+  availableTiles:
+  - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
   movementPoints: 1
   foodConsumption: 0.1
   satietyThreshold: 1
