@@ -44,6 +44,7 @@ public class CustomTileEditor : Editor
         tile.go = EditorGUILayout.ObjectField("Game Object", tile.go, typeof(GameObject), false) as GameObject;
         tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
         tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
+        tile.ambientRTPC = EditorGUILayout.TextField("Ambient RTPC", tile.ambientRTPC);
 
         EditorGUILayout.Space();
 

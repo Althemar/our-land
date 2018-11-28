@@ -16,12 +16,13 @@ public class CustomTile : TileBase
     public bool canWalkThrough = true;
     public int walkCost = 1;
 
+    public string ambientRTPC = "";
+
     public List<Sprite> centers;
     public List<Sprite> bordersNW;
     public List<Sprite> bordersW;
     public List<Sprite> bordersSW;
     
-
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (go) {
             TileProperties properties = go.GetComponent<TileProperties>();
