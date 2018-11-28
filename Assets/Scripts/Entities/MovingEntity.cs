@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Movable))]
 public class MovingEntity : Entity
 {
     private Movable movable;
@@ -39,8 +40,6 @@ public class MovingEntity : Entity
             Initialize();
         }
     }
-
-
 
     public override void UpdateTurn() {
         base.UpdateTurn();
