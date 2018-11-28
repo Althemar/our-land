@@ -164,13 +164,18 @@ public class Movable : MonoBehaviour
 
     public void MoveToward(Stack<TileProperties> path, int movementPoints, bool stopBefore = false) {
         this.path = path;
-        targetPos = tilemap.CellToWorld(path.Pop().Position);
+        targetTile = path.Pop();
+        targetTile = path.Pop();
+
+        targetPos = tilemap.CellToWorld(targetTile.Position);
 
         beginPos = transform.position;
         moving = true;
         progress = 0;
 
         this.movementPoints = movementPoints;
+        this.movementPoints -= targetTile.Tile.walkCost;
+
         useMovementPoints = true;
         this.stopBefore = stopBefore;
 
