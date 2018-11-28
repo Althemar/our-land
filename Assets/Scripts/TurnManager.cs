@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class TurnManager : MonoBehaviour
 
     public HexagonalGrid grid;
 
+    [ReorderableList]
     public List<EntitySO> entitiesTypeOrder;
 
 
@@ -58,7 +60,7 @@ public class TurnManager : MonoBehaviour
 
     private void Update() {
         
-        if (state == TurnState.Others && updatedEntities == nbEntitiesToUpdate) {
+        if (state == TurnState.Others && updatedEntities >= nbEntitiesToUpdate) {
             toUpdateIndex++;
             if (toUpdateIndex == entitiesToUpdate.Count) {
                 state = TurnState.Player;
@@ -75,18 +77,21 @@ public class TurnManager : MonoBehaviour
     }
 
     public void AddToUpdate<T, T2>(T id, T2 obj) {
-        if (id.GetType() == typeof(EntitySO)) {
+        if (id.GetType().BaseType == typeof(EntitySO)) {
             entitiesToUpdate[id as EntitySO].Add(obj as Entity);
         }
     }
 
     public void RemoveFromUpdate<T, T2>(T id, T2 obj) {
-        if (id.GetType().GetGenericTypeDefinition() == typeof(EntitySO)) {
+        if (id.GetType().BaseType == typeof(EntitySO)) {
             entitiesToUpdate[id as EntitySO].Remove(obj as Entity);
         }
     }
 
     public void EndTurn() {
+        if (state == TurnState.Others) {
+            return;
+        }
         state = TurnState.Others;
         updatedEntities = 0;
         toUpdateIndex = 0;
@@ -94,11 +99,18 @@ public class TurnManager : MonoBehaviour
     }
 
     public void UpdateEntities() {
+        
         List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[toUpdateIndex]];
         for (int i = 0; i < currentEntities.Count; i++) {
-            currentEntities[i].UpdateTurn();
+            currentEntities[i].updated = false;
         }
-        nbEntitiesToUpdate = currentEntities.Count;
+        nbEntitiesToUpdate = 0;
+        for (int i = 0; i < currentEntities.Count; i++) {
+            if (!currentEntities[i].updated) {
+                nbEntitiesToUpdate++;
+                currentEntities[i].UpdateTurn();
+            }  
+        }
     }
 
     public void EntityUpdated() {

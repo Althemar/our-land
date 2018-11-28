@@ -9,8 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4639e28dfadc8cd459d5c9a1545a99bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
   m_Name: Wolf
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 08cdcabafde84a7489773fb1d7686e6f, type: 3}
-  canMove: 1
+  basePopulation: 5
+  populationMax: 10
+  reproductionRate: 0.1
+  deathRate: 0.2
+  foodWhenHarvested: 0
+  movementPoints: 2
+  foodConsumption: 0.1
+  satietyThreshold: 1
+  starvationThreshold: 0.2
+  damageWhenEat: 1
+  foods:
+  - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}

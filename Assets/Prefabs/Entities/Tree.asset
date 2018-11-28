@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f36ee55967f34b4dbc30a67574414a5, type: 3}
+  m_Name: Tree
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 7fc5b50856e991743a0cc55319f4cb14, type: 3}
+  basePopulation: 3
+  populationMax: 10
+  reproductionRate: 0.1
+  deathRate: 0.2
+  foodWhenHarvested: 3
+  availableTiles:
+  - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}

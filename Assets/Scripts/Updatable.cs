@@ -4,7 +4,12 @@ using UnityEngine;
 
 public abstract class Updatable : MonoBehaviour
 {
-    public abstract void UpdateTurn();
+    [HideInInspector]
+    public bool updated = true; 
+
+    public virtual void UpdateTurn() {
+        updated = true;
+    }
 
     public virtual void EndTurn() {
         TurnManager.Instance.EntityUpdated();

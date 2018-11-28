@@ -20,6 +20,11 @@ public class TileProperties : MonoBehaviour
 
     private bool isInReachables;
 
+    [HideInInspector]
+    public StaticEntity staticEntity;
+    [HideInInspector]
+    public MovingEntity movingEntity;
+
     private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
@@ -189,5 +194,64 @@ public class TileProperties : MonoBehaviour
         }
         return visited;
     }
-    
+
+    public TileProperties NearestEntity(EntitySO[] entities) {
+        List<TileProperties> visited = new List<TileProperties>();
+        visited.Add(this);
+
+        List<List<TileProperties>> fringes = new List<List<TileProperties>>();
+
+        fringes.Add(new List<TileProperties>());
+        fringes[0].Add(this);
+        if ((staticEntity || movingEntity) && ContainsEntity(entities, false)) {
+            return this;
+        }
+
+        int i = 1;
+        while (true) {
+            foreach (TileProperties previousTile in fringes[i - 1]) {
+                TileProperties[] neighbors = previousTile.GetNeighbors();
+                for (int j = 0; j < neighbors.Length; j++) {
+                    TileProperties neighbor = neighbors[j];
+                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
+                        int distance = i - 1 + neighbor.Tile.walkCost;
+
+                        while (fringes.Count <= distance) {
+                            fringes.Add(new List<TileProperties>());
+                        }
+                        
+                        if (neighbor.ContainsEntity(entities, true)) {
+                            return neighbor;
+                        }
+                        fringes[distance].Add(neighbor);
+                        visited.Add(neighbor);
+                    }
+                }
+            }
+            i++;
+            if (i > fringes.Count) {
+                break;
+            }
+        }
+        return null;
+    }
+
+    public bool StaticEntityIsReachable() {
+        return !movingEntity;
+    }
+
+    public bool ContainsEntity(EntitySO[] entities, bool checkIfReachable = false) {
+        for (int i = 0; i < entities.Length; i++) {
+            if (ContainsEntity(entities[i], checkIfReachable)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
+        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !movingEntity))
+             || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);
+    }
+
 }

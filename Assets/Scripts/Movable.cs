@@ -28,11 +28,17 @@ public class Movable : MonoBehaviour
     private float progress;
     private TileProperties currentTile;
 
+    private int movementPoints;
+    private bool useMovementPoints;
+    private bool stopBefore;
+
     private List<TileProperties> reachableTiles;
 
     public delegate void OnMovableDelegate();
 
     public event OnMovableDelegate OnReachEndTile;
+
+
 
     /*
      * Properties
@@ -41,6 +47,7 @@ public class Movable : MonoBehaviour
     public TileProperties CurrentTile
     {
         get { return currentTile; }
+        set => currentTile = value;
     }
 
     public DebugMovable DebugMovable
@@ -71,6 +78,7 @@ public class Movable : MonoBehaviour
 
     private void Start() {
         tilemap = hexGrid.GetComponent<Tilemap>();
+        movementPoints = -1;
     }
 
     private void Update() {
@@ -85,27 +93,31 @@ public class Movable : MonoBehaviour
             if (transform.position == targetPos) {
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-                currentTile = targetTile;                
 
-                if (path.Count == 0) {
-                    moving = false;
-                    if (OnReachEndTile != null) {
-                        OnReachEndTile();
-                    }
-                    
+                currentTile.currentMovable = null;
+                currentTile = targetTile;   
+                currentTile.currentMovable = this;
+                if (path.Count == 0 || (path.Count == 1 && stopBefore)) {
+                    EndMoving();
                 }
                 else {
-                    beginPos = transform.position;
                     targetTile = path.Pop();
-                    targetPos = tilemap.CellToWorld(targetTile.Position);
+                    if (!useMovementPoints || movementPoints > 0) {
+                        beginPos = transform.position;
+                        targetPos = tilemap.CellToWorld(targetTile.Position);
 
-                    UpdateSpriteDirection();
+                        movementPoints -= targetTile.Tile.walkCost;
+                        UpdateSpriteDirection();
+                    }
+                    else {
+                        EndMoving();
+                    }
                 }
             }
         }
     }
 
-    public void MoveTo(TileProperties goal) {
+    public void MoveToTile(TileProperties goal) {
         if (!moving) {
             path = AStarSearch.Path(currentTile, goal);
             targetTile = path.Pop();
@@ -117,33 +129,59 @@ public class Movable : MonoBehaviour
             beginPos = transform.position;
             moving = true;
             progress = 0;
+            useMovementPoints = false;
+            stopBefore = false;
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
         }
     }
 
+
     void UpdateSpriteDirection() {
-        if(spine == null)
+        if (spine == null)
             return;
 
-        if(targetTile.Coordinates.X == currentTile.Coordinates.X) {
+        if (targetTile.Coordinates.X == currentTile.Coordinates.X) {
             spine.skeleton.ScaleX = 1;
-            if(targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+            if (targetTile.Coordinates.Y < currentTile.Coordinates.Y)
                 spine.skeleton.SetSkin("Front_Left");
             else
                 spine.skeleton.SetSkin("Back_Right");
         }
-        if(targetTile.Coordinates.Y == currentTile.Coordinates.Y) {
+        if (targetTile.Coordinates.Y == currentTile.Coordinates.Y) {
             spine.skeleton.SetSkin("Profile_Left");
             spine.skeleton.ScaleX = (targetTile.Coordinates.Z < currentTile.Coordinates.Z) ? -1 : 1;
         }
-        if(targetTile.Coordinates.Z == currentTile.Coordinates.Z) {
+        if (targetTile.Coordinates.Z == currentTile.Coordinates.Z) {
             spine.skeleton.ScaleX = -1;
-            if(targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+            if (targetTile.Coordinates.Y < currentTile.Coordinates.Y)
                 spine.skeleton.SetSkin("Front_Left");
             else
                 spine.skeleton.SetSkin("Back_Right");
+        }
+    }
+
+    public void MoveToward(Stack<TileProperties> path, int movementPoints, bool stopBefore = false) {
+        this.path = path;
+        targetPos = tilemap.CellToWorld(path.Pop().Position);
+
+        beginPos = transform.position;
+        moving = true;
+        progress = 0;
+
+        this.movementPoints = movementPoints;
+        useMovementPoints = true;
+        this.stopBefore = stopBefore;
+
+        currentTile.currentMovable = null;
+
+    }
+
+    public void EndMoving() {
+        moving = false;
+        if (OnReachEndTile != null) {
+            OnReachEndTile();
         }
     }
 

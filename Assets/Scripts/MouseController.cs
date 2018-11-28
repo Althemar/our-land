@@ -16,6 +16,7 @@ public class MouseController : MonoBehaviour
     }
 
     void Update() {
+
         if (Input.GetMouseButtonDown(1)) {
             if (!tmpMovable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
                 TileProperties tile = GetTile();
@@ -27,7 +28,7 @@ public class MouseController : MonoBehaviour
             if (reachableTiles.Displaying) {
                 reachableTiles.UndisplayReachables();
                 if (tmpMovable.ReachableTiles.Contains(GetTile())) {
-                    tmpMovable.MoveTo(GetTile());
+                    tmpMovable.MoveToTile(GetTile());
                 }
             }
         }
