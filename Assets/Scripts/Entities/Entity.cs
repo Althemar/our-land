@@ -33,12 +33,18 @@ public abstract class Entity : Updatable
         AddToTurnManager();
         population = entitySO.basePopulation;
         text.text = population.ToString();
-        GetComponent<SpriteRenderer>().sortingOrder = 3;
     }
 
     public override void UpdateTurn() {
     }
     
+    public void Eaten(float damage) {
+        population -= damage;
+        if (population <= 0) {
+            RemoveFromTurnManager();
+            Destroy(gameObject);
+        }
+    }
    
 
     public TileProperties GetFreeAdjacentTile(EntityType type) {

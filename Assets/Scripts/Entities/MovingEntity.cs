@@ -23,7 +23,8 @@ public class MovingEntity : Entity
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-       
+        GetComponent<SpriteRenderer>().sortingOrder = 3;
+
     }
 
     private void Update() {
@@ -84,6 +85,12 @@ public class MovingEntity : Entity
                 }
                 else {
                     // Harvest
+                    currentFood += food.entitySO.foodWhenHarvested;
+                    food.DecreasePopulation();
+                    if (currentFood > satietyTreshold) {
+                        currentFood = satietyTreshold;
+                        hunger = EntityHungerState.Full;
+                    }
                 }
             }
         }
@@ -97,6 +104,10 @@ public class MovingEntity : Entity
         if (currentFood < 0) {
             currentFood = 0;
         }
+    }
+
+    public void Harvested() {
+
     }
 
     public override void Initialize() {

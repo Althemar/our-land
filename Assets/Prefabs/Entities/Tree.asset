@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 7fc5b50856e991743a0cc55319f4cb14, type: 3}
   basePopulation: 3
   populationMax: 10
-  reproductionRate: 0.2
-  deathRate: 0
+  reproductionRate: 0.1
+  deathRate: 0.2
+  foodWhenHarvested: 3

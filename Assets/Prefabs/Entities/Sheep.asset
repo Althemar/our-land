@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Sheep
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
-  basePopulation: 0
-  populationMax: 0
-  reproductionRate: 0
-  deathRate: 0
-  movementPoints: 0
-  foodConsumption: 0
-  satietyThreshold: 0
-  starvationThreshold: 0
-  foods: []
+  basePopulation: 8
+  populationMax: 10
+  reproductionRate: 0.3
+  deathRate: 0.2
+  foodWhenHarvested: 3
+  movementPoints: 1
+  foodConsumption: 0.1
+  satietyThreshold: 1
+  starvationThreshold: 0.3
+  damageWhenEat: 1
+  foods:
+  - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class TurnManager : MonoBehaviour
 
     public HexagonalGrid grid;
 
+    [ReorderableList]
     public List<EntitySO> entitiesTypeOrder;
 
 

@@ -17,9 +17,11 @@ MonoBehaviour:
   populationMax: 10
   reproductionRate: 0.1
   deathRate: 0.2
+  foodWhenHarvested: 0
   movementPoints: 2
   foodConsumption: 0.1
   satietyThreshold: 1
   starvationThreshold: 0.2
+  damageWhenEat: 1
   foods:
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
