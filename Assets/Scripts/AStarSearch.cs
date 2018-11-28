@@ -31,7 +31,7 @@ public class AStarSearch : MonoBehaviour
 
             TileProperties[] neighbors = current.GetNeighbors();
             foreach (TileProperties next in neighbors) {
-                if (next == null || !next.Tile.canWalkThrough) {
+                if (next == null || !next.Tile.canWalkThrough || (next.movingEntity && next != end)) {
                     continue;
                 }
                 double newCost = costSoFar[current] + NextCost(current, next);
@@ -46,6 +46,9 @@ public class AStarSearch : MonoBehaviour
 
         // Convert the cameFrom dictionary to a stack that contains the path;
         Stack<TileProperties> path = new Stack<TileProperties>();
+        if (!cameFrom.ContainsKey(end)) {
+            return null;
+        }
         path.Push(end);
         TileProperties currentTile = cameFrom[end];
         path.Push(currentTile);

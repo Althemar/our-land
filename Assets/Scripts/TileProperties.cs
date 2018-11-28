@@ -203,7 +203,7 @@ public class TileProperties : MonoBehaviour
 
         fringes.Add(new List<TileProperties>());
         fringes[0].Add(this);
-        if ((staticEntity || movingEntity) && ContainsEntity(entities, true)) {
+        if ((staticEntity || movingEntity) && ContainsEntity(entities, false)) {
             return this;
         }
 
@@ -229,7 +229,7 @@ public class TileProperties : MonoBehaviour
                 }
             }
             i++;
-            if (i >= fringes.Count) {
+            if (i > fringes.Count) {
                 break;
             }
         }

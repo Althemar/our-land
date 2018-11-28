@@ -15,11 +15,18 @@ public class MovingEntity : Entity
 
     private EntityHungerState hunger;
 
+    private Entity target;
+    private bool stopBefore;
+
     protected override void Start() {
         base.Start();
         movable = GetComponent<Movable>();
         movable.hexGrid = TurnManager.Instance.grid;
         movable.OnReachEndTile += EndMoving;
+        if (tile) {
+            movable.CurrentTile = tile;
+        }
+        
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
@@ -36,15 +43,18 @@ public class MovingEntity : Entity
 
 
     public override void UpdateTurn() {
+        base.UpdateTurn();
         DecreaseFood();
         if (hunger == EntityHungerState.Full) {
             if (currentFood < starvationTreshold) { 
                 hunger = EntityHungerState.Hungry;
             }
-            else {      
-                IncreasePopulation();
-                UpdateFoodTresholds();
-            }
+        }
+        
+        if (currentFood > starvationTreshold) {
+            IncreasePopulation();
+            TryCreateAnotherEntity(EntityType.Moving);
+            UpdateFoodTresholds();
         }
 
         bool waitForMove = false;
@@ -53,23 +63,21 @@ public class MovingEntity : Entity
                 DecreasePopulation();
                 UpdateFoodTresholds();
                 if (population <= 0.2f) {
-                    RemoveFromTurnManager();
-                    Destroy(gameObject);
+                    Kill();
                 }
             }
             TileProperties nearest = tile.NearestEntity(movingEntitySO.foods.ToArray());
             if (nearest) {
                 bool move = true;
-                bool stopBefore = false;
-                Entity food;
+                stopBefore = false;
                 if (!nearest.movingEntity || nearest.movingEntity == this) {
-                    food = nearest.staticEntity;
+                    target = nearest.staticEntity;
                     if (nearest == tile) {
                         move = false;
                     }
                 }
                 else {
-                    food = nearest.movingEntity;
+                    target = nearest.movingEntity;
                     if (nearest.Coordinates.Distance(tile.Coordinates) == 1) {
                         move = false;
                     }
@@ -78,19 +86,18 @@ public class MovingEntity : Entity
                     }
                 }
                 if (move) {
-                    
                     Stack<TileProperties> path = AStarSearch.Path(tile, nearest);
-                    movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
-                    waitForMove = true;
+                    if (path == null) {
+                        EndTurn();
+                    }
+                    else {
+                        movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
+                        waitForMove = true;
+                    }
+                    
                 }
                 else {
-                    // Harvest
-                    currentFood += food.entitySO.foodWhenHarvested;
-                    food.DecreasePopulation();
-                    if (currentFood > satietyTreshold) {
-                        currentFood = satietyTreshold;
-                        hunger = EntityHungerState.Full;
-                    }
+                    Harvest();
                 }
             }
         }
@@ -106,8 +113,13 @@ public class MovingEntity : Entity
         }
     }
 
-    public void Harvested() {
-
+    private void Harvest() {
+        currentFood += target.entitySO.foodWhenHarvested;
+        target.Eaten(movingEntitySO.damageWhenEat);
+        if (currentFood > satietyTreshold) {
+            currentFood = satietyTreshold;
+            hunger = EntityHungerState.Full;
+        }
     }
 
     public override void Initialize() {
@@ -125,7 +137,13 @@ public class MovingEntity : Entity
     }
 
     void EndMoving() {
+        tile.movingEntity = null;
         tile = movable.CurrentTile;
+        tile.movingEntity = this;
+        int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
+        if ((stopBefore && distance == 1) || distance == 0) {
+            Harvest();
+        }
         EndTurn();
     }
 }

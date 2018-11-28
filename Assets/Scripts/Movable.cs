@@ -43,6 +43,7 @@ public class Movable : MonoBehaviour
     public TileProperties CurrentTile
     {
         get { return currentTile; }
+        set => currentTile = value;
     }
 
     public DebugMovable DebugMovable

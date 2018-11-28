@@ -60,7 +60,7 @@ public class TurnManager : MonoBehaviour
 
     private void Update() {
         
-        if (state == TurnState.Others && updatedEntities == nbEntitiesToUpdate) {
+        if (state == TurnState.Others && updatedEntities >= nbEntitiesToUpdate) {
             toUpdateIndex++;
             if (toUpdateIndex == entitiesToUpdate.Count) {
                 state = TurnState.Player;
@@ -89,6 +89,9 @@ public class TurnManager : MonoBehaviour
     }
 
     public void EndTurn() {
+        if (state == TurnState.Others) {
+            return;
+        }
         state = TurnState.Others;
         updatedEntities = 0;
         toUpdateIndex = 0;
@@ -96,11 +99,18 @@ public class TurnManager : MonoBehaviour
     }
 
     public void UpdateEntities() {
+        
         List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[toUpdateIndex]];
         for (int i = 0; i < currentEntities.Count; i++) {
-            currentEntities[i].UpdateTurn();
+            currentEntities[i].updated = false;
         }
-        nbEntitiesToUpdate = currentEntities.Count;
+        nbEntitiesToUpdate = 0;
+        for (int i = 0; i < currentEntities.Count; i++) {
+            if (!currentEntities[i].updated) {
+                nbEntitiesToUpdate++;
+                currentEntities[i].UpdateTurn();
+            }  
+        }
     }
 
     public void EntityUpdated() {

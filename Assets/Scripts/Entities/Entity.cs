@@ -11,6 +11,11 @@ public abstract class Entity : Updatable
 
     public TextMesh text;
 
+    public TileProperties Tile
+    {
+        get => tile;
+    }
+
     protected virtual void Start() {
         GetComponent<SpriteRenderer>().sprite = entitySO.sprite;
         
@@ -29,6 +34,7 @@ public abstract class Entity : Updatable
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+            
         }
         AddToTurnManager();
         population = entitySO.basePopulation;
@@ -36,13 +42,13 @@ public abstract class Entity : Updatable
     }
 
     public override void UpdateTurn() {
+        base.UpdateTurn();
     }
     
     public void Eaten(float damage) {
         population -= damage;
         if (population <= 0) {
-            RemoveFromTurnManager();
-            Destroy(gameObject);
+            Kill();
         }
     }
    
@@ -51,8 +57,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-
-            if (neighbor && 
+            if (neighbor && neighbor.Tile.canWalkThrough && 
                     ((type == EntityType.Moving && neighbor.movingEntity == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);
@@ -87,6 +92,7 @@ public abstract class Entity : Updatable
             if (adjacent != null) {
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity).GetComponent<Entity>();
                 entity.tile = adjacent;
+                
                 if (type == EntityType.Moving) {
                     adjacent.movingEntity = entity as MovingEntity;
                 }
@@ -98,4 +104,14 @@ public abstract class Entity : Updatable
         }
     }
 
+    public void Kill() {
+        if (tile.movingEntity == this) {
+            tile.movingEntity = null;
+        }
+        else {
+            tile.staticEntity = null;
+        }
+        RemoveFromTurnManager();
+        Destroy(gameObject);
+    }
 }
