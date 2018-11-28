@@ -88,7 +88,13 @@ public class Movable : MonoBehaviour
             currentTile.currentMovable = this;
         }
         if (moving) {
-            progress += speed * Time.deltaTime;
+            if (!FastTurns.Instance.isFastTurn) {
+                progress += speed * Time.deltaTime;
+            }
+            else {
+                progress += speed * FastTurns.Instance.speedMultiplicator * Time.deltaTime;
+            }
+            
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {
                 progress = 0;

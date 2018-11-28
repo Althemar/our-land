@@ -85,7 +85,7 @@ public abstract class Entity : Updatable
         if (population >= entitySO.populationMax) {
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
-                Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity).GetComponent<Entity>();
+                Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
                 
                 if (type == EntityType.Moving) {
@@ -107,6 +107,12 @@ public abstract class Entity : Updatable
             tile.staticEntity = null;
         }
         RemoveFromTurnManager();
-        Destroy(gameObject);
+        if (gameObject == null) {
+            Debug.Log("Already killed");
+        }
+        else {
+            Destroy(gameObject);
+        }
+        
     }
 }

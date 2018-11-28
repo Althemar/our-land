@@ -62,6 +62,7 @@ public class MovingEntity : Entity
                 DecreasePopulation();
                 UpdateFoodTresholds();
                 if (population <= 0.2f) {
+                    EndTurn();
                     Kill();
                 }
             }
