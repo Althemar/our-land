@@ -1,0 +1,31 @@
+{
+"skeleton": { "hash": "nNRl3CmLvGjykVdjX179vcvEF88", "spine": "3.7.47-beta", "width": 663, "height": 747, "images": "./images/", "audio": "C:/Users/romain.navazo/Desktop/Monbureau/01_En cour/00_Our Land/Assets/Ship/Export_Spine" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "Mothership", "parent": "root" }
+],
+"slots": [
+	{ "name": "Mothership_Sprites", "bone": "Mothership", "attachment": "Mothership_Sph" }
+],
+"skins": {
+	"default": {},
+	"Back_Right": {
+		"Mothership_Sprites": {
+			"Mothership_Sph": { "name": "Dos", "x": -18.31, "y": 224.51, "width": 663, "height": 747 }
+		}
+	},
+	"Front_Left": {
+		"Mothership_Sprites": {
+			"Mothership_Sph": { "name": "Face", "x": 15.13, "y": 206.22, "width": 649, "height": 698 }
+		}
+	},
+	"Profile_Left": {
+		"Mothership_Sprites": {
+			"Mothership_Sph": { "name": "Profil", "x": 30.87, "y": 271.2, "width": 784, "height": 707 }
+		}
+	}
+},
+"animations": {
+	"animation": {}
+}
+}

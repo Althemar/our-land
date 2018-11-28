@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Spine.Unity;
 
 public class Movable : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Movable : MonoBehaviour
     public float speed;
     public int walkDistance;
     public HexagonalGrid hexGrid;
+
+    public SkeletonAnimation spine;
     
     private Tilemap tilemap;
     private DebugMovable debug;
@@ -20,6 +23,7 @@ public class Movable : MonoBehaviour
     private Stack<TileProperties> path;
     private Vector3 beginPos;
     private Vector3 targetPos;
+    private TileProperties targetTile;
     private bool moving;
     private float progress;
     private TileProperties currentTile;
@@ -79,10 +83,9 @@ public class Movable : MonoBehaviour
             progress += speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {
-               
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-                currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));                
+                currentTile = targetTile;                
 
                 if (path.Count == 0) {
                     moving = false;
@@ -93,7 +96,10 @@ public class Movable : MonoBehaviour
                 }
                 else {
                     beginPos = transform.position;
-                    targetPos = tilemap.CellToWorld(path.Pop().Position);
+                    targetTile = path.Pop();
+                    targetPos = tilemap.CellToWorld(targetTile.Position);
+
+                    UpdateSpriteDirection();
                 }
             }
         }
@@ -102,8 +108,11 @@ public class Movable : MonoBehaviour
     public void MoveTo(TileProperties goal) {
         if (!moving) {
             path = AStarSearch.Path(currentTile, goal);
+            targetTile = path.Pop();
+            targetTile = path.Pop();
+            targetPos = tilemap.CellToWorld(targetTile.Position);
 
-            targetPos = tilemap.CellToWorld(path.Pop().Position);
+            UpdateSpriteDirection();
 
             beginPos = transform.position;
             moving = true;
@@ -111,6 +120,30 @@ public class Movable : MonoBehaviour
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
+        }
+    }
+
+    void UpdateSpriteDirection() {
+        if(spine == null)
+            return;
+
+        if(targetTile.Coordinates.X == currentTile.Coordinates.X) {
+            spine.skeleton.ScaleX = 1;
+            if(targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+                spine.skeleton.SetSkin("Front_Left");
+            else
+                spine.skeleton.SetSkin("Back_Right");
+        }
+        if(targetTile.Coordinates.Y == currentTile.Coordinates.Y) {
+            spine.skeleton.SetSkin("Profile_Left");
+            spine.skeleton.ScaleX = (targetTile.Coordinates.Z < currentTile.Coordinates.Z) ? -1 : 1;
+        }
+        if(targetTile.Coordinates.Z == currentTile.Coordinates.Z) {
+            spine.skeleton.ScaleX = -1;
+            if(targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+                spine.skeleton.SetSkin("Front_Left");
+            else
+                spine.skeleton.SetSkin("Back_Right");
         }
     }
 

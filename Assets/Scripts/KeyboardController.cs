@@ -9,10 +9,14 @@ public class KeyboardController : MonoBehaviour {
 
     void Update () {
         if(Input.GetButtonDown("Cancel")) {
-            if(pauseInstance == null)
+            if(pauseInstance == null) {
+                Camera.main.cullingMask = Camera.main.cullingMask & (~LayerMask.GetMask("UI"));
                 pauseInstance = Instantiate(pausePrefab);
-            else
+            }
+            else {
+                Camera.main.cullingMask = Camera.main.cullingMask | LayerMask.GetMask("UI");
                 Destroy(pauseInstance);
+            }
         }
     }
 

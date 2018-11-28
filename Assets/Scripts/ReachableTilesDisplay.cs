@@ -20,6 +20,8 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     private Mesh mesh;
 
+    public PathUI canvasPath;
+
     public bool Displaying
     {
         get => displaying;
@@ -148,28 +150,37 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     public void UndisplayReachables() {
         displaying = false;
-        for (int i = 0; i < reachables.Count; i++) {
+        /*for (int i = 0; i < reachables.Count; i++) {
             reachables[i].Tilemap.SetColor(reachables[i].Position, Color.white);
-        }
+        }*/
+        canvasPath.pathPoints = new Vector3[0];
+        canvasPath.UpdatePath();
         mesh.Clear();
     }
 
     public void ColorPath(Stack<TileProperties> path, Color color) {
+        canvasPath.pathPoints = new Vector3[path.Count];
+        int i = 0;
         while (path.Count > 0) {
             TileProperties tile = path.Pop();
-            tile.Tilemap.SetColor(tile.Position, color);
+            //tile.Tilemap.SetColor(tile.Position, color);
+            canvasPath.pathPoints[i++] = tile.Tilemap.GetCellCenterWorld(tile.Position);
         }
+        canvasPath.UpdatePath();
     }
 
     public void RefreshPath(TileProperties tile) {
         if (tile != currentPointedTile) {
-            if (reachables.Contains(currentPointedTile)) {
+            /*if (reachables.Contains(currentPointedTile)) {
                 ColorPath(currentPath, Color.white);
-            }
+            }*/
             currentPointedTile = tile;
             if (reachables.Contains(currentPointedTile)) {
                 currentPath = AStarSearch.Path(movable.CurrentTile, tile);
                 ColorPath(new Stack<TileProperties>(currentPath), new Color(1f, 0.3f, 0.3f, 1f));
+            } else {
+                canvasPath.pathPoints = new Vector3[0];
+                canvasPath.UpdatePath();
             }
         }
     }
