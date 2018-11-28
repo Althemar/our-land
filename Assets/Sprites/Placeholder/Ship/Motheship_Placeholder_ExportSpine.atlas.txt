@@ -1,0 +1,27 @@
+
+Motheship_Placeholder_ExportSpine.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Dos
+  rotate: false
+  xy: 707, 37
+  size: 661, 745
+  orig: 663, 747
+  offset: 1, 1
+  index: -1
+Face
+  rotate: false
+  xy: 1370, 86
+  size: 647, 696
+  orig: 649, 698
+  offset: 1, 1
+  index: -1
+Profil
+  rotate: true
+  xy: 0, 0
+  size: 782, 705
+  orig: 784, 707
+  offset: 1, 1
+  index: -1

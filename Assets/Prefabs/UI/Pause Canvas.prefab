@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8191866902876839015}
   - component: {fileID: 352409490142164071}
   - component: {fileID: 6962012533809107475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pause Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5663889898611389733}
   - component: {fileID: 8397398108183015043}
   - component: {fileID: 1450782352861870049}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6007120127863984533}
   - component: {fileID: 7434550579018369990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 917574220221224077}
   - component: {fileID: 6441202283390497760}
   - component: {fileID: 6342087218462952136}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 955095277210519955}
   - component: {fileID: 176134327389027760}
   - component: {fileID: 6085410236357207698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 1311058594915226270}
   - component: {fileID: 3360282460355877312}
   - component: {fileID: 456971631832317681}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 602189638944996351}
   - component: {fileID: 286700347599979361}
   - component: {fileID: 2623264308797997261}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 7556976767065518397}
   - component: {fileID: 4160456731887911951}
   - component: {fileID: 5869412750712835270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Option
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1078,7 @@ GameObject:
   - component: {fileID: 3677587511918900451}
   - component: {fileID: 3788953884874869876}
   - component: {fileID: 3633979201345042390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
