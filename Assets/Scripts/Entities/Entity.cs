@@ -32,7 +32,6 @@ public abstract class Entity : Updatable
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-            
         }
         AddToTurnManager();
         population = entitySO.basePopulation;
@@ -55,7 +54,7 @@ public abstract class Entity : Updatable
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
             if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && 
-                    ((type == EntityType.Moving && neighbor.movingEntity == null)
+                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);
             }
@@ -90,6 +89,7 @@ public abstract class Entity : Updatable
                 
                 if (type == EntityType.Moving) {
                     adjacent.movingEntity = entity as MovingEntity;
+                    adjacent.currentMovable = entity.GetComponent<Movable>();
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
@@ -102,6 +102,7 @@ public abstract class Entity : Updatable
     public void Kill() {
         if (tile.movingEntity == this) {
             tile.movingEntity = null;
+            tile.currentMovable = null;
         }
         else {
             tile.staticEntity = null;

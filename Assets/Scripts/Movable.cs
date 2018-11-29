@@ -84,16 +84,19 @@ public class Movable : MonoBehaviour
     private void Update() {
         if (Time.frameCount == 1) {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-            currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition));
+            currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             currentTile.currentMovable = this;
         }
         if (moving) {
-            if (!FastTurns.Instance.isFastTurn) {
-                progress += speed * Time.deltaTime;
+            if (FastTurns.Instance != null) {
+                if (!FastTurns.Instance.isFastTurn) {
+                    progress += speed * Time.deltaTime;
+                }
+                else {
+                    progress += speed * FastTurns.Instance.speedMultiplicator * Time.deltaTime;
+                }
             }
-            else {
-                progress += speed * FastTurns.Instance.speedMultiplicator * Time.deltaTime;
-            }
+            
             
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {

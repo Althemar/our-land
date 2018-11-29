@@ -26,6 +26,7 @@ public class MovingEntity : Entity
         movable.OnReachEndTile += EndMoving;
         if (tile) {
             movable.CurrentTile = tile;
+            tile.currentMovable = movable;
         }
         
 
@@ -48,13 +49,14 @@ public class MovingEntity : Entity
             if (currentFood < starvationTreshold) { 
                 hunger = EntityHungerState.Hungry;
             }
+            else if (currentFood >= starvationTreshold) {
+                IncreasePopulation();
+                TryCreateAnotherEntity(EntityType.Moving);
+                UpdateFoodTresholds();
+            }
         }
         
-        if (currentFood > starvationTreshold) {
-            IncreasePopulation();
-            TryCreateAnotherEntity(EntityType.Moving);
-            UpdateFoodTresholds();
-        }
+        
 
         bool waitForMove = false;
         if (hunger == EntityHungerState.Hungry) {
@@ -117,7 +119,7 @@ public class MovingEntity : Entity
         currentFood += target.entitySO.foodWhenHarvested;
         target.Eaten(movingEntitySO.damageWhenEat);
         if (currentFood > satietyTreshold) {
-            currentFood = satietyTreshold;
+            //currentFood = satietyTreshold;
             hunger = EntityHungerState.Full;
         }
     }

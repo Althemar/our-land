@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sheep
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
-  basePopulation: 5
+  basePopulation: 6
   populationMax: 10
-  reproductionRate: 0.25
+  reproductionRate: 0.15
   deathRate: 0.2
   foodWhenHarvested: 2.5
   availableTiles:
@@ -25,6 +25,6 @@ MonoBehaviour:
   foodConsumption: 0.08
   satietyThreshold: 1
   starvationThreshold: 0.3
-  damageWhenEat: 1.5
+  damageWhenEat: 1.6
   foods:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
