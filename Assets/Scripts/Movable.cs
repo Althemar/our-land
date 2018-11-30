@@ -28,10 +28,6 @@ public class Movable : MonoBehaviour
     private float progress;
     private TileProperties currentTile;
 
-    private int movementPoints;
-    private bool useMovementPoints;
-    private bool stopBefore;
-
     private List<TileProperties> reachableTiles;
 
     public delegate void OnMovableDelegate();
@@ -77,18 +73,25 @@ public class Movable : MonoBehaviour
      */
 
     private void Start() {
+        path = new Stack<TileProperties>();
         tilemap = hexGrid.GetComponent<Tilemap>();
-        movementPoints = -1;
     }
 
     private void Update() {
         if (Time.frameCount == 1) {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-            currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition));
+            currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             currentTile.currentMovable = this;
         }
         if (moving) {
-            progress += speed * Time.deltaTime;
+            if (FastTurns.Instance != null && FastTurns.Instance.isFastTurn) {
+                progress += speed * FastTurns.Instance.speedMultiplicator * Time.deltaTime;
+            }
+            else {
+                progress += speed * Time.deltaTime;
+            }
+            
+            
             transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
             if (transform.position == targetPos) {
                 progress = 0;
@@ -97,16 +100,15 @@ public class Movable : MonoBehaviour
                 currentTile.currentMovable = null;
                 currentTile = targetTile;   
                 currentTile.currentMovable = this;
-                if (path.Count == 0 || (path.Count == 1 && stopBefore)) {
+                if (path.Count == 0) {
                     EndMoving();
                 }
                 else {
-                    targetTile = path.Pop();
-                    if (!useMovementPoints || movementPoints > 0) {
+                    if (path.Count >= 1) {
+                        targetTile = path.Pop();
                         beginPos = transform.position;
                         targetPos = tilemap.CellToWorld(targetTile.Position);
-
-                        movementPoints -= targetTile.Tile.walkCost;
+                        
                         UpdateSpriteDirection();
                     }
                     else {
@@ -117,10 +119,13 @@ public class Movable : MonoBehaviour
         }
     }
 
-    public void MoveToTile(TileProperties goal) {
+    public void MoveToTile(TileProperties goal, bool calculatePath = true) {
         if (!moving) {
-            path = AStarSearch.Path(currentTile, goal);
-            targetTile = path.Pop();
+            if (calculatePath) {
+                path = AStarSearch.Path(currentTile, goal);
+            }
+            
+            path.Pop();
             targetTile = path.Pop();
             targetPos = tilemap.CellToWorld(targetTile.Position);
 
@@ -129,13 +134,12 @@ public class Movable : MonoBehaviour
             beginPos = transform.position;
             moving = true;
             progress = 0;
-            useMovementPoints = false;
-            stopBefore = false;
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
         }
     }
+
 
 
     void UpdateSpriteDirection() {
@@ -162,25 +166,33 @@ public class Movable : MonoBehaviour
         }
     }
 
-    public void MoveToward(Stack<TileProperties> path, int movementPoints, bool stopBefore = false) {
-        this.path = path;
-        targetTile = path.Pop();
-        targetTile = path.Pop();
+    public TileProperties MoveToward(Stack<TileProperties> totalPath, int movementPoints, bool stopBefore = false) {
+        TileProperties lastTile = null;
+        List<TileProperties> pathList = new List<TileProperties>();
+        while (totalPath.Count > 0) {
+            TileProperties tile = totalPath.Pop();
+            if (stopBefore && totalPath.Count == 0) {
+                break;
+            }
+            else if (movementPoints > 0) {
+                pathList.Add(tile);
+                if (tile != currentTile) {
+                    movementPoints -= tile.Tile.walkCost;
+                    lastTile = tile;
+                }
+            }
+            else {
+                break;
+            }
+        }
 
-        targetPos = tilemap.CellToWorld(targetTile.Position);
+        path.Clear();
+        for (int i = pathList.Count - 1; i >= 0; i--) {
+            path.Push(pathList[i]);
+        }
 
-        beginPos = transform.position;
-        moving = true;
-        progress = 0;
-
-        this.movementPoints = movementPoints;
-        this.movementPoints -= targetTile.Tile.walkCost;
-
-        useMovementPoints = true;
-        this.stopBefore = stopBefore;
-
-        currentTile.currentMovable = null;
-
+        MoveToTile(lastTile, false);
+        return lastTile;
     }
 
     public void EndMoving() {

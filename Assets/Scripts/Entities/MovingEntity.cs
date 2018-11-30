@@ -26,6 +26,7 @@ public class MovingEntity : Entity
         movable.OnReachEndTile += EndMoving;
         if (tile) {
             movable.CurrentTile = tile;
+            tile.currentMovable = movable;
         }
         
 
@@ -48,13 +49,14 @@ public class MovingEntity : Entity
             if (currentFood < starvationTreshold) { 
                 hunger = EntityHungerState.Hungry;
             }
+            else if (currentFood >= starvationTreshold) {
+                IncreasePopulation();
+                TryCreateAnotherEntity(EntityType.Moving);
+                UpdateFoodTresholds();
+            }
         }
         
-        if (currentFood > starvationTreshold) {
-            IncreasePopulation();
-            TryCreateAnotherEntity(EntityType.Moving);
-            UpdateFoodTresholds();
-        }
+        
 
         bool waitForMove = false;
         if (hunger == EntityHungerState.Hungry) {
@@ -62,6 +64,7 @@ public class MovingEntity : Entity
                 DecreasePopulation();
                 UpdateFoodTresholds();
                 if (population <= 0.2f) {
+                    EndTurn();
                     Kill();
                 }
             }
@@ -90,7 +93,11 @@ public class MovingEntity : Entity
                         EndTurn();
                     }
                     else {
-                        movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
+                        tile.currentMovable = null;
+                        tile.movingEntity = null;
+                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
+                        tile.movingEntity = this;
+
                         waitForMove = true;
                     }
                     
@@ -116,7 +123,7 @@ public class MovingEntity : Entity
         currentFood += target.entitySO.foodWhenHarvested;
         target.Eaten(movingEntitySO.damageWhenEat);
         if (currentFood > satietyTreshold) {
-            currentFood = satietyTreshold;
+            //currentFood = satietyTreshold;
             hunger = EntityHungerState.Full;
         }
     }
