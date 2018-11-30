@@ -93,7 +93,11 @@ public class MovingEntity : Entity
                         EndTurn();
                     }
                     else {
-                        movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
+                        tile.currentMovable = null;
+                        tile.movingEntity = null;
+                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);        // Stop before tile if food is moving entity
+                        tile.movingEntity = this;
+
                         waitForMove = true;
                     }
                     

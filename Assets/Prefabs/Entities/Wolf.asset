@@ -15,7 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 08cdcabafde84a7489773fb1d7686e6f, type: 3}
   basePopulation: 5
   populationMax: 10
-  reproductionRate: 0.05
+  reproductionRate: 0.1
   deathRate: 0.2
   foodWhenHarvested: 0
   availableTiles:
@@ -25,6 +25,6 @@ MonoBehaviour:
   foodConsumption: 0.15
   satietyThreshold: 1
   starvationThreshold: 0.2
-  damageWhenEat: 1.6
+  damageWhenEat: 2
   foods:
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
