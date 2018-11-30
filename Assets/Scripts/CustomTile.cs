@@ -12,15 +12,25 @@ using UnityEditor;
 
 public class CustomTile : TileBase
 {
+    public enum TerrainType
+    {
+        Grass, Mountain, Sand, Swamp, Water
+    }
+
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
 
     public List<Sprite> centers;
-    public List<Sprite> bordersNW;
-    public List<Sprite> bordersW;
-    public List<Sprite> bordersSW;
     
+    public List<Sprite> bordersNWEditor;
+    public List<Sprite> bordersWEditor;
+    public List<Sprite> bordersSWEditor;
+    
+
+    public Dictionary<TerrainType, List<Sprite>> bordersNW;
+    public Dictionary<TerrainType, List<Sprite>> bordersW;
+    public Dictionary<TerrainType, List<Sprite>> bordersSW;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (go) {

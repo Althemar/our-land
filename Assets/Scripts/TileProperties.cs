@@ -101,7 +101,7 @@ public class TileProperties : MonoBehaviour
 
         if (cell.tile != tile) {
             SetBorder(direction);
-            cell.SetBorder(opposite);
+            //cell.SetBorder(opposite);
         }
         
     }
@@ -122,15 +122,15 @@ public class TileProperties : MonoBehaviour
         switch (direction) {
             case HexDirection.NW:
             case HexDirection.NE:
-                borders = tile.bordersNW;
+                borders = tile.bordersNWEditor;
                 break;
             case HexDirection.W:
             case HexDirection.E:
-                borders = tile.bordersW;
+                borders = tile.bordersWEditor;
                 break;
             case HexDirection.SW:
             case HexDirection.SE:
-                borders = tile.bordersSW;
+                borders = tile.bordersSWEditor;
                 break;
         }
         if (borders.Count > 0) {
