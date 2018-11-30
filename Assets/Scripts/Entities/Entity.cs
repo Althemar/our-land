@@ -60,8 +60,8 @@ public abstract class Entity : Updatable
             }
         }
         if (freeTiles.Count > 0) {
-            //return freeTiles[Random.Range(0, freeTiles.Count)];
-            return freeTiles[0];
+            return freeTiles[Random.Range(0, freeTiles.Count)];
+            //return freeTiles[0];
         }
         else {
             return null;
