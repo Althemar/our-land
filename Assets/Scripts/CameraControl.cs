@@ -22,7 +22,9 @@ public class CameraControl : MonoBehaviour {
 
     void Start () {
         cam = this.transform.GetChild(0).GetComponent<Camera>();
-        
+        targetPosition = this.transform.position;
+        zoomTarget = cam.orthographicSize;
+
         tilemap.CompressBounds();
         bounds = tilemap.localBounds;
         bounds.center += new Vector3(1f, 0, 0);
