@@ -175,11 +175,17 @@ public class TileProperties : MonoBehaviour
                 int z = -y - x;
                 HexCoordinates coordinatesInRange = new HexCoordinates(x, y, z);
                 coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
-                tilesInRange.Add(grid.GetTile(coordinates + coordinatesInRange));
+
+                HexCoordinates other = coordinates + coordinatesInRange;
+                if (other.Distance(coordinates) <= range) {
+                    tilesInRange.Add(grid.GetTile(coordinates + coordinatesInRange));
+                }
             }
         }
         return tilesInRange;
     }
+
+    
 
     // Get reachable tiles (take in count if tile is walkable and walk cost)
     public List<TileProperties> TilesReachable(int movement) {

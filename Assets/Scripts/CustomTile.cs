@@ -21,6 +21,8 @@ public class CustomTile : TileBase
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
+
+    [SerializeField]
     public TerrainType terrainType;
 
     public List<Sprite> centers;
