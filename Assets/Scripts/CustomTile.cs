@@ -23,6 +23,8 @@ public class CustomTile : TileBase
     public int walkCost = 1;
     public TerrainType terrainType;
 
+    public string ambientRTPC = "";
+
     public List<Sprite> centers;
     
     public List<Sprite> bordersNWEditor;

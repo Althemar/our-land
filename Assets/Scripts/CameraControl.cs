@@ -22,7 +22,9 @@ public class CameraControl : MonoBehaviour {
 
     void Start () {
         cam = this.transform.GetChild(0).GetComponent<Camera>();
-        
+        targetPosition = this.transform.position;
+        zoomTarget = cam.orthographicSize;
+
         tilemap.CompressBounds();
         bounds = tilemap.localBounds;
         bounds.center += new Vector3(1f, 0, 0);
@@ -75,4 +77,5 @@ public class CameraControl : MonoBehaviour {
         //this.transform.rotation = Quaternion.AngleAxis (Mathf.Min (zoomValue - 13, 0), Vector3.right);
         //cam.transform.localPosition = new Vector3 (0, 0, -15 + zoomValue / 2f);
     }
+
 }

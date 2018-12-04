@@ -65,6 +65,8 @@ public class CustomTileEditor : Editor
         tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
         tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
         tile.terrainType = (CustomTile.TerrainType)EditorGUILayout.EnumPopup("Terrain type ", tile.terrainType);
+        tile.ambientRTPC = EditorGUILayout.TextField("Ambient RTPC", tile.ambientRTPC);
+
         EditorGUILayout.Space();
 
 

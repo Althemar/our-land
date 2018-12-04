@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
+static class GameSettings {
+    public static float silence = 90;
+}
 
 public class OptionMenu : MonoBehaviour {
     I18N.Lang prevLang;
 
     public TMP_Dropdown langDropdown;
+    public Slider silenceSlider;
 
     public void OnEnable () {
         var backupEvent = langDropdown.onValueChanged;
@@ -14,6 +20,8 @@ public class OptionMenu : MonoBehaviour {
         langDropdown.value = (int) I18N.lang;
         langDropdown.RefreshShownValue ();
         langDropdown.onValueChanged = backupEvent;
+
+        silenceSlider.value = GameSettings.silence;
 
         prevLang = I18N.lang;
     }
@@ -28,6 +36,8 @@ public class OptionMenu : MonoBehaviour {
     }
 
     public void Apply () {
+        GameSettings.silence = silenceSlider.value;
+        
         Destroy (gameObject);
     }
 }
