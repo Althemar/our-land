@@ -20,6 +20,7 @@ public class CustomTile : TileBase
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
+    public TerrainType terrainType;
 
     public List<Sprite> centers;
     
@@ -27,10 +28,12 @@ public class CustomTile : TileBase
     public List<Sprite> bordersWEditor;
     public List<Sprite> bordersSWEditor;
     
-
-    public Dictionary<TerrainType, List<Sprite>> bordersNW;
-    public Dictionary<TerrainType, List<Sprite>> bordersW;
-    public Dictionary<TerrainType, List<Sprite>> bordersSW;
+    [SerializeField]
+    public BorderDictionary bordersNW;
+    [SerializeField]
+    public BorderDictionary bordersW;
+    [SerializeField]
+    public BorderDictionary bordersSW;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (go) {

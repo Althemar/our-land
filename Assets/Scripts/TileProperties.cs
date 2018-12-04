@@ -100,14 +100,18 @@ public class TileProperties : MonoBehaviour
         cell.neighbors[(int)opposite] = this;
 
         if (cell.tile != tile) {
-            SetBorder(direction);
-            //cell.SetBorder(opposite);
+            SetBorder(direction, cell.tile.terrainType);
+            cell.SetBorder(opposite, tile.terrainType);
         }
         
     }
 
     public void SetNeighbors() {
         for (int i = 0; i < 3; i++) {
+            Vector3Int tmp = new Vector3Int(-7, 5, 0);
+            if (position == tmp) {
+                Debug.Log("debug");
+            }
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
             coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
             TileProperties tile = grid.GetTile(coordinates + direction);
@@ -117,26 +121,31 @@ public class TileProperties : MonoBehaviour
         }
     }
 
-    public void SetBorder(HexDirection direction) {
-        List<Sprite> borders = null;
+    public void SetBorder(HexDirection direction, CustomTile.TerrainType terrainType) {
+        BorderDictionary dic = null;
         switch (direction) {
             case HexDirection.NW:
             case HexDirection.NE:
-                borders = tile.bordersNWEditor;
+                dic = tile.bordersNW;
                 break;
             case HexDirection.W:
             case HexDirection.E:
-                borders = tile.bordersWEditor;
+                dic = tile.bordersW;
                 break;
             case HexDirection.SW:
             case HexDirection.SE:
-                borders = tile.bordersSWEditor;
+                dic = tile.bordersSW;
                 break;
         }
-        if (borders.Count > 0) {
+        List<Sprite> borders;
+        if (dic == null || !dic.ContainsKey(terrainType)) {
+            return;
+        }
+        borders = dic[terrainType].sprites;
+        if (borders != null && borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.03f;
+            spriteRenderer.transform.position = transform.position;// + grid.Metrics.GetBorder((int)direction) * -0.11f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
             spriteRenderer.sortingOrder = 1;
             if ((int)direction <= 2) {

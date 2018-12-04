@@ -28,10 +28,10 @@ public class CustomTileEditor : Editor
         SetReorderableList(ref bordersNW, ref tile.bordersNWEditor);
         SetReorderableList(ref bordersW, ref tile.bordersWEditor);
         SetReorderableList(ref bordersSW, ref tile.bordersSWEditor);
-
-        InitDictionary(tile.bordersNW);
-        InitDictionary(tile.bordersW);
-        InitDictionary(tile.bordersSW);
+        /*
+        InitDictionary(ref tile.bordersNW);
+        InitDictionary(ref tile.bordersW);
+        InitDictionary(ref tile.bordersSW);*/
     }
 
     public void SetReorderableList(ref ReorderableList rl, ref List<Sprite> tileList) {
@@ -44,27 +44,43 @@ public class CustomTileEditor : Editor
         rl.onAddCallback = OnAddElement;
         rl.elementHeightCallback = GetElementHeight;
     }
-
-    public void InitDictionary(Dictionary<CustomTile.TerrainType, List<Sprite>> dic) {
+    /*
+    public void InitDictionary(ref BorderDictionary dic) {
         if (dic == null) {
-            dic = new Dictionary<CustomTile.TerrainType, List<Sprite>>();
-            int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
+            dic = new BorderDictionary();
+        }
+
+        int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
+        if (dic.Count != terrainCount) {
+            dic.Clear();
             for (int i = 0; i < terrainCount; i++) {
                 dic.Add((CustomTile.TerrainType)i, new List<Sprite>());
             }
         }
-    }
+    }*/
+
 
     public override void OnInspectorGUI() {
         tile.go = EditorGUILayout.ObjectField("Game Object", tile.go, typeof(GameObject), false) as GameObject;
         tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
         tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
-
+        tile.terrainType = (CustomTile.TerrainType)EditorGUILayout.EnumPopup("Terrain type ", tile.terrainType);
         EditorGUILayout.Space();
 
-        for (int i = 0; i < 4; i++) {
+
+        
+
+        for (int i = 0; i < 1; i++) {
             DisplayList(i);
         }
+
+        SerializedProperty serializedDic = serializedObject.FindProperty("bordersNW");
+        EditorGUILayout.PropertyField(serializedDic);
+        serializedDic = serializedObject.FindProperty("bordersW");
+        EditorGUILayout.PropertyField(serializedDic);
+        serializedDic = serializedObject.FindProperty("bordersSW");
+        EditorGUILayout.PropertyField(serializedDic);
+
     }
 
     public void DisplayList(int index) {
@@ -114,6 +130,22 @@ public class CustomTileEditor : Editor
         }
     }
 
+    public BorderDictionary GetDictionary(int index = -1) {
+        if (index == -1) {
+            index = currentListIndex;
+        }
+        if (index == 1) {
+            return tile.bordersNW;
+        }
+        else if (index == 2) {
+            return tile.bordersW;
+        }
+        else if (index == 3){
+            return tile.bordersSW;
+        }
+        return null;
+    }
+
     private void OnDrawHeader(Rect rect) {
         GUI.Label(rect, headers[currentListIndex]);
     }
@@ -157,17 +189,29 @@ public class CustomTileEditor : Editor
             rect.width += 50;
             EditorGUI.LabelField(rect, sprite.name);
 
+            if (currentListIndex == 0) {
+                return;
+            }
             rect.y += 18;
-            rect.width = 100;
+            rect.width = 80;
+            rect.height = 20;
             float baseY = rect.y;
             int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
             for (int i = 0; i < terrainCount; i++) {
                 if (i % 2 == 0 && i != 0) {
                     rect.x += 80;
                     rect.y = baseY;
+                }/*
+                BorderDictionary dic = GetDictionary();
+                bool activeBorder = dic[(CustomTile.TerrainType)i].Contains(sprite);
+                bool newActiveBorder = EditorGUI.ToggleLeft(rect, ((CustomTile.TerrainType)i).ToString(), activeBorder);
+                if (!activeBorder && newActiveBorder) {
+                    dic[(CustomTile.TerrainType)i].Add(sprite);
                 }
-                EditorGUI.ToggleLeft(rect, ((CustomTile.TerrainType)i).ToString(), true);
-                rect.y += 18;
+                else if (activeBorder && !newActiveBorder) {
+                    dic[(CustomTile.TerrainType)i].Remove(sprite);
+                }
+                rect.y += 18;*/
 
             }
         }

@@ -15,13 +15,95 @@ MonoBehaviour:
   go: {fileID: 2368644894744130655, guid: 8f8f3988e58a4b94f9ce5db643d8ce6e, type: 3}
   canWalkThrough: 1
   walkCost: 1
+  terrainType: 0
   centers:
   - {fileID: 21300000, guid: 0571fed728622d44bad764e2f2df9533, type: 3}
   - {fileID: 21300000, guid: 22d1f7bc0961ccc409e799feacf15d56, type: 3}
   - {fileID: 21300000, guid: fa2c108cbac79ff45b2a2f13e5640653, type: 3}
+  bordersNWEditor: []
+  bordersWEditor: []
+  bordersSWEditor: []
   bordersNW:
-  - {fileID: 21300000, guid: 5a622635a504b9a438e7682b6e7998c2, type: 3}
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 02000000
+    _keys: 02000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 5a622635a504b9a438e7682b6e7998c2, type: 3}
   bordersW:
-  - {fileID: 21300000, guid: c231d93dc75dfe948950563f2ac631cf, type: 3}
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 02000000
+    _keys: 02000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: c231d93dc75dfe948950563f2ac631cf, type: 3}
   bordersSW:
-  - {fileID: 21300000, guid: 19c5ed10acaaa7a489014df8ab4aa400, type: 3}
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 02000000
+    _keys: 02000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 19c5ed10acaaa7a489014df8ab4aa400, type: 3}
