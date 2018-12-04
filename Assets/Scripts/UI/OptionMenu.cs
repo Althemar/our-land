@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 static class GameSettings {
-    public static int silence = 90;
+    public static float silence = 90;
 }
 
 public class OptionMenu : MonoBehaviour {
@@ -21,7 +21,7 @@ public class OptionMenu : MonoBehaviour {
         langDropdown.RefreshShownValue ();
         langDropdown.onValueChanged = backupEvent;
 
-        silenceSlider.value = GameSettings.silence / (float)silenceSlider.maxValue;
+        silenceSlider.value = GameSettings.silence;
 
         prevLang = I18N.lang;
     }
@@ -36,6 +36,8 @@ public class OptionMenu : MonoBehaviour {
     }
 
     public void Apply () {
+        GameSettings.silence = silenceSlider.value;
+        
         Destroy (gameObject);
     }
 }
