@@ -81,6 +81,9 @@ public class CustomTileEditor : Editor
         serializedDic = serializedObject.FindProperty("bordersSW");
         EditorGUILayout.PropertyField(serializedDic);
 
+        serializedDic = serializedObject.FindProperty("addons");
+        EditorGUILayout.PropertyField(serializedDic);
+
     }
 
     public void DisplayList(int index) {

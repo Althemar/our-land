@@ -83,6 +83,18 @@ public class TileProperties : MonoBehaviour
         this.tile = tile;
         this.grid = grid;
         this.tilemap = tilemap.GetComponent<Tilemap>();
+
+        foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
+            float rand = Random.value;
+            if (rand < pair.Key && pair.Value.sprites.Count > 0) {
+                SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+                spriteRenderer.transform.parent = transform;
+                spriteRenderer.transform.position = transform.position;
+                spriteRenderer.sprite = pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)];
+                spriteRenderer.sortingOrder = 1;
+            }
+        }
+        
     }
 
     public TileProperties GetNeighbor(HexDirection direction) {
@@ -145,7 +157,7 @@ public class TileProperties : MonoBehaviour
         if (borders != null && borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position;// + grid.Metrics.GetBorder((int)direction) * -0.11f;
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.06f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
             spriteRenderer.sortingOrder = 1;
             if ((int)direction <= 2) {

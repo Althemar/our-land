@@ -9,6 +9,8 @@ public class BorderDictionary : SerializableDictionaryBase<CustomTile.TerrainTyp
 {
 
 }
+[Serializable]
+public class AddonsDictionary : SerializableDictionaryBase<float, SpriteList> { }
 
 [Serializable]
 public class SpriteList

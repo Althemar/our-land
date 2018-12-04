@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using RotaryHeart.Lib.SerializableDictionary;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -34,6 +35,11 @@ public class CustomTile : TileBase
     public BorderDictionary bordersW;
     [SerializeField]
     public BorderDictionary bordersSW;
+    /*
+    public List<Sprite> addonsGrass;
+    public List<Sprite> addonsFlowers;*/
+
+    public AddonsDictionary addons;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (go) {
