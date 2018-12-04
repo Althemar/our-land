@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
+using System;
 
 [CustomEditor(typeof(CustomTile), true)]
 public class CustomTileEditor : Editor
@@ -24,9 +25,13 @@ public class CustomTileEditor : Editor
 
     public void OnEnable() {
         SetReorderableList(ref centers, ref tile.centers);
-        SetReorderableList(ref bordersNW, ref tile.bordersNW);
-        SetReorderableList(ref bordersW, ref tile.bordersW);
-        SetReorderableList(ref bordersSW, ref tile.bordersSW);
+        SetReorderableList(ref bordersNW, ref tile.bordersNWEditor);
+        SetReorderableList(ref bordersW, ref tile.bordersWEditor);
+        SetReorderableList(ref bordersSW, ref tile.bordersSWEditor);
+        /*
+        InitDictionary(ref tile.bordersNW);
+        InitDictionary(ref tile.bordersW);
+        InitDictionary(ref tile.bordersSW);*/
     }
 
     public void SetReorderableList(ref ReorderableList rl, ref List<Sprite> tileList) {
@@ -39,17 +44,46 @@ public class CustomTileEditor : Editor
         rl.onAddCallback = OnAddElement;
         rl.elementHeightCallback = GetElementHeight;
     }
+    /*
+    public void InitDictionary(ref BorderDictionary dic) {
+        if (dic == null) {
+            dic = new BorderDictionary();
+        }
+
+        int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
+        if (dic.Count != terrainCount) {
+            dic.Clear();
+            for (int i = 0; i < terrainCount; i++) {
+                dic.Add((CustomTile.TerrainType)i, new List<Sprite>());
+            }
+        }
+    }*/
+
 
     public override void OnInspectorGUI() {
         tile.go = EditorGUILayout.ObjectField("Game Object", tile.go, typeof(GameObject), false) as GameObject;
         tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
         tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
-
+        tile.terrainType = (CustomTile.TerrainType)EditorGUILayout.EnumPopup("Terrain type ", tile.terrainType);
         EditorGUILayout.Space();
 
-        for (int i = 0; i < 4; i++) {
+
+        
+
+        for (int i = 0; i < 1; i++) {
             DisplayList(i);
         }
+
+        SerializedProperty serializedDic = serializedObject.FindProperty("bordersNW");
+        EditorGUILayout.PropertyField(serializedDic);
+        serializedDic = serializedObject.FindProperty("bordersW");
+        EditorGUILayout.PropertyField(serializedDic);
+        serializedDic = serializedObject.FindProperty("bordersSW");
+        EditorGUILayout.PropertyField(serializedDic);
+
+        serializedDic = serializedObject.FindProperty("addons");
+        EditorGUILayout.PropertyField(serializedDic);
+
     }
 
     public void DisplayList(int index) {
@@ -89,14 +123,30 @@ public class CustomTileEditor : Editor
             return tile.centers;
         }
         else if (index == 1) {
+            return tile.bordersNWEditor;
+        }
+        else if (index == 2) {
+            return tile.bordersWEditor;
+        }
+        else {
+            return tile.bordersSWEditor;
+        }
+    }
+
+    public BorderDictionary GetDictionary(int index = -1) {
+        if (index == -1) {
+            index = currentListIndex;
+        }
+        if (index == 1) {
             return tile.bordersNW;
         }
         else if (index == 2) {
             return tile.bordersW;
         }
-        else {
+        else if (index == 3){
             return tile.bordersSW;
         }
+        return null;
     }
 
     private void OnDrawHeader(Rect rect) {
@@ -109,13 +159,13 @@ public class CustomTileEditor : Editor
             tile.centers.Add(null);
         }
         else if (list == bordersNW) {
-            tile.bordersNW.Add(null);
+            tile.bordersNWEditor.Add(null);
         }
         else if (list == bordersW) {
-            tile.bordersW.Add(null);
+            tile.bordersWEditor.Add(null);
         }
         else if (list == bordersSW) {
-            tile.bordersSW.Add(null);
+            tile.bordersSWEditor.Add(null);
         }
     }
 
@@ -135,7 +185,45 @@ public class CustomTileEditor : Editor
             EditorUtility.SetDirty(target);
             SceneView.RepaintAll();
         }
-            
+
+        
+        if (sprite) {
+            rect.x += imageSize + padding / 2;
+            rect.width += 50;
+            EditorGUI.LabelField(rect, sprite.name);
+
+            if (currentListIndex == 0) {
+                return;
+            }
+            rect.y += 18;
+            rect.width = 80;
+            rect.height = 20;
+            float baseY = rect.y;
+            int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
+            for (int i = 0; i < terrainCount; i++) {
+                if (i % 2 == 0 && i != 0) {
+                    rect.x += 80;
+                    rect.y = baseY;
+                }/*
+                BorderDictionary dic = GetDictionary();
+                bool activeBorder = dic[(CustomTile.TerrainType)i].Contains(sprite);
+                bool newActiveBorder = EditorGUI.ToggleLeft(rect, ((CustomTile.TerrainType)i).ToString(), activeBorder);
+                if (!activeBorder && newActiveBorder) {
+                    dic[(CustomTile.TerrainType)i].Add(sprite);
+                }
+                else if (activeBorder && !newActiveBorder) {
+                    dic[(CustomTile.TerrainType)i].Remove(sprite);
+                }
+                rect.y += 18;*/
+
+            }
+        }
+        
+        
+
+        
+        
+        //EditorGUI.Toggle(rect, CustomTile.TerrainType.Grass.ToString(), true);*/
     }
 
     private float GetElementHeight(int index) {

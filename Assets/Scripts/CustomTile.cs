@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using RotaryHeart.Lib.SerializableDictionary;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,15 +13,33 @@ using UnityEditor;
 
 public class CustomTile : TileBase
 {
+    public enum TerrainType
+    {
+        Grass, Mountain, Sand, Swamp, Water
+    }
+
     public GameObject go;
     public bool canWalkThrough = true;
     public int walkCost = 1;
+    public TerrainType terrainType;
 
     public List<Sprite> centers;
-    public List<Sprite> bordersNW;
-    public List<Sprite> bordersW;
-    public List<Sprite> bordersSW;
     
+    public List<Sprite> bordersNWEditor;
+    public List<Sprite> bordersWEditor;
+    public List<Sprite> bordersSWEditor;
+    
+    [SerializeField]
+    public BorderDictionary bordersNW;
+    [SerializeField]
+    public BorderDictionary bordersW;
+    [SerializeField]
+    public BorderDictionary bordersSW;
+    /*
+    public List<Sprite> addonsGrass;
+    public List<Sprite> addonsFlowers;*/
+
+    public AddonsDictionary addons;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (go) {

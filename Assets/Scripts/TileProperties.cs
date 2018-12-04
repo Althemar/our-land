@@ -83,6 +83,18 @@ public class TileProperties : MonoBehaviour
         this.tile = tile;
         this.grid = grid;
         this.tilemap = tilemap.GetComponent<Tilemap>();
+
+        foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
+            float rand = Random.value;
+            if (rand < pair.Key && pair.Value.sprites.Count > 0) {
+                SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+                spriteRenderer.transform.parent = transform;
+                spriteRenderer.transform.position = transform.position;
+                spriteRenderer.sprite = pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)];
+                spriteRenderer.sortingOrder = 1;
+            }
+        }
+        
     }
 
     public TileProperties GetNeighbor(HexDirection direction) {
@@ -100,14 +112,18 @@ public class TileProperties : MonoBehaviour
         cell.neighbors[(int)opposite] = this;
 
         if (cell.tile != tile) {
-            SetBorder(direction);
-            cell.SetBorder(opposite);
+            SetBorder(direction, cell.tile.terrainType);
+            cell.SetBorder(opposite, tile.terrainType);
         }
         
     }
 
     public void SetNeighbors() {
         for (int i = 0; i < 3; i++) {
+            Vector3Int tmp = new Vector3Int(-7, 5, 0);
+            if (position == tmp) {
+                Debug.Log("debug");
+            }
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
             coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
             TileProperties tile = grid.GetTile(coordinates + direction);
@@ -117,26 +133,31 @@ public class TileProperties : MonoBehaviour
         }
     }
 
-    public void SetBorder(HexDirection direction) {
-        List<Sprite> borders = null;
+    public void SetBorder(HexDirection direction, CustomTile.TerrainType terrainType) {
+        BorderDictionary dic = null;
         switch (direction) {
             case HexDirection.NW:
             case HexDirection.NE:
-                borders = tile.bordersNW;
+                dic = tile.bordersNW;
                 break;
             case HexDirection.W:
             case HexDirection.E:
-                borders = tile.bordersW;
+                dic = tile.bordersW;
                 break;
             case HexDirection.SW:
             case HexDirection.SE:
-                borders = tile.bordersSW;
+                dic = tile.bordersSW;
                 break;
         }
-        if (borders.Count > 0) {
+        List<Sprite> borders;
+        if (dic == null || !dic.ContainsKey(terrainType)) {
+            return;
+        }
+        borders = dic[terrainType].sprites;
+        if (borders != null && borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.03f;
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.06f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
             spriteRenderer.sortingOrder = 1;
             if ((int)direction <= 2) {
