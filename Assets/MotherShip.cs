@@ -17,8 +17,6 @@ public class MotherShip : MonoBehaviour
     private void Start() {
         movable = GetComponent<Movable>();
         movable.OnReachEndTile += EndMove;
-        //outline = GetComponent<HexagonsOutline>();
-        
     }
 
     // Update is called once per frame
@@ -38,7 +36,6 @@ public class MotherShip : MonoBehaviour
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].IsInReachables = true;
         }
-        Debug.Log(movable.CurrentTile.Position);
         outline.InitMesh(reachables);
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].IsInReachables = false;

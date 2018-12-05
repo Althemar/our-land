@@ -9,12 +9,20 @@ public class TurnManager : MonoBehaviour
     public enum TurnState
     {
         Player,
+        Entities, 
+        Wind,
+        Whirlwind,
         Others
     }
+
+   
 
     public static TurnManager Instance;
 
     public HexagonalGrid grid;
+
+    [ReorderableList]
+    public List<TurnState> turnOrder;
 
     [ReorderableList]
     public List<EntitySO> entitiesTypeOrder;
@@ -23,11 +31,14 @@ public class TurnManager : MonoBehaviour
     private TurnState state = TurnState.Player;
 
     private Dictionary<EntitySO, List<Entity>> entitiesToUpdate;
+    private List<Wind> windsToUpdate;
+    private List<Whirlwind> whirlwindsToUpdate;
     
-    private int toUpdateIndex;
+    private int turnOrderIndex;
+    private int entitiesTypeIndex;
 
-    private int updatedEntities;
-    private int nbEntitiesToUpdate;
+    private int updatedObjects;
+    private int nbObjectsToUpdate;
 
     private int turnCount = 1;
 
@@ -51,7 +62,8 @@ public class TurnManager : MonoBehaviour
             for (int i = 0; i < entitiesTypeOrder.Count; i++) {
                 entitiesToUpdate.Add(entitiesTypeOrder[i], new List<Entity>());
             }
-
+            windsToUpdate = new List<Wind>();
+            whirlwindsToUpdate = new List<Whirlwind>();
         }
         else {
             Destroy(gameObject);
@@ -59,20 +71,30 @@ public class TurnManager : MonoBehaviour
     }
 
     private void Update() {
-        
-        if (state == TurnState.Others && updatedEntities >= nbEntitiesToUpdate) {
-            toUpdateIndex++;
-            if (toUpdateIndex == entitiesToUpdate.Count) {
-                state = TurnState.Player;
-                turnCount++;
-                if (OnEndTurn != null) {
-                    OnEndTurn();
+        if (state != TurnState.Player && updatedObjects >= nbObjectsToUpdate) {
+            if (state == TurnState.Entities) {
+                entitiesTypeIndex++;
+                if (entitiesTypeIndex == entitiesToUpdate.Count) {
+                    NextTurnOrder();
+                }
+                else {
+                    UpdateEntities();
                 }
             }
-            else {
-                updatedEntities = 0;
-                UpdateEntities();
+            else if (state == TurnState.Wind || state == TurnState.Whirlwind) {
+                NextTurnOrder();
             }
+        }
+    }
+
+    private void NextTurnOrder() {
+        turnOrderIndex++;
+        if (turnOrderIndex == turnOrder.Count) {
+            EndTurnUpdate();
+        }
+        else {
+            state = turnOrder[turnOrderIndex];
+            ChooseObjectsToUpdate();
         }
     }
 
@@ -82,39 +104,83 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    public void AddToUpdate<T>(T obj) {
+        if (obj.GetType() == typeof(Wind)) {
+            windsToUpdate.Add(obj as Wind);
+        }
+        if (obj.GetType() == typeof(Whirlwind)) {
+            whirlwindsToUpdate.Add(obj as Whirlwind);
+        }
+    }
+
     public void RemoveFromUpdate<T, T2>(T id, T2 obj) {
         if (id.GetType().BaseType == typeof(EntitySO)) {
             entitiesToUpdate[id as EntitySO].Remove(obj as Entity);
         }
     }
 
+    public void RemoveFromUpdate<T>(T obj) {
+        if (obj.GetType() == typeof(Wind)) {
+            windsToUpdate.Remove(obj as Wind);
+        }
+        if (obj.GetType() == typeof(Whirlwind)) {
+            whirlwindsToUpdate.Remove(obj as Whirlwind);
+        }
+    }
+
+
     public void EndTurn() {
-        if (state == TurnState.Others) {
+        if (state != TurnState.Player) {
             return;
         }
-        state = TurnState.Others;
-        updatedEntities = 0;
-        toUpdateIndex = 0;
-        UpdateEntities();
+        state = turnOrder[0];
+        turnOrderIndex = 0;
+        ChooseObjectsToUpdate();
+    }
+
+    public void EndTurnUpdate() {
+        state = TurnState.Player;
+        turnCount++;
+        if (OnEndTurn != null) {
+            OnEndTurn();
+        }
+    }
+
+    private void ChooseObjectsToUpdate() {
+        if (state == TurnState.Entities) {
+            entitiesTypeIndex = 0;
+            UpdateEntities();
+        }
+        else if (state == TurnState.Wind) {
+            UpdateObjects(windsToUpdate);
+        }
+        else if (state == TurnState.Whirlwind) {
+            UpdateObjects(whirlwindsToUpdate);
+        }
     }
 
     public void UpdateEntities() {
-        
-        List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[toUpdateIndex]];
-        for (int i = 0; i < currentEntities.Count; i++) {
-            currentEntities[i].updated = false;
+        List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[entitiesTypeIndex]];
+        UpdateObjects(currentEntities);
+    }
+
+    private void UpdateObjects<T>(List<T> toUpdate) where T : Updatable{
+        updatedObjects = 0;
+        for (int i = 0; i < toUpdate.Count; i++) {
+            toUpdate[i].updated = false;
         }
-        nbEntitiesToUpdate = 0;
-        for (int i = 0; i < currentEntities.Count; i++) {
-            if (!currentEntities[i].updated) {
-                nbEntitiesToUpdate++;
-                currentEntities[i].UpdateTurn();
-            }  
+        List<T> copy = new List<T>(toUpdate);
+        nbObjectsToUpdate = 0;
+        for (int i = 0; i < copy.Count; i++) {
+            if (!copy[i].updated) {
+                nbObjectsToUpdate++;
+                copy[i].UpdateTurn();
+            }
         }
     }
 
     public void EntityUpdated() {
-        updatedEntities++;
+        updatedObjects++;
     }
 
 }
