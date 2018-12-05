@@ -103,7 +103,7 @@ public class Wind : Updatable
 
     private bool TryCreateNewWind(HexDirection nextDirection) {
         TileProperties nextTile = tile.GetNeighbor(nextDirection);
-        if (nextTile && !nextTile.wind && !nextTile.staticEntity) {
+        if (CanCreateWindOnTile(nextTile)) {
             Wind newWind = new GameObject().AddComponent<Wind>();
             next.Add(newWind);
             newWind.transform.parent = transform.parent;
@@ -111,6 +111,19 @@ public class Wind : Updatable
             return true;
         }
         return false;
+    }
+
+    public bool CanCreateWindOnTile(TileProperties nextTile) {
+        if (!nextTile || nextTile.wind) {
+            return false;
+        }
+        if (WindManager.Instance.blockingEntities.Contains(nextTile.staticEntity) || WindManager.Instance.blockingEntities.Contains(nextTile.movingEntity)) {
+            return false;
+        }
+        if (WindManager.Instance.blockingTiles.Contains(nextTile.Tile)) {
+            return false;
+        }
+        return true;
     }
    
     public override void AddToTurnManager() {

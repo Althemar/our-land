@@ -7,6 +7,8 @@ public class Whirlwind : Updatable
     private TileProperties tile;
 
     
+
+    
     public void InitializeWhirlwind(TileProperties tile) {
         this.tile = tile;
         AddToTurnManager();
@@ -33,6 +35,12 @@ public class Whirlwind : Updatable
             Destroy(gameObject);
         }
         else {
+            if (tile.staticEntity) {
+                tile.staticEntity.Kill();
+            }
+            if (tile.movingEntity) {
+                tile.movingEntity.Kill();
+            }
             EndTurn();
         }
     }

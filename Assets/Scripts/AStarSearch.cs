@@ -31,7 +31,7 @@ public class AStarSearch : MonoBehaviour
 
             TileProperties[] neighbors = current.GetNeighbors();
             foreach (TileProperties next in neighbors) {
-                if (next == null || !next.Tile.canWalkThrough || (next.movingEntity && next != end) || (availableTiles != null && !availableTiles.Contains(next.Tile))) {
+                if (next == null || !next.Tile.canWalkThrough || (next.movingEntity && next != end) || (availableTiles != null && !availableTiles.Contains(next.Tile) || next.whirlwind)) {
                     //if (next == null || !next.Tile.canWalkThrough || (next.currentMovable && next != end) || (availableTiles != null && !availableTiles.Contains(next.Tile))) {
                     continue;
                 }

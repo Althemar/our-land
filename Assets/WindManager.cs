@@ -6,6 +6,9 @@ public class WindManager : MonoBehaviour
 {
     public GameObject whirlwind;
 
+    public List<Entity> blockingEntities;
+    public List<CustomTile> blockingTiles;
+
     public static WindManager Instance;
 
     private void Awake() {
