@@ -9,9 +9,6 @@ using System;
 public class CustomTileEditor : Editor
 {
     private ReorderableList centers;
-    private ReorderableList bordersNW;
-    private ReorderableList bordersW;
-    private ReorderableList bordersSW;
 
     public CustomTile tile { get { return (target as CustomTile); } }
 
@@ -23,15 +20,27 @@ public class CustomTileEditor : Editor
     const float imageX = 20f;
     const float padding = 15f;
 
+    SerializedProperty go, canWalkThrough, walkCost, terrainType, ambientRTPC;
+    SerializedProperty serBordersNW, serBordersW, serBordersSW, addons;
+
+    SerializedProperty humidityDependant, debugRiverSource;
+
     public void OnEnable() {
         SetReorderableList(ref centers, ref tile.centers);
-        SetReorderableList(ref bordersNW, ref tile.bordersNWEditor);
-        SetReorderableList(ref bordersW, ref tile.bordersWEditor);
-        SetReorderableList(ref bordersSW, ref tile.bordersSWEditor);
-        /*
-        InitDictionary(ref tile.bordersNW);
-        InitDictionary(ref tile.bordersW);
-        InitDictionary(ref tile.bordersSW);*/
+
+        go = serializedObject.FindProperty("go");
+        canWalkThrough = serializedObject.FindProperty("canWalkThrough");
+        walkCost = serializedObject.FindProperty("walkCost");
+        terrainType = serializedObject.FindProperty("terrainType");
+        ambientRTPC = serializedObject.FindProperty("ambientRTPC");
+
+        serBordersNW = serializedObject.FindProperty("bordersNW");
+        serBordersW = serializedObject.FindProperty("bordersW");
+        serBordersSW = serializedObject.FindProperty("bordersSW");
+        addons = serializedObject.FindProperty("addons");
+
+        humidityDependant = serializedObject.FindProperty("humidityDependant");
+        debugRiverSource = serializedObject.FindProperty("riverSource");
     }
 
     public void SetReorderableList(ref ReorderableList rl, ref List<Sprite> tileList) {
@@ -44,52 +53,29 @@ public class CustomTileEditor : Editor
         rl.onAddCallback = OnAddElement;
         rl.elementHeightCallback = GetElementHeight;
     }
-    /*
-    public void InitDictionary(ref BorderDictionary dic) {
-        if (dic == null) {
-            dic = new BorderDictionary();
-        }
-
-        int terrainCount = Enum.GetNames(typeof(CustomTile.TerrainType)).Length;
-        if (dic.Count != terrainCount) {
-            dic.Clear();
-            for (int i = 0; i < terrainCount; i++) {
-                dic.Add((CustomTile.TerrainType)i, new List<Sprite>());
-            }
-        }
-    }*/
-
 
     public override void OnInspectorGUI() {
-        tile.go = EditorGUILayout.ObjectField("Game Object", tile.go, typeof(GameObject), false) as GameObject;
-        tile.canWalkThrough = EditorGUILayout.Toggle("Can walk through", tile.canWalkThrough);
-        tile.walkCost = EditorGUILayout.IntField("Walk Cost", tile.walkCost);
-        tile.terrainType = (CustomTile.TerrainType)EditorGUILayout.EnumPopup("Terrain type ", tile.terrainType);
-        tile.ambientRTPC = EditorGUILayout.TextField("Ambient RTPC", tile.ambientRTPC);
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(canWalkThrough);
+        EditorGUILayout.PropertyField(walkCost);
+        EditorGUILayout.PropertyField(terrainType);
+        EditorGUILayout.PropertyField(ambientRTPC);
+        EditorGUILayout.PropertyField(humidityDependant);
+        EditorGUILayout.PropertyField(debugRiverSource);
 
         EditorGUILayout.Space();
 
-
+        DisplayList(0);
         
+        EditorGUILayout.PropertyField(serBordersNW);
+        EditorGUILayout.PropertyField(serBordersW);
+        EditorGUILayout.PropertyField(serBordersSW);
+        EditorGUILayout.PropertyField(addons);
 
-        for (int i = 0; i < 1; i++) {
-            DisplayList(i);
-        }
-
-        SerializedProperty serializedDic = serializedObject.FindProperty("bordersNW");
-        EditorGUILayout.PropertyField(serializedDic);
-        serializedDic = serializedObject.FindProperty("bordersW");
-        EditorGUILayout.PropertyField(serializedDic);
-        serializedDic = serializedObject.FindProperty("bordersSW");
-        EditorGUILayout.PropertyField(serializedDic);
-
-        serializedDic = serializedObject.FindProperty("addons");
-        EditorGUILayout.PropertyField(serializedDic);
-
+        serializedObject.ApplyModifiedProperties();
     }
 
     public void DisplayList(int index) {
-        
         ReorderableList rl = GetRL(index);
         List<Sprite> l = GetList(index);
         if (rl != null && l != null) {
@@ -106,15 +92,7 @@ public class CustomTileEditor : Editor
         if (index == 0) {
             return centers;
         }
-        else if (index == 1) {
-            return bordersNW;
-        }
-        else if (index == 2) {
-            return bordersW;
-        }
-        else {
-            return bordersSW;
-        }
+        return null;
     }
 
     public List<Sprite> GetList(int index = -1) {
@@ -124,15 +102,7 @@ public class CustomTileEditor : Editor
         if (index == 0) {
             return tile.centers;
         }
-        else if (index == 1) {
-            return tile.bordersNWEditor;
-        }
-        else if (index == 2) {
-            return tile.bordersWEditor;
-        }
-        else {
-            return tile.bordersSWEditor;
-        }
+        return null;
     }
 
     public BorderDictionary GetDictionary(int index = -1) {
@@ -156,18 +126,8 @@ public class CustomTileEditor : Editor
     }
 
     private void OnAddElement(ReorderableList list) {
-
         if (list == centers) {
             tile.centers.Add(null);
-        }
-        else if (list == bordersNW) {
-            tile.bordersNWEditor.Add(null);
-        }
-        else if (list == bordersW) {
-            tile.bordersWEditor.Add(null);
-        }
-        else if (list == bordersSW) {
-            tile.bordersSWEditor.Add(null);
         }
     }
 

@@ -27,10 +27,6 @@ public class CustomTile : TileBase
 
     public List<Sprite> centers;
     
-    public List<Sprite> bordersNWEditor;
-    public List<Sprite> bordersWEditor;
-    public List<Sprite> bordersSWEditor;
-    
     [SerializeField]
     public BorderDictionary bordersNW;
     [SerializeField]
@@ -43,15 +39,13 @@ public class CustomTile : TileBase
 
     public AddonsDictionary addons;
 
+    public bool humidityDependant = true;
+    public bool riverSource = false;
+
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
-        if (go) {
-            TileProperties properties = go.GetComponent<TileProperties>();
-            if (properties) {
-                HexagonalGrid grid = tilemap.GetComponent<HexagonalGrid>();
-                properties.InitializeTile(location, this, grid, tilemap);
-                grid.AddTile(properties);
-            }
-        }
+        if (HexagonalGrid.Instance && HexagonalGrid.Instance.GetTile(location))
+            HexagonalGrid.Instance.GetTile(location).SetTile(this);
+
         return true;
     }
 

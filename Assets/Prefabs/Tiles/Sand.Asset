@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
   m_Name: Sand
   m_EditorClassIdentifier: 
-  go: {fileID: 2368644894744130655, guid: 8f8f3988e58a4b94f9ce5db643d8ce6e, type: 3}
+  go: {fileID: 0}
   canWalkThrough: 1
   walkCost: 2
   terrainType: 2
+  ambientRTPC: 
   centers:
   - {fileID: 21300000, guid: aa27bc3ae368e7d4697c22024601f25e, type: 3}
   - {fileID: 21300000, guid: 50af254440856c245a4dd0ea92ef9a65, type: 3}
@@ -25,9 +26,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 691f0de73b6311645b36033b4d5ff4f1, type: 3}
   - {fileID: 21300000, guid: c52adeaf6bba9db43864c825c54a21b7, type: 3}
   - {fileID: 21300000, guid: 1765b20b3080912499646d6faf60ee54, type: 3}
-  bordersNWEditor: []
-  bordersWEditor: []
-  bordersSWEditor: []
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -35,7 +33,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -50,7 +48,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 04000000
     _keys: 04000000
     _values:
@@ -66,7 +64,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -81,7 +79,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 04000000
     _keys: 04000000
     _values:
@@ -97,7 +95,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -112,7 +110,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 04000000
     _keys: 04000000
     _values:
@@ -121,3 +119,30 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 1c14088be20551b4694e55d40ad48276, type: 3}
       - {fileID: 21300000, guid: fac2b43f8dd74234e9314176d2e8ab87, type: 3}
       - {fileID: 21300000, guid: 4a7619075107d6842be45397dfa347e3, type: 3}
+  addons:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
+  riverSource: 0
