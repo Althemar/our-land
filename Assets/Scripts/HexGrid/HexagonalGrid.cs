@@ -83,16 +83,44 @@ public class HexagonalGrid : MonoBehaviour {
 
     void ComputeHumidity() {
         //tilemap
+        PriorityQueue<River> riverList = new PriorityQueue<River>();
+
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
                 TileProperties prop = tilesArray[i, j];
                 if (prop != null) {
                     if (prop.Tile && tilesArray[i, j].Tile.riverSource) {
-                        foreach (TileProperties p in prop.InRange(5))
-                            p.humidity = 0.5f;
+                        River R = new River(new Vector3Int(i, j, 0), HexDirection.SW, HexDirection.E);
+                        R.distance = 0;
+                        riverList.Enqueue(R, R.distance);
                     }
                 }
             }
+        }
+
+        while(riverList.Count > 0) {
+            River riv = riverList.Dequeue();
+
+            if (riv.source.x < 0 || riv.source.x >= tilesArray.GetLength(0))
+                continue;
+            if (riv.source.y < 0 || riv.source.y >= tilesArray.GetLength(1))
+                continue;
+
+            TileProperties neigh = tilesArray[riv.source.x, riv.source.y].GetNeighbor(riv.directionFirst);
+            neigh.SetRiver(riv.directionSecond);
+
+            tilemap.SetColor(neigh.Position, Color.red);
+
+            riv.source = new Vector3Int(neigh.Position.x - arrayOffset.x, neigh.Position.y - arrayOffset.y, 0);
+
+            HexDirection tmp = riv.directionFirst;
+            riv.directionFirst = riv.directionSecond;
+            riv.directionSecond = tmp;
+
+            riv.distance++;
+
+            if(riv.distance < 10)
+                riverList.Enqueue(riv, riv.distance);
         }
 
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
@@ -109,9 +137,12 @@ public class HexagonalGrid : MonoBehaviour {
                 }
             }
         }
+
         tilemap.RefreshAllTiles();
-        SetNeighbors();
+        ResetTiles();
+        SetAddons();
         SetBorders();
+        PutRivers();
     }
 
     public void AddTile(TileProperties tile) {
@@ -144,11 +175,37 @@ public class HexagonalGrid : MonoBehaviour {
         }
     }
 
+    public void ResetTiles() {
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                if (tilesArray[i, j] != null)
+                    tilesArray[i, j].ResetTile();
+            }
+        }
+    }
+
     public void SetBorders() {
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
                 if (tilesArray[i, j] != null)
                     tilesArray[i, j].SetBorders();
+            }
+        }
+    }
+
+    public void PutRivers() {
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                if (tilesArray[i, j] != null)
+                    tilesArray[i, j].PutRivers();
+            }
+        }
+    }
+    public void SetAddons() {
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                if (tilesArray[i, j] != null)
+                    tilesArray[i, j].SetAddon();
             }
         }
     }

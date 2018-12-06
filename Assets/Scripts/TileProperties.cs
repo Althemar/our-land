@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileProperties : MonoBehaviour
-{
+public class TileProperties : MonoBehaviour {
     /*
      * Members
      */
@@ -19,7 +18,7 @@ public class TileProperties : MonoBehaviour
     public Movable currentMovable;
 
     private bool isInReachables;
-   
+
     public StaticEntity staticEntity;
     public MovingEntity movingEntity;
 
@@ -35,13 +34,11 @@ public class TileProperties : MonoBehaviour
      * Properties
      */
 
-    public HexCoordinates Coordinates
-    {
+    public HexCoordinates Coordinates {
         get => coordinates;
     }
 
-    public Vector3Int Position
-    {
+    public Vector3Int Position {
         get => position;
         set {
             position = value;
@@ -49,25 +46,21 @@ public class TileProperties : MonoBehaviour
         }
     }
 
-    public CustomTile Tile
-    {
+    public CustomTile Tile {
         get => tile;
         set => tile = value;
     }
 
-    public Tilemap Tilemap
-    {
+    public Tilemap Tilemap {
         get => tilemap;
     }
 
-    public HexagonalGrid Grid
-    {
+    public HexagonalGrid Grid {
         get => grid;
         set => grid = value;
     }
 
-    public bool IsInReachables
-    {
+    public bool IsInReachables {
         get => isInReachables;
         set => isInReachables = value;
     }
@@ -78,22 +71,30 @@ public class TileProperties : MonoBehaviour
 
     private void Awake() {
         neighbors = new TileProperties[6];
+        asRiver = new bool[6];
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
         this.position = position;
         coordinates = new HexCoordinates(position.x, position.y);
-        
+
         this.grid = grid;
         this.tilemap = tilemap;
     }
 
-    public void SetTile(CustomTile tile)
-    {
+    public void SetTile(CustomTile tile) {
+        this.tile = tile;
+    }
+
+    public void ResetTile() {
         foreach (Transform t in this.transform)
             Destroy(t.gameObject);
+    }
 
-        this.tile = tile;
+    public void SetAddon() {
+        if (tile == null)
+            return;
+
         foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
             float rand = Random.value;
             if (rand < pair.Key && pair.Value.sprites.Count > 0) {
@@ -129,6 +130,49 @@ public class TileProperties : MonoBehaviour
                 SetNeighbor((HexDirection)i, tile);
             }
         }
+    }
+
+    public void SetRiver(HexDirection direction) {
+        HexDirection opposite = direction.Opposite();
+        asRiver[(int)direction] = true;
+        GetNeighbor(direction).asRiver[(int)opposite] = true;
+    }
+
+    public void PutRivers() {
+        if (tile == null)
+            return;
+
+        for (int i = 0; i < asRiver.Length; i++) {
+            if (!asRiver[i])
+                continue;
+            BorderDictionary dic = null;
+            switch ((HexDirection)i) {
+                case HexDirection.NW:
+                case HexDirection.NE:
+                    dic = tile.bordersNW;
+                    break;
+                case HexDirection.W:
+                case HexDirection.E:
+                    dic = tile.bordersW;
+                    break;
+                case HexDirection.SW:
+                case HexDirection.SE:
+                    dic = tile.bordersSW;
+                    break;
+            }
+
+            SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+            Debug.Log(spriteRenderer);
+            spriteRenderer.transform.parent = transform;
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder(i);
+            spriteRenderer.sprite = dic[CustomTile.TerrainType.Water].sprites[0];
+            spriteRenderer.sortingOrder = 3;
+            if (i <= 2) {
+                spriteRenderer.flipX = true;
+            }
+        }
+
+
     }
 
     public void SetBorders() {
@@ -206,8 +250,8 @@ public class TileProperties : MonoBehaviour
         Dictionary<Vector3Int, TileProperties> visitDic = new Dictionary<Vector3Int, TileProperties>();
         visitDic.Add(this.Position, this);
 
-        List<TileProperties>[] fringes = new List<TileProperties>[movement+1];
-        
+        List<TileProperties>[] fringes = new List<TileProperties>[movement + 1];
+
         fringes[0] = new List<TileProperties>();
         fringes[0].Add(this);
         isInReachables = true;
@@ -216,13 +260,13 @@ public class TileProperties : MonoBehaviour
             fringes[i] = new List<TileProperties>();
         }
 
-        for (int i = 1; i <= movement+1; i++) {
+        for (int i = 1; i <= movement + 1; i++) {
             foreach (TileProperties previousTile in fringes[i - 1]) {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
                     if (neighbor && !visitDic.ContainsKey(neighbor.Position) && neighbor.Tile.canWalkThrough) {
-                        int distance = i-1 + neighbor.Tile.walkCost;
+                        int distance = i - 1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
                             neighbor.isInReachables = true;
@@ -263,7 +307,7 @@ public class TileProperties : MonoBehaviour
                         while (fringes.Count <= distance) {
                             fringes.Add(new List<TileProperties>());
                         }
-                        
+
                         if (neighbor.ContainsEntity(entities, true)) {
                             return neighbor;
                         }
