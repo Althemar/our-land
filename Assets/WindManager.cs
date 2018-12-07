@@ -5,8 +5,9 @@ using UnityEngine;
 public class WindManager : MonoBehaviour
 {
     public GameObject whirlwind;
+    public GameObject wind;
 
-    public List<Entity> blockingEntities;
+    public List<EntitySO> blockingEntities;
     public List<CustomTile> blockingTiles;
 
     public static WindManager Instance;
