@@ -83,53 +83,44 @@ public class HexagonalGrid : MonoBehaviour {
 
     void ComputeHumidity() {
         //tilemap
-        PriorityQueue<River> riverList = new PriorityQueue<River>();
+        List<River> riverList = new List<River>();
 
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
                 TileProperties prop = tilesArray[i, j];
                 if (prop != null) {
-                    if (prop.Tile && tilesArray[i, j].Tile.riverSource) {
-                        River R = new River(new Vector3Int(i, j, 0), HexDirection.SW, HexDirection.E);
-                        R.distance = 0;
-                        riverList.Enqueue(R, R.distance);
+                    if (prop.Tile && prop.Tile.riverSource) {
+                        River R = new River(tilesArray[i, j].Coordinates, prop.Tile.riverDirection, prop.Tile.riverCounterClockwise);
+                        riverList.Add(R);
                     }
                 }
             }
         }
 
-        while(riverList.Count > 0) {
-            River riv = riverList.Dequeue();
+        foreach(River r in riverList) {
+            r.ExtendRiver(this);
+            r.ExtendRiver(this);
+            r.ExtendRiver(this);
+            r.ExtendRiver(this);
+            r.ExtendRiver(this);
+        }
 
-            if (riv.source.x < 0 || riv.source.x >= tilesArray.GetLength(0))
-                continue;
-            if (riv.source.y < 0 || riv.source.y >= tilesArray.GetLength(1))
-                continue;
-
-            TileProperties neigh = tilesArray[riv.source.x, riv.source.y].GetNeighbor(riv.directionFirst);
-            neigh.SetRiver(riv.directionSecond);
-
-            tilemap.SetColor(neigh.Position, Color.red);
-
-            riv.source = new Vector3Int(neigh.Position.x - arrayOffset.x, neigh.Position.y - arrayOffset.y, 0);
-
-            HexDirection tmp = riv.directionFirst;
-            riv.directionFirst = riv.directionSecond;
-            riv.directionSecond = tmp;
-
-            riv.distance++;
-
-            if(riv.distance < 10)
-                riverList.Enqueue(riv, riv.distance);
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                TileProperties prop = tilesArray[i, j];
+                if (prop != null && prop.asRiver) {
+                    prop.humidity = 5;
+                }
+            }
         }
 
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
                 if (tilesArray[i, j] != null) {
                     if(tilesArray[i, j].Tile && tilesArray[i, j].Tile.humidityDependant) {
-                        if (tilesArray[i, j].humidity < 0.1f)
+                        if (tilesArray[i, j].humidity < 1)
                             tilemap.SetTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), lowHumidityTile);
-                        else if (tilesArray[i, j].humidity > 0.9f)
+                        else if (tilesArray[i, j].humidity > 6)
                             tilemap.SetTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), highHumidityTile);
                         else
                             tilemap.SetTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), normalHumidityTile);
@@ -143,6 +134,10 @@ public class HexagonalGrid : MonoBehaviour {
         SetAddons();
         SetBorders();
         PutRivers();
+    }
+
+    public void SetColor(Vector3Int coordinates, Color col) {
+        tilemap.SetColor(coordinates, col);
     }
 
     public void AddTile(TileProperties tile) {

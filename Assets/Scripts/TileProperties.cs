@@ -28,7 +28,9 @@ public class TileProperties : MonoBehaviour {
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
 
-    private bool[] asRiver;
+    public bool asRiver;
+    private bool[] rivers;
+    private River[] riverJonction;
 
     /*
      * Properties
@@ -71,7 +73,8 @@ public class TileProperties : MonoBehaviour {
 
     private void Awake() {
         neighbors = new TileProperties[6];
-        asRiver = new bool[6];
+        rivers = new bool[6];
+        riverJonction = new River[3];
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
@@ -132,18 +135,42 @@ public class TileProperties : MonoBehaviour {
         }
     }
 
-    public void SetRiver(HexDirection direction) {
+    public void SetRiver(HexDirection direction, River r) {
         HexDirection opposite = direction.Opposite();
-        asRiver[(int)direction] = true;
-        GetNeighbor(direction).asRiver[(int)opposite] = true;
+        rivers[(int)direction] = true;
+        GetNeighbor(direction).rivers[(int)opposite] = true;
+        asRiver = true;
+        GetNeighbor(direction).asRiver = true;
+        
+
+        /*switch(direction) {
+            case HexDirection.NE:
+                riverJonction[0] = r;
+                break;
+            case HexDirection.E:
+                break;
+            case HexDirection.SE:
+                break;
+            case HexDirection.SW:
+                break;
+            case HexDirection.W:
+                riverJonction[1] = r;
+                GetNeighbor(direction).riverJonction[1] = r;
+                break;
+            case HexDirection.NW:
+                riverJonction[0] = r;
+                GetNeighbor(direction).riverJonction[1] = r;
+                break;
+        }
+        riverJonction[0] = null;*/
     }
 
     public void PutRivers() {
         if (tile == null)
             return;
 
-        for (int i = 0; i < asRiver.Length; i++) {
-            if (!asRiver[i])
+        for (int i = 0; i < rivers.Length; i++) {
+            if (!rivers[i])
                 continue;
             BorderDictionary dic = null;
             switch ((HexDirection)i) {
@@ -164,8 +191,8 @@ public class TileProperties : MonoBehaviour {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             Debug.Log(spriteRenderer);
             spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder(i);
-            spriteRenderer.sprite = dic[CustomTile.TerrainType.Water].sprites[0];
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder(i) * -0.06f;
+            spriteRenderer.sprite = dic[CustomTile.TerrainType.Sand].sprites[0];
             spriteRenderer.sortingOrder = 3;
             if (i <= 2) {
                 spriteRenderer.flipX = true;

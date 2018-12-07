@@ -3,25 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class River {
-    public Vector3Int source;
-    public HexDirection directionFirst, directionSecond;
+    public HexCoordinates source;
+    public HexDirection direction;
+    public bool counterClockwise;
     public int distance;
 
     public TileProperties[] tiles;
 
-    public River(Vector3Int source, HexDirection directionFirst, HexDirection directionSecond) {
+    public River(HexCoordinates source, HexDirection direction, bool counterClockwise) {
         this.source = source;
-        this.directionFirst = directionFirst;
-        this.directionSecond = directionSecond;
+        this.direction = direction;
+        this.counterClockwise = counterClockwise;
+        this.distance = 0;
     }
 
-    public void ExtendRiver() {
-        int distance = 10;
+    public void ExtendRiver(HexagonalGrid grid) {
+        TileProperties tile = grid.GetTile(source);
+        if (!tile)
+            return;
+        
+        TileProperties neigh = tile.GetNeighbor(counterClockwise ? direction.Previous().Previous() : direction.Next().Next());
+        if (!neigh)
+            return;
 
-        while(distance > 0) {
+        neigh.SetRiver(direction, this);
+        neigh.SetRiver(counterClockwise ? direction.Previous() : direction.Next(), this);
 
+        //grid.SetColor(neigh.Position, Color.red);
 
-            distance--;
-        }
+        source = neigh.Coordinates;
+
+        distance++;
     }
 }

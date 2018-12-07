@@ -23,7 +23,7 @@ public class CustomTileEditor : Editor
     SerializedProperty go, canWalkThrough, walkCost, terrainType, ambientRTPC;
     SerializedProperty serBordersNW, serBordersW, serBordersSW, addons;
 
-    SerializedProperty humidityDependant, debugRiverSource;
+    SerializedProperty humidityDependant, debugRiverSource, riverDirection, riverCounterClockwise;
 
     public void OnEnable() {
         SetReorderableList(ref centers, ref tile.centers);
@@ -41,6 +41,8 @@ public class CustomTileEditor : Editor
 
         humidityDependant = serializedObject.FindProperty("humidityDependant");
         debugRiverSource = serializedObject.FindProperty("riverSource");
+        riverDirection = serializedObject.FindProperty("riverDirection");
+        riverCounterClockwise = serializedObject.FindProperty("riverCounterClockwise");
     }
 
     public void SetReorderableList(ref ReorderableList rl, ref List<Sprite> tileList) {
@@ -62,6 +64,8 @@ public class CustomTileEditor : Editor
         EditorGUILayout.PropertyField(ambientRTPC);
         EditorGUILayout.PropertyField(humidityDependant);
         EditorGUILayout.PropertyField(debugRiverSource);
+        EditorGUILayout.PropertyField(riverDirection);
+        EditorGUILayout.PropertyField(riverCounterClockwise);
 
         EditorGUILayout.Space();
 

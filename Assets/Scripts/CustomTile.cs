@@ -41,6 +41,8 @@ public class CustomTile : TileBase
 
     public bool humidityDependant = true;
     public bool riverSource = false;
+    public HexDirection riverDirection;
+    public bool riverCounterClockwise;
 
     public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
         if (HexagonalGrid.Instance && HexagonalGrid.Instance.GetTile(location))
