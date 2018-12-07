@@ -74,7 +74,7 @@ public class TileProperties : MonoBehaviour {
     private void Awake() {
         neighbors = new TileProperties[6];
         rivers = new bool[6];
-        riverJonction = new River[3];
+        riverJonction = new River[6];
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
@@ -135,71 +135,93 @@ public class TileProperties : MonoBehaviour {
         }
     }
 
+    public void ResetRiver() {
+        rivers = new bool[6];
+        riverJonction = new River[6];
+        humidity = 0;
+    }
+
     public void SetRiver(HexDirection direction, River r) {
         HexDirection opposite = direction.Opposite();
         rivers[(int)direction] = true;
         GetNeighbor(direction).rivers[(int)opposite] = true;
         asRiver = true;
         GetNeighbor(direction).asRiver = true;
-        
 
-        /*switch(direction) {
-            case HexDirection.NE:
-                riverJonction[0] = r;
-                break;
-            case HexDirection.E:
-                break;
-            case HexDirection.SE:
-                break;
-            case HexDirection.SW:
-                break;
-            case HexDirection.W:
-                riverJonction[1] = r;
-                GetNeighbor(direction).riverJonction[1] = r;
-                break;
-            case HexDirection.NW:
-                riverJonction[0] = r;
-                GetNeighbor(direction).riverJonction[1] = r;
-                break;
+
+        if (r.counterClockwise) {
+            if (riverJonction[(int)direction] == null) {
+                riverJonction[(int)direction] = r;
+                GetNeighbor(direction).riverJonction[(int)direction.Opposite().Next()] = r;
+                GetNeighbor(direction.Previous()).riverJonction[(int)direction.Next().Next()] = r;
+            }
+            else {
+                riverJonction[(int)direction].force += r.force;
+                r.force = 0;
+            }
+
         }
-        riverJonction[0] = null;*/
+        else {
+            if (riverJonction[(int)direction.Next()] == null) {
+                riverJonction[(int)direction.Next()] = r;
+                GetNeighbor(direction).riverJonction[(int)direction.Opposite()] = r;
+                GetNeighbor(direction.Next()).riverJonction[(int)direction.Previous()] = r;
+            }
+            else {
+                riverJonction[(int)direction].force += r.force;
+                r.force = 0;
+            }
+        }
     }
 
     public void PutRivers() {
         if (tile == null)
             return;
 
-        for (int i = 0; i < rivers.Length; i++) {
+        for (int i = 0; i < 3; i++) {
             if (!rivers[i])
                 continue;
-            BorderDictionary dic = null;
+            Sprite sprite = grid.ERiver;
             switch ((HexDirection)i) {
-                case HexDirection.NW:
                 case HexDirection.NE:
-                    dic = tile.bordersNW;
+                    CreateSprite(grid.NERiver);
                     break;
-                case HexDirection.W:
                 case HexDirection.E:
-                    dic = tile.bordersW;
+                    CreateSprite(grid.ERiver);
+                    if (rivers[(int)HexDirection.NE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
+                        CreateSprite(grid.EInterNEW);
+                    else if (rivers[(int)HexDirection.NE])
+                        CreateSprite(grid.EInterNE);
+                    else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
+                        CreateSprite(grid.EInterNW);
+                    else
+                        CreateSprite(grid.ERivN);
+
+                    if (rivers[(int)HexDirection.SE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
+                        CreateSprite(grid.EInterSEW);
+                    else if (rivers[(int)HexDirection.SE])
+                        CreateSprite(grid.EInterSE);
+                    else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
+                        CreateSprite(grid.EInterSW);
+                    else
+                        CreateSprite(grid.ERivS);
+
                     break;
-                case HexDirection.SW:
                 case HexDirection.SE:
-                    dic = tile.bordersSW;
+                    CreateSprite(grid.SERiver);
                     break;
             }
 
-            SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
-            Debug.Log(spriteRenderer);
-            spriteRenderer.transform.parent = transform;
-            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder(i) * -0.06f;
-            spriteRenderer.sprite = dic[CustomTile.TerrainType.Sand].sprites[0];
-            spriteRenderer.sortingOrder = 3;
-            if (i <= 2) {
-                spriteRenderer.flipX = true;
-            }
+            
         }
+    }
 
-
+    private void CreateSprite(Sprite sprite) {
+        SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+        spriteRenderer.transform.parent = transform;
+        spriteRenderer.transform.position = transform.position;
+        spriteRenderer.sprite = sprite;
+        spriteRenderer.sortingOrder = 4;
     }
 
     public void SetBorders() {

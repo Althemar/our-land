@@ -26,10 +26,24 @@ public class HexagonalGrid : MonoBehaviour {
     public CustomTile normalHumidityTile;
     public CustomTile highHumidityTile;
 
+    public Sprite NERiver;
+    public Sprite ERiver;
+    public Sprite SERiver;
+
+    public Sprite EInterNE;
+    public Sprite EInterNW;
+    public Sprite EInterNEW;
+    public Sprite ERivN;
+
+    public Sprite EInterSE;
+    public Sprite EInterSW;
+    public Sprite EInterSEW;
+    public Sprite ERivS;
+
     /*
      * Properties
      */
-     
+
     public Tilemap Tilemap {
         get => tilemap;
     }
@@ -77,12 +91,20 @@ public class HexagonalGrid : MonoBehaviour {
             ComputeHumidity();
         }
 
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
             ComputeHumidity();
     }
 
     void ComputeHumidity() {
-        //tilemap
+        tilemap.RefreshAllTiles();
+
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                if (tilesArray[i, j] != null)
+                    tilesArray[i, j].ResetRiver();
+            }
+        }
+        
         List<River> riverList = new List<River>();
 
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
@@ -97,13 +119,16 @@ public class HexagonalGrid : MonoBehaviour {
             }
         }
 
-        foreach(River r in riverList) {
-            r.ExtendRiver(this);
-            r.ExtendRiver(this);
-            r.ExtendRiver(this);
-            r.ExtendRiver(this);
-            r.ExtendRiver(this);
-        }
+        bool extend;
+        do {
+            extend = false;
+            foreach (River r in riverList) {
+                if (r.force > 0) {
+                    r.ExtendRiver(this);
+                    extend = true;
+                }
+            }
+        } while (extend);
 
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
@@ -114,10 +139,25 @@ public class HexagonalGrid : MonoBehaviour {
             }
         }
 
+        for (int b = 0; b < 5; b++) {
+            for (int i = 0; i < tilesArray.GetLength(0); i++) {
+                for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                    TileProperties prop = tilesArray[i, j];
+                    if (prop != null) {
+                        foreach (var N in prop.GetNeighbors()) {
+                            if (!N)
+                                continue;
+                            N.humidity = Mathf.Max(prop.humidity - 1, N.humidity);
+                        }
+                    }
+                }
+            }
+        }
+
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
                 if (tilesArray[i, j] != null) {
-                    if(tilesArray[i, j].Tile && tilesArray[i, j].Tile.humidityDependant) {
+                    if (tilesArray[i, j].Tile && tilesArray[i, j].Tile.humidityDependant) {
                         if (tilesArray[i, j].humidity < 1)
                             tilemap.SetTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), lowHumidityTile);
                         else if (tilesArray[i, j].humidity > 6)
