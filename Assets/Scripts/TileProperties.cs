@@ -23,6 +23,8 @@ public class TileProperties : MonoBehaviour
    
     public StaticEntity staticEntity;
     public MovingEntity movingEntity;
+    public Wind wind;
+    public Whirlwind whirlwind;
 
     private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
@@ -120,10 +122,6 @@ public class TileProperties : MonoBehaviour
 
     public void SetNeighbors() {
         for (int i = 0; i < 3; i++) {
-            Vector3Int tmp = new Vector3Int(-7, 5, 0);
-            if (position == tmp) {
-                Debug.Log("debug");
-            }
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
             coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
             TileProperties tile = grid.GetTile(coordinates + direction);
@@ -175,11 +173,17 @@ public class TileProperties : MonoBehaviour
                 int z = -y - x;
                 HexCoordinates coordinatesInRange = new HexCoordinates(x, y, z);
                 coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
-                tilesInRange.Add(grid.GetTile(coordinates + coordinatesInRange));
+
+                HexCoordinates other = coordinates + coordinatesInRange;
+                if (other.Distance(coordinates) <= range) {
+                    tilesInRange.Add(grid.GetTile(coordinates + coordinatesInRange));
+                }
             }
         }
         return tilesInRange;
     }
+
+    
 
     // Get reachable tiles (take in count if tile is walkable and walk cost)
     public List<TileProperties> TilesReachable(int movement) {

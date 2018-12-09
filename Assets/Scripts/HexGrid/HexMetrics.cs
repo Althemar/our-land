@@ -40,12 +40,18 @@ public class HexMetrics{
     }
 
     private void CalculateBorders() {
+        for (int i = 0; i < 6; i++) {
+            Vector3 corner1 = corners[i];
+            Vector3 corner2 = (i < 5) ? corners[i + 1] : corners[0];
+            borders[i] = (corner1 + corner2) / 2;
+        }
+        /*
         borders[0] = new Vector3(innerRadius, 0.75f * outerRadius, 0f) / 2;
         borders[1] = new Vector3(width, 0f, 0f) / 2;
         borders[2] = new Vector3(innerRadius, - 0.75f * outerRadius, 0f) / 2;
         borders[3] = new Vector3(-innerRadius, -0.75f * outerRadius, 0f) / 2;
         borders[4] = new Vector3(-width, 0f, 0f) / 2;
-        borders[5] = new Vector3(-innerRadius, 0.75f * outerRadius, 0f) / 2;
+        borders[5] = new Vector3(-innerRadius, 0.75f * outerRadius, 0f) / 2;*/
 
     }
 
@@ -69,5 +75,9 @@ public class HexMetrics{
 
     public Vector3 GetBorder(int index) {
         return borders[index];
+    }
+
+    public Vector3 GetBorder(HexDirection direction) {
+        return GetBorder((int)direction);
     }
 }

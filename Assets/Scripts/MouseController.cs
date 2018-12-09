@@ -22,6 +22,9 @@ public class MouseController : MonoBehaviour
                 TileProperties tile = GetTile();
                 tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
                 reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
+                if (tmpMovable.GetComponent<MotherShip>()) {
+                    tmpMovable.GetComponent<MotherShip>().BeginMove();
+                }
             }
         }
         else if (Input.GetMouseButtonUp(1)) {

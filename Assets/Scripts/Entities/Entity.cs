@@ -28,13 +28,18 @@ public abstract class Entity : Updatable
     }
 
 
-    public virtual void Initialize() {
+    public virtual void Initialize(float population = -1) {
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         }
         AddToTurnManager();
-        population = entitySO.basePopulation;
+        if (population == -1) {
+            this.population = entitySO.basePopulation;
+        }
+        else {
+            this.population = population;
+        }
     }
 
     public override void UpdateTurn() {
@@ -53,7 +58,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && 
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind &&
                     ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);
@@ -61,7 +66,6 @@ public abstract class Entity : Updatable
         }
         if (freeTiles.Count > 0) {
             return freeTiles[Random.Range(0, freeTiles.Count)];
-            //return freeTiles[0];
         }
         else {
             return null;
@@ -85,6 +89,9 @@ public abstract class Entity : Updatable
         if (population >= entitySO.populationMax) {
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
+                
+
+                population /= 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
                 
@@ -94,8 +101,11 @@ public abstract class Entity : Updatable
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
+                    if (adjacent.wind) {
+                        adjacent.wind.DestroyWind();
+                    }
                 }
-                entity.Initialize();
+                entity.Initialize(population);
             }
         }
     }
@@ -109,12 +119,8 @@ public abstract class Entity : Updatable
             tile.staticEntity = null;
         }
         RemoveFromTurnManager();
-        if (gameObject == null) {
-            Debug.Log("Already killed");
-        }
-        else {
+        if (this != null) {
             Destroy(gameObject);
         }
-        
     }
 }

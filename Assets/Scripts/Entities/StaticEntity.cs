@@ -26,8 +26,8 @@ public class StaticEntity : Entity
         EndTurn();
     }
 
-    public override void Initialize() {
-        base.Initialize();
+    public override void Initialize(float population = -1) {
+        base.Initialize(population);
         tile.staticEntity = this;
     }
 }
