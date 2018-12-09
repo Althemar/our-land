@@ -58,7 +58,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && 
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind &&
                     ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);
@@ -89,6 +89,8 @@ public abstract class Entity : Updatable
         if (population >= entitySO.populationMax) {
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
+                
+
                 population /= 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
@@ -99,6 +101,9 @@ public abstract class Entity : Updatable
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
+                    if (adjacent.wind) {
+                        adjacent.wind.DestroyWind();
+                    }
                 }
                 entity.Initialize(population);
             }

@@ -13,17 +13,14 @@ public class Wind : Updatable
 
     private TileProperties tile;
 
-
     bool previousAlreadyUpdated;
 
     private ParticleSystem ps;
     private List<Vector4> custom1, custom2;
-
     
     private void Update() {
 
         if (Time.frameCount == 1) {
-            
 
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             TileProperties tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
@@ -32,18 +29,14 @@ public class Wind : Updatable
             
             Wind current = this;
 
+
             for (int i = 0; i < baseSize - 1; i++) {
                 TileProperties nextTile = current.tile.GetNeighbor(direction);
                 Wind newWind = Instantiate(WindManager.Instance.wind, nextTile.transform.position, Quaternion.identity, transform.parent).GetComponent<Wind>();
-
                 current.next.Add(newWind);
-                newWind.InitializeChildWind(nextTile, current, direction);
-
-              
+                newWind.InitializeChildWind(nextTile, current, direction);     
                 current = newWind;
             }
-            StartParticleSystem();
-
         }
 
 
@@ -82,7 +75,6 @@ public class Wind : Updatable
                             custom1[i] = custom;
                         }
 
-
                     }
                     else if (tile.wind.next.Count == 1) {
                         particles[i].velocity = HexagonalGrid.Instance.Metrics.GetBorder(tile.wind.next[0].direction);
@@ -117,16 +109,10 @@ public class Wind : Updatable
         tile.wind = this;
 
         ps = GetComponentInChildren<ParticleSystem>();
+        ps.Play();
     }
 
-    public void StartParticleSystem(Particle[] particles = null) {
-        if (!ps.isPlaying) {
-            ps.Play();
-            if (particles != null) {
-                ps.SetParticles(particles);
-            }
-        }
-    }
+  
 
     public override void UpdateTurn() {
         base.UpdateTurn();
@@ -181,9 +167,6 @@ public class Wind : Updatable
         RemoveFromTurnManager();
 
         if (!ps.isPlaying) {
-            foreach (Wind w in next) {
-                w.StartParticleSystem();
-            }
             Destroy(gameObject);
         }
         else {
@@ -229,16 +212,8 @@ public class Wind : Updatable
 
     public IEnumerator WaitBeforeDestroy() {
         ps.Stop();
-        yield return new WaitForSeconds(0.3f);
-        if (next.Count > 0) {
-            Particle[] particles = new Particle[ps.particleCount];
-            ps.GetParticles(particles);
-            foreach (Wind w in next) {
-                w.StartParticleSystem(particles);
-            }
-        }
-
-        yield return new WaitForSeconds(20f);
+        float timeToWait = ps.main.startLifetime.constant;
+        yield return new WaitForSeconds(timeToWait);
         Destroy(gameObject);
     }
 }
