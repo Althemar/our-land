@@ -109,7 +109,15 @@ public class Wind : Updatable
         tile.wind = this;
 
         ps = GetComponentInChildren<ParticleSystem>();
+        EmissionModule emission = ps.emission;
+        if (previous == null) {
+            emission.rateOverTime = WindManager.Instance.beginRate;
+        }
+        else {
+            emission.rateOverTime = WindManager.Instance.normalRate;
+        }
         ps.Play();
+
     }
 
   
@@ -213,6 +221,10 @@ public class Wind : Updatable
     public IEnumerator WaitBeforeDestroy() {
         ps.Stop();
         float timeToWait = ps.main.startLifetime.constant;
+        foreach (Wind wind in next) {
+            EmissionModule emission = wind.ps.emission;
+            emission.rateOverTime = WindManager.Instance.beginRate;
+        }
         yield return new WaitForSeconds(timeToWait);
         Destroy(gameObject);
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4259231738196236317}
   - component: {fileID: 5738265387272880311}
   m_Layer: 0
-  m_Name: Tornado
+  m_Name: Whirldwind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

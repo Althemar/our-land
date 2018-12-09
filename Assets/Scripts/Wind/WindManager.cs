@@ -7,8 +7,14 @@ public class WindManager : MonoBehaviour
     public GameObject whirlwind;
     public GameObject wind;
 
+
+    [Header("Blocking")]
     public List<EntitySO> blockingEntities;
     public List<CustomTile> blockingTiles;
+
+    [Header("Particle System")]
+    public float normalRate;
+    public float beginRate;
 
     public static WindManager Instance;
 
