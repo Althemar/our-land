@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class MotherShip : MonoBehaviour
 {
-
     public float food;
     public int harvestDistance;
+
+    public int reach = 2;
+
+    private int actionPoints = 2;
+    private int remainingActionPoints;
     
 
     private Movable movable;
     public  HexagonsOutline outline;
 
+    public int ActionPoints
+    {
+        get => actionPoints;
+    }
 
+    public int RemainingActionPoints
+    {
+        get => remainingActionPoints;
+    }
 
     private void Start() {
         movable = GetComponent<Movable>();

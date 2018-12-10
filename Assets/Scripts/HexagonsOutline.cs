@@ -5,14 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexagonsOutline : MonoBehaviour
 {
-
     private Mesh mesh;
 
-    private void Start() {
-        mesh = GetComponent<MeshFilter>().mesh;
-    }
-
     public void InitMesh(List<TileProperties> reachables) {
+        mesh = GetComponent<MeshFilter>().mesh;
         transform.position = new Vector3(0, 0, -0.1f);
         List<Vector3> vertices = new List<Vector3>();
 
@@ -38,8 +34,7 @@ public class HexagonsOutline : MonoBehaviour
         }
 
         mesh.vertices = vertices.ToArray();
-
-        CreateTriangles(vertices, nbRectangles);
+        CreateTriangles(vertices, nbRectangles);  
     }
 
     // Get the next rechable tiles for a tile limit. Read tiles clockwise
@@ -91,7 +86,6 @@ public class HexagonsOutline : MonoBehaviour
         vertices.Add(left);
         vertices.Add(other);
     }
-
 
     private void CreateTriangles(List<Vector3> vertices, int nbRectangles) {
         int trianglesSize = nbRectangles * 6;

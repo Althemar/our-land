@@ -19,6 +19,7 @@ public class TileProperties : MonoBehaviour
     public Movable currentMovable;
 
     private bool isInReachables;
+    private int actionPointCost;
 
    
     public StaticEntity staticEntity;
@@ -69,6 +70,12 @@ public class TileProperties : MonoBehaviour
     {
         get => isInReachables;
         set => isInReachables = value;
+    }
+
+    public int ActionPointCost
+    {
+        get => actionPointCost;
+        set => actionPointCost = value;
     }
 
     /*
@@ -186,10 +193,10 @@ public class TileProperties : MonoBehaviour
     
 
     // Get reachable tiles (take in count if tile is walkable and walk cost)
-    public List<TileProperties> TilesReachable(int movement) {
+    public List<TileProperties> TilesReachable(int movement, int reach) {
         List<TileProperties> visited = new List<TileProperties>();
         visited.Add(this);
-
+   
         List<TileProperties>[] fringes = new List<TileProperties>[movement+1];
         
         fringes[0] = new List<TileProperties>();
@@ -199,8 +206,10 @@ public class TileProperties : MonoBehaviour
         for (int i = 1; i <= movement; i++) {
             fringes[i] = new List<TileProperties>();
         }
-
+        int cost = 1;
+        int currentReach = 0;
         for (int i = 1; i <= movement+1; i++) {
+            currentReach++;
             foreach (TileProperties previousTile in fringes[i - 1]) {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
@@ -209,12 +218,20 @@ public class TileProperties : MonoBehaviour
                         int distance = i-1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
-                            neighbor.isInReachables = true;
+                            //neighbor.isInReachables = true;
+                            neighbor.actionPointCost = cost;
                             visited.Add(neighbor);
+
                         }
                     }
                 }
+                
             }
+            if (currentReach >= reach) {
+                currentReach = 0;
+                cost++;
+            }
+
         }
         return visited;
     }

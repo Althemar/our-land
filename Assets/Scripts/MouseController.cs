@@ -9,10 +9,14 @@ public class MouseController : MonoBehaviour
     public Movable tmpMovable;
     public ReachableTilesDisplay reachableTiles;
 
+    public Material movementOutline;
+
     private Camera cam;
+    List<HexagonsOutline> movementPreviews;
    
     void Start() {
         cam = Camera.main;
+        movementPreviews = new List<HexagonsOutline>();
     }
 
     void Update() {
@@ -20,16 +24,58 @@ public class MouseController : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) {
             if (!tmpMovable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
                 TileProperties tile = GetTile();
-                tmpMovable.ReachableTiles = tmpMovable.CurrentTile.TilesReachable(tmpMovable.walkDistance);
-                reachableTiles.InitReachableTiles(tmpMovable.ReachableTiles, tile, tmpMovable);
-                if (tmpMovable.GetComponent<MotherShip>()) {
-                    tmpMovable.GetComponent<MotherShip>().BeginMove();
+
+                MotherShip motherShip = tmpMovable.GetComponent<MotherShip>();
+                if (motherShip) {
+                    motherShip.BeginMove();
+
+
+                    List<TileProperties> reachables = tmpMovable.CurrentTile.TilesReachable(motherShip.ActionPoints * motherShip.reach, motherShip.reach);
+
+                    List<TileProperties>[] reachablesByReach = new List<TileProperties>[motherShip.ActionPoints];
+                    for (int i = 0; i < reachablesByReach.Length; i++) {
+                        reachablesByReach[i] = new List<TileProperties>();
+                    }
+
+
+                    for (int i = 1; i < reachables.Count; i++) {
+                        for (int j = reachables[i].ActionPointCost - 1; j < reachablesByReach.Length; j++) {
+                            reachablesByReach[j].Add(reachables[i]);
+                        }
+                    }
+                    
+                    for (int i = 0; i < reachablesByReach.Length; i++) {
+                        HexagonsOutline outline = new GameObject().AddComponent<HexagonsOutline>();
+                        MeshRenderer renderer = outline.GetComponent<MeshRenderer>();
+                        renderer.material = movementOutline;
+                        renderer.material.color = new Color(0, 0, 1f - (1f / (motherShip.ActionPoints) * (i - 1)), 1);
+
+                        movementPreviews.Add(outline);
+
+                        for (int j = 0; j < reachablesByReach[i].Count; j++) {
+                            reachablesByReach[i][j].IsInReachables = true;
+                        }
+                        outline.InitMesh(reachablesByReach[i]);
+                        
+
+                    }
+
+                    for (int i = 0; i < reachables.Count; i++) {
+                        reachables[i].IsInReachables = false;
+                    }
+                    tmpMovable.ReachableTiles = reachables;
+                    reachableTiles.InitReachableTiles(reachables, tile, tmpMovable);
                 }
+                
             }
         }
         else if (Input.GetMouseButtonUp(1)) {
             if (reachableTiles.Displaying) {
                 reachableTiles.UndisplayReachables();
+                for (int i = 0; i < movementPreviews.Count; i++) {
+                    Destroy(movementPreviews[i].gameObject);
+                }
+                movementPreviews.Clear();
                 if (tmpMovable.ReachableTiles.Contains(GetTile())) {
                     tmpMovable.MoveToTile(GetTile());
                 }
