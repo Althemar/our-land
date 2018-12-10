@@ -196,7 +196,9 @@ public class TileProperties : MonoBehaviour
     public List<TileProperties> TilesReachable(int movement, int reach) {
         List<TileProperties> visited = new List<TileProperties>();
         visited.Add(this);
-   
+        actionPointCost = 0;
+
+
         List<TileProperties>[] fringes = new List<TileProperties>[movement+1];
         
         fringes[0] = new List<TileProperties>();

@@ -54,10 +54,12 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     public void ColorPath(Stack<TileProperties> path) {
         canvasPath.pathPoints = new Vector3[path.Count];
+        canvasPath.pathTiles = new TileProperties[path.Count];
         int i = 0;
         while (path.Count > 0) {
             TileProperties tile = path.Pop();
-            canvasPath.pathPoints[i++] = tile.Tilemap.GetCellCenterWorld(tile.Position);
+            canvasPath.pathPoints[i] = tile.Tilemap.GetCellCenterWorld(tile.Position);
+            canvasPath.pathTiles[i++] = tile;
         }
         canvasPath.UpdatePath();
     }
