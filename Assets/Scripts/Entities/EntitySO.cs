@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
+using RotaryHeart.Lib.SerializableDictionary;
+
+[Serializable]
+public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, float>
+{
+}
 
 //[CreateAssetMenu(fileName = "Entity", menuName = "Entity", order = 1)]
 public class EntitySO : ScriptableObject
@@ -23,5 +30,8 @@ public class EntitySO : ScriptableObject
 
     [ReorderableList]
     public List<CustomTile> availableTiles;
+
+    [SerializeField]
+    public ResourcesToHarvest resources;
    
 }

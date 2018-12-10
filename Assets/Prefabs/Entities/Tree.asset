@@ -20,3 +20,32 @@ MonoBehaviour:
   foodWhenHarvested: 1.5
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
+  resources:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
+    _values:
+    - 4
