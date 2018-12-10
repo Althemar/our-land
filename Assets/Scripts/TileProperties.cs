@@ -218,20 +218,17 @@ public class TileProperties : MonoBehaviour
                         int distance = i-1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
-                            //neighbor.isInReachables = true;
                             neighbor.actionPointCost = cost;
                             visited.Add(neighbor);
 
                         }
                     }
                 }
-                
             }
             if (currentReach >= reach) {
                 currentReach = 0;
                 cost++;
             }
-
         }
         return visited;
     }

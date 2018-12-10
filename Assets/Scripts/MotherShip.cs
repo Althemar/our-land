@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Movable))]
 public class MotherShip : MonoBehaviour
 {
     public float food;
@@ -9,12 +10,16 @@ public class MotherShip : MonoBehaviour
 
     public int reach = 2;
 
-    private int actionPoints = 2;
+    public int actionPoints = 2;
     private int remainingActionPoints;
     
 
     private Movable movable;
     public  HexagonsOutline outline;
+
+    public delegate void OnMotherShipDelegate();
+    public OnMotherShipDelegate OnTurnBegin;
+    public OnMotherShipDelegate OnEndMoving;
 
     public int ActionPoints
     {
@@ -29,6 +34,7 @@ public class MotherShip : MonoBehaviour
     private void Start() {
         movable = GetComponent<Movable>();
         movable.OnReachEndTile += EndMove;
+        remainingActionPoints = actionPoints;
     }
 
     // Update is called once per frame
@@ -36,6 +42,13 @@ public class MotherShip : MonoBehaviour
     {
         if (Time.frameCount == 1) {
             EndMove();
+        }
+    }
+
+    public void BeginTurn() {
+        remainingActionPoints = actionPoints;
+        if (OnTurnBegin != null) {
+            OnTurnBegin();
         }
     }
 
@@ -51,6 +64,11 @@ public class MotherShip : MonoBehaviour
         outline.InitMesh(reachables);
         for (int i = 0; i < reachables.Count; i++) {
             reachables[i].IsInReachables = false;
+        }
+        
+        remainingActionPoints -= movable.CurrentTile.ActionPointCost;
+        if (OnEndMoving != null) {
+            OnEndMoving();
         }
     }
 }
