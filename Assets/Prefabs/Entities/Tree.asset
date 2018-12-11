@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f36ee55967f34b4dbc30a67574414a5, type: 3}
   m_Name: Tree
   m_EditorClassIdentifier: 
+  name: Tree
   sprite: {fileID: 21300000, guid: 7fc5b50856e991743a0cc55319f4cb14, type: 3}
   basePopulation: 3
   populationMax: 10
@@ -47,5 +48,4 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
     _keys:
     - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
-    _values:
-    - 4
+    _values: 04000000

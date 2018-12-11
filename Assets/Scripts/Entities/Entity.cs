@@ -53,7 +53,6 @@ public abstract class Entity : Updatable
         }
     }
    
-
     public TileProperties GetFreeAdjacentTile(EntityType type) {
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();

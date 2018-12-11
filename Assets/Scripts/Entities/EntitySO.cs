@@ -13,6 +13,7 @@ public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, int>
 //[CreateAssetMenu(fileName = "Entity", menuName = "Entity", order = 1)]
 public class EntitySO : ScriptableObject
 {
+    public string name;
     public Sprite sprite;
 
     [BoxGroup("Population")]

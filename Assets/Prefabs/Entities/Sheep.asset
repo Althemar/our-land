@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
   m_Name: Sheep
   m_EditorClassIdentifier: 
+  name: Sheep
   sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
   basePopulation: 6
   populationMax: 10
@@ -50,9 +51,7 @@ MonoBehaviour:
     _keys:
     - {fileID: 11400000, guid: cc7064721decdb34895fd5eb8a72f858, type: 2}
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _values:
-    - 3
-    - 1
+    _values: 0300000001000000
   movementPoints: 2
   foodConsumption: 0.08
   satietyThreshold: 1

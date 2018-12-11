@@ -12,9 +12,12 @@ public class MouseController : MonoBehaviour
     public MotherShip motherShip;
 
     public Material movementOutline;
+    public EntitiesHarvestable entitiesHarvestable;
 
     private Camera cam;
     private Movable movable;
+
+
 
     List<HexagonsOutline> movementPreviews;
    
@@ -25,8 +28,11 @@ public class MouseController : MonoBehaviour
     }
 
     void Update() {
-
+        
         if (Input.GetMouseButtonDown(1)) {
+            if (entitiesHarvestable.Displaying) {
+                entitiesHarvestable.Clear();
+            }
             RightClickDown();
         }
         else if (Input.GetMouseButtonUp(1)) {
@@ -34,21 +40,13 @@ public class MouseController : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0)) {
             TileProperties tile = GetTile();
-            if (motherShip.tileInRange.Contains(tile)) {
-                if (tile.staticEntity && motherShip.RemainingActionPoints > 0) {
-                    foreach (KeyValuePair<ResourceType, int> resource in tile.staticEntity.entitySO.resources) {
-                        motherShip.inventory.AddItem(resource.Key, resource.Value);
-                    }
-                    motherShip.RemainingActionPoints--;
-                    tile.staticEntity.Kill();
-                }
-                if (tile.movingEntity && motherShip.RemainingActionPoints > 0) {
-                    foreach (KeyValuePair<ResourceType, int> resource in tile.movingEntity.entitySO.resources) {
-                        motherShip.inventory.AddItem(resource.Key, resource.Value);
-                    }
-                    motherShip.RemainingActionPoints--;
-                    tile.movingEntity.Kill();
-                }
+
+            if (motherShip.tileInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
+                entitiesHarvestable.Clear();
+                entitiesHarvestable.NewEntitiesToHarvest(tile);
+            }
+            else if (entitiesHarvestable.Displaying && !entitiesHarvestable.CursorIsOnButton()){
+                entitiesHarvestable.Clear();
             }
         }
         if (reachableTiles.Displaying) {
