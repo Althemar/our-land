@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wool
   m_EditorClassIdentifier: 
   name: Wool
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b49f98113dd5a5a41a44d6e8aa0b7735, type: 3}

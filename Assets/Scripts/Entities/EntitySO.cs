@@ -6,7 +6,7 @@ using System;
 using RotaryHeart.Lib.SerializableDictionary;
 
 [Serializable]
-public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, float>
+public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, int>
 {
 }
 

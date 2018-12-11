@@ -45,11 +45,10 @@ MonoBehaviour:
     reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
     isExpanded: 1
     _keyValues:
-    - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _keys:
-    - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
-    _values:
-    - 1
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _values: 01000000
   movementPoints: 1
   foodConsumption: 0.15
   satietyThreshold: 1

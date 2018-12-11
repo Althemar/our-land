@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿using RotaryHeart.Lib.SerializableDictionary;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Movable))]
+
+
+[RequireComponent(typeof(Movable), typeof(Inventory))]
 public class MotherShip : MonoBehaviour
 {
+    
+
     public float food;
     public int harvestDistance;
 
@@ -16,10 +22,17 @@ public class MotherShip : MonoBehaviour
 
     private Movable movable;
     public  HexagonsOutline outline;
+    public Inventory inventory;
+
+    public List<TileProperties> tileInRange;
+
+    [SerializeField]
+    public Resources resources;  
 
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;
     public OnMotherShipDelegate OnEndMoving;
+    public OnMotherShipDelegate OnRemainingPointsChanged;
 
     public int ActionPoints
     {
@@ -29,6 +42,13 @@ public class MotherShip : MonoBehaviour
     public int RemainingActionPoints
     {
         get => remainingActionPoints;
+        set
+        {
+            remainingActionPoints = value;
+            if (OnRemainingPointsChanged != null) {
+                OnRemainingPointsChanged();
+            }
+        }
     }
 
     private void Start() {
@@ -57,13 +77,13 @@ public class MotherShip : MonoBehaviour
     }
 
     void EndMove() {
-        List<TileProperties> reachables = movable.CurrentTile.InRange(harvestDistance);
-        for (int i = 0; i < reachables.Count; i++) {
-            reachables[i].IsInReachables = true;
+        tileInRange = movable.CurrentTile.InRange(harvestDistance);
+        for (int i = 0; i < tileInRange.Count; i++) {
+            tileInRange[i].IsInReachables = true;
         }
-        outline.InitMesh(reachables);
-        for (int i = 0; i < reachables.Count; i++) {
-            reachables[i].IsInReachables = false;
+        outline.InitMesh(tileInRange);
+        for (int i = 0; i < tileInRange.Count; i++) {
+            tileInRange[i].IsInReachables = false;
         }
         
         remainingActionPoints -= movable.CurrentTile.ActionPointCost;
@@ -71,4 +91,7 @@ public class MotherShip : MonoBehaviour
             OnEndMoving();
         }
     }
+
+
+    
 }

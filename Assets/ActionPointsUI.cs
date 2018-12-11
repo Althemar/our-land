@@ -14,6 +14,7 @@ public class ActionPointsUI : MonoBehaviour
         text = GetComponent<TMP_Text>();
         motherShip.OnTurnBegin += UpdateActionPointsCount;
         motherShip.OnEndMoving += UpdateActionPointsCount;
+        motherShip.OnRemainingPointsChanged += UpdateActionPointsCount;
     }
 
     public void UpdateActionPointsCount() {
