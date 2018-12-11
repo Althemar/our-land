@@ -1,0 +1,50 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
+
+public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    public TMP_Text text;
+    public Button button;
+
+    private Entity entity;
+    private EntitiesHarvestable entitiesHarvestable;
+
+    private bool pointerIsOnButton = false;
+
+    public bool PointerIsOnButton
+    {
+        get => pointerIsOnButton;
+    }
+
+    public void Initialize(Entity entity, EntitiesHarvestable entitiesHarvestable) {
+        text.text = entity.entitySO.name;
+        this.entity = entity;
+        this.entitiesHarvestable = entitiesHarvestable;
+        if (entitiesHarvestable.motherShip.RemainingActionPoints > 0) {
+            button = GetComponent<Button>();
+            button.interactable = true;
+        }
+    }
+
+    public void HarvestEntity() {
+        foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
+            entitiesHarvestable.motherShip.inventory.AddItem(resource.Key, resource.Value);
+        }
+        entitiesHarvestable.motherShip.RemainingActionPoints--;
+        entity.Kill();
+        entitiesHarvestable.Clear();
+    }
+
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        pointerIsOnButton = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        pointerIsOnButton = false;
+    }
+}

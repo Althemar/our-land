@@ -21,6 +21,7 @@ public class ResourceUI : MonoBehaviour
         }
 
         inv.OnInventoryChange += RefreshView;
+        RefreshView();
     }
 
     public void DebugAdd() {

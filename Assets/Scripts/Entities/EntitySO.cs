@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
+using RotaryHeart.Lib.SerializableDictionary;
+
+[Serializable]
+public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, int>
+{
+}
 
 //[CreateAssetMenu(fileName = "Entity", menuName = "Entity", order = 1)]
 public class EntitySO : ScriptableObject
 {
+    public string name;
     public Sprite sprite;
 
     [BoxGroup("Population")]
@@ -23,5 +31,8 @@ public class EntitySO : ScriptableObject
 
     [ReorderableList]
     public List<CustomTile> availableTiles;
+
+    [SerializeField]
+    public ResourcesToHarvest resources;
    
 }

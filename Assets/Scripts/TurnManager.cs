@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Instance;
 
     public HexagonalGrid grid;
+    public MotherShip motherShip;
 
     [ReorderableList]
     public List<TurnState> turnOrder;
@@ -140,6 +141,7 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurnUpdate() {
         state = TurnState.Player;
+        motherShip.BeginTurn();
         turnCount++;
         if (OnEndTurn != null) {
             OnEndTurn();

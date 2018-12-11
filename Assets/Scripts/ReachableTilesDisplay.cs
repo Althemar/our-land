@@ -4,8 +4,7 @@ using UnityEngine;
 
 /*
  * ReachableTilesDisplay
- * Display a preview for the movement : 
- *      - Procedural mesh that cover the limit of the available tiles
+ * Display a preview for the movement : )
  *      - Color the tiles in the path to the pointed tile
  */
  
@@ -44,12 +43,6 @@ public class ReachableTilesDisplay : MonoBehaviour
         this.movable = movable;
         this.reachables = reachables;
         displaying = true;
-
-        outline.InitMesh(reachables);
-
-        foreach (TileProperties reachable in reachables) {
-            reachable.IsInReachables = false;
-        }
     }
 
 
@@ -57,15 +50,16 @@ public class ReachableTilesDisplay : MonoBehaviour
         displaying = false;
         canvasPath.pathPoints = new Vector3[0];
         canvasPath.UpdatePath();
-        outline.Clear();
     }
 
     public void ColorPath(Stack<TileProperties> path) {
         canvasPath.pathPoints = new Vector3[path.Count];
+        canvasPath.pathTiles = new TileProperties[path.Count];
         int i = 0;
         while (path.Count > 0) {
             TileProperties tile = path.Pop();
-            canvasPath.pathPoints[i++] = tile.Tilemap.GetCellCenterWorld(tile.Position);
+            canvasPath.pathPoints[i] = tile.Tilemap.GetCellCenterWorld(tile.Position);
+            canvasPath.pathTiles[i++] = tile;
         }
         canvasPath.UpdatePath();
     }

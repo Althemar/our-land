@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
   m_Name: Sheep
   m_EditorClassIdentifier: 
+  name: Sheep
   sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
   basePopulation: 6
   populationMax: 10
@@ -21,6 +22,36 @@ MonoBehaviour:
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
+  resources:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: cc7064721decdb34895fd5eb8a72f858, type: 2}
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: cc7064721decdb34895fd5eb8a72f858, type: 2}
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _values: 0300000001000000
   movementPoints: 2
   foodConsumption: 0.08
   satietyThreshold: 1

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RotaryHeart.Lib.SerializableDictionary
-{
+
     /// <summary>
     /// This class is used so that the dictionary keys can have a default value, unity editor will give the default value, because it can't be null.
     /// This should only be used for UnityEngine.Object inherited classes
@@ -16,5 +15,6 @@ namespace RotaryHeart.Lib.SerializableDictionary
         private Material _material;
         [SerializeField]
         private AudioClip _audioClip;
+        [SerializeField]
+        private ResourceType _scriptableObject;
     }
-}
