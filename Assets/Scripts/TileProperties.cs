@@ -31,6 +31,7 @@ public class TileProperties : MonoBehaviour {
     public bool asRiver;
     private bool[] rivers;
     private River[] riverJonction;
+    public bool asLake;
 
     /*
      * Properties
@@ -98,14 +99,15 @@ public class TileProperties : MonoBehaviour {
         if (tile == null)
             return;
 
+        if (this.asLake) {
+            CreateSprite(grid.humidity.lake, 2);
+            return;
+        }
+
         foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
             float rand = Random.value;
             if (rand < pair.Key && pair.Value.sprites.Count > 0) {
-                SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
-                spriteRenderer.transform.parent = transform;
-                spriteRenderer.transform.position = transform.position;
-                spriteRenderer.sprite = pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)];
-                spriteRenderer.sortingOrder = 1;
+                CreateSprite(pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)], 1);
             }
         }
     }
@@ -158,6 +160,7 @@ public class TileProperties : MonoBehaviour {
             else {
                 riverJonction[(int)direction].force += r.force;
                 r.force = 0;
+                r.doLake = false;
             }
 
         }
@@ -170,6 +173,7 @@ public class TileProperties : MonoBehaviour {
             else {
                 riverJonction[(int)direction].force += r.force;
                 r.force = 0;
+                r.doLake = false;
             }
         }
     }
@@ -178,37 +182,45 @@ public class TileProperties : MonoBehaviour {
         if (tile == null)
             return;
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             if (!rivers[i])
                 continue;
-            Sprite sprite = grid.ERiver;
+            Sprite sprite = grid.humidity.ERiver;
             switch ((HexDirection)i) {
                 case HexDirection.NE:
-                    CreateSprite(grid.NERiver);
+                    CreateSprite(grid.humidity.NERiver);
+                    if (!rivers[(int)HexDirection.NW] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.W])
+                        CreateSprite(grid.humidity.NERivNW);
+                    else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.SE])
+                        CreateSprite(grid.humidity.NERivSE);
                     break;
                 case HexDirection.E:
-                    CreateSprite(grid.ERiver);
+                    CreateSprite(grid.humidity.ERiver);
                     if (rivers[(int)HexDirection.NE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
-                        CreateSprite(grid.EInterNEW);
+                        CreateSprite(grid.humidity.EInterNEW);
                     else if (rivers[(int)HexDirection.NE])
-                        CreateSprite(grid.EInterNE);
+                        CreateSprite(grid.humidity.EInterNE);
                     else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
-                        CreateSprite(grid.EInterNW);
+                        CreateSprite(grid.humidity.EInterNW);
                     else
-                        CreateSprite(grid.ERivN);
+                        CreateSprite(grid.humidity.ERivN);
 
                     if (rivers[(int)HexDirection.SE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
-                        CreateSprite(grid.EInterSEW);
+                        CreateSprite(grid.humidity.EInterSEW);
                     else if (rivers[(int)HexDirection.SE])
-                        CreateSprite(grid.EInterSE);
+                        CreateSprite(grid.humidity.EInterSE);
                     else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
-                        CreateSprite(grid.EInterSW);
+                        CreateSprite(grid.humidity.EInterSW);
                     else
-                        CreateSprite(grid.ERivS);
+                        CreateSprite(grid.humidity.ERivS);
 
                     break;
                 case HexDirection.SE:
-                    CreateSprite(grid.SERiver);
+                    CreateSprite(grid.humidity.SERiver);
+                    if (!rivers[(int)HexDirection.SW] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.W])
+                        CreateSprite(grid.humidity.SERivSW);
+                    else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.NE])
+                        CreateSprite(grid.humidity.SERivNE);
                     break;
             }
 
@@ -216,12 +228,12 @@ public class TileProperties : MonoBehaviour {
         }
     }
 
-    private void CreateSprite(Sprite sprite) {
+    private void CreateSprite(Sprite sprite, int sorting = 5) {
         SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
         spriteRenderer.transform.parent = transform;
         spriteRenderer.transform.position = transform.position;
         spriteRenderer.sprite = sprite;
-        spriteRenderer.sortingOrder = 4;
+        spriteRenderer.sortingOrder = sorting;
     }
 
     public void SetBorders() {

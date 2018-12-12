@@ -9,6 +9,8 @@ public class River {
     public int force;
     private int state;
 
+    public bool doLake = true;
+
     public River(HexCoordinates source, HexDirection direction, bool counterClockwise) {
         this.source = source;
         this.direction = direction;
@@ -37,6 +39,29 @@ public class River {
             source = neigh.Coordinates;
             state = 0;
         }
+    }
 
+    public void PutLac(HexagonalGrid grid) {
+        if (!doLake)
+            return;
+
+        TileProperties tile = grid.GetTile(source);
+        if (!tile)
+            return;
+
+        TileProperties neigh = tile.GetNeighbor(counterClockwise ? direction.Previous().Previous() : direction.Next().Next());
+        if (!neigh)
+            return;
+        
+
+        if (state == 0) {
+            neigh.asLake = true;
+            state = 1;
+        }
+        else {
+            TileProperties lakePos = neigh.GetNeighbor(counterClockwise ? direction.Previous() : direction.Next());
+            lakePos.asLake = true;
+            state = 0;
+        }
     }
 }
