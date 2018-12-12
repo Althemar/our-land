@@ -39,7 +39,7 @@ public class MouseController : MonoBehaviour
         else if (Input.GetMouseButtonDown(0)) {
             TileProperties tile = GetTile();
 
-            if (motherShip.tileInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
+            if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
                 entitiesHarvestable.Clear();
                 entitiesHarvestable.NewEntitiesToHarvest(tile);
             }

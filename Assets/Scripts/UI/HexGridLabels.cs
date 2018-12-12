@@ -14,7 +14,7 @@ public class HexGridLabels : MonoBehaviour {
     private Dictionary<Vector3Int, TMP_Text> cellTexts;
 
     private void Update() {
-        if (Time.frameCount == 1) {
+        if (GameManager.Instance.FrameCount == 0) {
             cellTexts = new Dictionary<Vector3Int, TMP_Text>();
 
             for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {

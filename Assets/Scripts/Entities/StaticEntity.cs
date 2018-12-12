@@ -14,7 +14,7 @@ public class StaticEntity : Entity
     }
 
     private void Update() {
-        if (Time.frameCount == 1) {
+        if (GameManager.Instance.FrameCount == 0) {
             Initialize();
         }
     }

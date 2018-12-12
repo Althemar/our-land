@@ -5,19 +5,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ResourcesGet : SerializableDictionaryBase<ResourceType, int> { }
+public class ResourcesGet : SerializableDictionaryBase<ResourceType, float> { }
 
 [CreateAssetMenu]
-public class Inventory : ScriptableObject
+public class Inventory : MonoBehaviour
 {
     public ResourcesGet resources;
     public CallbackFunction OnInventoryChange;
 
-    public void AddItem(ResourceType type, int amount) {
-        if(!resources.ContainsKey(type))
+    public void AddItem(ResourceType type, float amount) {
+        if (!resources.ContainsKey(type)) {
             resources.Add(type, 0);
+        }
         resources[type] += amount;
         
         OnInventoryChange();
+    }
+
+    public float GetResource(ResourceType type) {
+        return resources[type];
     }
 }

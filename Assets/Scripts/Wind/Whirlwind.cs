@@ -42,8 +42,6 @@ public class Whirlwind : Updatable
         }
     }
 
-    
-
     public override void AddToTurnManager() {
         TurnManager.Instance.AddToUpdate(this);
     }

@@ -15,12 +15,13 @@ public class Wind : Updatable
 
     bool previousAlreadyUpdated;
 
-    private ParticleSystem ps;
+    public ParticleSystem ps;
     private List<Vector4> custom1, custom2;
-    
-    private void Update() {
 
-        if (Time.frameCount == 1) {
+
+    private void Update() {
+        
+        if (GameManager.Instance.FrameCount == 0) {
 
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             TileProperties tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
@@ -29,10 +30,8 @@ public class Wind : Updatable
             
             Wind current = this;
 
-
             for (int i = 0; i < baseSize - 1; i++) {
                 TileProperties nextTile = current.tile.GetNeighbor(direction);
-
 
                 Wind newWind = WindManager.Instance.WindsPool.Pop();
                 newWind.transform.position = nextTile.transform.position;
@@ -42,8 +41,10 @@ public class Wind : Updatable
             }
         }
 
+        if (!gameObject.activeSelf) {
+            return;
+        }
 
-        
         if (ps.isPlaying ) {
             Particle[] particles = new Particle[ps.particleCount];
             ps.GetParticles(particles);
@@ -95,9 +96,7 @@ public class Wind : Updatable
             ps.SetParticles(particles);
             ps.SetCustomParticleData(custom1, ParticleSystemCustomData.Custom1);
             ps.SetCustomParticleData(custom2, ParticleSystemCustomData.Custom2);
-
         } 
-
     }
 
     public void InitializeChildWind(TileProperties tile, Wind previous, HexDirection direction) {
@@ -120,10 +119,7 @@ public class Wind : Updatable
             emission.rateOverTime = WindManager.Instance.normalRate;
         }
         ps.Play();
-
     }
-
-  
 
     public override void UpdateTurn() {
         base.UpdateTurn();
@@ -136,7 +132,6 @@ public class Wind : Updatable
             tile.Tilemap.SetColor(tile.Position, Color.white);
             tile.wind = null;
             
-
             for (int i = 0; i < next.Count; i++) {
                 next[i].previous = null;
                 next[i].previousAlreadyUpdated = true;
@@ -186,10 +181,7 @@ public class Wind : Updatable
         else {
             StartCoroutine(WaitBeforeDestroy());
         }
-
     }
-
-
 
     private bool TryCreateNewWind(HexDirection nextDirection) {
         TileProperties nextTile = tile.GetNeighbor(nextDirection);
