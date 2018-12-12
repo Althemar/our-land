@@ -16,7 +16,7 @@ MonoBehaviour:
   canWalkThrough: 1
   walkCost: 3
   terrainType: 0
-  ambientRTPC: 
+  ambientRTPC: AMBIANCE_VOLUME_WETLANDS
   centers:
   - {fileID: 21300000, guid: 1401149cc65ae3543928dc744cd2be78, type: 3}
   bordersNW:
@@ -123,4 +123,7 @@ MonoBehaviour:
     _keyValues: []
     _keys: []
     _values: []
+  humidityDependant: 1
   riverSource: 0
+  riverDirection: 0
+  riverCounterClockwise: 0

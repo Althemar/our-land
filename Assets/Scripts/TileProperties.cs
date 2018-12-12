@@ -36,6 +36,8 @@ public class TileProperties : MonoBehaviour {
     private River[] riverJonction;
     public bool asLake;
 
+    public bool needRefresh = true;
+
     /*
      * Properties
      */
@@ -170,7 +172,7 @@ public class TileProperties : MonoBehaviour {
 
 
         if (r.counterClockwise) {
-            if (riverJonction[(int)direction] == null) {
+            if (riverJonction[(int)direction] == null || riverJonction[(int)direction].force == 0) {
                 riverJonction[(int)direction] = r;
                 GetNeighbor(direction).riverJonction[(int)direction.Opposite().Next()] = r;
                 GetNeighbor(direction.Previous()).riverJonction[(int)direction.Next().Next()] = r;
@@ -183,13 +185,13 @@ public class TileProperties : MonoBehaviour {
 
         }
         else {
-            if (riverJonction[(int)direction.Next()] == null) {
+            if (riverJonction[(int)direction.Next()] == null || riverJonction[(int)direction.Next()].force == 0) {
                 riverJonction[(int)direction.Next()] = r;
                 GetNeighbor(direction).riverJonction[(int)direction.Opposite()] = r;
                 GetNeighbor(direction.Next()).riverJonction[(int)direction.Previous()] = r;
             }
             else {
-                riverJonction[(int)direction].force += r.force;
+                riverJonction[(int)direction.Next()].force += r.force;
                 r.force = 0;
                 r.doLake = false;
             }

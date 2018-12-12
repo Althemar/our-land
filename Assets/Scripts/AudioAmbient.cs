@@ -12,11 +12,17 @@ public class AudioAmbient : MonoBehaviour {
 
     void Start () {
         cam = this.GetComponent<Camera> ();
+
+
+        AkSoundEngine.PostEvent("Play_DESERT_Pl", this.gameObject);
+        AkSoundEngine.PostEvent("Play_PRAIRIE_Pl", this.gameObject);
+        AkSoundEngine.PostEvent("Play_WATER_Pl", this.gameObject);
+        AkSoundEngine.PostEvent("Play_WETLAND_Pl", this.gameObject);
     }
 
     // Update is called once per frame
     void Update () {
-        GetSoundAmbient();
+        //GetSoundAmbient();
         PlayMusic();
     }
 

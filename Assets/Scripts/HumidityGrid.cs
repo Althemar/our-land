@@ -121,18 +121,32 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
                     if (grid.tilesArray[i, j].Tile && grid.tilesArray[i, j].Tile.humidityDependant) {
-                        if (grid.tilesArray[i, j].humidity < 1)
+                        if (grid.tilesArray[i, j].humidity < 1) {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != lowHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, lowHumidityTile);
-                        else if (grid.tilesArray[i, j].humidity > 6)
+                        }
+                        else if (grid.tilesArray[i, j].humidity > 6) {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != highHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, highHumidityTile);
-                        else
+                        }
+                        else {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != normalHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, normalHumidityTile);
+                        }
                     }
                 }
             }
         }
 
-        grid.Tilemap.RefreshAllTiles();
+        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
+                if (grid.tilesArray[i, j] != null && grid.tilesArray[i, j].needRefresh) {
+                    grid.Tilemap.RefreshTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates);
+                }
+            }
+        }
+
+        //grid.Tilemap.RefreshAllTiles();
         grid.ResetTiles();
         grid.SetAddons();
         grid.SetBorders();
