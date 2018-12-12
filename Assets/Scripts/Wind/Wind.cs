@@ -32,7 +32,10 @@ public class Wind : Updatable
 
             for (int i = 0; i < baseSize - 1; i++) {
                 TileProperties nextTile = current.tile.GetNeighbor(direction);
-                Wind newWind = Instantiate(WindManager.Instance.wind, nextTile.transform.position, Quaternion.identity, transform.parent).GetComponent<Wind>();
+
+
+                Wind newWind = WindManager.Instance.WindsPool.Pop();
+                newWind.transform.position = nextTile.transform.position;
                 current.next.Add(newWind);
                 newWind.InitializeChildWind(nextTile, current, direction);     
                 current = newWind;
@@ -150,7 +153,10 @@ public class Wind : Updatable
         }
         else if (nextTile && nextTile.wind && !next.Contains(nextTile.wind)) {
             nextTile.wind.DestroyWind();
-            nextTile.whirlwind = Instantiate(WindManager.Instance.whirlwind, nextTile.transform.position, Quaternion.identity, transform.parent).GetComponent<Whirlwind>();
+
+            Whirlwind newWhirlwind = WindManager.Instance.WhirldwindsPool.Pop();
+            newWhirlwind.transform.position = nextTile.transform.position;
+            nextTile.whirlwind = newWhirlwind;
             nextTile.whirlwind.InitializeWhirlwind(nextTile);
         }
  
@@ -188,7 +194,10 @@ public class Wind : Updatable
     private bool TryCreateNewWind(HexDirection nextDirection) {
         TileProperties nextTile = tile.GetNeighbor(nextDirection);
         if (CanCreateWindOnTile(nextTile)) {
-            Wind newWind = Instantiate(WindManager.Instance.wind, nextTile.transform.position, Quaternion.identity, transform.parent).GetComponent<Wind>();
+
+            Wind newWind = WindManager.Instance.WindsPool.Pop();
+            newWind.transform.position = nextTile.transform.position;
+            
             next.Add(newWind);
             newWind.InitializeChildWind(nextTile, this, nextDirection);
             return true;
@@ -226,6 +235,7 @@ public class Wind : Updatable
             emission.rateOverTime = WindManager.Instance.beginRate;
         }
         yield return new WaitForSeconds(timeToWait);
-        Destroy(gameObject);
+
+        WindManager.Instance.WindsPool.Push(this);
     }
 }

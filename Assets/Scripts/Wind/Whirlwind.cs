@@ -6,9 +6,6 @@ public class Whirlwind : Updatable
 {
     private TileProperties tile;
 
-    
-
-    
     public void InitializeWhirlwind(TileProperties tile) {
         this.tile = tile;
         AddToTurnManager();
@@ -32,7 +29,7 @@ public class Whirlwind : Updatable
             tile.whirlwind = null;
             EndTurn();
             RemoveFromTurnManager();
-            Destroy(gameObject);
+            WindManager.Instance.WhirldwindsPool.Push(this);
         }
         else {
             if (tile.staticEntity) {
