@@ -9,22 +9,26 @@ using UnityEngine;
 [RequireComponent(typeof(Movable), typeof(Inventory))]
 public class MotherShip : MonoBehaviour
 {
-    
-
-    public float food;
     public int harvestDistance;
 
     public int reach = 2;
 
     public int actionPoints = 2;
+    public HexagonsOutline outline;
+     
+
+    public ResourceType populationResource;
+
+    public ResourceType foodResource;
+    public float foodConsumption;
+
+   
     private int remainingActionPoints;
-    
-
+ 
     private Movable movable;
-    public  HexagonsOutline outline;
-    public Inventory inventory;
+    private Inventory inventory;
 
-    public List<TileProperties> tileInRange;
+    private List<TileProperties> tilesInRange;
 
     [SerializeField]
     public Resources resources;  
@@ -45,14 +49,28 @@ public class MotherShip : MonoBehaviour
         set
         {
             remainingActionPoints = value;
-            if (OnRemainingPointsChanged != null) {
-                OnRemainingPointsChanged();
-            }
+            OnRemainingPointsChanged?.Invoke();
         }
+    }
+
+    public List<TileProperties> TilesInRange
+    {
+        get => tilesInRange;
+    }
+
+    public Inventory Inventory
+    {
+        get => inventory;
+    }
+
+    public Movable Movable
+    {
+        get => movable;
     }
 
     private void Start() {
         movable = GetComponent<Movable>();
+        inventory = GetComponent<Inventory>();
         movable.OnReachEndTile += EndMove;
         remainingActionPoints = actionPoints;
     }
@@ -60,16 +78,17 @@ public class MotherShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.frameCount == 1) {
+        if (GameManager.Instance.FrameCount == 0) {
             EndMove();
         }
     }
 
     public void BeginTurn() {
+        inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
+        
         remainingActionPoints = actionPoints;
-        if (OnTurnBegin != null) {
-            OnTurnBegin();
-        }
+        OnTurnBegin?.Invoke();
+        OnRemainingPointsChanged?.Invoke();
     }
 
     public void BeginMove() {
@@ -77,21 +96,17 @@ public class MotherShip : MonoBehaviour
     }
 
     void EndMove() {
-        tileInRange = movable.CurrentTile.InRange(harvestDistance);
-        for (int i = 0; i < tileInRange.Count; i++) {
-            tileInRange[i].IsInReachables = true;
+        tilesInRange = movable.CurrentTile.InRange(harvestDistance);
+        for (int i = 0; i < tilesInRange.Count; i++) {
+            tilesInRange[i].IsInReachables = true;
         }
-        outline.InitMesh(tileInRange);
-        for (int i = 0; i < tileInRange.Count; i++) {
-            tileInRange[i].IsInReachables = false;
+        outline.InitMesh(tilesInRange);
+        for (int i = 0; i < tilesInRange.Count; i++) {
+            tilesInRange[i].IsInReachables = false;
         }
         
         remainingActionPoints -= movable.CurrentTile.ActionPointCost;
-        if (OnEndMoving != null) {
-            OnEndMoving();
-        }
+        OnEndMoving?.Invoke();
+        OnRemainingPointsChanged?.Invoke();
     }
-
-
-    
 }

@@ -4750,6 +4750,7 @@ MonoBehaviour:
   updated: 1
   baseSize: 10
   direction: 1
+  ps: {fileID: 6463166059277198136}
 --- !u!212 &8684890401102008638
 SpriteRenderer:
   m_ObjectHideFlags: 0

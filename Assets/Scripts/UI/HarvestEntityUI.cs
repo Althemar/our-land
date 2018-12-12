@@ -36,12 +36,14 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void HarvestEntity() {
         foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
-            entitiesHarvestable.motherShip.inventory.AddItem(resource.Key, resource.Value);
+            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value);
         }
         entitiesHarvestable.motherShip.RemainingActionPoints--;
         entity.Kill();
         entitiesHarvestable.Clear();
+        entitiesHarvestable.DisplayHarvestedResources(entity);
     }
+
 
 
     public void OnPointerEnter(PointerEventData eventData) {

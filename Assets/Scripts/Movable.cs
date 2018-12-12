@@ -34,8 +34,6 @@ public class Movable : MonoBehaviour
 
     public event OnMovableDelegate OnReachEndTile;
 
-
-
     /*
      * Properties
      */
@@ -78,7 +76,7 @@ public class Movable : MonoBehaviour
     }
 
     private void Update() {
-        if (Time.frameCount == 1) {
+        if (GameManager.Instance.FrameCount == 0) {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             currentTile.currentMovable = this;

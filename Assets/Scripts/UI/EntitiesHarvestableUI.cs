@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntitiesHarvestableUI : MonoBehaviour
 {
     public GameObject harvestEntityPrefab;
+    public GameObject resourcesGainedPrefab;
     public MotherShip motherShip;
     
     private TileProperties currentTile;
@@ -85,5 +86,19 @@ public class EntitiesHarvestableUI : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void DisplayHarvestedResources(Entity entity) {
+        StartCoroutine(DisplayHarvestedResourcesCoroutine(entity));
+    }
+
+    public IEnumerator DisplayHarvestedResourcesCoroutine(Entity entity) {
+        ResourcesToHarvest resources = entity.entitySO.resources;
+        Vector3 position = entity.transform.position;
+        foreach (KeyValuePair<ResourceType, int> resource in resources) {
+            ResourceHarvestedUI harvested = Instantiate(resourcesGainedPrefab, position, Quaternion.identity, transform).GetComponent<ResourceHarvestedUI>();
+            harvested.Initialize(resource.Key, resource.Value);
+            yield return new WaitForSeconds(1);
+        }
     }
 }

@@ -15,8 +15,6 @@ public class TurnManager : MonoBehaviour
         Others
     }
 
-   
-
     public static TurnManager Instance;
 
     public HexagonalGrid grid;
@@ -131,7 +129,7 @@ public class TurnManager : MonoBehaviour
 
 
     public void EndTurn() {
-        if (state != TurnState.Player) {
+        if (state != TurnState.Player || motherShip.Movable.Moving || GameManager.Instance.GameState != GameState.Playing) {
             return;
         }
         state = turnOrder[0];

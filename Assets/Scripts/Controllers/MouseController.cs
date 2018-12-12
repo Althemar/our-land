@@ -28,6 +28,10 @@ public class MouseController : MonoBehaviour
     }
 
     void Update() {
+
+        if (GameManager.Instance.GameState != GameState.Playing) {
+            return;
+        }
         
         if (Input.GetMouseButtonDown(1)) {
             
@@ -39,7 +43,7 @@ public class MouseController : MonoBehaviour
         else if (Input.GetMouseButtonDown(0)) {
             TileProperties tile = GetTile();
 
-            if (motherShip.tileInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
+            if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
                 entitiesHarvestable.Clear();
                 entitiesHarvestable.NewEntitiesToHarvest(tile);
             }
