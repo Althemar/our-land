@@ -11,7 +11,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public Button button;
 
     private Entity entity;
-    private EntitiesHarvestable entitiesHarvestable;
+    private EntitiesHarvestableUI entitiesHarvestable;
 
     private bool pointerIsOnButton = false;
 
@@ -20,7 +20,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
         get => pointerIsOnButton;
     }
 
-    public void Initialize(Entity entity, EntitiesHarvestable entitiesHarvestable) {
+    public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
         text.text = entity.entitySO.name;
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
@@ -28,6 +28,10 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
             button = GetComponent<Button>();
             button.interactable = true;
         }
+        else {
+            button.interactable = false;
+        }
+        pointerIsOnButton = false;
     }
 
     public void HarvestEntity() {
