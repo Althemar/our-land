@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  go: {fileID: 2368644894744130655, guid: 8f8f3988e58a4b94f9ce5db643d8ce6e, type: 3}
+  go: {fileID: 0}
   canWalkThrough: 1
   walkCost: 1
   terrainType: 0
+  ambientRTPC: 
   centers:
   - {fileID: 21300000, guid: 0571fed728622d44bad764e2f2df9533, type: 3}
   - {fileID: 21300000, guid: 22d1f7bc0961ccc409e799feacf15d56, type: 3}
   - {fileID: 21300000, guid: fa2c108cbac79ff45b2a2f13e5640653, type: 3}
-  bordersNWEditor: []
-  bordersWEditor: []
-  bordersSWEditor: []
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -162,3 +160,5 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 67cfb7364d001f04fa683d5ffa32f11e, type: 3}
       - {fileID: 21300000, guid: 9a68c6f24823369458c0700947e1ab6b, type: 3}
       - {fileID: 21300000, guid: fdb6c06d526bff74faf89ac3f62a315e, type: 3}
+  humidityDependant: 1
+  riverSource: 0

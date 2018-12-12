@@ -146,20 +146,20 @@ public class Movable : MonoBehaviour
         if (spine == null)
             return;
 
-        if (targetTile.Coordinates.X == currentTile.Coordinates.X) {
+        if (targetTile.Coordinates.CubicCoordinates.x == currentTile.Coordinates.CubicCoordinates.x) {
             spine.skeleton.ScaleX = 1;
-            if (targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
                 spine.skeleton.SetSkin("Front_Left");
             else
                 spine.skeleton.SetSkin("Back_Right");
         }
-        if (targetTile.Coordinates.Y == currentTile.Coordinates.Y) {
+        if (targetTile.Coordinates.CubicCoordinates.y == currentTile.Coordinates.CubicCoordinates.y) {
             spine.skeleton.SetSkin("Profile_Left");
-            spine.skeleton.ScaleX = (targetTile.Coordinates.Z < currentTile.Coordinates.Z) ? -1 : 1;
+            spine.skeleton.ScaleX = (targetTile.Coordinates.CubicCoordinates.z < currentTile.Coordinates.CubicCoordinates.z) ? -1 : 1;
         }
-        if (targetTile.Coordinates.Z == currentTile.Coordinates.Z) {
+        if (targetTile.Coordinates.CubicCoordinates.z == currentTile.Coordinates.CubicCoordinates.z) {
             spine.skeleton.ScaleX = -1;
-            if (targetTile.Coordinates.Y < currentTile.Coordinates.Y)
+            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
                 spine.skeleton.SetSkin("Front_Left");
             else
                 spine.skeleton.SetSkin("Back_Right");

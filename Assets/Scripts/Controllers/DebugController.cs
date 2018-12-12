@@ -18,16 +18,13 @@ public class DebugController : MonoBehaviour
             gridLabels.SwitchDisplay();
         }
         if (Input.GetKeyDown(KeyCode.O)) {
-            hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.offset);
-            gridLabels.RefreshCoordinates();
+            gridLabels.RefreshCoordinates(HexCoordinatesType.offset);
         }
         if (Input.GetKeyDown(KeyCode.A)) {
-            hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.axial);
-            gridLabels.RefreshCoordinates();
+            gridLabels.RefreshCoordinates(HexCoordinatesType.axial);
         }
         if (Input.GetKeyDown(KeyCode.C)) {
-            hexagonalGrid.ChangeCoordinateSystem(HexCoordinatesType.cubic);
-            gridLabels.RefreshCoordinates();
+            gridLabels.RefreshCoordinates(HexCoordinatesType.cubic);
         }
         if (Input.GetKeyDown(KeyCode.D)) {
             gridLabels.RefreshDistances(tmpMovable.CurrentTile);

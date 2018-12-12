@@ -8,145 +8,83 @@
 
 public class HexCoordinates
 {
-    public HexCoordinatesType coordinatesType;
+    private Vector3Int axial, cubic, offset;
 
-    private int x, y, z;
-
-    public int X { get => x; }
-    public int Y { get => y; }
-    public int Z { get => z; }
+    public Vector3Int AxialCoordinates { get => axial; }
+    public Vector3Int CubicCoordinates { get => cubic; }
+    public Vector3Int OffsetCoordinates { get => offset; }
 
     public HexCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
-        z = 0;
-        coordinatesType = HexCoordinatesType.offset;
+        this.offset = new Vector3Int(x, y, 0);
+        this.axial = OffsetToAxial(this.offset);
+        this.cubic = AxialToCubic(this.axial);
     }
 
     public HexCoordinates(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        coordinatesType = HexCoordinatesType.cubic;
+        this.cubic = new Vector3Int(x, y, z);
+        this.axial = CubicToAxial(this.cubic);
+        this.offset = AxialToOffset(this.axial);
     }
 
-    public HexCoordinates(Vector3Int position, HexCoordinatesType coordinatesType = HexCoordinatesType.cubic) {
-        x = position.x;
-        y = position.y;
-        z = position.z;
-        this.coordinatesType = coordinatesType;
+    public HexCoordinates(Vector3Int cubeCoord) {
+        this.cubic = cubeCoord;
+        this.offset = CubicToAxial(this.cubic);
+        this.axial = AxialToOffset(this.axial);
     }
 
-    public HexCoordinates(HexCoordinatesType coordinatesType) {
-        this.coordinatesType = coordinatesType;
+    public HexCoordinates(HexCoordinates h) {
+        this.offset = h.offset;
+        this.axial = h.axial;
+        this.cubic = h.cubic;
     }
 
-    public void ChangeCoordinatesType(HexCoordinatesType type) {
-        if (coordinatesType == type) {
-            return;
-        }
-        switch (type) {
-            case HexCoordinatesType.offset:
-                ToOffset();
-                break;
-            case HexCoordinatesType.axial:
-                ToAxial();
-                break;
-            case HexCoordinatesType.cubic:
-                ToCubic();
-                break;
-        }
+    static Vector3Int OffsetToCubic(Vector3Int offset) {
+        Vector3Int axial = OffsetToAxial(offset);
+        return AxialToCubic(axial);
     }
 
-    void ToOffset() {
-        switch (coordinatesType) {
-            case HexCoordinatesType.axial:
-                AxialToOffset();
-                break;
-            case HexCoordinatesType.cubic:
-                CubicToOffset();
-                break;
-        }
+    static Vector3Int CubicToOffset(Vector3Int cubic) {
+        Vector3Int axial = CubicToAxial(cubic);
+        return AxialToOffset(axial);
     }
 
-    void ToAxial() {
-        switch (coordinatesType) {
-            case HexCoordinatesType.offset:
-                OffsetToAxial();
-                break;
-            case HexCoordinatesType.cubic:
-                CubicToAxial();
-                break;
-        }
+    static Vector3Int OffsetToAxial(Vector3Int offset) {
+        Vector3Int res = offset;
+        res.x = offset.x - (offset.y - (offset.y & 1)) / 2;
+        return res;
     }
 
-    void ToCubic() {
-        switch (coordinatesType) {
-            case HexCoordinatesType.axial:
-                AxialToCubic();
-                break;
-            case HexCoordinatesType.offset:
-                OffsetToCubic();
-                break;
-        }
+    static Vector3Int AxialToOffset(Vector3Int axial) {
+        Vector3Int res = axial;
+        res.x = axial.x + (axial.y - (axial.y & 1)) / 2;
+        return res;
     }
 
-    void OffsetToCubic() {
-        OffsetToAxial();
-        AxialToCubic();
+    static Vector3Int AxialToCubic(Vector3Int axial) {
+        Vector3Int res = axial;
+        res.z = -axial.y - axial.x;
+        return res;
     }
 
-    void CubicToOffset() {
-        CubicToAxial();
-        AxialToOffset();
-    }
-
-    void OffsetToAxial() {
-        x = x - (y - (y & 1)) / 2;
-        coordinatesType = HexCoordinatesType.axial;
-    }
-
-    void AxialToOffset() {
-        x = x + (y - (y & 1)) / 2;
-        coordinatesType = HexCoordinatesType.offset;
-    }
-
-    void  AxialToCubic() {
-        z = -y - x;
-        coordinatesType = HexCoordinatesType.cubic;
-    }
-
-    void CubicToAxial() {
-        z = 0;
-        coordinatesType = HexCoordinatesType.axial;
-    }
-
-    public Vector3Int ToVector3Int() {
-        return new Vector3Int(x, y, z);
+    static Vector3Int CubicToAxial(Vector3Int cubic) {
+        Vector3Int res = cubic;
+        res.z = 0;
+        return res;
     }
 
     public static HexCoordinates operator+(HexCoordinates c1, HexCoordinates c2) {
-        if (c1.coordinatesType == c2.coordinatesType) {
-            HexCoordinates c = new HexCoordinates(c1.coordinatesType);
-            c.x = c1.x + c2.x;
-            c.y = c1.y + c2.y;
-            c.z = c1.z + c2.z;
-            return c;
-        }
-        else {
-            return null;
-        }
+        HexCoordinates c = new HexCoordinates(c1);
+
+        c.cubic += c2.cubic;
+        c.axial = CubicToAxial(c.cubic);
+        c.offset = AxialToOffset(c.axial);
+
+        return c;
     }
 
     // Get the distance between two cubic coordinates
     public int Distance(HexCoordinates c2) {
-        if (coordinatesType != HexCoordinatesType.cubic) {
-            ChangeCoordinatesType(HexCoordinatesType.cubic);
-        }
-        if (c2.coordinatesType != HexCoordinatesType.cubic) {
-            c2.ChangeCoordinatesType(HexCoordinatesType.cubic);
-        }
-        return (Mathf.Abs(x - c2.x) + Mathf.Abs(y - c2.y) + Mathf.Abs(z - c2.z)) / 2;
+        return (Mathf.Abs(cubic.x - c2.cubic.x) + Mathf.Abs(cubic.y - c2.cubic.y) + Mathf.Abs(cubic.z - c2.cubic.z)) / 2;
     }
 }
 
