@@ -391,7 +391,7 @@ public class TileProperties : MonoBehaviour {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
+                    if (neighbor && neighbor.Tile && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
                         int distance = i - 1 + neighbor.Tile.walkCost;
 
                         while (fringes.Count <= distance) {
