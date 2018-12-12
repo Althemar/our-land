@@ -129,7 +129,7 @@ public class TurnManager : MonoBehaviour
 
 
     public void EndTurn() {
-        if (state != TurnState.Player || motherShip.Movable.Moving) {
+        if (state != TurnState.Player || motherShip.Movable.Moving || GameManager.Instance.GameState != GameState.Playing) {
             return;
         }
         state = turnOrder[0];

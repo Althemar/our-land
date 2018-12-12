@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
 {
     public MotherShip motherShip;
 
-    public Canvas gameOverPanel;
+    public DefeatUI gameOverPanel;
 
     public float timeToWaitAfterEnd;
-    public int frameCount = 0;
 
+    private int frameCount = 0;
     private GameState gameState;
 
     public static GameManager Instance;
@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     {
         get => gameState;
     }
-
 
     public int FrameCount
     {
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void CheckDefeat() {
         if (motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
             gameOverPanel.gameObject.SetActive(true);
+            gameOverPanel.text.text = "Your people survived " + TurnManager.Instance.TurnCount + " turns";
             gameState = GameState.Defeat;
             StartCoroutine(WaitBeforeFinish());
         }

@@ -22,12 +22,10 @@ public class MotherShip : MonoBehaviour
     public ResourceType foodResource;
     public float foodConsumption;
 
-    
-
+   
     private int remainingActionPoints;
-    
+ 
     private Movable movable;
-
     private Inventory inventory;
 
     private List<TileProperties> tilesInRange;

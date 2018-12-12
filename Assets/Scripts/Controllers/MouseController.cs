@@ -28,6 +28,10 @@ public class MouseController : MonoBehaviour
     }
 
     void Update() {
+
+        if (GameManager.Instance.GameState != GameState.Playing) {
+            return;
+        }
         
         if (Input.GetMouseButtonDown(1)) {
             
