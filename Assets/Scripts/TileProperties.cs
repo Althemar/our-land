@@ -354,7 +354,7 @@ public class TileProperties : MonoBehaviour {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
+                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough && !neighbor.currentMovable && !neighbor.asLake) {
                         int distance = i - 1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
@@ -373,7 +373,7 @@ public class TileProperties : MonoBehaviour {
         return visited;
     }
 
-    public TileProperties NearestEntity(EntitySO[] entities) {
+    public TileProperties NearestEntity(EntitySO[] entities, int maxDistance = -1) {
         List<TileProperties> visited = new List<TileProperties>();
         visited.Add(this);
 
@@ -401,13 +401,19 @@ public class TileProperties : MonoBehaviour {
                         if (neighbor.ContainsEntity(entities, true)) {
                             return neighbor;
                         }
-                        fringes[distance].Add(neighbor);
-                        visited.Add(neighbor);
+                        else if (neighbor.currentMovable) {
+
+                        }
+                        else {
+                            fringes[distance].Add(neighbor);
+                        }
+                            visited.Add(neighbor);
+
                     }
                 }
             }
             i++;
-            if (i > fringes.Count) {
+            if (i > fringes.Count || (maxDistance > -1 && i > maxDistance)) {
                 break;
             }
         }

@@ -68,7 +68,7 @@ public class MovingEntity : Entity
                     Kill();
                 }
             }
-            TileProperties nearest = tile.NearestEntity(movingEntitySO.foods.ToArray());
+            TileProperties nearest = tile.NearestEntity(movingEntitySO.foods.ToArray(), 15);
             if (nearest) {
                 bool move = true;
                 stopBefore = false;
