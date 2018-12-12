@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitiesHarvestable : MonoBehaviour
+public class EntitiesHarvestableUI : MonoBehaviour
 {
     public GameObject harvestEntityPrefab;
     public MotherShip motherShip;
-
-    private List<HarvestEntityUI> harvestEntityUI;
+    
     private TileProperties currentTile;
     private bool displaying;
 
+    int sizePool = 2;
+    HarvestEntityUI[] pool;
 
+    int buttonsCount = 0;
 
     public bool Displaying
     {
@@ -23,11 +25,13 @@ public class EntitiesHarvestable : MonoBehaviour
         get => currentTile;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        harvestEntityUI = new List<HarvestEntityUI>();
+    private void Awake() {
+        pool = new HarvestEntityUI[sizePool];
+        for (int i = 0; i < sizePool; i++) {
+            GameObject item = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform);
+            item.SetActive(false);
+            pool[i] = item.GetComponent<HarvestEntityUI>();
+        }
     }
 
     public void NewEntitiesToHarvest(TileProperties tile) {
@@ -38,11 +42,14 @@ public class EntitiesHarvestable : MonoBehaviour
         Vector3 position = tile.transform.position;
         position.y += 2;
         position.z = transform.position.z;
+
+        buttonsCount = 0;
         if (tile.staticEntity && tile.movingEntity) {
             Vector3 secondPosition = position;
             position.x -= 1.25f;
             secondPosition.x += 1.25f;
             InstantiateHarvestUI(position, tile.staticEntity);
+            buttonsCount++;
             InstantiateHarvestUI(secondPosition, tile.movingEntity);
             displaying = true;
         }
@@ -53,26 +60,27 @@ public class EntitiesHarvestable : MonoBehaviour
         else if (tile.movingEntity) {
             InstantiateHarvestUI(position, tile.movingEntity);
             displaying = true;
-        }  
+        }
+        buttonsCount++;
     }
 
     private void InstantiateHarvestUI(Vector3 position, Entity entity) {
-        HarvestEntityUI harvestEntity = Instantiate(harvestEntityPrefab, position, Quaternion.identity, transform).GetComponent<HarvestEntityUI>();
-        harvestEntityUI.Add(harvestEntity);
+        HarvestEntityUI harvestEntity = pool[buttonsCount];
+        harvestEntity.transform.position = position;
+        harvestEntity.gameObject.SetActive(true);
         harvestEntity.Initialize(entity, this);
     }
 
     public void Clear() {
-        for (int i = 0; i < harvestEntityUI.Count; i++) {
-            Destroy(harvestEntityUI[i].gameObject);
+        for (int i = 0; i < buttonsCount; i++) {
+            pool[i].gameObject.SetActive(false);
         }
-        harvestEntityUI.Clear();
         displaying = false;
     }
 
     public bool CursorIsOnButton() {
-        for (int i = 0; i < harvestEntityUI.Count; i++) {
-            if (harvestEntityUI[i].PointerIsOnButton) {
+        for (int i = 0; i < buttonsCount; i++) {
+            if (pool[i].gameObject.activeSelf && pool[i].PointerIsOnButton) {
                 return true;
             }
         }

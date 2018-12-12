@@ -12,7 +12,7 @@ public class MouseController : MonoBehaviour
     public MotherShip motherShip;
 
     public Material movementOutline;
-    public EntitiesHarvestable entitiesHarvestable;
+    public EntitiesHarvestableUI entitiesHarvestable;
 
     private Camera cam;
     private Movable movable;
@@ -30,9 +30,7 @@ public class MouseController : MonoBehaviour
     void Update() {
         
         if (Input.GetMouseButtonDown(1)) {
-            if (entitiesHarvestable.Displaying) {
-                entitiesHarvestable.Clear();
-            }
+            
             RightClickDown();
         }
         else if (Input.GetMouseButtonUp(1)) {
@@ -67,6 +65,9 @@ public class MouseController : MonoBehaviour
     }
 
     private void RightClickDown() {
+        if (entitiesHarvestable.Displaying) {
+            entitiesHarvestable.Clear();
+        }
         if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
             TileProperties tile = GetTile();
 
