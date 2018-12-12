@@ -41,7 +41,9 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
         entitiesHarvestable.motherShip.RemainingActionPoints--;
         entity.Kill();
         entitiesHarvestable.Clear();
+        entitiesHarvestable.DisplayHarvestedResources(entity);
     }
+
 
 
     public void OnPointerEnter(PointerEventData eventData) {

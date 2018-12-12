@@ -65,6 +65,11 @@ public class MotherShip : MonoBehaviour
         get => inventory;
     }
 
+    public Movable Movable
+    {
+        get => movable;
+    }
+
     private void Start() {
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();

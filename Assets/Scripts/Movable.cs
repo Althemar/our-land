@@ -34,8 +34,6 @@ public class Movable : MonoBehaviour
 
     public event OnMovableDelegate OnReachEndTile;
 
-
-
     /*
      * Properties
      */
