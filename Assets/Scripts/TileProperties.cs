@@ -318,7 +318,6 @@ public class TileProperties : MonoBehaviour {
             for (int y = -range; y <= range; y++) {
                 int z = -y - x;
                 HexCoordinates coordinatesInRange = new HexCoordinates(x, y, z);
-                coordinates.ChangeCoordinatesType(HexCoordinatesType.cubic);
 
                 HexCoordinates other = coordinates + coordinatesInRange;
                 if (other.Distance(coordinates) <= range) {
@@ -329,7 +328,7 @@ public class TileProperties : MonoBehaviour {
         return tilesInRange;
     }
 
-    
+
 
     // Get reachable tiles (take in count if tile is walkable and walk cost)
     public List<TileProperties> TilesReachable(int movement, int reach) {
@@ -338,8 +337,8 @@ public class TileProperties : MonoBehaviour {
         actionPointCost = 0;
 
 
-        List<TileProperties>[] fringes = new List<TileProperties>[movement+1];
-        
+        List<TileProperties>[] fringes = new List<TileProperties>[movement + 1];
+
         fringes[0] = new List<TileProperties>();
         fringes[0].Add(this);
         isInReachables = true;
@@ -349,13 +348,13 @@ public class TileProperties : MonoBehaviour {
         }
         int cost = 1;
         int currentReach = 0;
-        for (int i = 1; i <= movement+1; i++) {
+        for (int i = 1; i <= movement + 1; i++) {
             currentReach++;
             foreach (TileProperties previousTile in fringes[i - 1]) {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && !visitDic.ContainsKey(neighbor.Position) && neighbor.Tile.canWalkThrough) {
+                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
                         int distance = i - 1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
@@ -371,10 +370,6 @@ public class TileProperties : MonoBehaviour {
                 cost++;
             }
         }
-        List<TileProperties> visited = new List<TileProperties>();
-        foreach (var d in visitDic)
-            visited.Add(d.Value);
-
         return visited;
     }
 
