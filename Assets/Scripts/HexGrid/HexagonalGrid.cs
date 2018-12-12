@@ -116,7 +116,7 @@ public class HexagonalGrid : MonoBehaviour {
     public void ResetTiles() {
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
-                if (tilesArray[i, j] != null && tilesArray[i, j].needRefresh)
+                if (tilesArray[i, j] != null)
                     tilesArray[i, j].ResetTile();
             }
         }
@@ -142,9 +142,8 @@ public class HexagonalGrid : MonoBehaviour {
     public void SetAddons() {
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
-                if (tilesArray[i, j] != null && tilesArray[i, j].needRefresh) {
+                if (tilesArray[i, j] != null) {
                     tilesArray[i, j].SetAddon();
-                    tilesArray[i, j].needRefresh = false;
                 }
             }
         }

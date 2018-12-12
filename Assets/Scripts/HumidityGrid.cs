@@ -31,6 +31,9 @@ public class HumidityGrid : MonoBehaviour
     public Sprite ERivS;
 
 
+    public Sprite NEInterNW;
+    public Sprite NWInterNE;
+
     public Sprite NERivNW;
     public Sprite NERivSE;
 
@@ -44,7 +47,15 @@ public class HumidityGrid : MonoBehaviour
     }
 
     public void Compute() {
-        grid.Tilemap.RefreshAllTiles();
+        //grid.Tilemap.RefreshAllTiles();
+
+        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
+                if (grid.tilesArray[i, j] != null) {
+                    grid.tilesArray[i, j].Tile = grid.Tilemap.GetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates) as CustomTile;
+                }
+            }
+        }
 
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
@@ -142,14 +153,15 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null && grid.tilesArray[i, j].needRefresh) {
                     grid.Tilemap.RefreshTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates);
+
+                    grid.tilesArray[i, j].ResetAddon();
+                    grid.tilesArray[i, j].SetAddon();
+                    grid.tilesArray[i, j].needRefresh = false;
                 }
+                grid.tilesArray[i, j].ResetTile();
+                grid.tilesArray[i, j].SetBorders();
+                grid.tilesArray[i, j].PutRivers();
             }
         }
-
-        //grid.Tilemap.RefreshAllTiles();
-        grid.ResetTiles();
-        grid.SetAddons();
-        grid.SetBorders();
-        grid.PutRivers();
     }
 }
