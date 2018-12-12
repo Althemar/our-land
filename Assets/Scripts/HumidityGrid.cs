@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class HumidityGrid : MonoBehaviour
 {
+    public int riverRadius = 5;
+    public int riverForce = 5;
+
     public CustomTile lowHumidityTile;
     public CustomTile normalHumidityTile;
     public CustomTile highHumidityTile;
 
     public Sprite lake;
+    public Sprite triLakeN;
+    public Sprite triLakeSW;
+    public Sprite triLakeSE;
 
     public Sprite NERiver;
     public Sprite ERiver;
@@ -54,7 +60,7 @@ public class HumidityGrid : MonoBehaviour
                 TileProperties prop = grid.tilesArray[i, j];
                 if (prop != null) {
                     if (prop.Tile && prop.Tile.riverSource) {
-                        River R = new River(grid.tilesArray[i, j].Coordinates, prop.Tile.riverDirection, prop.Tile.riverCounterClockwise);
+                        River R = new River(grid.tilesArray[i, j].Coordinates, prop.Tile.riverDirection, prop.Tile.riverCounterClockwise, riverForce);
                         riverList.Add(R);
                     }
                 }
@@ -81,7 +87,7 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 TileProperties prop = grid.tilesArray[i, j];
                 if (prop != null && prop.asLake) {
-                    prop.humidity = 5;
+                    prop.humidity = riverRadius;
                     //this.SetColor(prop.Coordinates.OffsetCoordinates, Color.red);
                 }
             }
@@ -91,12 +97,12 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 TileProperties prop = grid.tilesArray[i, j];
                 if (prop != null && prop.asRiver) {
-                    prop.humidity = 5;
+                    prop.humidity = riverRadius;
                 }
             }
         }
 
-        for (int b = 0; b < 5; b++) {
+        for (int b = 0; b < riverRadius; b++) {
             for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
                 for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                     TileProperties prop = grid.tilesArray[i, j];

@@ -11,11 +11,11 @@ public class River {
 
     public bool doLake = true;
 
-    public River(HexCoordinates source, HexDirection direction, bool counterClockwise) {
+    public River(HexCoordinates source, HexDirection direction, bool counterClockwise, int force) {
         this.source = source;
         this.direction = direction;
         this.counterClockwise = counterClockwise;
-        this.force = 5;
+        this.force = force;
         this.state = 0;
     }
 

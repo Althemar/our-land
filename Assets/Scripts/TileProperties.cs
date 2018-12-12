@@ -22,12 +22,12 @@ public class TileProperties : MonoBehaviour {
     public StaticEntity staticEntity;
     public MovingEntity movingEntity;
 
-    public float humidity;
 
     private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
 
+    public float humidity;
     public bool asRiver;
     private bool[] rivers;
     private River[] riverJonction;
@@ -100,7 +100,15 @@ public class TileProperties : MonoBehaviour {
             return;
 
         if (this.asLake) {
-            CreateSprite(grid.humidity.lake, 2);
+            if(GetNeighbor(HexDirection.SW).asLake && GetNeighbor(HexDirection.SE).asLake)
+                CreateSprite(grid.humidity.triLakeN, 2);
+            else if (GetNeighbor(HexDirection.NE).asLake && GetNeighbor(HexDirection.E).asLake)
+                CreateSprite(grid.humidity.triLakeSW, 2);
+            else if (GetNeighbor(HexDirection.NW).asLake && GetNeighbor(HexDirection.W).asLake)
+                CreateSprite(grid.humidity.triLakeSE, 2);
+            else
+                CreateSprite(grid.humidity.lake, 2);
+
             return;
         }
 
@@ -140,6 +148,7 @@ public class TileProperties : MonoBehaviour {
     public void ResetRiver() {
         rivers = new bool[6];
         riverJonction = new River[6];
+        asLake = false;
         humidity = 0;
     }
 
