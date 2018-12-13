@@ -23,6 +23,7 @@ public class HexagonalGrid : MonoBehaviour {
     private HexMetrics metrics;
 
     public HumidityGrid humidity;
+    public GridOutline outline;
 
     /*
      * Properties
@@ -103,6 +104,24 @@ public class HexagonalGrid : MonoBehaviour {
         if (coordinates.y - arrayOffset.y < 0 || coordinates.y - arrayOffset.y >= tilesArray.GetLength(1))
             return null;
         return tilesArray[coordinates.x - arrayOffset.x, coordinates.y - arrayOffset.y];
+    }
+
+    // Must be offset coordinates
+    public void SetTileColor(Vector3Int coordinates, Color c) {
+        if (coordinates.x - arrayOffset.x < 0 || coordinates.x - arrayOffset.x >= tilesArray.GetLength(0))
+            return;
+        if (coordinates.y - arrayOffset.y < 0 || coordinates.y - arrayOffset.y >= tilesArray.GetLength(1))
+            return;
+        outline.SetTileColor(coordinates.x - arrayOffset.x, coordinates.y - arrayOffset.y, c);
+    }
+
+    // Must be offset coordinates
+    public void ResetTileColor(Vector3Int coordinates) {
+        if (coordinates.x - arrayOffset.x < 0 || coordinates.x - arrayOffset.x >= tilesArray.GetLength(0))
+            return;
+        if (coordinates.y - arrayOffset.y < 0 || coordinates.y - arrayOffset.y >= tilesArray.GetLength(1))
+            return;
+        outline.ResetTileColor(coordinates.x - arrayOffset.x, coordinates.y - arrayOffset.y);
     }
 
     public void SetNeighbors() {

@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitiesHarvestableUI : MonoBehaviour
-{
+public class EntitiesHarvestableUI : MonoBehaviour {
     public GameObject harvestEntityPrefab;
     public GameObject resourcesGainedPrefab;
     public MotherShip motherShip;
-    
+
     private TileProperties currentTile;
     private bool displaying;
 
     int sizePool = 2;
     HarvestEntityUI[] pool;
+    public InfoEntityUI info;
 
     int buttonsCount = 0;
 
-    public bool Displaying
-    {
+    public bool Displaying {
         get => displaying;
     }
 
-    public TileProperties CurrentTile
-    {
+    public TileProperties CurrentTile {
         get => currentTile;
     }
 
@@ -63,6 +61,24 @@ public class EntitiesHarvestableUI : MonoBehaviour
             displaying = true;
         }
         buttonsCount++;
+    }
+
+    public void ShowInfo(TileProperties tile) {
+        if (!tile) {
+            return;
+        }
+        
+        if (tile.movingEntity) {
+            info.Initialize(tile.movingEntity, this);
+            info.gameObject.SetActive(true);
+        }
+        else if (tile.staticEntity) {
+            info.Initialize(tile.staticEntity, this);
+            info.gameObject.SetActive(true);
+        }
+        else {
+            info.gameObject.SetActive(false);
+        }
     }
 
     private void InstantiateHarvestUI(Vector3 position, Entity entity) {
