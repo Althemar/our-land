@@ -21,12 +21,14 @@ public class WindOrigin : Updatable
 
     private List<TileProperties> corridor;
     private List<TileProperties> tilesAffected;
-
+    
    
 
     private void Awake() {
         turnCount = turnsBetweenSqualls;
         AddToTurnManager();
+        corridor = new List<TileProperties>();
+        tilesAffected = new List<TileProperties>();
     }
 
     private void Update() {
@@ -108,6 +110,8 @@ public class WindOrigin : Updatable
             nextTile.previousTileInCorridor = nextDirection;
            // nextTile.Tilemap.SetColor(nextTile.Position, Color.red);
             remainingTiles.Push(nextTile);
+            nextTile.woOnTile.Add(this);
+            corridor.Add(nextTile);
             
             for (int x = -radius; x <= radius; x++) {
                 for (int y = -radius; y <= radius; y++) {
@@ -128,13 +132,23 @@ public class WindOrigin : Updatable
                             neighbor.windDryness = newWindDryness;
                             neighbor.humidity += neighbor.windDryness;
                         }
-                        neighbor.woAffectingTiles.Add(this);
+                        neighbor.woAffectingTile.Add(this);
+                        tilesAffected.Add(neighbor);
                     }
                 }
             }
             return true;
         }
         return false;
+    }
+
+    public void InitCorridor() {
+        for (int i = 0; i < corridor.Count; i++) {
+            corridor[i].Tilemap.SetColor(corridor[i].Position, Color.white);
+        }
+        for (int i = 0; i < tilesAffected.Count; i++) {
+            tilesAffected[i].windDryness = 0;
+        }
     }
 
     public bool CanCreateWindOnTile(TileProperties nextTile) {

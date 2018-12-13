@@ -51,10 +51,16 @@ public class HumidityGrid : MonoBehaviour
     public void Compute() {
         //grid.Tilemap.RefreshAllTiles();
 
+        foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
+            wo.InitCorridor();
+        }
+
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
                     grid.tilesArray[i, j].Tile = grid.Tilemap.GetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates) as CustomTile;
+                    grid.tilesArray[i, j].windDryness = 0;
+                    grid.tilesArray[i, j].nextTilesInCorridor.Clear();
                 }
             }
         }
@@ -63,11 +69,12 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null)
                     grid.tilesArray[i, j].ResetRiver();
-                    grid.tilesArray[i, j].windDryness = 0;
-                    grid.tilesArray[i, j].nextTilesInCorridor.Clear();
-                }
+                grid.tilesArray[i, j].windDryness = 0;
+                grid.tilesArray[i, j].nextTilesInCorridor.Clear();
             }
         }
+        
+
 
         List<River> riverList = new List<River>();
 
@@ -134,6 +141,14 @@ public class HumidityGrid : MonoBehaviour
         foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
             wo.ComputeWindCorridor();
         }
+    }
+
+    public void ComputeWinds() {
+        foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
+            wo.InitCorridor();
+        }
+
+        ComputeDryness();
     }
 
     public void UpdateTile(TileProperties tile) {

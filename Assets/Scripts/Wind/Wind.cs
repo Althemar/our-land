@@ -106,7 +106,6 @@ public class Wind : Updatable
         // Remove last wind
         bool destroy = false;
         if (!previous && !previousAlreadyUpdated) {
-            tile.Tilemap.SetColor(tile.Position, Color.white);
             tile.wind = null;
 
             for (int i = 0; i < next.Count; i++) {
@@ -151,16 +150,14 @@ public class Wind : Updatable
             next[i].previous = null;
         }
         tile.wind = null;
-        tile.Tilemap.SetColor(tile.Position, Color.white);
         RemoveFromTurnManager();
 
-        
-        
 
         if (!ps.isPlaying) {
             Destroy(gameObject);
         }
         else {
+
             StartCoroutine(WaitBeforeDestroy());
         }
     }

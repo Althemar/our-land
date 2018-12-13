@@ -93,7 +93,25 @@ public abstract class Entity : Updatable
                 population /= 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
-                
+
+                if (WindManager.Instance.blockingEntities.Contains(entity.entitySO)){
+                    bool computeWind = false;
+                    if (adjacent.woOnTile.Count > 0) {
+                        computeWind = true;
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        TileProperties neighbor = adjacent.GetNeighbor((HexDirection)i);
+                        if (neighbor.woOnTile.Count > 0 && neighbor.previousTileInCorridor == ((HexDirection)i).Opposite()) {
+                            computeWind = true;
+                        }
+                    }
+                    if (computeWind) {
+                        adjacent.Grid.humidity.Compute();
+                    }
+
+                }
+
+
                 if (type == EntityType.Moving) {
                     adjacent.movingEntity = entity as MovingEntity;
                     adjacent.currentMovable = entity.GetComponent<Movable>();
@@ -117,9 +135,24 @@ public abstract class Entity : Updatable
         else {
             tile.staticEntity = null;
         }
+
+        if (WindManager.Instance.blockingEntities.Contains(entitySO)) {
+            bool computeWind = false;
+            for (int i = 0; i < 6; i++) {
+                TileProperties neighbor = tile.GetNeighbor((HexDirection)i);
+                if (neighbor.woOnTile.Count > 0 && neighbor.previousTileInCorridor == ((HexDirection)i).Opposite()) {
+                    computeWind = true;
+                }
+            }
+            if (computeWind) {
+                tile.Grid.humidity.Compute();
+            }
+
+        }
         RemoveFromTurnManager();
         if (this != null) {
             Destroy(gameObject);
         }
+
     }
 }

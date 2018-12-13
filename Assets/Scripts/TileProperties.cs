@@ -43,7 +43,8 @@ public class TileProperties : MonoBehaviour {
     
     public List<HexDirection> nextTilesInCorridor;
     public HexDirection previousTileInCorridor;
-    public HashSet<WindOrigin> woAffectingTiles;
+    public HashSet<WindOrigin> woAffectingTile;
+    public HashSet<WindOrigin> woOnTile;
 
     public bool needRefresh = true;
 
@@ -104,7 +105,8 @@ public class TileProperties : MonoBehaviour {
         bordersGameObjects.transform.parent = transform;
         riversGameObjects.transform.parent = transform;
         nextTilesInCorridor = new List<HexDirection>();
-        woAffectingTiles = new HashSet<WindOrigin>();
+        woAffectingTile = new HashSet<WindOrigin>();
+        woOnTile = new HashSet<WindOrigin>();
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
