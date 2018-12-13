@@ -140,8 +140,7 @@ public class HumidityGrid : MonoBehaviour
     }
 
     public void UpdateTiles() {
-        CustomTile previousCustomTile = tile.Tile;
-
+        
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {

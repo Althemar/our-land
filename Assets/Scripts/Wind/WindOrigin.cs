@@ -20,6 +20,9 @@ public class WindOrigin : Updatable
     private Wind lastProduced;
 
     private List<TileProperties> corridor;
+    private List<TileProperties> tilesAffected;
+
+   
 
     private void Awake() {
         turnCount = turnsBetweenSqualls;
@@ -69,6 +72,7 @@ public class WindOrigin : Updatable
     }
 
     public void ComputeWindCorridor() {
+
         Stack<TileProperties> remainingTiles = new Stack<TileProperties>();
 
         if (!tile) {
@@ -124,6 +128,7 @@ public class WindOrigin : Updatable
                             neighbor.windDryness = newWindDryness;
                             neighbor.humidity += neighbor.windDryness;
                         }
+                        neighbor.woAffectingTiles.Add(this);
                     }
                 }
             }
