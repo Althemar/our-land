@@ -35,6 +35,8 @@ public class TileProperties : MonoBehaviour {
     private bool[] rivers;
     private River[] riverJonction;
     public bool asLake;
+    public float windDryness = 0;
+    public HashSet<Wind> windsDrying;
 
     /*
      * Properties
@@ -85,6 +87,7 @@ public class TileProperties : MonoBehaviour {
         neighbors = new TileProperties[6];
         rivers = new bool[6];
         riverJonction = new River[6];
+        windsDrying = new HashSet<Wind>();
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
