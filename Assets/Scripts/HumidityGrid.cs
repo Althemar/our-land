@@ -160,6 +160,7 @@ public class HumidityGrid : MonoBehaviour
                 }
                 grid.tilesArray[i, j].ResetTile();
                 grid.tilesArray[i, j].SetBorders();
+                grid.tilesArray[i, j].PutLake();
                 grid.tilesArray[i, j].PutRivers();
             }
         }

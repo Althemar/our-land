@@ -82,4 +82,8 @@ public class CameraControl : MonoBehaviour {
         //cam.transform.localPosition = new Vector3 (0, 0, -15 + zoomValue / 2f);
     }
 
+    public float GetZoomValue() {
+        return Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue);
+    }
+
 }

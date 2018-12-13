@@ -72,10 +72,11 @@ public class HexagonalGrid : MonoBehaviour {
         if (Time.frameCount == 1) {
             //SetNeighbors();
             //SetBorders();
-            humidity.Compute();
+            if(humidity)
+                humidity.Compute();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (humidity && Input.GetKeyDown(KeyCode.R))
             humidity.Compute();
     }
 
