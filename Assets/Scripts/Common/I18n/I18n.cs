@@ -35,14 +35,12 @@ public static class I18N {
     public static void Initialize() {
         if(initialized)
             return;
-
-        Debug.Log("Init!");
+        
         LoadText();
         initialized = true;
     }
 
     public static void LoadText() {
-        Debug.Log("Load!");
         i18n = new Dictionary<string, I18nText>();
 
         I18nData data = Resources.Load<I18nData>("i18n/Data");

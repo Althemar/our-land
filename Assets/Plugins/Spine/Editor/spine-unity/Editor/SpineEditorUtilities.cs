@@ -86,7 +86,11 @@ namespace Spine.Unity.Editor {
 			public static Texture2D unity;
 
 			static Texture2D LoadIcon (string filename) {
-				return (Texture2D)AssetDatabase.LoadMainAssetAtPath(SpineEditorUtilities.editorGUIPath + "/" + filename);
+                try {
+                    return (Texture2D)AssetDatabase.LoadMainAssetAtPath(SpineEditorUtilities.editorGUIPath + "/" + filename);
+                } catch (System.Exception e) {
+                    return null;
+                }
 			}
 
 			public static void Initialize () {
