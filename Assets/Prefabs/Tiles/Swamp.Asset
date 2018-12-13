@@ -15,8 +15,8 @@ MonoBehaviour:
   go: {fileID: 0}
   canWalkThrough: 1
   walkCost: 3
-  terrainType: 3
-  ambientRTPC: 
+  terrainType: 0
+  ambientRTPC: AMBIANCE_VOLUME_WETLANDS
   centers:
   - {fileID: 21300000, guid: 996d7b930ca24024399886717591093c, type: 3}
   - {fileID: 21300000, guid: 798aabaa4e89f7b43ba4daa772f759bb, type: 3}
@@ -121,24 +121,10 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues:
-    - 0.2
-    _keys:
-    - 0.2
-    _values:
-    - sprites:
-      - {fileID: 21300000, guid: d1e48ed3d94e9b344941be7607724b1b, type: 3}
-      - {fileID: 21300000, guid: 77197a797938fbd4bbd146bc3e15b64d, type: 3}
-      - {fileID: 21300000, guid: 4a0d30d3dd26afe428555e2dfeb1768d, type: 3}
-      - {fileID: 21300000, guid: d147db34556db8742a9210c6cf9bd879, type: 3}
-      - {fileID: 21300000, guid: f3dba8183855a234bbefb90c032fce4f, type: 3}
-      - {fileID: 21300000, guid: 2212b3288f470cd429996457b01eec65, type: 3}
-      - {fileID: 21300000, guid: 784045c898780b3499a5322b51d4fc29, type: 3}
-      - {fileID: 21300000, guid: 8eb5e9b7c69f5134cb51b918df79fa71, type: 3}
-      - {fileID: 21300000, guid: 5bd8191893dcae246a204d8d7f42b9ce, type: 3}
-      - {fileID: 21300000, guid: 2f9ad4829afd5e740b1ed89ba624514e, type: 3}
-      - {fileID: 21300000, guid: 15ab0d0a28188c5479753dfb35a89369, type: 3}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
   humidityDependant: 1
   riverSource: 0
   riverDirection: 0

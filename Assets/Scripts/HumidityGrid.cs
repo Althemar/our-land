@@ -16,6 +16,8 @@ public class HumidityGrid : MonoBehaviour
     public Sprite triLakeSW;
     public Sprite triLakeSE;
 
+    public Sprite glacier;
+
     public Sprite NERiver;
     public Sprite ERiver;
     public Sprite SERiver;
@@ -31,6 +33,9 @@ public class HumidityGrid : MonoBehaviour
     public Sprite ERivS;
 
 
+    public Sprite NEInterNW;
+    public Sprite NWInterNE;
+
     public Sprite NERivNW;
     public Sprite NERivSE;
 
@@ -44,7 +49,15 @@ public class HumidityGrid : MonoBehaviour
     }
 
     public void Compute() {
-        grid.Tilemap.RefreshAllTiles();
+        //grid.Tilemap.RefreshAllTiles();
+
+        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
+                if (grid.tilesArray[i, j] != null) {
+                    grid.tilesArray[i, j].Tile = grid.Tilemap.GetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates) as CustomTile;
+                }
+            }
+        }
 
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
@@ -121,21 +134,38 @@ public class HumidityGrid : MonoBehaviour
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
                     if (grid.tilesArray[i, j].Tile && grid.tilesArray[i, j].Tile.humidityDependant) {
-                        if (grid.tilesArray[i, j].humidity < 1)
+                        if (grid.tilesArray[i, j].humidity < 1) {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != lowHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, lowHumidityTile);
-                        else if (grid.tilesArray[i, j].humidity > 6)
+                        }
+                        else if (grid.tilesArray[i, j].humidity > 6) {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != highHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, highHumidityTile);
-                        else
+                        }
+                        else {
+                            grid.tilesArray[i, j].needRefresh |= grid.tilesArray[i, j].Tile != normalHumidityTile;
                             grid.Tilemap.SetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates, normalHumidityTile);
+                        }
                     }
                 }
             }
         }
 
-        grid.Tilemap.RefreshAllTiles();
-        grid.ResetTiles();
-        grid.SetAddons();
-        grid.SetBorders();
-        grid.PutRivers();
+        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
+                if (grid.tilesArray[i, j] != null && grid.tilesArray[i, j].needRefresh) {
+                    grid.Tilemap.RefreshTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates);
+
+                    grid.tilesArray[i, j].ResetAddon();
+                    grid.tilesArray[i, j].SetAddon();
+                    grid.tilesArray[i, j].needRefresh = false;
+                }
+                grid.tilesArray[i, j].ResetTile();
+                grid.tilesArray[i, j].SetBorders();
+                grid.tilesArray[i, j].PutLake();
+                grid.tilesArray[i, j].PutRivers();
+                grid.tilesArray[i, j].PutGlacier();
+            }
+        }
     }
 }

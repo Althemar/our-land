@@ -29,11 +29,15 @@ public class CameraControl : MonoBehaviour {
         bounds = tilemap.localBounds;
         bounds.center += new Vector3(1f, 0, 0);
         bounds.Expand(new Vector2(-7f, -2.5f));
+
+        AkSoundEngine.PostEvent("Play_WIND", this.gameObject);
     }
 
     void Update () {
         MoveCamera(Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
         ZoomCamera(-Input.mouseScrollDelta.y * 1.5f);
+        
+        AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
     }
 
     void MoveCamera(float x, float y) {
@@ -76,6 +80,10 @@ public class CameraControl : MonoBehaviour {
         //Camera tilt + zoom (PERSPECTIVE CAMERA ONLY)
         //this.transform.rotation = Quaternion.AngleAxis (Mathf.Min (zoomValue - 13, 0), Vector3.right);
         //cam.transform.localPosition = new Vector3 (0, 0, -15 + zoomValue / 2f);
+    }
+
+    public float GetZoomValue() {
+        return Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue);
     }
 
 }

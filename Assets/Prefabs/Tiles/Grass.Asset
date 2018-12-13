@@ -16,7 +16,7 @@ MonoBehaviour:
   canWalkThrough: 1
   walkCost: 1
   terrainType: 0
-  ambientRTPC: 
+  ambientRTPC: AMBIANCE_VOLUME_PRAIRIE
   centers:
   - {fileID: 21300000, guid: 0c2ba1f0b463ec6468060563dedf163f, type: 3}
   - {fileID: 21300000, guid: 8db9f4435ee99134ab76c5dbf3fe16a0, type: 3}

@@ -72,10 +72,11 @@ public class HexagonalGrid : MonoBehaviour {
         if (GameManager.Instance.FrameCount == 0) {
             //SetNeighbors();
             //SetBorders();
-            humidity.Compute();
+            if(humidity)
+                humidity.Compute();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (humidity && Input.GetKeyDown(KeyCode.R))
             humidity.Compute();
     }
 
@@ -142,8 +143,9 @@ public class HexagonalGrid : MonoBehaviour {
     public void SetAddons() {
         for (int i = 0; i < tilesArray.GetLength(0); i++) {
             for (int j = 0; j < tilesArray.GetLength(1); j++) {
-                if (tilesArray[i, j] != null)
+                if (tilesArray[i, j] != null) {
                     tilesArray[i, j].SetAddon();
+                }
             }
         }
     }

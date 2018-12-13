@@ -19,12 +19,12 @@ MonoBehaviour:
   m_fontInfo:
     Name: Lora
     PointSize: 99
-    Scale: 0
+    Scale: 1
     CharacterCount: 213
     LineHeight: 126.75
     Baseline: 0
     Ascender: 99.625
-    CapHeight: 0
+    CapHeight: 69.3125
     Descender: -27.1875
     CenterLine: 0
     SuperscriptOffset: 99.625
@@ -34,7 +34,7 @@ MonoBehaviour:
     UnderlineThickness: 4.9500003
     strikethrough: 26.34091
     strikethroughThickness: 4.9500003
-    TabWidth: 0
+    TabWidth: 260.625
     Padding: 5
     AtlasWidth: 1024
     AtlasHeight: 1024
@@ -43,10 +43,10 @@ MonoBehaviour:
   - id: 32
     x: 6
     y: 1029
-    width: 0
-    height: 0
+    width: 26.0625
+    height: 126.8125
     xOffset: 0
-    yOffset: 0
+    yOffset: 99.625
     xAdvance: 26.0625
     scale: 1
   - id: 33
@@ -2027,7 +2027,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Lora-Regular SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
