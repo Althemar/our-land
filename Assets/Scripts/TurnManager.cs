@@ -12,6 +12,7 @@ public class TurnManager : MonoBehaviour
         Entities, 
         Wind,
         Whirlwind,
+        WindOrigin,
         Others
     }
 
@@ -32,6 +33,7 @@ public class TurnManager : MonoBehaviour
     private Dictionary<EntitySO, List<Entity>> entitiesToUpdate;
     private List<Wind> windsToUpdate;
     private List<Whirlwind> whirlwindsToUpdate;
+    private List<WindOrigin> windOriginsToUpdate;
     
     private int turnOrderIndex;
     private int entitiesTypeIndex;
@@ -63,6 +65,7 @@ public class TurnManager : MonoBehaviour
             }
             windsToUpdate = new List<Wind>();
             whirlwindsToUpdate = new List<Whirlwind>();
+            windOriginsToUpdate = new List<WindOrigin>();
         }
         else {
             Destroy(gameObject);
@@ -80,7 +83,7 @@ public class TurnManager : MonoBehaviour
                     UpdateEntities();
                 }
             }
-            else if (state == TurnState.Wind || state == TurnState.Whirlwind) {
+            else if (state == TurnState.Wind || state == TurnState.Whirlwind || state == TurnState.WindOrigin) {
                 NextTurnOrder();
             }
         }
@@ -110,6 +113,9 @@ public class TurnManager : MonoBehaviour
         if (obj.GetType() == typeof(Whirlwind)) {
             whirlwindsToUpdate.Add(obj as Whirlwind);
         }
+        if (obj.GetType() == typeof(WindOrigin)) {
+            windOriginsToUpdate.Add(obj as WindOrigin);
+        }
     }
 
     public void RemoveFromUpdate<T, T2>(T id, T2 obj) {
@@ -124,6 +130,9 @@ public class TurnManager : MonoBehaviour
         }
         if (obj.GetType() == typeof(Whirlwind)) {
             whirlwindsToUpdate.Remove(obj as Whirlwind);
+        }
+        if (obj.GetType() == typeof(WindOrigin)) {
+            windOriginsToUpdate.Remove(obj as WindOrigin);
         }
     }
 
@@ -157,6 +166,9 @@ public class TurnManager : MonoBehaviour
         else if (state == TurnState.Whirlwind) {
             UpdateObjects(whirlwindsToUpdate);
         }
+        else if (state == TurnState.WindOrigin) {
+            UpdateObjects(windOriginsToUpdate);
+        }
     }
 
     public void UpdateEntities() {
@@ -182,5 +194,4 @@ public class TurnManager : MonoBehaviour
     public void EntityUpdated() {
         updatedObjects++;
     }
-
 }

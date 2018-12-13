@@ -4744,7 +4744,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updated: 1
-  baseSize: 10
+  radius: 1
+  baseDryness: 6
+  previous: {fileID: 0}
+  next: []
   direction: 1
   ps: {fileID: 6463166059277198136}
 --- !u!212 &8684890401102008638

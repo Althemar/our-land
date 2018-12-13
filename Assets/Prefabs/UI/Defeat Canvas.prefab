@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4892102138853058431}
   - component: {fileID: 4892102138853058428}
   - component: {fileID: 4892102138853058429}
-  - component: {fileID: 1024114508}
+  - component: {fileID: 5055132983263056693}
   m_Layer: 5
   m_Name: Defeat Canvas
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1024114508
+--- !u!114 &5055132983263056693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4892102138853058418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c2aa11727fa4644493b11cf86112432, type: 3}
+  m_Script: {fileID: 11500000, guid: 49580274c51e4d04c962177c0b7a9310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 4892102139632144088}

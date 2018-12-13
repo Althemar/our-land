@@ -39,6 +39,11 @@ public class TileProperties : MonoBehaviour {
     private bool[] rivers;
     private River[] riverJonction;
     public bool asLake;
+    public float windDryness = 0;
+    
+    public List<HexDirection> nextTilesInCorridor;
+    public HexDirection previousTileInCorridor;
+    public HashSet<WindOrigin> woAffectingTiles;
 
     public bool needRefresh = true;
 
@@ -98,6 +103,8 @@ public class TileProperties : MonoBehaviour {
         addonsGameObjects.transform.parent = transform;
         bordersGameObjects.transform.parent = transform;
         riversGameObjects.transform.parent = transform;
+        nextTilesInCorridor = new List<HexDirection>();
+        woAffectingTiles = new HashSet<WindOrigin>();
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
