@@ -5,8 +5,7 @@ using static UnityEngine.ParticleSystem;
 
 public class Wind : Updatable
 {
-    public int radius;
-    public int baseDryness;
+    
 
     public Wind previous;
     public List<Wind> next;
@@ -87,8 +86,7 @@ public class Wind : Updatable
         custom1 = new List<Vector4>();
         AddToTurnManager();
         tile.wind = this;
-
-        UpdateDryness();
+        
 
         ps = GetComponentInChildren<ParticleSystem>();
         EmissionModule emission = ps.emission;
@@ -98,39 +96,8 @@ public class Wind : Updatable
         else {
             emission.rateOverTime = WindManager.Instance.normalRate;
         }
-        ps.Play();
-
-
-        
+        ps.Play();   
     }
-
-    public void UpdateDryness() {
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                int z = -y - x;
-                HexCoordinates coordinatesInRange = new HexCoordinates(x, y, z);
-
-                HexCoordinates other = tile.Coordinates + coordinatesInRange;
-                int distance = other.Distance(tile.Coordinates);
-                if (distance <= radius) {
-                    TileProperties neighbor = tile.Grid.GetTile(other);
-                    if (!neighbor) {
-                        continue;
-                    }
-                    float newWindDryness = -(baseDryness - distance);
-                    if (newWindDryness < neighbor.windDryness) {
-                        neighbor.humidity -= neighbor.windDryness;
-                        neighbor.windDryness = newWindDryness;
-                        neighbor.humidity += neighbor.windDryness;
-
-                        neighbor.Grid.humidity.UpdateTile(neighbor);
-                        neighbor.windsDrying.Add(this);
-                    }
-                }
-            }
-        }
-    }
-
     public override void UpdateTurn() {
         base.UpdateTurn();
 
@@ -187,36 +154,8 @@ public class Wind : Updatable
         tile.Tilemap.SetColor(tile.Position, Color.white);
         RemoveFromTurnManager();
 
-
-
-        /*
-        List<Wind> windsToUpdate = new List<Wind>();
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                int z = -y - x;
-                HexCoordinates coordinatesInRange = new HexCoordinates(x, y, z);
-
-                HexCoordinates other = tile.Coordinates + coordinatesInRange;
-                int distance = other.Distance(tile.Coordinates);
-                if (distance <= radius) {
-                    TileProperties neighbor = tile.Grid.GetTile(other);
-                    if (!neighbor) {
-                        continue;
-                    }
-                    neighbor.humidity -= neighbor.windDryness;
-                    neighbor.windDryness = 0f;
-                    neighbor.Grid.humidity.UpdateTile(neighbor);
-                    neighbor.windsDrying.Remove(this);
-                    foreach (Wind wind in neighbor.windsDrying) {
-                        windsToUpdate.Add(wind);
-                    }
-                    
-                }
-            }
-        }*//*
-        for (int i = 0; i < windsToUpdate.Count; i++) {
-            windsToUpdate[i].UpdateDryness();
-        }*/
+        
+        
 
         if (!ps.isPlaying) {
             Destroy(gameObject);

@@ -6,6 +6,7 @@ public class WindManager : MonoBehaviour
 {
     public GameObject whirlwind;
     public GameObject wind;
+    public Transform pools;
 
     SimplePool<Wind> windsPool;
     SimplePool<Whirlwind> whirlwindsPool;
@@ -17,6 +18,8 @@ public class WindManager : MonoBehaviour
     [Header("Particle System")]
     public float normalRate;
     public float beginRate;
+
+    public List<WindOrigin> windOrigins;
 
     public static WindManager Instance;
 
@@ -35,6 +38,12 @@ public class WindManager : MonoBehaviour
             Instance = this;
             windsPool = PopulatePool<Wind>(windsPool, wind, "Winds", 20);
             whirlwindsPool = PopulatePool<Whirlwind>(whirlwindsPool, whirlwind, "Whirlwinds", 3);
+            for (int i = 0; i < transform.childCount; i++) {
+                WindOrigin wo = transform.GetChild(i).GetComponent<WindOrigin>();
+                if (wo) {
+                    windOrigins.Add(wo);
+                }
+            }
         }
         else {
             Destroy(gameObject);
@@ -50,7 +59,7 @@ public class WindManager : MonoBehaviour
         {
             T newObject = Instantiate(blueprint).GetComponent<T>();
             if (newObject) {
-                newObject.transform.parent = transform;
+                newObject.transform.parent = pools.transform;
             }
 
             return newObject;

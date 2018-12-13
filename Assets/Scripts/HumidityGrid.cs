@@ -48,8 +48,11 @@ public class HumidityGrid : MonoBehaviour
 
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
-                if (grid.tilesArray[i, j] != null)
+                if (grid.tilesArray[i, j] != null) {
                     grid.tilesArray[i, j].ResetRiver();
+                    grid.tilesArray[i, j].windDryness = 0;
+                    grid.tilesArray[i, j].nextTilesInCorridor.Clear();
+                }
             }
         }
 
@@ -108,6 +111,37 @@ public class HumidityGrid : MonoBehaviour
             }
         }
 
+        ComputeDryness();
+
+        UpdateTiles();
+
+    }
+
+    public void ComputeDryness() {
+        foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
+            wo.ComputeWindCorridor();
+        }
+    }
+
+    public void UpdateTile(TileProperties tile) {
+        CustomTile previousCustomTile = tile.Tile;
+        UpdateCustomTile(tile);
+        if (previousCustomTile != tile.Tile) {
+            tile.ResetTile();
+            tile.SetAddon();
+            foreach (TileProperties neighbor in tile.GetNeighbors()) {
+                neighbor.ResetTile();
+                neighbor.SetBorders();
+                neighbor.PutRivers();
+            }
+            tile.SetBorders();
+            tile.PutRivers();
+        }
+    }
+
+    public void UpdateTiles() {
+        CustomTile previousCustomTile = tile.Tile;
+
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
@@ -115,7 +149,6 @@ public class HumidityGrid : MonoBehaviour
                 }
             }
         }
-
         grid.Tilemap.RefreshAllTiles();
         grid.ResetTiles();
         grid.SetAddons();
@@ -123,35 +156,14 @@ public class HumidityGrid : MonoBehaviour
         grid.PutRivers();
     }
 
-    public void UpdateTile(TileProperties tile) {
-        UpdateCustomTile(tile);
-
-    }
-
     public void UpdateCustomTile(TileProperties tile) {
         if (tile.Tile && tile.Tile.humidityDependant) {
-            CustomTile previousCustomTile = tile.Tile;
-
             if (tile.humidity < 1)
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, lowHumidityTile);
             else if (tile.humidity > 6)
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, highHumidityTile);
             else
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, normalHumidityTile);
-
-
-            if (previousCustomTile != tile.Tile) {
-                tile.ResetTile();
-                tile.SetAddon();
-                foreach (TileProperties neighbor in tile.GetNeighbors()) {
-                    neighbor.ResetTile();
-                    neighbor.SetBorders();
-                    neighbor.PutRivers();
-                }
-                tile.SetBorders();
-                tile.PutRivers();
-            }
         }
-       
     }
 }
