@@ -18,7 +18,9 @@ MonoBehaviour:
   terrainType: 0
   ambientRTPC: AMBIANCE_VOLUME_DESERT
   centers:
-  - {fileID: 21300000, guid: ec07d8074230ecb44af06a5e96126675, type: 3}
+  - {fileID: 21300000, guid: 7fbdf18de7178ac48ab602781ecfa844, type: 3}
+  - {fileID: 21300000, guid: 82c9ffeb2ef62394cbaa5ff458b9758b, type: 3}
+  - {fileID: 21300000, guid: 04f2575ea0bdf2e4eb60980286dbbbc4, type: 3}
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -104,7 +106,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -119,10 +121,14 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: []
-    _keys: []
-    _values: []
+    isExpanded: 1
+    _keyValues:
+    - Infinity
+    _keys:
+    - Infinity
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 92e32de939412bf46baaef0771b0a387, type: 3}
   humidityDependant: 0
   riverSource: 1
   riverDirection: 3

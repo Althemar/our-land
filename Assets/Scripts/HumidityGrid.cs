@@ -16,6 +16,8 @@ public class HumidityGrid : MonoBehaviour
     public Sprite triLakeSW;
     public Sprite triLakeSE;
 
+    public Sprite glacier;
+
     public Sprite NERiver;
     public Sprite ERiver;
     public Sprite SERiver;
@@ -162,6 +164,7 @@ public class HumidityGrid : MonoBehaviour
                 grid.tilesArray[i, j].SetBorders();
                 grid.tilesArray[i, j].PutLake();
                 grid.tilesArray[i, j].PutRivers();
+                grid.tilesArray[i, j].PutGlacier();
             }
         }
     }

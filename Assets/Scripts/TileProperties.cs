@@ -191,6 +191,8 @@ public class TileProperties : MonoBehaviour {
         }
         else {
             if (riverJonction[(int)direction.Next()] == null || riverJonction[(int)direction.Next()].force == 0) {
+                if (riverJonction[(int)direction.Next()] != null)
+                    r.force++;
                 riverJonction[(int)direction.Next()] = r;
                 GetNeighbor(direction).riverJonction[(int)direction.Opposite()] = r;
                 GetNeighbor(direction.Next()).riverJonction[(int)direction.Previous()] = r;
@@ -200,6 +202,12 @@ public class TileProperties : MonoBehaviour {
                 r.force = 0;
                 r.doLake = false;
             }
+        }
+    }
+
+    public void PutGlacier() {
+        if (this.Tile && this.Tile.riverSource) {
+            CreateSprite(grid.humidity.glacier, addonsGameObjects, 10);
         }
     }
 
