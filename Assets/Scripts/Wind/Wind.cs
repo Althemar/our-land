@@ -5,42 +5,21 @@ using static UnityEngine.ParticleSystem;
 
 public class Wind : Updatable
 {
-    public int baseSize;
-    public HexDirection direction;
 
-    private Wind previous;
-    private List<Wind> next;
+    public Wind previous;
+    public List<Wind> next;
+    public HexDirection direction;
 
     private TileProperties tile;
 
-    bool previousAlreadyUpdated;
+
+    private bool previousAlreadyUpdated;
 
     public ParticleSystem ps;
-    private List<Vector4> custom1, custom2;
+    private List<Vector4> custom1;
 
-
+    
     private void Update() {
-        
-        if (GameManager.Instance.FrameCount == 0) {
-
-            Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
-            TileProperties tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-
-            InitializeChildWind(tile, null, direction);
-            
-            Wind current = this;
-
-            for (int i = 0; i < baseSize - 1; i++) {
-                TileProperties nextTile = current.tile.GetNeighbor(direction);
-
-                Wind newWind = WindManager.Instance.WindsPool.Pop();
-                newWind.transform.position = nextTile.transform.position;
-                current.next.Add(newWind);
-                newWind.InitializeChildWind(nextTile, current, direction);     
-                current = newWind;
-            }
-        }
-
         if (!gameObject.activeSelf) {
             return;
         }
@@ -49,7 +28,6 @@ public class Wind : Updatable
             Particle[] particles = new Particle[ps.particleCount];
             ps.GetParticles(particles);
             ps.GetCustomParticleData(custom1, ParticleSystemCustomData.Custom1);
-            ps.GetCustomParticleData(custom2, ParticleSystemCustomData.Custom2);
             for (int i = 0; i < particles.Length; i++) {
 
                 TileProperties tile = HexagonalGrid.Instance.GetTile(HexagonalGrid.Instance.Tilemap.WorldToCell(particles[i].position));
@@ -95,18 +73,16 @@ public class Wind : Updatable
             }
             ps.SetParticles(particles);
             ps.SetCustomParticleData(custom1, ParticleSystemCustomData.Custom1);
-            ps.SetCustomParticleData(custom2, ParticleSystemCustomData.Custom2);
         } 
     }
 
     public void InitializeChildWind(TileProperties tile, Wind previous, HexDirection direction) {
+        transform.position = tile.transform.position;
         this.previous = previous;
         this.tile = tile;
         this.direction = direction;
         next = new List<Wind>();
         custom1 = new List<Vector4>();
-        custom2 = new List<Vector4>();
-        //tile.Tilemap.SetColor(tile.Position, Color.red);
         AddToTurnManager();
         tile.wind = this;
 
@@ -131,10 +107,12 @@ public class Wind : Updatable
         if (!previous && !previousAlreadyUpdated) {
             tile.Tilemap.SetColor(tile.Position, Color.white);
             tile.wind = null;
-            
+
             for (int i = 0; i < next.Count; i++) {
                 next[i].previous = null;
-                next[i].previousAlreadyUpdated = true;
+                if (!next[i].updated) {
+                    next[i].previousAlreadyUpdated = true;
+                }
             }
             RemoveFromTurnManager();
             EndTurn();
@@ -160,7 +138,7 @@ public class Wind : Updatable
         }
 
         previousAlreadyUpdated = false;
-
+        
         EndTurn();
     }
 
