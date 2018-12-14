@@ -305,7 +305,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public void SetBorders() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             HexCoordinates direction = new HexCoordinates(cubeDirections[i]);
             TileProperties tile = grid.GetTile(coordinates + direction);
             if (tile != null) {
