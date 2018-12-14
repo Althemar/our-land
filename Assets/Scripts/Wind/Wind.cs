@@ -154,7 +154,7 @@ public class Wind : Updatable
 
 
         if (!ps.isPlaying) {
-            Destroy(gameObject);
+            WindManager.Instance.WindsPool.Push(this);
         }
         else {
 

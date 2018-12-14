@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go: {fileID: 0}
   canWalkThrough: 1
-  walkCost: 2
+  walkCost: 1
   terrainType: 2
   ambientRTPC: AMBIANCE_VOLUME_DESERT
   centers:
