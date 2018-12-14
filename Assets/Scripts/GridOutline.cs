@@ -8,6 +8,10 @@ public class GridOutline : MonoBehaviour {
     public HexagonalGrid grid;
 
     public float outlineSize = 0.05f;
+    public float outlineGap = 0.03f;
+    public Color baseColor = new Color(1, 1, 1, 0.4f);
+
+    public List<int>[,] tilesTriangles;
 
     public void Start() {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -24,12 +28,46 @@ public class GridOutline : MonoBehaviour {
                 AddVertices(ref vertices, tile, HexDirection.E);
                 AddVertices(ref vertices, tile, HexDirection.SE);
                 AddVertices(ref vertices, tile, HexDirection.SW);
-                nbRect += 3;
+                AddVertices(ref vertices, tile, HexDirection.W);
+                AddVertices(ref vertices, tile, HexDirection.NW);
+                AddVertices(ref vertices, tile, HexDirection.NE);
+                nbRect += 6;
             }
         }
         
         mesh.vertices = vertices.ToArray();
-        CreateTriangles(vertices, nbRect);
+
+
+        int trianglesSize = nbRect * 6;
+        int[] triangles = new int[trianglesSize];
+        int ti = 0, vi = 0;
+        tilesTriangles = new List<int>[grid.tilesArray.GetLength(0), grid.tilesArray.GetLength(1)];
+        for (int x = 0; x < grid.tilesArray.GetLength(0); x++) {
+            for (int y = 0; y < grid.tilesArray.GetLength(1); y++) {
+                TileProperties tile = grid.tilesArray[x, y];
+                if (!tile)
+                    continue;
+                tilesTriangles[x, y] = new List<int>();
+                for (int i = 0; i < 6; i++) {
+                    triangles[ti] = vi;
+                    triangles[ti + 1] = triangles[ti + 4] = vi + 1;
+                    triangles[ti + 2] = triangles[ti + 3] = vi + 2;
+                    triangles[ti + 5] = vi + 3;
+                    for(int v = 0; v < 4; v++)
+                        tilesTriangles[x, y].Add(vi + v);
+                    ti += 6;
+                    vi += 2;
+                }
+                vi += 2;
+            }
+        }
+        
+        mesh.triangles = triangles;
+        Color[] col = new Color[vertices.Count];
+        for (int i = 0; i < vertices.Count; i++) {
+            col[i] = baseColor;
+        }
+        mesh.colors = col;
     }
 
     // Add 2 vertices to the mesh
@@ -38,26 +76,38 @@ public class GridOutline : MonoBehaviour {
         Vector3 other = left + current.Grid.Metrics.GetCorner(false, direction) * outlineSize;
         left -= current.Grid.Metrics.GetCorner(false, direction) * outlineSize;
 
+        other -= current.Grid.Metrics.GetCorner(false, direction) * outlineGap;
+        left -= current.Grid.Metrics.GetCorner(false, direction) * outlineGap;
+
         vertices.Add(left);
         vertices.Add(other);
     }
-
-    private void CreateTriangles(List<Vector3> vertices, int nbRectangles) {
-        int trianglesSize = nbRectangles * 6;
-        int[] triangles = new int[trianglesSize];
-        for (int ti = 0, vi = 0, i = 0; i < nbRectangles; ti += 6, vi += 2, i++) {
-            if (i != 0 && i % 3 == 0)
-                vi += 2;
-            triangles[ti] = vi;
-            triangles[ti + 1] = triangles[ti + 4] = vi + 1;
-            triangles[ti + 2] = triangles[ti + 3] = vi + 2;
-            triangles[ti + 5] = vi + 3;
-        }
-
-        mesh.triangles = triangles;
-    }
-
+    
     public void Clear() {
         mesh.Clear();
+    }
+
+    public void SetTileColor(int x, int y, Color c) {
+        Color[] col = mesh.colors;
+        foreach (int vIndex in tilesTriangles[x, y]) {
+            col[vIndex] = c;
+        }
+        mesh.colors = col;
+    }
+
+    public void ResetTileColor(int x, int y) {
+        Color[] col = mesh.colors;
+        foreach (int vIndex in tilesTriangles[x, y]) {
+            col[vIndex] = baseColor;
+        }
+        mesh.colors = col;
+    }
+
+    public void ResetTiles() {
+        Color[] col = mesh.colors;
+        for (int i = 0; i < col.Length; i++) {
+            col[i] = baseColor;
+        }
+        mesh.colors = col;
     }
 }

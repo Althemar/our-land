@@ -21,7 +21,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
-        text.text = entity.entitySO.name;
+        text.text = "Harvest " + entity.entitySO.name + "\nCost 1PA";
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
         if (entitiesHarvestable.motherShip.RemainingActionPoints > 0) {

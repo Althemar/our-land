@@ -38,6 +38,7 @@ public class CameraControl : MonoBehaviour {
         ZoomCamera(-Input.mouseScrollDelta.y * 1.5f);
         
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
+        AkSoundEngine.SetRTPCValue("ZOOM_LEVEL", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
     }
 
     void MoveCamera(float x, float y) {

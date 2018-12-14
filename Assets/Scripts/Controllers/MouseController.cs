@@ -17,7 +17,7 @@ public class MouseController : MonoBehaviour
     private Camera cam;
     private Movable movable;
 
-
+    private TileProperties current;
 
     List<HexagonsOutline> movementPreviews;
    
@@ -34,7 +34,6 @@ public class MouseController : MonoBehaviour
         }
         
         if (Input.GetMouseButtonDown(1)) {
-            
             RightClickDown();
         }
         else if (Input.GetMouseButtonUp(1)) {
@@ -49,6 +48,15 @@ public class MouseController : MonoBehaviour
             }
             else if (entitiesHarvestable.Displaying && !entitiesHarvestable.CursorIsOnButton()){
                 entitiesHarvestable.Clear();
+            }
+        } else {
+            TileProperties tile = GetTile();
+            if(tile && current != tile) {
+                if(current)
+                    hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
+                hexGrid.SetTileColor(tile.Coordinates.OffsetCoordinates, new Color(1, 0, 0, 0.6f));
+                entitiesHarvestable.ShowInfo(tile);
+                current = tile;
             }
         }
         if (reachableTiles.Displaying) {
