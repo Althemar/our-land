@@ -122,9 +122,13 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: []
-    _keys: []
-    _values: []
+    _keyValues:
+    - 1
+    _keys:
+    - 1
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 92e32de939412bf46baaef0771b0a387, type: 3}
   humidityDependant: 0
   riverSource: 1
   riverDirection: 1

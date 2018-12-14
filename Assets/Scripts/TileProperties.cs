@@ -46,6 +46,7 @@ public class TileProperties : MonoBehaviour {
     public HashSet<WindOrigin> woAffectingTile;
     public HashSet<WindOrigin> woOnTile;
 
+
     public bool needRefresh = true;
 
     /*
