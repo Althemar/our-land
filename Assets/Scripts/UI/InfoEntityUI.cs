@@ -16,7 +16,7 @@ public class InfoEntityUI : MonoBehaviour
     public ResourceTemplate ressourcesTemplate;
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
-        text.text = entity.entitySO.name;
+        text.text = "" + Mathf.Floor(entity.population) + " " + entity.entitySO.name;
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
 

@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
             gameOverPanel.gameObject.SetActive(true);
             gameOverPanel.text.text = "Your people survived " + TurnManager.Instance.TurnCount + " turns";
             gameState = GameState.Defeat;
+            Playtest.TimedLog("Defeat");
             StartCoroutine(WaitBeforeFinish());
         }
     }
@@ -58,6 +59,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WaitBeforeFinish() {
         yield return new WaitForSeconds(timeToWaitAfterEnd);
+        ResetGame();
+    }
+
+    public void ResetGame() {
+        Playtest.TimedLog("Game Reset Turn " + TurnManager.Instance.TurnCount);
         Instance = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

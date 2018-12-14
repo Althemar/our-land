@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
-
-    protected float population;
+    
+    public float population;
     protected TileProperties tile;
     
 

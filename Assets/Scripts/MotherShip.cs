@@ -92,6 +92,7 @@ public class MotherShip : MonoBehaviour
     }
 
     public void BeginMove() {
+        Playtest.TimedLog("Player Move");
         outline.Clear();
     }
 

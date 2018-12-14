@@ -49,7 +49,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _values: 0a000000
+    _values: 01000000
   movementPoints: 1
   foodConsumption: 0.15
   satietyThreshold: 1

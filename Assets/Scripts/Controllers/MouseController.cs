@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class MouseController : MonoBehaviour
 {
@@ -51,6 +52,14 @@ public class MouseController : MonoBehaviour
             }
         } else {
             TileProperties tile = GetTile();
+            
+            if(EventSystem.current.IsPointerOverGameObject()) {
+                if (current)
+                    hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
+                tile = null;
+                current = null;
+            }
+
             if(tile && current != tile) {
                 if(current)
                     hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);

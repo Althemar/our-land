@@ -26,7 +26,9 @@ public class TitleMenu : MonoBehaviour {
     }
 
     public void Play() {
-        SceneManager.LoadScene("Damien");
+        SceneManager.LoadScene("Playtest");
+
+        Playtest.StartNewPlaytest();
     }
 
 }

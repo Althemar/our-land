@@ -13,6 +13,9 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private Entity entity;
     private EntitiesHarvestableUI entitiesHarvestable;
 
+    public GameObject ressourcesPreview;
+    public ResourceTemplate ressourcesTemplate;
+
     private bool pointerIsOnButton = false;
 
     public bool PointerIsOnButton
@@ -21,7 +24,25 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
-        text.text = "Harvest " + entity.entitySO.name + "\nCost 1PA";
+        text.text = "Harvest " + entity.entitySO.name;
+
+        foreach (Transform t in ressourcesPreview.transform)
+            Destroy(t.gameObject);
+
+        foreach (var res in entity.entitySO.resources) {
+            ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
+            temp.GetComponent<RectTransform>().sizeDelta = new Vector2(2f, 1);
+            temp.icon.sprite = res.Key.icon;
+            temp.value.text = "+" + (res.Value * Mathf.Floor(entity.population));
+            temp.value.color = Color.black;
+        }
+        ResourceTemplate pa = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
+        pa.GetComponent<RectTransform>().sizeDelta = new Vector2(2f, 1);
+        pa.icon.sprite = null;
+        pa.icon.color = Color.clear;
+        pa.value.text = "-1 PA";
+        pa.value.color = Color.black;
+
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
         if (entitiesHarvestable.motherShip.RemainingActionPoints > 0) {
@@ -35,8 +56,9 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void HarvestEntity() {
+        Playtest.TimedLog("Harvest " + Mathf.Floor(entity.population) + " " + entity.entitySO.name);
         foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
-            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value);
+            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value * Mathf.Floor(entity.population));
         }
         entitiesHarvestable.motherShip.RemainingActionPoints--;
         entity.Kill();

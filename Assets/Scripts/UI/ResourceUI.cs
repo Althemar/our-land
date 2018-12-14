@@ -18,10 +18,13 @@ public class ResourceUI : MonoBehaviour
             GameObject item = Instantiate(templateResource, Vector3.zero, Quaternion.identity, panel.transform);
             item.SetActive(false);
             pool[i] = item.GetComponent<ResourceTemplate>();
+            pool[i].canShowPanel = true;
         }
 
         inv.OnInventoryChange += RefreshView;
         RefreshView();
+
+        I18N.OnLangChange += RefreshView;
     }
 
     public void DebugAdd() {
@@ -38,6 +41,8 @@ public class ResourceUI : MonoBehaviour
             ResourceTemplate template = pool[index++];
             template.icon.sprite = data.Key.icon;
             template.value.text = "" + data.Value;
+            template.textPanel.text = I18N.GetText(data.Key.infoboxPanel);
+            template.textPanel.spriteAsset = data.Key.textIcons;
             template.gameObject.SetActive(true);
         }
     }
