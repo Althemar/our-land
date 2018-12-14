@@ -45,8 +45,8 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         buttonsCount = 0;
         if (tile.staticEntity && tile.movingEntity) {
             Vector3 secondPosition = position;
-            position.x -= 1.25f;
-            secondPosition.x += 1.25f;
+            position.x -= 2.5f;
+            secondPosition.x += 2.5f;
             InstantiateHarvestUI(position, tile.staticEntity);
             buttonsCount++;
             InstantiateHarvestUI(secondPosition, tile.movingEntity);

@@ -32,7 +32,7 @@ public class MovingEntity : Entity
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-        GetComponent<SpriteRenderer>().sortingOrder = 3;
+        GetComponent<SpriteRenderer>().sortingOrder = 15;
 
     }
 

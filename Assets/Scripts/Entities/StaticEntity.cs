@@ -9,7 +9,7 @@ public class StaticEntity : Entity
 
     protected override void Start() {
         base.Start();
-        GetComponent<SpriteRenderer>().sortingOrder = 2;
+        GetComponent<SpriteRenderer>().sortingOrder = 10;
         staticEntitySO = entitySO as StaticEntitySO;
     }
 

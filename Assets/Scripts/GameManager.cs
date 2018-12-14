@@ -53,9 +53,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (frameCount == 0) {
-            frameCount++;
-        }
+        frameCount++;
     }
 
     public IEnumerator WaitBeforeFinish() {
