@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6641214869133636041}
-  - component: {fileID: 2765860663744131125}
+  - component: {fileID: 4556656698423060849}
   m_Layer: 5
   m_Name: Resources Harvested
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: -973.95, y: -541.13}
   m_SizeDelta: {x: 3.449, y: 1.245}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2765860663744131125
+--- !u!114 &4556656698423060849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,14 +47,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6641214869133636042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51bc05d94f7b42e4d98b9c4d47b4565e, type: 3}
+  m_Script: {fileID: 11500000, guid: cbb80ea9628cf274bbdcfcf7bf31c84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6641214870379397310}
   text: {fileID: 6641214869602538368}
   speed: 1
   fadeSpeed: 0.5
-  offsetY: 0.5
+  offsetY: 0.6
 --- !u!1 &6641214869602538370
 GameObject:
   m_ObjectHideFlags: 0
