@@ -35,6 +35,7 @@ public class MotherShip : MonoBehaviour
 
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;
+    public OnMotherShipDelegate OnBeginMoving;
     public OnMotherShipDelegate OnEndMoving;
     public OnMotherShipDelegate OnRemainingPointsChanged;
 
@@ -79,7 +80,7 @@ public class MotherShip : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.FrameCount == 0) {
-            EndMove();
+            ShowHarvestOutline();
         }
     }
 
@@ -91,12 +92,11 @@ public class MotherShip : MonoBehaviour
         OnRemainingPointsChanged?.Invoke();
     }
 
-    public void BeginMove() {
-        Playtest.TimedLog("Player Move");
+    public void ClearHarvestOutline() {
         outline.Clear();
     }
 
-    void EndMove() {
+    public void ShowHarvestOutline() {
         tilesInRange = movable.CurrentTile.InRange(harvestDistance);
         for (int i = 0; i < tilesInRange.Count; i++) {
             tilesInRange[i].IsInReachables = true;
@@ -105,6 +105,16 @@ public class MotherShip : MonoBehaviour
         for (int i = 0; i < tilesInRange.Count; i++) {
             tilesInRange[i].IsInReachables = false;
         }
+    }
+
+    public void BeginMove() {
+        Playtest.TimedLog("Player Move");
+        OnBeginMoving?.Invoke();
+        outline.Clear();
+    }
+
+    void EndMove() {
+        ShowHarvestOutline();
         
         remainingActionPoints -= movable.CurrentTile.ActionPointCost;
         OnEndMoving?.Invoke();

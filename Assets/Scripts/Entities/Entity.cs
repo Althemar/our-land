@@ -6,9 +6,11 @@ public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
     
+    [System.NonSerialized]
     public float population;
     protected TileProperties tile;
     
+    public int basePopulation; 
 
     public TileProperties Tile
     {
@@ -35,7 +37,7 @@ public abstract class Entity : Updatable
         }
         AddToTurnManager();
         if (population == -1) {
-            this.population = entitySO.basePopulation;
+            this.population = basePopulation;//entitySO.basePopulation;
         }
         else {
             this.population = population;

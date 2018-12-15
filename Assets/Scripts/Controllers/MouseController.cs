@@ -93,7 +93,7 @@ public class MouseController : MonoBehaviour
             TileProperties tile = GetTile();
 
             if (motherShip && motherShip.RemainingActionPoints > 0) {
-                motherShip.BeginMove();
+                motherShip.ClearHarvestOutline();
 
                 List<TileProperties> reachables = movable.CurrentTile.TilesReachable(motherShip.RemainingActionPoints * motherShip.reach, motherShip.reach);
 
@@ -141,7 +141,10 @@ public class MouseController : MonoBehaviour
             }
             movementPreviews.Clear();
             if (movable.ReachableTiles.Contains(GetTile())) {
+                motherShip.BeginMove();
                 movable.MoveToTile(GetTile());
+            } else {
+                motherShip.ShowHarvestOutline();
             }
         }
     }

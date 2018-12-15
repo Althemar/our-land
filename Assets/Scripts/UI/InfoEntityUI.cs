@@ -27,7 +27,7 @@ public class InfoEntityUI : MonoBehaviour
         foreach(var res in entity.entitySO.resources) {
             ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
             temp.icon.sprite = res.Key.icon;
-            temp.value.text = "" + res.Value;
+            temp.value.text = "" + res.Value * Mathf.Floor(entity.population);
         }
     }
 
