@@ -50,10 +50,13 @@ MonoBehaviour:
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _values: 01000000
+  harvestSound: Play_SFX_Kill_Rhtuk_Victory
   movementPoints: 1
   foodConsumption: 0.15
   satietyThreshold: 1
   starvationThreshold: 0.2
   damageWhenEat: 2
+  eatFeedback: {fileID: 6641214869133636042, guid: d45d06d1efa15da45853d1017c6aa964,
+    type: 3}
   foods:
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}

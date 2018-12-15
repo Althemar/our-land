@@ -50,10 +50,13 @@ MonoBehaviour:
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _values: 01000000
+  harvestSound: Play_SFX_Kill_Sheep_Victory
   movementPoints: 2
   foodConsumption: 0.08
   satietyThreshold: 1
   starvationThreshold: 0.3
   damageWhenEat: 1.6
+  eatFeedback: {fileID: 6641214869133636042, guid: e54f865f06f01114d8530fb19da7c39b,
+    type: 3}
   foods:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}

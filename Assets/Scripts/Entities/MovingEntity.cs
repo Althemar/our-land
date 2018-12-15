@@ -19,6 +19,9 @@ public class MovingEntity : Entity
     private Entity target;
     private bool stopBefore;
 
+    // UGLY TO IMPROVE
+    private Transform canvasWorldSpace;
+
     protected override void Start() {
         base.Start();
         movable = GetComponent<Movable>();
@@ -34,6 +37,8 @@ public class MovingEntity : Entity
         hunger = EntityHungerState.Full;
         GetComponent<SpriteRenderer>().sortingOrder = 15;
 
+        // UGLY TO IMPROVE
+        canvasWorldSpace = GameObject.Find("Canvas World Space").transform;
     }
 
     private void Update() {
@@ -122,6 +127,14 @@ public class MovingEntity : Entity
     private void Harvest() {
         currentFood += target.entitySO.foodWhenHarvested;
         target.Eaten(movingEntitySO.damageWhenEat);
+
+        // UGLY TO MOVE
+        if(movingEntitySO.eatFeedback) {
+            Vector3 position = (this.transform.position + target.transform.position) / 2f;
+            KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
+            harvested.Initialize();
+        }
+
         if (currentFood > satietyTreshold) {
             //currentFood = satietyTreshold;
             hunger = EntityHungerState.Full;

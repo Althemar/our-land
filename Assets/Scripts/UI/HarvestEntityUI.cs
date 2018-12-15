@@ -62,6 +62,8 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         entitiesHarvestable.motherShip.RemainingActionPoints--;
         entity.Kill();
+        if(entity.entitySO)
+            AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
         entitiesHarvestable.Clear();
         entitiesHarvestable.DisplayHarvestedResources(entity);
     }

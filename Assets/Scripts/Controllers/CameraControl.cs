@@ -35,6 +35,14 @@ public class CameraControl : MonoBehaviour {
 
     void Update () {
         MoveCamera(Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
+        if(Input.mousePosition.x < 5)
+            MoveCamera(-0.75f, 0);
+        if(Input.mousePosition.x > Screen.width - 5)
+            MoveCamera(0.75f, 0);
+        if(Input.mousePosition.y < 5)
+            MoveCamera(0, -0.75f);
+        if(Input.mousePosition.y > Screen.height - 5)
+            MoveCamera(0, 0.75f);
         ZoomCamera(-Input.mouseScrollDelta.y * 1.5f);
         
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);

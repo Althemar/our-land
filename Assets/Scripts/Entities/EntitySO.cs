@@ -35,4 +35,6 @@ public class EntitySO : ScriptableObject
     [SerializeField]
     public ResourcesToHarvest resources;
    
+
+    public string harvestSound;
 }

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -94,4 +94,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updated: 0
   entitySO: {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
+  population: 0
   staticEntitySO: {fileID: 0}

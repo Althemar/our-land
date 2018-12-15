@@ -11,6 +11,7 @@ public static class Playtest {
         filename = @"C:\PlaytestOurLand\Playtest" + DateTimeOffset.UtcNow.ToUnixTimeSeconds() + ".txt";
 
         string text = "Playtest "+ DateTimeOffset.UtcNow.ToUnixTimeSeconds() + "\r\n";
+        System.IO.Directory.CreateDirectory(@"C:\PlaytestOurLand");
         System.IO.File.WriteAllText(filename, text);
 
         timeStart = DateTime.Now;
