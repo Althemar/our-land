@@ -66,7 +66,7 @@ public class MovingEntity : Entity
                     if (path != null) {
                         tile.currentMovable = null;
                         tile.movingEntity = null;
-                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);
+                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, false);
                         tile.movingEntity = this;
                     }
                 }
