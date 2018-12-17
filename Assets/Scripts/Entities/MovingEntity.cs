@@ -6,6 +6,7 @@ using UnityEngine;
 public class MovingEntity : Entity
 {
     private Movable movable;
+    [SerializeField]
     private float currentFood;
 
     private float satietyTreshold;
@@ -137,11 +138,11 @@ public class MovingEntity : Entity
     }
 
     private void Harvest() {
-        currentFood += target.entitySO.foodWhenHarvested;
-        target.Eaten(movingEntitySO.damageWhenEat);
+        currentFood += target.entitySO.foodWhenHarvested * population; //j'ai rajouté * population
+        target.Eaten(movingEntitySO.damageWhenEat * population); //j'ai rajouté * population
 
         // UGLY TO MOVE
-        if(movingEntitySO.eatFeedback) {
+        if (movingEntitySO.eatFeedback) {
             Vector3 position = (this.transform.position + target.transform.position) / 2f;
             KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
             harvested.Initialize();
@@ -163,8 +164,8 @@ public class MovingEntity : Entity
     }
 
     private void UpdateFoodTresholds() {
-        satietyTreshold = movingEntitySO.satietyThreshold * population;
-        starvationTreshold = movingEntitySO.starvationThreshold * population;
+        satietyTreshold = movingEntitySO.satietyThreshold * Mathf.Floor(population); //j'ai floor la pop
+        starvationTreshold = movingEntitySO.starvationThreshold * Mathf.Floor(population); //j'ai floor la pop
     }
 
     void EndMoving() {

@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wolf
   sprite: {fileID: 21300000, guid: 08cdcabafde84a7489773fb1d7686e6f, type: 3}
-  basePopulation: 5
-  populationMax: 10
-  reproductionRate: 0.1
+  populationMax: 4
+  reproductionRate: 0.5
   deathRate: 0.2
   foodWhenHarvested: 0
   availableTiles:
@@ -52,10 +51,10 @@ MonoBehaviour:
     _values: 01000000
   harvestSound: Play_SFX_Kill_Rhtuk_Victory
   movementPoints: 1
-  foodConsumption: 0.15
-  satietyThreshold: 1
-  starvationThreshold: 0.2
-  damageWhenEat: 2
+  foodConsumption: 1
+  satietyThreshold: 6
+  starvationThreshold: 2
+  damageWhenEat: 1
   eatFeedback: {fileID: 6641214869133636042, guid: d45d06d1efa15da45853d1017c6aa964,
     type: 3}
   foods:
