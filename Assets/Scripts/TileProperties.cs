@@ -484,7 +484,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
-        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !movingEntity))
+        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !currentMovable))
              || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);
     }
 

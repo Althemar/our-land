@@ -58,6 +58,18 @@ public class MovingEntity : Entity
                 IncreasePopulation();
                 TryCreateAnotherEntity(EntityType.Moving);
                 UpdateFoodTresholds();
+
+                TileProperties[] neighbors = tile.GetNeighbors();
+                TileProperties next = neighbors[Random.Range(0, 6)];
+                if (next && !next.currentMovable) {
+                    Stack<TileProperties> path = AStarSearch.Path(tile, next, entitySO.availableTiles);
+                    if (path != null) {
+                        tile.currentMovable = null;
+                        tile.movingEntity = null;
+                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, stopBefore);
+                        tile.movingEntity = this;
+                    }
+                }
             }
         }
         
@@ -159,10 +171,13 @@ public class MovingEntity : Entity
         tile.movingEntity = null;
         tile = movable.CurrentTile;
         tile.movingEntity = this;
-        int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
-        if ((stopBefore && distance == 1) || distance == 0) {
-            Harvest();
+        if (target) {
+            int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
+            if ((stopBefore && distance == 1) || distance == 0) {
+                Harvest();
+            }
         }
+       
         EndTurn();
     }
 }
