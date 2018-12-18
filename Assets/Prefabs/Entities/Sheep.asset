@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Sheep
   sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
-  basePopulation: 6
-  populationMax: 10
-  reproductionRate: 0.15
-  deathRate: 0.2
-  foodWhenHarvested: 2.5
+  populationMax: 6
+  reproductionRate: 0.9
+  deathRate: 1
+  foodWhenHarvested: 6
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
@@ -49,13 +48,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _values: 01000000
+    _values: 05000000
   harvestSound: Play_SFX_Kill_Sheep_Victory
-  movementPoints: 2
-  foodConsumption: 0.08
-  satietyThreshold: 1
-  starvationThreshold: 0.3
-  damageWhenEat: 1.6
+  movementPoints: 3
+  foodConsumption: 1
+  satietyThreshold: 4
+  starvationThreshold: 2
+  damageWhenEat: 1
   eatFeedback: {fileID: 6641214869133636042, guid: e54f865f06f01114d8530fb19da7c39b,
     type: 3}
   foods:
