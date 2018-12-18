@@ -58,7 +58,14 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void HarvestEntity() {
         Playtest.TimedLog("Harvest " + Mathf.Floor(entity.population) + " " + entity.entitySO.name);
         foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
-            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value * Mathf.Floor(entity.population));
+            float population;
+            if (entity.population < 0) {
+                population = 1;
+            }
+            else {
+                population = Mathf.Floor(entity.population);
+            }
+            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value * population);
         }
         entitiesHarvestable.motherShip.RemainingActionPoints--;
         entity.Kill();

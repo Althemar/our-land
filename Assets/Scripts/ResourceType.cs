@@ -12,4 +12,8 @@ public class ResourceType : ScriptableObject {
     public string infoboxPanel;
     [SerializeField]
     public TMPro.TMP_SpriteAsset textIcons;
+
+    [SerializeField]
+    public Sprite consumptionIcon;
+    
 }

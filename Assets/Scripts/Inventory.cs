@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class InventorySlot
+{
+
+}
+
+[Serializable]
 public class ResourcesGet : SerializableDictionaryBase<ResourceType, float> { }
 
 public class Inventory : MonoBehaviour

@@ -16,7 +16,14 @@ public class InfoEntityUI : MonoBehaviour
     public ResourceTemplate ressourcesTemplate;
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
-        text.text = "" + Mathf.Floor(entity.population) + " " + entity.entitySO.name;
+        float population;
+        if (entity.population < 0) {
+            population = 1;
+        }
+        else {
+            population = Mathf.Floor(entity.population);
+        }
+        text.text = "" + population + " " + entity.entitySO.name;
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
 
