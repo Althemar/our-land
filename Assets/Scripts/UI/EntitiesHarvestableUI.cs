@@ -113,7 +113,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         Vector3 position = entity.transform.position;
         foreach (KeyValuePair<ResourceType, int> resource in resources) {
             ResourceHarvestedUI harvested = Instantiate(resourcesGainedPrefab, position, Quaternion.identity, transform).GetComponent<ResourceHarvestedUI>();
-            harvested.Initialize(resource.Key, resource.Value);
+            harvested.Initialize(resource.Key, resource.Value * Mathf.Floor(entity.population));
             yield return new WaitForSeconds(1);
         }
     }

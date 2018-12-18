@@ -6,6 +6,7 @@ using UnityEngine;
 public class MovingEntity : Entity
 {
     private Movable movable;
+    [SerializeField]
     private float currentFood;
 
     private float satietyTreshold;
@@ -18,6 +19,9 @@ public class MovingEntity : Entity
 
     private Entity target;
     private bool stopBefore;
+
+    // UGLY TO IMPROVE
+    private Transform canvasWorldSpace;
 
     protected override void Start() {
         base.Start();
@@ -34,6 +38,8 @@ public class MovingEntity : Entity
         hunger = EntityHungerState.Full;
         GetComponent<SpriteRenderer>().sortingOrder = 15;
 
+        // UGLY TO IMPROVE
+        canvasWorldSpace = GameObject.Find("Canvas World Space").transform;
     }
 
     private void Update() {
@@ -53,6 +59,19 @@ public class MovingEntity : Entity
                 IncreasePopulation();
                 TryCreateAnotherEntity(EntityType.Moving);
                 UpdateFoodTresholds();
+
+                TileProperties[] neighbors = tile.GetNeighbors();
+                TileProperties next = neighbors[Random.Range(0, 6)];
+                if (next && !next.currentMovable && next.Tile.canWalkThrough) {
+                    Stack<TileProperties> path = AStarSearch.Path(tile, next, entitySO.availableTiles);
+                    if (path != null && path.Count > 0) {
+                        tile.currentMovable = null;
+                        tile.movingEntity = null;
+                        tile = movable.MoveToward(path, movingEntitySO.movementPoints, false);
+                        tile.movingEntity = this;
+                        tile.currentMovable = movable;
+                    }
+                }
             }
         }
         
@@ -89,7 +108,7 @@ public class MovingEntity : Entity
                 }
                 if (move) {
                     Stack<TileProperties> path = AStarSearch.Path(tile, nearest, entitySO.availableTiles);
-                    if (path == null) {
+                    if (path == null || path.Count <= 0) {
                         EndTurn();
                     }
                     else {
@@ -120,8 +139,16 @@ public class MovingEntity : Entity
     }
 
     private void Harvest() {
-        currentFood += target.entitySO.foodWhenHarvested;
-        target.Eaten(movingEntitySO.damageWhenEat);
+        currentFood += target.entitySO.foodWhenHarvested * population; //j'ai rajouté * population
+        target.Eaten(movingEntitySO.damageWhenEat * population); //j'ai rajouté * population
+
+        // UGLY TO MOVE
+        if (movingEntitySO.eatFeedback) {
+            Vector3 position = (this.transform.position + target.transform.position) / 2f;
+            KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
+            harvested.Initialize();
+        }
+
         if (currentFood > satietyTreshold) {
             //currentFood = satietyTreshold;
             hunger = EntityHungerState.Full;
@@ -138,18 +165,21 @@ public class MovingEntity : Entity
     }
 
     private void UpdateFoodTresholds() {
-        satietyTreshold = movingEntitySO.satietyThreshold * population;
-        starvationTreshold = movingEntitySO.starvationThreshold * population;
+        satietyTreshold = movingEntitySO.satietyThreshold * Mathf.Floor(population); //j'ai floor la pop
+        starvationTreshold = movingEntitySO.starvationThreshold * Mathf.Floor(population); //j'ai floor la pop
     }
 
     void EndMoving() {
         tile.movingEntity = null;
         tile = movable.CurrentTile;
         tile.movingEntity = this;
-        int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
-        if ((stopBefore && distance == 1) || distance == 0) {
-            Harvest();
+        if (target) {
+            int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
+            if ((stopBefore && distance == 1) || distance == 0) {
+                Harvest();
+            }
         }
+       
         EndTurn();
     }
 }

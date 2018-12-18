@@ -16,7 +16,14 @@ public class InfoEntityUI : MonoBehaviour
     public ResourceTemplate ressourcesTemplate;
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
-        text.text = entity.entitySO.name;
+        float population;
+        if (entity.population < 0) {
+            population = 1;
+        }
+        else {
+            population = Mathf.Floor(entity.population);
+        }
+        text.text = "" + population + " " + entity.entitySO.name;
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
 
@@ -27,7 +34,7 @@ public class InfoEntityUI : MonoBehaviour
         foreach(var res in entity.entitySO.resources) {
             ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
             temp.icon.sprite = res.Key.icon;
-            temp.value.text = "" + res.Value;
+            temp.value.text = "" + res.Value * Mathf.Floor(entity.population);
         }
     }
 

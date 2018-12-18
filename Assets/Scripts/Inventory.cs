@@ -5,9 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class InventorySlot
+{
+
+}
+
+[Serializable]
 public class ResourcesGet : SerializableDictionaryBase<ResourceType, float> { }
 
-[CreateAssetMenu]
 public class Inventory : MonoBehaviour
 {
     public ResourcesGet resources;

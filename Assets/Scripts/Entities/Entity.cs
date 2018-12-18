@@ -6,9 +6,11 @@ public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
 
-    protected float population;
+    [SerializeField]
+    public float population;
     protected TileProperties tile;
     
+    public int basePopulation; 
 
     public TileProperties Tile
     {
@@ -35,7 +37,7 @@ public abstract class Entity : Updatable
         }
         AddToTurnManager();
         if (population == -1) {
-            this.population = entitySO.basePopulation;
+            this.population = basePopulation;//entitySO.basePopulation;
         }
         else {
             this.population = population;
@@ -73,7 +75,7 @@ public abstract class Entity : Updatable
 
     public void IncreasePopulation() {
         if (population < entitySO.populationMax) {
-            population += population * entitySO.reproductionRate;
+            population += entitySO.reproductionRate; //j'ai viré le * population
             if (population > entitySO.populationMax) {
                 population = entitySO.populationMax;
             }
@@ -81,7 +83,7 @@ public abstract class Entity : Updatable
     }
 
     public void DecreasePopulation() {
-        population -= population * entitySO.deathRate;
+        population -= entitySO.deathRate; //j'ai viré le * population
     }
 
     public void TryCreateAnotherEntity(EntityType type) {

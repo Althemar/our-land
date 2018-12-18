@@ -16,8 +16,8 @@ public class EntitySO : ScriptableObject
     public string name;
     public Sprite sprite;
 
-    [BoxGroup("Population")]
-    public int basePopulation;
+    //[BoxGroup("Population")]
+    //public int basePopulation;
     [BoxGroup("Population")]
     public int populationMax;
 
@@ -35,4 +35,6 @@ public class EntitySO : ScriptableObject
     [SerializeField]
     public ResourcesToHarvest resources;
    
+
+    public string harvestSound;
 }

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7946308881498552176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.789, y: 3.7920003, z: 3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
+  m_SortingOrder: 15
+  m_Sprite: {fileID: 21300000, guid: 7e2ddc2d621e52341a2d91a97754fa84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,6 +95,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updated: 0
   entitySO: {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+  population: 0
+  basePopulation: 2
+  currentFood: 0
   movingEntitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
 --- !u!114 &7946308881498552177
 MonoBehaviour:

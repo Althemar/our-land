@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class MouseController : MonoBehaviour
 {
@@ -51,6 +52,14 @@ public class MouseController : MonoBehaviour
             }
         } else {
             TileProperties tile = GetTile();
+            
+            if(EventSystem.current.IsPointerOverGameObject()) {
+                if (current)
+                    hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
+                tile = null;
+                current = null;
+            }
+
             if(tile && current != tile) {
                 if(current)
                     hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
@@ -84,7 +93,7 @@ public class MouseController : MonoBehaviour
             TileProperties tile = GetTile();
 
             if (motherShip && motherShip.RemainingActionPoints > 0) {
-                motherShip.BeginMove();
+                motherShip.ClearHarvestOutline();
 
                 List<TileProperties> reachables = movable.CurrentTile.TilesReachable(motherShip.RemainingActionPoints * motherShip.reach, motherShip.reach);
 
@@ -132,7 +141,10 @@ public class MouseController : MonoBehaviour
             }
             movementPreviews.Clear();
             if (movable.ReachableTiles.Contains(GetTile())) {
+                motherShip.BeginMove();
                 movable.MoveToTile(GetTile());
+            } else {
+                motherShip.ShowHarvestOutline();
             }
         }
     }

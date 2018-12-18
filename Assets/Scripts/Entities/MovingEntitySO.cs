@@ -16,6 +16,7 @@ public class MovingEntitySO : EntitySO
     public float starvationThreshold;
 
     public float damageWhenEat;
+    public GameObject eatFeedback;
 
     [BoxGroup("Food")]
     [ReorderableList]
