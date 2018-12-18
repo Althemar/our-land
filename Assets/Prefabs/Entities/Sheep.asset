@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sheep
   m_EditorClassIdentifier: 
   name: Sheep
-  sprite: {fileID: 21300000, guid: 08a11353f35ba5241b8751f2e06618d9, type: 3}
+  sprite: {fileID: 21300000, guid: 7e2ddc2d621e52341a2d91a97754fa84, type: 3}
   populationMax: 6
   reproductionRate: 0.9
   deathRate: 1
