@@ -122,8 +122,9 @@ public class Movable : MonoBehaviour
             if (calculatePath) {
                 path = AStarSearch.Path(currentTile, goal);
             }
-            
-            path.Pop();
+            if (path.Count > 1) {
+                path.Pop();
+            }
             targetTile = path.Pop();
             targetPos = tilemap.CellToWorld(targetTile.Position);
 
@@ -166,6 +167,9 @@ public class Movable : MonoBehaviour
 
     public TileProperties MoveToward(Stack<TileProperties> totalPath, int movementPoints, bool stopBefore = false) {
         TileProperties lastTile = null;
+        if (totalPath.Count == 0) {
+            Debug.Log("0");
+        }
         List<TileProperties> pathList = new List<TileProperties>();
         while (totalPath.Count > 0) {
             TileProperties tile = totalPath.Pop();
@@ -176,21 +180,25 @@ public class Movable : MonoBehaviour
                 pathList.Add(tile);
                 if (tile != currentTile) {
                     movementPoints -= tile.Tile.walkCost;
-                    lastTile = tile;
+                    
                 }
+                lastTile = tile;
             }
             else {
                 break;
             }
         }
-
+        if (!lastTile) {
+            Debug.Log("null");
+        }
         path.Clear();
         for (int i = pathList.Count - 1; i >= 0; i--) {
             path.Push(pathList[i]);
         }
-
         MoveToTile(lastTile, false);
         return lastTile;
+        
+       
     }
 
     public void EndMoving() {
