@@ -25,6 +25,8 @@ public class HexagonalGrid : MonoBehaviour {
     public HumidityGrid humidity;
     public GridOutline outline;
 
+    public GameObject TileGameObject;
+
     /*
      * Properties
      */
@@ -54,10 +56,8 @@ public class HexagonalGrid : MonoBehaviour {
             arrayOffset = tilemap.cellBounds.position - new Vector3Int(1, 1, 0);
             for (int i = 0; i < tilesArray.GetLength(0); i++) {
                 for (int j = 0; j < tilesArray.GetLength(1); j++) {
-                    GameObject obj = new GameObject("Tile Data");
-                    obj.transform.SetParent(this.transform);
-                    obj.transform.localPosition = tilemap.GetCellCenterWorld(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0));
-                    TileProperties prop = obj.AddComponent<TileProperties>();
+                    Vector3 position = tilemap.GetCellCenterWorld(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0));
+                    TileProperties prop = Instantiate(TileGameObject, position, Quaternion.identity, transform).GetComponent<TileProperties>();
                     prop.InitializeTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), this, tilemap);
                     tilesArray[i, j] = prop;
                 }

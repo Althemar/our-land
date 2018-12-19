@@ -19,9 +19,14 @@ public class WindManager : MonoBehaviour
     public float normalRate;
     public float beginRate;
 
+    [HideInInspector]
+    public int maxBaseDryness = 0;
+
     public List<WindOrigin> windOrigins;
 
     public static WindManager Instance;
+
+
 
     public SimplePool<Wind> WindsPool
     {

@@ -19,7 +19,6 @@ public class Wind : Updatable
     public ParticleSystem ps;
     private List<Vector4> custom1;
 
-    
     private void Update() {
         if (!gameObject.activeSelf) {
             return;

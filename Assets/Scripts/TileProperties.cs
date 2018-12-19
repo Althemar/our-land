@@ -7,7 +7,8 @@ public class TileProperties : MonoBehaviour {
     /*
      * Members
      */
-
+    
+    [HideInInspector]
     public TileProperties[] neighbors;
 
     private Vector3Int position;
@@ -15,38 +16,54 @@ public class TileProperties : MonoBehaviour {
     private CustomTile tile;
     private HexagonalGrid grid;
     private Tilemap tilemap;
+
+    [HideInInspector]
     public Movable currentMovable;
 
     private bool isInReachables;
     private int actionPointCost;
 
+    [HideInInspector]
     public StaticEntity staticEntity;
+    [HideInInspector]
     public MovingEntity movingEntity;
+    [HideInInspector]
     public Wind wind;
+    [HideInInspector]
     public Whirlwind whirlwind;
+
 
     public GameObject addonsGameObjects;
     public GameObject bordersGameObjects;
     public GameObject riversGameObjects;
+    public SpriteRenderer hexagonLayer;
 
 
     private static Vector3Int[] cubeDirections = { new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), new Vector3Int(1, -1, 0),
                                            new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1), new Vector3Int(-1, 1, 0)
                                          };
 
+    [HideInInspector]
     public float humidity;
+    [HideInInspector]
     public bool asRiver;
     private bool[] rivers;
     private River[] riverJonction;
+    [HideInInspector]
     public bool asLake;
+    [HideInInspector]
     public float windDryness = 0;
-    
+
+    [HideInInspector]
     public List<HexDirection> nextTilesInCorridor;
+    [HideInInspector]
     public HexDirection previousTileInCorridor;
+    [HideInInspector]
     public HashSet<WindOrigin> woAffectingTile;
+    [HideInInspector]
     public HashSet<WindOrigin> woOnTile;
 
-
+    [HideInInspector]
     public bool needRefresh = true;
 
     /*
@@ -98,10 +115,7 @@ public class TileProperties : MonoBehaviour {
         neighbors = new TileProperties[6];
         rivers = new bool[6];
         riverJonction = new River[6];
-
-        addonsGameObjects = new GameObject("Addons");
-        bordersGameObjects = new GameObject("Borders");
-        riversGameObjects = new GameObject("Rivers");
+        
         addonsGameObjects.transform.parent = transform;
         bordersGameObjects.transform.parent = transform;
         riversGameObjects.transform.parent = transform;
@@ -116,6 +130,8 @@ public class TileProperties : MonoBehaviour {
 
         this.grid = grid;
         this.tilemap = tilemap;
+        //tilemap.SetColor(position, new Color(0.5f, 0, 0, 0.6f));
+
     }
 
     public void SetTile(CustomTile tile) {

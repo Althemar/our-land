@@ -16,6 +16,8 @@ public class CameraControl : MonoBehaviour {
     float zoomTarget = 10f;
     Vector2 targetPosition = new Vector2(0, 0);
 
+
+
     Camera cam;
     public Tilemap tilemap;
     Bounds bounds;
@@ -23,6 +25,8 @@ public class CameraControl : MonoBehaviour {
     // UGLY, in the future: allow traget any entity
     public MotherShip playerShip;
     bool follow;
+
+    public bool enableBorderMovement = true;
 
     void Start () {
         cam = this.transform.GetChild(0).GetComponent<Camera>();
@@ -52,14 +56,18 @@ public class CameraControl : MonoBehaviour {
         if(follow)
             targetPosition = playerShip.transform.position;
         Vector2 movementCam = new Vector2(Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
-        if(Input.mousePosition.x < 5)
-            movementCam.x -= 0.75f;
-        if(Input.mousePosition.x > Screen.width - 5)
-            movementCam.x += 0.75f;
-        if(Input.mousePosition.y < 5)
-            movementCam.y -= 0.75f;
-        if(Input.mousePosition.y > Screen.height - 5)
-            movementCam.y += 0.75f;
+
+        if (enableBorderMovement) {
+            if (Input.mousePosition.x < 5)
+                movementCam.x -= 0.75f;
+            if (Input.mousePosition.x > Screen.width - 5)
+                movementCam.x += 0.75f;
+            if (Input.mousePosition.y < 5)
+                movementCam.y -= 0.75f;
+            if (Input.mousePosition.y > Screen.height - 5)
+                movementCam.y += 0.75f;
+        }
+        
         MoveCamera(movementCam.x, movementCam.y);
         ZoomCamera(-Input.mouseScrollDelta.y * 1.5f);
         
