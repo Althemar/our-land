@@ -88,6 +88,9 @@ public class AudioAmbient : MonoBehaviour {
         foreach (Vector3Int p in b.allPositionsWithin) {
             TileProperties prop = grid.GetTile(p);
             CustomTile tileData = prop.Tile;
+            if (!tileData)
+                continue;
+
             if (prop.asRiver)
                 ambientRTPCs["AMBIANCE_VOLUME_RIVER"]++;
             if (prop.asLake)

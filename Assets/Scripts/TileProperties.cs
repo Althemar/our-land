@@ -302,6 +302,7 @@ public class TileProperties : MonoBehaviour {
         spriteRenderer.transform.position = transform.position;
         spriteRenderer.sprite = sprite;
         spriteRenderer.sortingOrder = sorting;
+        spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
     }
 
     public void SetBorders() {
@@ -354,6 +355,7 @@ public class TileProperties : MonoBehaviour {
             spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.06f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
             spriteRenderer.sortingOrder = 1;
+            spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
             if ((int)direction <= 2) {
                 spriteRenderer.flipX = true;
             }

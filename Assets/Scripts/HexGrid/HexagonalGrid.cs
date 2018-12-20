@@ -15,6 +15,8 @@ public class HexagonalGrid : MonoBehaviour {
      */
     public static HexagonalGrid Instance;
 
+    public int layerID;
+
     public Grid grid;
     public TileProperties[,] tilesArray;
     private Vector3Int arrayOffset;
@@ -46,6 +48,7 @@ public class HexagonalGrid : MonoBehaviour {
             Instance = this;
 
             tilemap = GetComponent<Tilemap>();
+            layerID = GetComponent<TilemapRenderer>().sortingLayerID;
             metrics = new HexMetrics(grid.cellSize.y / 2, grid.cellSize.x / 2);
 
             tilemap.CompressBounds();

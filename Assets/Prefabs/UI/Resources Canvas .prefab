@@ -244,6 +244,33 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 346029703208530876, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_text
+      value: '1
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 346029703208530876, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 346029703208530876, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 346029703208530876, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 257
+      objectReference: {fileID: 0}
+    - target: {fileID: 346029703208530876, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 39
+      objectReference: {fileID: 0}
     - target: {fileID: 4671551132788561282, guid: f69761490fd721549b63c5a59974e711,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -358,6 +385,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532087920607748847, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532087920607748847, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532087920607748847, guid: f69761490fd721549b63c5a59974e711,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f69761490fd721549b63c5a59974e711, type: 3}

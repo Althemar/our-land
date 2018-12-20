@@ -37,7 +37,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
             temp.value.color = Color.black;
         }
         ResourceTemplate pa = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
-        pa.GetComponent<RectTransform>().sizeDelta = new Vector2(2f, 1);
+        pa.GetComponent<RectTransform>().sizeDelta = new Vector2(3f, 1);
         pa.icon.sprite = null;
         pa.icon.color = Color.clear;
         pa.value.text = "-1 PA";

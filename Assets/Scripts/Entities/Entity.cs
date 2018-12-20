@@ -33,6 +33,7 @@ public abstract class Entity : Updatable
     public virtual void Initialize(float population = -1) {
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+            transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(cellPosition);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         }
         AddToTurnManager();
