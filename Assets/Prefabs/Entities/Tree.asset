@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tree
   m_EditorClassIdentifier: 
   name: Tree
-  sprite: {fileID: 21300000, guid: 7fc5b50856e991743a0cc55319f4cb14, type: 3}
+  sprite: {fileID: 21300000, guid: cbb56f32b24ee15438673cb8fd8d450c, type: 3}
   populationMax: 8
   reproductionRate: 0.7
   deathRate: 0.2
