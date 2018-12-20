@@ -148,7 +148,7 @@ public class Console {
         if (s_ConsoleUI != null)
             s_ConsoleUI.OutputString(message);
     }
-    
+
     public static void Write(string msg) {
         OutputString(msg);
     }
@@ -310,10 +310,18 @@ public class Console {
     }
 
     static void CmdHelp(string[] arguments) {
-        OutputString("Available commands:");
-
-        foreach (var c in s_Commands)
-            OutputString(c.Value.name + ": " + c.Value.description);
+        if (arguments.Length == 0) {
+            OutputString("Available commands:");
+            foreach (var c in s_Commands)
+                OutputString(c.Value.name + ": " + c.Value.description);
+        }
+        else {
+            OutputString("Too many arguments");
+        }/*else if (arguments.Length == 1) {
+            ConfigVar.ConfigVars[arguments[0]];
+            foreach (var c in s_Commands)
+                OutputString(c.Value.name + ": " + c.Value.description);
+        }*/
     }
 
     static void CmdVars(string[] arguments) {
