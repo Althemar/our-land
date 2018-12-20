@@ -51,17 +51,17 @@ public class CameraControl : MonoBehaviour {
     void Update () {
         if(follow)
             targetPosition = playerShip.transform.position;
-        Vector2 movementCam = new Vector2(Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
-        if(Input.mousePosition.x < 5)
+        Vector2 movementCam = new Vector2(GameManager.Input.GetAxis ("Horizontal"), GameManager.Input.GetAxis ("Vertical"));
+        if(GameManager.Input.mousePosition.x < 5)
             movementCam.x -= 0.75f;
-        if(Input.mousePosition.x > Screen.width - 5)
+        if(GameManager.Input.mousePosition.x > Screen.width - 5)
             movementCam.x += 0.75f;
-        if(Input.mousePosition.y < 5)
+        if(GameManager.Input.mousePosition.y < 5)
             movementCam.y -= 0.75f;
-        if(Input.mousePosition.y > Screen.height - 5)
+        if(GameManager.Input.mousePosition.y > Screen.height - 5)
             movementCam.y += 0.75f;
         MoveCamera(movementCam.x, movementCam.y);
-        ZoomCamera(-Input.mouseScrollDelta.y * 1.5f);
+        ZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
         
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
         AkSoundEngine.SetRTPCValue("ZOOM_LEVEL", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);

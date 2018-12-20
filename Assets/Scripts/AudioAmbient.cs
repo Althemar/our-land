@@ -10,6 +10,9 @@ public class AudioAmbient : MonoBehaviour {
 
     float timeBetweenMusics = Mathf.Infinity;
 
+    [ConfigVar(Name = "audio.silence", DefaultValue = "90", Description = "Silence between musics")]
+    static ConfigVar silenceBetweenMusic;
+
     void Start () {
         cam = this.GetComponent<Camera> ();
 
@@ -37,7 +40,7 @@ public class AudioAmbient : MonoBehaviour {
             return;
         
         timeBetweenMusics += Time.deltaTime;
-        if(timeBetweenMusics < GameSettings.silence)
+        if(timeBetweenMusics < silenceBetweenMusic.FloatValue)
             return;
 
         musicPlayed = true;

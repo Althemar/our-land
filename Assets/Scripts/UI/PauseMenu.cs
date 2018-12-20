@@ -16,6 +16,10 @@ public class PauseMenu : MonoBehaviour
             buttonsObject.SetActive(true);
     }
 
+    private void OnDestroy() {
+        Destroy(optionInstance);
+    }
+
     public void Resume() {
         Camera.main.cullingMask = Camera.main.cullingMask | LayerMask.GetMask("UI");
         Destroy(this.gameObject);

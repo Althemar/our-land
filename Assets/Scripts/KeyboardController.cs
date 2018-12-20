@@ -8,7 +8,7 @@ public class KeyboardController : MonoBehaviour {
     GameObject pauseInstance = null;
 
     void Update () {
-        if(Input.GetButtonDown("Cancel")) {
+        if(GameManager.Input.GetButtonDown("Cancel")) {
             if(pauseInstance == null) {
                 Camera.main.cullingMask = Camera.main.cullingMask & (~LayerMask.GetMask("UI"));
                 pauseInstance = Instantiate(pausePrefab);

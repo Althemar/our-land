@@ -34,13 +34,13 @@ public class MouseController : MonoBehaviour
             return;
         }
         
-        if (Input.GetMouseButtonDown(1)) {
+        if (GameManager.Input.GetMouseButtonDown(1)) {
             RightClickDown();
         }
-        else if (Input.GetMouseButtonUp(1)) {
+        else if (GameManager.Input.GetMouseButtonUp(1)) {
             RightClickUp();
         }
-        else if (Input.GetMouseButtonDown(0)) {
+        else if (GameManager.Input.GetMouseButtonDown(0)) {
             TileProperties tile = GetTile();
 
             if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {

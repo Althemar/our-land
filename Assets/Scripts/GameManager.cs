@@ -23,6 +23,68 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public static class Input {
+        public enum Blocker {
+            None = 0,
+            Console = 1
+        }
+        static Blocker blocks;
+
+        public static Vector3 mousePosition {
+            get {
+                return blocks != Blocker.None ? new Vector3(Screen.width, Screen.height) / 2f : UnityEngine.Input.mousePosition;
+            }
+        }
+        public static Vector2 mouseScrollDelta {
+            get {
+                return blocks != Blocker.None ? Vector2.zero : UnityEngine.Input.mouseScrollDelta;
+            }
+        }
+
+        public static void SetBlock(Blocker b, bool value) {
+            if (value)
+                blocks |= b;
+            else
+                blocks &= ~b;
+        }
+
+        internal static float GetAxis(string axis) {
+            return blocks != Blocker.None ? 0.0f : UnityEngine.Input.GetAxis(axis);
+        }
+        internal static float GetAxisRaw(string axis) {
+            return blocks != Blocker.None ? 0.0f : UnityEngine.Input.GetAxisRaw(axis);
+        }
+
+        internal static bool GetButton(string but) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetButton(but);
+        }
+        internal static bool GetButtonUp(string but) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetButtonUp(but);
+        }
+        internal static bool GetButtonDown(string but) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetButtonDown(but);
+        }
+
+        internal static bool GetKey(KeyCode key) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetKey(key);
+        }
+        internal static bool GetKeyUp(KeyCode key) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetKeyUp(key);
+        }
+        internal static bool GetKeyDown(KeyCode key) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetKeyDown(key);
+        }
+
+        internal static bool GetMouseButton(int button) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButton(button);
+        }
+        internal static bool GetMouseButtonUp(int button) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButtonUp(button);
+        }
+        internal static bool GetMouseButtonDown(int button) {
+            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButtonDown(button);
+        }
+    }
 
     public GameState GameState
     {
@@ -40,7 +102,13 @@ public class GameManager : MonoBehaviour
             motherShip.OnTurnBegin += CheckDefeat;
             gameOverPanel.gameObject.SetActive(false);
             gameState = GameState.Playing;
-        } 
+        }
+
+        ConfigVar.Init();
+
+        var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
+        DontDestroyOnLoad(consoleUI);
+        Console.Init(consoleUI);
     }
 
     public void CheckDefeat() {
@@ -55,6 +123,12 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         frameCount++;
+        
+        Console.ConsoleUpdate();
+    }
+
+    private void LateUpdate() {
+        Console.ConsoleLateUpdate();
     }
 
     public IEnumerator WaitBeforeFinish() {
