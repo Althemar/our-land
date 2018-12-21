@@ -41,14 +41,16 @@ public class MouseController : MonoBehaviour
             RightClickUp();
         }
         else if (GameManager.Input.GetMouseButtonDown(0)) {
-            TileProperties tile = GetTile();
+            if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
+                TileProperties tile = GetTile();
 
-            if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
-                entitiesHarvestable.Clear();
-                entitiesHarvestable.NewEntitiesToHarvest(tile);
-            }
-            else if (entitiesHarvestable.Displaying && !entitiesHarvestable.CursorIsOnButton()){
-                entitiesHarvestable.Clear();
+                if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
+                    entitiesHarvestable.Clear();
+                    entitiesHarvestable.NewEntitiesToHarvest(tile);
+                }
+                else if (entitiesHarvestable.Displaying && !entitiesHarvestable.CursorIsOnButton()) {
+                    entitiesHarvestable.Clear();
+                }
             }
         } else {
             TileProperties tile = GetTile();

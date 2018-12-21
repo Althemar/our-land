@@ -66,9 +66,42 @@ public class TurnManager : MonoBehaviour
             windsToUpdate = new List<Wind>();
             whirlwindsToUpdate = new List<Whirlwind>();
             windOriginsToUpdate = new List<WindOrigin>();
+            Console.AddCommand("fastTurn", CmdFastTurn, "Fast Turn");
         }
         else {
             Destroy(gameObject);
+        }
+    }
+
+    int fastTurn = 0;
+    public bool isFastTurn = false;
+    public float fastTurnSpeedMultiplicator = 2;
+    private void CmdFastTurn(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid number");
+                return;
+            }
+
+            fastTurn = n;
+            TurnManager.Instance.OnEndTurn += UpdateFastTurn;
+            isFastTurn = true;
+            UpdateFastTurn();
+        }
+        else {
+            Console.Write("Usage: fastTurn [n] \nDo n turn fast.");
+        }
+    }
+
+    void UpdateFastTurn() {
+        if (fastTurn > 0) {
+            fastTurn--;
+            TurnManager.Instance.EndTurn();
+        }
+        else {
+            isFastTurn = false;
+            TurnManager.Instance.OnEndTurn -= UpdateFastTurn;
         }
     }
 

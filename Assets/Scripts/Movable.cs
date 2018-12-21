@@ -82,8 +82,8 @@ public class Movable : MonoBehaviour
             currentTile.currentMovable = this;
         }
         if (moving) {
-            if (FastTurns.Instance != null && FastTurns.Instance.isFastTurn) {
-                progress += speed * FastTurns.Instance.speedMultiplicator * Time.deltaTime;
+            if (TurnManager.Instance != null && TurnManager.Instance.isFastTurn) {
+                progress += speed * TurnManager.Instance.fastTurnSpeedMultiplicator * Time.deltaTime;
             }
             else {
                 progress += speed * Time.deltaTime;

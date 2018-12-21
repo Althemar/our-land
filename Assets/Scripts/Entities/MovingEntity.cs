@@ -62,7 +62,7 @@ public class MovingEntity : Entity
 
                 TileProperties[] neighbors = tile.GetNeighbors();
                 TileProperties next = neighbors[Random.Range(0, 6)];
-                if (next && !next.currentMovable && next.Tile.canWalkThrough) {
+                if (next && !next.currentMovable && next.Tile && next.Tile.canWalkThrough) {
                     Stack<TileProperties> path = AStarSearch.Path(tile, next, entitySO.availableTiles);
                     if (path != null && path.Count > 0) {
                         tile.currentMovable = null;
