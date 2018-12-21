@@ -10,10 +10,16 @@ public class PauseMenu : MonoBehaviour
     public GameObject buttonsObject;
     
     void Update() {
-        if(optionInstance != null)
+        GameManager.Input.SetBlock(GameManager.Input.Blocker.Pause, true);
+        if (optionInstance != null)
             buttonsObject.SetActive(false);
         else
             buttonsObject.SetActive(true);
+    }
+
+    private void OnDestroy() {
+        GameManager.Input.SetBlock(GameManager.Input.Blocker.Pause, false);
+        Destroy(optionInstance);
     }
 
     public void Resume() {

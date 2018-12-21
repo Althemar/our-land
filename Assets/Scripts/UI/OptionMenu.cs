@@ -4,10 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-static class GameSettings {
-    public static float silence = 90;
-}
-
 public class OptionMenu : MonoBehaviour {
     I18N.Lang prevLang;
 
@@ -21,7 +17,7 @@ public class OptionMenu : MonoBehaviour {
         langDropdown.RefreshShownValue ();
         langDropdown.onValueChanged = backupEvent;
 
-        silenceSlider.value = GameSettings.silence;
+        silenceSlider.value = ConfigVar.ConfigVars["audio.silence"].FloatValue;
 
         prevLang = I18N.lang;
     }
@@ -36,7 +32,7 @@ public class OptionMenu : MonoBehaviour {
     }
 
     public void Apply () {
-        GameSettings.silence = silenceSlider.value;
+        ConfigVar.ConfigVars["audio.silence"].FloatValue = silenceSlider.value;
         
         Destroy (gameObject);
     }
