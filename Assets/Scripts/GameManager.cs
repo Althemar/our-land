@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     public static class Input {
         public enum Blocker {
             None = 0,
-            Console = 1
+            Console = 1,
+            Pause = 2
         }
         static Blocker blocks;
 
@@ -105,10 +106,13 @@ public class GameManager : MonoBehaviour
         }
 
         ConfigVar.Init();
-
-        var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
-        DontDestroyOnLoad(consoleUI);
-        Console.Init(consoleUI);
+        
+        if(!Console.isInit) {
+            var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
+            DontDestroyOnLoad(consoleUI);
+            Console.Init(consoleUI);
+            Console.AddCommand("reset", CmdReset, "Reset the game");
+        }
     }
 
     public void CheckDefeat() {
@@ -136,9 +140,13 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
+    public void CmdReset(string[] arg) {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void ResetGame() {
         Playtest.TimedLog("Game Reset Turn " + TurnManager.Instance.TurnCount);
-        Instance = null;
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

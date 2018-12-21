@@ -125,19 +125,25 @@ public class ConsoleGUI : MonoBehaviour, IConsoleUI {
 
 public class Console {
     public delegate void MethodDelegate(string[] args);
+    public delegate string AutocompleteDelegate(string[] args);
 
     static IConsoleUI s_ConsoleUI;
 
     public static void Init(IConsoleUI consoleUI) {
-        Debug.Assert(s_ConsoleUI == null);
+        if (isInit)
+            return;
 
         s_ConsoleUI = consoleUI;
         s_ConsoleUI.Init();
-        AddCommand("help", CmdHelp, "Show available commands");
+
+        AddCommand("help", CmdHelp, "Show available commands", CmdHelpAutocomplete);
         AddCommand("vars", CmdVars, "Show available variables");
-        AddCommand("wait", CmdWait, "Wait for next frame or level");
+        AddCommand("wait", CmdWait, "Wait for X frames");
         AddCommand("exec", CmdExec, "Executes commands from file");
+
         Write("Console ready");
+
+        isInit = true;
     }
 
     public static void Shutdown() {
@@ -153,13 +159,13 @@ public class Console {
         OutputString(msg);
     }
 
-    public static void AddCommand(string name, MethodDelegate method, string description, int tag = 0) {
-        name = name.ToLower();
-        if (s_Commands.ContainsKey(name)) {
-            OutputString("Cannot add command " + name + " twice");
-            return;
+    public static void AddCommand(string name, MethodDelegate method, string description, AutocompleteDelegate autocompleteMethod = null, int tag = 0) {
+        if (s_Commands.ContainsKey(name.ToLower())) {
+            RemoveCommand(name.ToLower());
+            //OutputString("Cannot add command " + name + " twice");
+            //return;
         }
-        s_Commands.Add(name, new ConsoleCommand(name, method, description, tag));
+        s_Commands.Add(name.ToLower(), new ConsoleCommand(name, method, description, tag, autocompleteMethod));
     }
 
     public static bool RemoveCommand(string name) {
@@ -315,13 +321,27 @@ public class Console {
             foreach (var c in s_Commands)
                 OutputString(c.Value.name + ": " + c.Value.description);
         }
+        else if (arguments.Length == 1) {
+            string command = arguments[0].ToLower();
+            if (s_Commands.ContainsKey(command))
+                OutputString(command + ": " + s_Commands[command].description);
+            else if (ConfigVar.ConfigVars.ContainsKey(command))
+                OutputString(command + ": " + ConfigVar.ConfigVars[command].description);
+            else
+                OutputString(command + " unknow");
+        }
         else {
             OutputString("Too many arguments");
-        }/*else if (arguments.Length == 1) {
-            ConfigVar.ConfigVars[arguments[0]];
-            foreach (var c in s_Commands)
-                OutputString(c.Value.name + ": " + c.Value.description);
-        }*/
+        }
+    }
+
+    static string CmdHelpAutocomplete(string[] arg) {
+        if (arg.Length == 2 && arg[1].Length > 0) {
+            return arg[0] + " " + AutocompleteCommandsAndVars(arg[1], false);
+        }
+        else {
+            return String.Join(" ", arg);
+        }
     }
 
     static void CmdVars(string[] arguments) {
@@ -392,41 +412,57 @@ public class Console {
 
 
     public static string TabComplete(string prefix) {
+        string[] arg = prefix.Split(' ');
+        if (arg.Length == 1) {
+            return AutocompleteCommandsAndVars(arg[0]);
+        }
+        else if (s_Commands.ContainsKey(arg[0].ToLower())) {
+            if (s_Commands[arg[0].ToLower()].autocompleteMethod != null)
+                return s_Commands[arg[0].ToLower()].autocompleteMethod(arg);
+            else
+                return prefix;
+        }
+        else {
+            return prefix;
+        }
+    }
+
+    public static string AutocompleteCommandsAndVars(string cmd, bool addSpace = true) {
         // Look for possible tab completions
         List<string> matches = new List<string>();
 
         foreach (var c in s_Commands) {
             var name = c.Key;
-            if (!name.StartsWith(prefix, true, null))
+            if (!name.StartsWith(cmd, true, null))
                 continue;
-            matches.Add(name);
+            matches.Add(c.Value.name);
         }
 
         foreach (var v in ConfigVar.ConfigVars) {
             var name = v.Key;
-            if (!name.StartsWith(prefix, true, null))
+            if (!name.StartsWith(cmd, true, null))
                 continue;
-            matches.Add(name);
+            matches.Add(v.Value.name);
         }
 
         if (matches.Count == 0)
-            return prefix;
+            return cmd;
 
         // Look for longest common prefix
         int lcp = matches[0].Length;
         for (var i = 0; i < matches.Count - 1; i++) {
             lcp = Mathf.Min(lcp, CommonPrefix(matches[i], matches[i + 1]));
         }
-        prefix += matches[0].Substring(prefix.Length, lcp - prefix.Length);
+        cmd += matches[0].Substring(cmd.Length, lcp - cmd.Length);
         if (matches.Count > 1) {
             // write list of possible completions
             for (var i = 0; i < matches.Count; i++)
                 Console.Write(" " + matches[i]);
         }
-        else {
-            prefix += " ";
+        else if (addSpace) {
+            cmd += " ";
         }
-        return prefix;
+        return cmd;
     }
 
     public static string HistoryUp(string current) {
@@ -452,7 +488,7 @@ public class Console {
     }
 
     // Returns length of largest common prefix of two strings
-    static int CommonPrefix(string a, string b) {
+    public static int CommonPrefix(string a, string b) {
         int minl = Mathf.Min(a.Length, b.Length);
         for (int i = 1; i <= minl; i++) {
             if (!a.StartsWith(b.Substring(0, i), true, null))
@@ -466,12 +502,14 @@ public class Console {
         public MethodDelegate method;
         public string description;
         public int tag;
+        public AutocompleteDelegate autocompleteMethod;
 
-        public ConsoleCommand(string name, MethodDelegate method, string description, int tag) {
+        public ConsoleCommand(string name, MethodDelegate method, string description, int tag, AutocompleteDelegate autocompleteMethod) {
             this.name = name;
             this.method = method;
             this.description = description;
             this.tag = tag;
+            this.autocompleteMethod = autocompleteMethod;
         }
     }
 
@@ -482,4 +520,5 @@ public class Console {
     static string[] s_History = new string[k_HistoryCount];
     static int s_HistoryNextIndex = 0;
     static int s_HistoryIndex = 0;
+    public static bool isInit = false;
 }

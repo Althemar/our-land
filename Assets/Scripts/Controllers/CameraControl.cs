@@ -48,19 +48,39 @@ public class CameraControl : MonoBehaviour {
         follow = false;
     }
 
+    Vector3 viewportOrigin;
     void Update () {
         if(follow)
             targetPosition = playerShip.transform.position;
-        Vector2 movementCam = new Vector2(GameManager.Input.GetAxis ("Horizontal"), GameManager.Input.GetAxis ("Vertical"));
-        if(GameManager.Input.mousePosition.x < 5)
-            movementCam.x -= 0.75f;
-        if(GameManager.Input.mousePosition.x > Screen.width - 5)
-            movementCam.x += 0.75f;
-        if(GameManager.Input.mousePosition.y < 5)
-            movementCam.y -= 0.75f;
-        if(GameManager.Input.mousePosition.y > Screen.height - 5)
-            movementCam.y += 0.75f;
-        MoveCamera(movementCam.x, movementCam.y);
+        
+        if(GameManager.Input.GetMouseButtonDown(0)) {
+            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+        }
+
+        if(GameManager.Input.GetMouseButton(0)) {
+            Vector2 drag = viewportOrigin - cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+
+            targetPosition += drag;
+            targetPosition = LimitToBounds(targetPosition);
+
+            this.transform.position = targetPosition;
+
+            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+        } else {
+            Vector2 movementCam = new Vector2(GameManager.Input.GetAxis("Horizontal"), GameManager.Input.GetAxis("Vertical"));
+
+            if (GameManager.Input.mousePosition.x < 5)
+                movementCam.x -= 0.75f;
+            if (GameManager.Input.mousePosition.x > Screen.width - 5)
+                movementCam.x += 0.75f;
+            if (GameManager.Input.mousePosition.y < 5)
+                movementCam.y -= 0.75f;
+            if (GameManager.Input.mousePosition.y > Screen.height - 5)
+                movementCam.y += 0.75f;
+
+            MoveCamera(movementCam.x, movementCam.y);
+        }
+
         ZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
         
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);

@@ -74,6 +74,41 @@ public class MotherShip : MonoBehaviour
         inventory = GetComponent<Inventory>();
         movable.OnReachEndTile += EndMove;
         remainingActionPoints = actionPoints;
+        OnRemainingPointsChanged?.Invoke();
+        Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
+        Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
+    }
+
+    private void CmdAddPA(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid amount");
+                return;
+            }
+
+            remainingActionPoints += n;
+            OnRemainingPointsChanged?.Invoke();
+        }
+        else {
+            Console.Write("Usage: addActionPoints [n] \nAdd n action points.");
+        }
+    }
+
+    private void CmdMaxPA(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid amount");
+                return;
+            }
+
+            actionPoints = n;
+            OnRemainingPointsChanged?.Invoke();
+        }
+        else {
+            Console.Write("Usage: setMaxActions [n] \nSet the max action points to n.");
+        }
     }
 
     // Update is called once per frame

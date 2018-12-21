@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9ad5a9623157494183f852e77e98963, type: 3}
-  m_Name: Food
+  m_Name: Wood
   m_EditorClassIdentifier: 
-  name: Food
-  icon: {fileID: 21300000, guid: 7b36bc520a8a9a149bdec6f2baf2a067, type: 3}
+  name: Wood
+  icon: {fileID: 21300000, guid: 5052942d169fd144d9e824e75e847b34, type: 3}
   infoboxPanel: infoResource
-  textIcons: {fileID: 11400000, guid: 3f08ad6dfe423f7459e265750f651338, type: 2}
+  textIcons: {fileID: 11400000, guid: a279cc4d37ff2cf4cb997d125a65b7f8, type: 2}
+  consumptionIcon: {fileID: 0}
