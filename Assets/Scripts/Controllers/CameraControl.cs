@@ -16,6 +16,8 @@ public class CameraControl : MonoBehaviour {
     float zoomTarget = 10f;
     Vector2 targetPosition = new Vector2(0, 0);
 
+
+
     Camera cam;
     public Tilemap tilemap;
     Bounds bounds;
@@ -23,6 +25,8 @@ public class CameraControl : MonoBehaviour {
     // UGLY, in the future: allow traget any entity
     public MotherShip playerShip;
     bool follow;
+
+    public bool enableBorderMovement = true;
 
     void Start () {
         cam = this.transform.GetChild(0).GetComponent<Camera>();
@@ -69,6 +73,7 @@ public class CameraControl : MonoBehaviour {
         } else {
             Vector2 movementCam = new Vector2(GameManager.Input.GetAxis("Horizontal"), GameManager.Input.GetAxis("Vertical"));
 
+            if (enableBorderMovement) {
             if (GameManager.Input.mousePosition.x < 5)
                 movementCam.x -= 0.75f;
             if (GameManager.Input.mousePosition.x > Screen.width - 5)
@@ -77,11 +82,13 @@ public class CameraControl : MonoBehaviour {
                 movementCam.y -= 0.75f;
             if (GameManager.Input.mousePosition.y > Screen.height - 5)
                 movementCam.y += 0.75f;
+            }
 
             MoveCamera(movementCam.x, movementCam.y);
         }
 
         ZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
+
         
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
         AkSoundEngine.SetRTPCValue("ZOOM_LEVEL", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);

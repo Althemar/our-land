@@ -29,6 +29,10 @@ public class WindOrigin : Updatable
         AddToTurnManager();
         corridor = new List<TileProperties>();
         tilesAffected = new List<TileProperties>();
+
+        if (WindManager.Instance.maxBaseDryness < baseDryness) {
+            WindManager.Instance.maxBaseDryness = baseDryness;
+        }
     }
 
     private void Update() {

@@ -6,6 +6,8 @@ public class HumidityGrid : MonoBehaviour
 {
     public int riverRadius = 5;
     public int riverForce = 5;
+    public int normalHumityTreshold;
+    public int highHumityTreshold;
 
     public CustomTile lowHumidityTile;
     public CustomTile normalHumidityTile;
@@ -67,10 +69,9 @@ public class HumidityGrid : MonoBehaviour
 
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
-                if (grid.tilesArray[i, j] != null)
+                if (grid.tilesArray[i, j] != null) {
                     grid.tilesArray[i, j].ResetRiver();
-                grid.tilesArray[i, j].windDryness = 0;
-                grid.tilesArray[i, j].nextTilesInCorridor.Clear();
+                }
             }
         }
         
@@ -210,9 +211,9 @@ public class HumidityGrid : MonoBehaviour
 
     public void UpdateCustomTile(TileProperties tile) {
         if (tile.Tile && tile.Tile.humidityDependant) {
-            if (tile.humidity < 1)
+            if (tile.humidity < normalHumityTreshold)
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, lowHumidityTile);
-            else if (tile.humidity > 6)
+            else if (tile.humidity > highHumityTreshold)
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, highHumidityTile);
             else
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, normalHumidityTile);
