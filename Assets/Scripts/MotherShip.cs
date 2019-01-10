@@ -12,8 +12,7 @@ public class MotherShip : MonoBehaviour
     public int harvestDistance;
 
     public int reach = 2;
-
-    public int actionPoints = 2;
+    
     public HexagonsOutline outline;
      
 
@@ -23,7 +22,10 @@ public class MotherShip : MonoBehaviour
     public float foodConsumption;
 
    
-    private int remainingActionPoints;
+    public int remainingPopulationPoints;
+
+    [HideInInspector]
+    public List<ActivePopulationPoint> populationPoints;
  
     private Movable movable;
     private Inventory inventory;
@@ -31,28 +33,15 @@ public class MotherShip : MonoBehaviour
     private List<TileProperties> tilesInRange;
 
     [SerializeField]
-    public Resources resources;  
+    public Resources resources;
+
+    
 
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;
     public OnMotherShipDelegate OnBeginMoving;
     public OnMotherShipDelegate OnEndMoving;
     public OnMotherShipDelegate OnRemainingPointsChanged;
-
-    public int ActionPoints
-    {
-        get => actionPoints;
-    }
-
-    public int RemainingActionPoints
-    {
-        get => remainingActionPoints;
-        set
-        {
-            remainingActionPoints = value;
-            OnRemainingPointsChanged?.Invoke();
-        }
-    }
 
     public List<TileProperties> TilesInRange
     {
@@ -73,10 +62,10 @@ public class MotherShip : MonoBehaviour
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();
         movable.OnReachEndTile += EndMove;
-        remainingActionPoints = actionPoints;
         OnRemainingPointsChanged?.Invoke();
         Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
         Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
+        populationPoints = new List<ActivePopulationPoint>();
     }
 
     private void CmdAddPA(string[] args) {
@@ -87,7 +76,7 @@ public class MotherShip : MonoBehaviour
                 return;
             }
 
-            remainingActionPoints += n;
+            remainingPopulationPoints += n;
             OnRemainingPointsChanged?.Invoke();
         }
         else {
@@ -103,7 +92,7 @@ public class MotherShip : MonoBehaviour
                 return;
             }
 
-            actionPoints = n;
+            remainingPopulationPoints = n;
             OnRemainingPointsChanged?.Invoke();
         }
         else {
@@ -122,7 +111,6 @@ public class MotherShip : MonoBehaviour
     public void BeginTurn() {
         inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
         
-        remainingActionPoints = actionPoints;
         OnTurnBegin?.Invoke();
         OnRemainingPointsChanged?.Invoke();
     }
@@ -151,8 +139,8 @@ public class MotherShip : MonoBehaviour
     void EndMove() {
         ShowHarvestOutline();
         
-        remainingActionPoints -= movable.CurrentTile.ActionPointCost;
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
     }
+        
 }

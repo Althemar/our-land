@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class SimplePoolHelper
 {
@@ -66,4 +67,23 @@ public static class SimplePoolHelper
 	{
 		PoolsOfType<T>.GetPool( poolName ).Push( obj );
 	}
+
+    // Simple pool initializer that set the go inactive when pushed and active when popped.
+    public static SimplePool<T> PopulateSimplePool<T>(SimplePool<T> simplePool, GameObject blueprint, string name, int size, Transform poolParent) where T : Component {
+        simplePool = GetPool<T>(name);
+        simplePool.OnPush = (item) => item.gameObject.SetActive(false);
+        simplePool.OnPop = (item) => item.gameObject.SetActive(true);
+
+        simplePool.CreateFunction = (template) =>
+        {
+            T newObject = GameObject.Instantiate(blueprint).GetComponent<T>();
+            if (newObject) {
+                newObject.transform.parent = poolParent;
+            }
+
+            return newObject;
+        };
+        simplePool.Populate(size);
+        return simplePool;
+    }
 }

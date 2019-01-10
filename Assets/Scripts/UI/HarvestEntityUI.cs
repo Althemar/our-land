@@ -45,7 +45,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
-        if (entitiesHarvestable.motherShip.RemainingActionPoints > 0) {
+        if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
             button = GetComponent<Button>();
             button.interactable = true;
         }
@@ -57,22 +57,11 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void HarvestEntity() {
         Playtest.TimedLog("Harvest " + Mathf.Floor(entity.population) + " " + entity.entitySO.name);
-        foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
-            float population;
-            if (entity.population < 0) {
-                population = 1;
-            }
-            else {
-                population = Mathf.Floor(entity.population);
-            }
-            entitiesHarvestable.motherShip.Inventory.AddItem(resource.Key, resource.Value * population);
+
+        if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
+            entitiesHarvestable.activePopulationPoints.PlacePopulationPoint(entity);
         }
-        entitiesHarvestable.motherShip.RemainingActionPoints--;
-        entity.Kill();
-        if(entity.entitySO)
-            AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
         entitiesHarvestable.Clear();
-        entitiesHarvestable.DisplayHarvestedResources(entity);
     }
 
 

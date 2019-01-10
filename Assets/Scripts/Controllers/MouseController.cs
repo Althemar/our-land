@@ -94,12 +94,12 @@ public class MouseController : MonoBehaviour
         if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
             TileProperties tile = GetTile();
 
-            if (motherShip && motherShip.RemainingActionPoints > 0) {
+            if (motherShip && motherShip.remainingPopulationPoints > 0) {
                 motherShip.ClearHarvestOutline();
 
-                List<TileProperties> reachables = movable.CurrentTile.TilesReachable(motherShip.RemainingActionPoints * motherShip.reach, motherShip.reach);
+                List<TileProperties> reachables = movable.CurrentTile.TilesReachable(motherShip.remainingPopulationPoints * motherShip.reach, motherShip.reach);
 
-                List<TileProperties>[] reachablesByReach = new List<TileProperties>[motherShip.RemainingActionPoints];
+                List<TileProperties>[] reachablesByReach = new List<TileProperties>[motherShip.remainingPopulationPoints];
                 for (int i = 0; i < reachablesByReach.Length; i++) {
                     reachablesByReach[i] = new List<TileProperties>();
                 }
@@ -115,7 +115,7 @@ public class MouseController : MonoBehaviour
                     HexagonsOutline outline = new GameObject().AddComponent<HexagonsOutline>();
                     MeshRenderer renderer = outline.GetComponent<MeshRenderer>();
                     renderer.material = movementOutline;
-                    renderer.material.color = new Color(0, 0, 1f - (1f / (motherShip.RemainingActionPoints) * (i - 1)), 1);
+                    renderer.material.color = new Color(0, 0, 1f - (1f / (motherShip.remainingPopulationPoints) * (i - 1)), 1);
 
                     movementPreviews.Add(outline);
 

@@ -16,6 +16,6 @@ public class ActionPointsUI : MonoBehaviour
     }
 
     public void UpdateActionPointsCount() {
-        text.text = motherShip.RemainingActionPoints + " / " + motherShip.ActionPoints;
+        text.text = motherShip.remainingPopulationPoints.ToString();
     }
 }
