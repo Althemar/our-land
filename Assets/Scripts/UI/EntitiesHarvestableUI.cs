@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EntitiesHarvestableUI : MonoBehaviour {
     public GameObject harvestEntityPrefab;
-    public GameObject resourcesGainedPrefab;
     public MotherShip motherShip;
     public PopulationPoints activePopulationPoints;
 
@@ -44,7 +43,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         position.z = transform.position.z;
 
         buttonsCount = 0;
-        if (tile.staticEntity && tile.movingEntity) {
+        if (tile.staticEntity && !tile.staticEntity.populationPoint && tile.movingEntity &&!tile.movingEntity.populationPoint) {
             Vector3 secondPosition = position;
             position.x -= 2.5f;
             secondPosition.x += 2.5f;
@@ -53,11 +52,11 @@ public class EntitiesHarvestableUI : MonoBehaviour {
             InstantiateHarvestUI(secondPosition, tile.movingEntity);
             displaying = true;
         }
-        else if (tile.staticEntity) {
+        else if (tile.staticEntity && !tile.staticEntity.populationPoint) {
             InstantiateHarvestUI(position, tile.staticEntity);
             displaying = true;
         }
-        else if (tile.movingEntity) {
+        else if (tile.movingEntity && !tile.movingEntity.populationPoint) {
             InstantiateHarvestUI(position, tile.movingEntity);
             displaying = true;
         }

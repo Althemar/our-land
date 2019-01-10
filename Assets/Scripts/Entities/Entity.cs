@@ -6,11 +6,15 @@ public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
 
+
     [SerializeField]
     public float population;
     protected TileProperties tile;
     
-    public int basePopulation; 
+    public int basePopulation;
+
+    public EntityPopulationState populationState;
+    public ActivePopulationPoint populationPoint;
 
     public TileProperties Tile
     {

@@ -78,7 +78,7 @@ public static class SimplePoolHelper
         {
             T newObject = GameObject.Instantiate(blueprint).GetComponent<T>();
             if (newObject) {
-                newObject.transform.parent = poolParent;
+                newObject.transform.SetParent(poolParent);
             }
 
             return newObject;
