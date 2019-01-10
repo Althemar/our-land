@@ -27,8 +27,9 @@ public class EntitySO : ScriptableObject
     public float deathRate;
 
     [BoxGroup("Food")]
+    public List<float> foodsPerTurn;
     public float foodWhenHarvested;
-
+        
     [ReorderableList]
     public List<CustomTile> availableTiles;
 

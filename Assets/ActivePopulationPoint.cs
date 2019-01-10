@@ -23,10 +23,25 @@ public class ActivePopulationPoint : Updatable
     }
 
     public void InitPopulationPoint(Entity entity) {
+        
+        AddToTurnManager();
+        Vector3 position = entity.Tile.transform.position;
+        position.y -= 1;
+        Entity otherEntity = null;
+        if (entity.Tile.movingEntity == entity && entity.Tile.staticEntity != null) {
+            otherEntity = entity.Tile.staticEntity;
+        }
+        else if (entity.Tile.staticEntity == entity && entity.Tile.movingEntity != null) {
+            otherEntity = entity.Tile.movingEntity;
+        }
+        if (otherEntity && otherEntity.populationPoint) {
+            otherEntity.populationPoint.transform.position += new Vector3(-0.5f, 0, 0);
+            position.x += 0.5f;
+        }
+        transform.position = position;
+
         this.entity = entity;
         entity.populationPoint = this;
-        AddToTurnManager();
-        transform.position = entity.Tile.transform.position;
         entity.RemoveFromTurnManager();
     }
 
@@ -36,7 +51,6 @@ public class ActivePopulationPoint : Updatable
         EndTurn();
         RemovePopulationPoint();
     }
-
 
     private void HarvestEntity() {
         foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
