@@ -75,8 +75,6 @@ public class MovingEntity : Entity
             }
         }
         
-        
-
         bool waitForMove = false;
         if (hunger == EntityHungerState.Hungry) {
             if (currentFood == 0) {

@@ -105,11 +105,9 @@ public class MouseController : MonoBehaviour
                 || !targetTile.IsWalkable()) {
                 targetTile = null;
                 reachableTiles.UndisplayReachables();
-                
             }
             else {
                 motherShip.targetTile = targetTile;
-                motherShip.Inventory.AddItem(motherShip.fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
             }
         }
     }

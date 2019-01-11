@@ -15,19 +15,21 @@ public class PathUI : MonoBehaviour
     public Image templateLine;
 
     int sizePool = 20;
-    Image[] poolPoint, poolLine;
+    CirclePath[] poolPoint;
+    Image[] poolLine;
 
     void Awake() {
-        poolPoint = new Image[sizePool];
+        poolPoint = new CirclePath[sizePool];
         poolLine = new Image[sizePool];
 
         Transform pointsTransform = transform.GetChild(1).transform;
         Transform linesTransform = transform.GetChild(0).transform;
         for(int i = 0; i < sizePool; i++) {
-            poolPoint[i] = Instantiate(templatePoint, Vector3.zero, Quaternion.identity, pointsTransform);
+            poolPoint[i] = Instantiate(templatePoint, Vector3.zero, Quaternion.identity, pointsTransform).GetComponent<CirclePath>();
             poolLine[i] = Instantiate(templateLine, Vector3.zero, Quaternion.identity, linesTransform);
             poolPoint[i].gameObject.SetActive(false);
             poolLine[i].gameObject.SetActive(false);
+            poolPoint[i].motherShip = motherShip;
         }
     }
 
@@ -65,10 +67,13 @@ public class PathUI : MonoBehaviour
             }
             if (i == 0 && pathTiles[i].IsWalkable()) {
                 text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+                poolPoint[i].interactable = true;
             }
             else {
                 text.text = "";
+                poolPoint[i].interactable = false;
             }
+            poolPoint[i].InitCirclePath();
 
             poolPoint[i].gameObject.SetActive(true);
 

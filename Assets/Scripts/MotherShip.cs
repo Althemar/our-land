@@ -151,6 +151,12 @@ public class MotherShip : Updatable
         EndTurn();
     }
 
+    public void CancelMove() {
+        reachableTilesDisplay.UndisplayReachables();
+        ShowHarvestOutline();
+        targetTile = null;
+    }
+
     public override void AddToTurnManager() {
         TurnManager.Instance.AddToUpdate(this);
     }
@@ -167,6 +173,7 @@ public class MotherShip : Updatable
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();
             movable.MoveToTile(targetTile, false);
+            inventory.AddItem(fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
         }
         else {
             EndTurn();
