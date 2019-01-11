@@ -33,6 +33,11 @@ public class Movable : MonoBehaviour
 
     public event OnMovableDelegate OnReachEndTile;
 
+
+    public delegate void OnDirectionDelegate(HexDirection dir);
+
+    public event OnDirectionDelegate OnChangeDirection;
+
     /*
      * Properties
      */
@@ -83,32 +88,9 @@ public class Movable : MonoBehaviour
             else {
                 progress += speed * Time.deltaTime;
             }
+            
+            transform.position = Interpolate(progress);
 
-
-            transform.position = Interpolate(progress); //Vector3.MoveTowards(beginPos, targetPos, progress);
-            /*if (transform.position == targetPos) {
-                progress = 0;
-                Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-
-                currentTile.currentMovable = null;
-                currentTile = targetTile;   
-                currentTile.currentMovable = this;
-                if (path.Count == 0) {
-                    EndMoving();
-                }
-                else {
-                    if (path.Count >= 1) {
-                        targetTile = path.Pop();
-                        beginPos = transform.position;
-                        targetPos = tilemap.CellToWorld(targetTile.Position);
-                        
-                        UpdateSpriteDirection();
-                    }
-                    else {
-                        EndMoving();
-                    }
-                }
-            }*/
             if(progress >= 1) {
                 progress = 0;
                 EndMoving();
@@ -122,16 +104,30 @@ public class Movable : MonoBehaviour
             tCell = 0;
         if (tCell > pArray.Length - 1)
             tCell = pArray.Length - 1;
-        
+
+        if(needChangeDir) {
+            for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
+                if (pArray[Mathf.FloorToInt(tCell)].GetNeighbor(dir) == pArray[Mathf.CeilToInt(tCell)]) {
+                    OnChangeDirection(dir);
+                    break;
+                }
+            }
+            needChangeDir = false;
+        }
+
         Vector3 res = Vector3.Lerp(tilemap.CellToWorld(pArray[Mathf.FloorToInt(tCell)].Position), tilemap.CellToWorld(pArray[Mathf.CeilToInt(tCell)].Position), tCell - Mathf.FloorToInt(tCell));
 
-        currentTile.currentMovable = null;
-        currentTile = pArray[Mathf.FloorToInt(tCell)];
-        currentTile.currentMovable = this;
+        if(currentTile != pArray[Mathf.FloorToInt(tCell)]) {
+            currentTile.currentMovable = null;
+            currentTile = pArray[Mathf.FloorToInt(tCell)];
+            currentTile.currentMovable = this;
+            needChangeDir = true;
+        }
 
         return res;
     }
     TileProperties[] pArray;
+    bool needChangeDir;
     public void MoveToTile(TileProperties goal, bool calculatePath = true) {
         if (!moving) {
             if (calculatePath) {
@@ -139,6 +135,7 @@ public class Movable : MonoBehaviour
             }
 
             beginPos = transform.position;
+            needChangeDir = true;
             moving = true;
             progress = 0;
 
@@ -180,8 +177,6 @@ public class Movable : MonoBehaviour
         }
         MoveToTile(lastTile, false);
         return lastTile;
-        
-       
     }
 
     public void EndMoving() {

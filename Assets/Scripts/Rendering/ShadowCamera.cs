@@ -6,7 +6,6 @@ public class ShadowCamera : MonoBehaviour {
 
     Material shadowMat;
     Material blurMat;
-    Material composeEntity;
 
     Camera worldCam, entityCam;
     RenderTexture entity;
@@ -14,7 +13,6 @@ public class ShadowCamera : MonoBehaviour {
     private void Awake() {
         shadowMat = new Material(Shader.Find("Hidden/ShadowFill"));
         blurMat = new Material(Shader.Find("Hidden/Blur"));
-        composeEntity = new Material(Shader.Find("Hidden/ComposeEntity"));
 
         entityCam = GetComponent<Camera>();
         worldCam = transform.parent.GetComponent<Camera>();
