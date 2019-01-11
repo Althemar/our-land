@@ -101,11 +101,15 @@ public class MouseController : MonoBehaviour
     private void RightClickUp() {
         if (reachableTiles.Displaying) {
             TileProperties targetTile = GetTile();
-            if (!targetTile.movingEntity) {
-                motherShip.targetTile = targetTile;
+            if (targetTile.movingEntity || targetTile.ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource) || targetTile == motherShip.Movable.CurrentTile
+                || !targetTile.IsWalkable()) {
+                targetTile = null;
+                reachableTiles.UndisplayReachables();
+                
             }
             else {
-                reachableTiles.UndisplayReachables();
+                motherShip.targetTile = targetTile;
+                motherShip.Inventory.AddItem(motherShip.fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
             }
         }
     }

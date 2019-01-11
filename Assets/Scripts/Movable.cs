@@ -11,7 +11,11 @@ public class Movable : MonoBehaviour
      */
      
     public float speed;
-    public int walkDistance;
+    public bool canPassAboveEntities;
+    public bool canPassAboveMontains;
+    public bool canPassAboveLakes;
+    public bool canPassAboveWindOrigins;
+
     public HexagonalGrid hexGrid;
 
     public SkeletonAnimation spine;

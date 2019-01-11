@@ -21,7 +21,7 @@ public class TileProperties : MonoBehaviour {
     public Movable currentMovable;
 
     private bool isInReachables;
-    private int actionPointCost;
+    private float actionPointCost = -1;
 
     [HideInInspector]
     public StaticEntity staticEntity;
@@ -62,6 +62,8 @@ public class TileProperties : MonoBehaviour {
     public HashSet<WindOrigin> woAffectingTile;
     [HideInInspector]
     public HashSet<WindOrigin> woOnTile;
+    [HideInInspector]
+    public WindOrigin windOrigin;
 
     [HideInInspector]
     public bool needRefresh = true;
@@ -101,7 +103,7 @@ public class TileProperties : MonoBehaviour {
         set => isInReachables = value;
     }
 
-    public int ActionPointCost
+    public float ActionPointCost
     {
         get => actionPointCost;
         set => actionPointCost = value;
@@ -122,6 +124,7 @@ public class TileProperties : MonoBehaviour {
         nextTilesInCorridor = new List<HexDirection>();
         woAffectingTile = new HashSet<WindOrigin>();
         woOnTile = new HashSet<WindOrigin>();
+
     }
 
     public void InitializeTile(Vector3Int position, HexagonalGrid grid, Tilemap tilemap) {
@@ -504,6 +507,10 @@ public class TileProperties : MonoBehaviour {
     public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
         return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !currentMovable))
              || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);
+    }
+
+    public bool IsWalkable() {
+        return !asLake && !windOrigin && !tile.riverSource;
     }
 
 }

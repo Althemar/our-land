@@ -13,7 +13,7 @@ public class AStarSearch : MonoBehaviour
         return next.Tile.walkCost;
     }
 
-    public static Stack<TileProperties> Path(TileProperties begin, TileProperties end, List<CustomTile> availableTiles = null) {
+    public static Stack<TileProperties> Path(TileProperties begin, TileProperties end, List<CustomTile> availableTiles = null, Movable movable = null) {
         PriorityQueue<TileProperties> frontier = new PriorityQueue<TileProperties>();
         frontier.Enqueue(begin, 0);
 
@@ -31,8 +31,17 @@ public class AStarSearch : MonoBehaviour
 
             TileProperties[] neighbors = current.GetNeighbors();
             foreach (TileProperties next in neighbors) {
-                if (!next || !next.Tile || !next.Tile.canWalkThrough || (next.currentMovable && next != end) || (availableTiles != null && !availableTiles.Contains(next.Tile) || next.whirlwind || next.asLake)) {
-                    //if (next == null || !next.Tile.canWalkThrough || (next.currentMovable && next != end) || (availableTiles != null && !availableTiles.Contains(next.Tile))) {
+                if (!next || !next.Tile || next.whirlwind) {
+                    continue;
+                }
+                if (availableTiles != null && !availableTiles.Contains(next.Tile)){
+                    continue;
+                }
+                if (movable && next!=end && ((next.movingEntity && !movable.canPassAboveEntities) || (next.asLake && !movable.canPassAboveLakes) || 
+                    (next.Tile.riverSource && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
+                    continue;
+                }
+                else if (!movable && ((next.currentMovable && next != end) || next.asLake || next.Tile.humidityDependant)) {
                     continue;
                 }
                 double newCost = costSoFar[current] + NextCost(current, next);

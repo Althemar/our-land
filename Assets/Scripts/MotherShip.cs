@@ -14,8 +14,7 @@ public class MotherShip : Updatable
     
     
     public HexagonsOutline outline;
-     
-
+   
     public ResourceType populationResource;
 
     [BoxGroup("Food")]
@@ -148,6 +147,7 @@ public class MotherShip : Updatable
         ShowHarvestOutline();
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
+        targetTile = null;
         EndTurn();
     }
 

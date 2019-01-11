@@ -39,6 +39,8 @@ public class WindOrigin : Updatable
         if (GameManager.Instance.FrameCount == 0) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+            tile.windOrigin = this;
+
             //ComputeWindCorridor();
         }
     }

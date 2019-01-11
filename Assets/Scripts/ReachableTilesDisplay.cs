@@ -46,17 +46,15 @@ public class ReachableTilesDisplay : MonoBehaviour
         canvasPath.pathPoints = new Vector3[path.Count];
         canvasPath.pathTiles = new TileProperties[path.Count];
         int i = 0;
+        TileProperties previousTile = null;
+        TileProperties currentTile;
         while (path.Count > 0) {
-            TileProperties tile = path.Pop();
-            if (i <= 1) {
-                tile.ActionPointCost = 0;
-            }
-           /* else {
-                tile.ActionPointCost = motherShip.movementBaseCost
-            }
-            tile.ActionPointCost = i * motherShip*/
-            canvasPath.pathPoints[i] = tile.Tilemap.GetCellCenterWorld(tile.Position);
-            canvasPath.pathTiles[i++] = tile;
+            currentTile = path.Pop();
+            
+            currentTile.ActionPointCost = i;
+            previousTile = currentTile;
+            canvasPath.pathPoints[i] = currentTile.Tilemap.GetCellCenterWorld(currentTile.Position);
+            canvasPath.pathTiles[i++] = currentTile;
         }
         canvasPath.UpdatePath();
     }
@@ -64,7 +62,7 @@ public class ReachableTilesDisplay : MonoBehaviour
     public void RefreshPath(TileProperties tile) {
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
-            currentPath = AStarSearch.Path(movable.CurrentTile, tile);
+            currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
             movable.Path = currentPath;
             ColorPath(new Stack<TileProperties>(currentPath));
         }

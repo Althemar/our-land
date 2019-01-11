@@ -37,21 +37,44 @@ public class PathUI : MonoBehaviour
             poolLine[i].gameObject.SetActive(false);
         }
 
-        for(int i = 0; i < pathPoints.Length; i++) {
+        for(int i = pathPoints.Length - 1; i >= 0; i--) {
             poolPoint[i].transform.position = pathPoints[i];
-       
-           if (i == 0) {
-               // poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>().text = motherShip.movementBaseCost ;
-           }
+
+            TMP_Text text = poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>();
+
+            if (i >= pathPoints.Length - 2) {
+                pathTiles[i].ActionPointCost = 0;
+                //text.text = ""
+                text.color = Color.black;
+            }
             else {
-                poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+                if (i == pathPoints.Length - 3) {
+                    pathTiles[i].ActionPointCost = motherShip.movementBaseCost;
+                    //text.text = "";
+                }
+                else {
+                    pathTiles[i].ActionPointCost = pathTiles[i + 1].ActionPointCost * motherShip.movementDistanceMultiplicator;
+                    //text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+                }
+                if (pathTiles[i].ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource)) {
+                    text.color = Color.red;
+                }
+                else {
+                    text.color = Color.black;
+                }
+            }
+            if (i == 0 && pathTiles[i].IsWalkable()) {
+                text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+            }
+            else {
+                text.text = "";
             }
 
             poolPoint[i].gameObject.SetActive(true);
 
-            if(i + 1 < pathPoints.Length) {
+            if(i > 0) {
                 poolLine[i].rectTransform.position = pathPoints[i];
-                Vector3 delta = pathPoints[i + 1] - pathPoints[i];
+                Vector3 delta = pathPoints[i - 1] - pathPoints[i];
                 poolLine[i].rectTransform.sizeDelta = new Vector3(delta.magnitude, 0.245f);
                 poolLine[i].rectTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
                 
