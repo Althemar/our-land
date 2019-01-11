@@ -9,7 +9,7 @@ public class TurnManager : MonoBehaviour
     public enum TurnState
     {
         Player,
-        PlayerUpdate,
+        PlayerUpdates,
         Entities, 
         Wind,
         Whirlwind,
@@ -32,7 +32,7 @@ public class TurnManager : MonoBehaviour
     private TurnState state = TurnState.Player;
 
     private Dictionary<EntitySO, List<Entity>> entitiesToUpdate;
-    private List<ActivePopulationPoint> populationPointToUpdate; 
+    private List<Updatable> playersUpdates; 
     private List<Wind> windsToUpdate;
     private List<Whirlwind> whirlwindsToUpdate;
     private List<WindOrigin> windOriginsToUpdate;
@@ -68,7 +68,7 @@ public class TurnManager : MonoBehaviour
             windsToUpdate = new List<Wind>();
             whirlwindsToUpdate = new List<Whirlwind>();
             windOriginsToUpdate = new List<WindOrigin>();
-            populationPointToUpdate = new List<ActivePopulationPoint>();
+            playersUpdates = new List<Updatable>();
             Console.AddCommand("fastTurn", CmdFastTurn, "Fast Turn");
         }
         else {
@@ -119,7 +119,7 @@ public class TurnManager : MonoBehaviour
                     UpdateEntities();
                 }
             }
-            else if (state == TurnState.PlayerUpdate || state == TurnState.Wind || state == TurnState.Whirlwind || state == TurnState.WindOrigin) {
+            else if (state == TurnState.PlayerUpdates || state == TurnState.Wind || state == TurnState.Whirlwind || state == TurnState.WindOrigin) {
                 NextTurnOrder();
             }
         }
@@ -152,8 +152,8 @@ public class TurnManager : MonoBehaviour
         if (obj.GetType() == typeof(WindOrigin)) {
             windOriginsToUpdate.Add(obj as WindOrigin);
         }
-        if (obj.GetType() == typeof(ActivePopulationPoint)) {
-            populationPointToUpdate.Add(obj as ActivePopulationPoint);
+        if (obj.GetType() == typeof(ActivePopulationPoint) || obj.GetType() == typeof(MotherShip)) {
+            playersUpdates.Add(obj as Updatable);
         }
     }
 
@@ -173,8 +173,8 @@ public class TurnManager : MonoBehaviour
         if (obj.GetType() == typeof(WindOrigin)) {
             windOriginsToUpdate.Remove(obj as WindOrigin);
         }
-        if (obj.GetType() == typeof(ActivePopulationPoint)) {
-            populationPointToUpdate.Remove(obj as ActivePopulationPoint);
+        if (obj.GetType() == typeof(ActivePopulationPoint) || obj.GetType() == typeof(MotherShip)) {
+            playersUpdates.Remove(obj as Updatable);
         }
     }
 
@@ -212,8 +212,8 @@ public class TurnManager : MonoBehaviour
         else if (state == TurnState.WindOrigin) {
             UpdateObjects(windOriginsToUpdate);
         }
-        else if (state == TurnState.PlayerUpdate) {
-            UpdateObjects(populationPointToUpdate);
+        else if (state == TurnState.PlayerUpdates) {
+            UpdateObjects(playersUpdates);
         }
     }
 

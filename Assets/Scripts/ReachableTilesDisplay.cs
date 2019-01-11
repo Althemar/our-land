@@ -7,44 +7,34 @@ using UnityEngine;
  * Display a preview for the movement : )
  *      - Color the tiles in the path to the pointed tile
  */
- 
-[RequireComponent(typeof(HexagonsOutline))]
+
 public class ReachableTilesDisplay : MonoBehaviour
 {
-    private bool displaying;                   
-    private Movable movable;                    
-    private TileProperties currentPointedTile;      // current pointed tile by the mouse. used to refresh the path   
+    private bool displaying;
+    private Movable movable;
+    private TileProperties currentPointedTile;
+    private MotherShip motherShip;
 
-    private List<TileProperties> reachables;    
-    private Stack<TileProperties> currentPath;  
+    private Stack<TileProperties> currentPath;
 
     public PathUI canvasPath;
-    public HexagonsOutline outline;
 
     public bool Displaying
     {
         get => displaying;
     }
 
-    public TileProperties CurrentTile
-    {
-        get => currentPointedTile;
-    }
-
     private void Start() {
-        outline = GetComponent<HexagonsOutline>();
+        motherShip = GetComponent<MotherShip>();
     }
 
-
-    public void InitReachableTiles(List<TileProperties> reachables, TileProperties tile, Movable movable) {
+    public void InitReachableTiles(TileProperties tile, Movable movable) {
         if (movable.Moving) {
             return;
         }
         this.movable = movable;
-        this.reachables = reachables;
         displaying = true;
     }
-
 
     public void UndisplayReachables() {
         displaying = false;
@@ -58,6 +48,13 @@ public class ReachableTilesDisplay : MonoBehaviour
         int i = 0;
         while (path.Count > 0) {
             TileProperties tile = path.Pop();
+            if (i <= 1) {
+                tile.ActionPointCost = 0;
+            }
+           /* else {
+                tile.ActionPointCost = motherShip.movementBaseCost
+            }
+            tile.ActionPointCost = i * motherShip*/
             canvasPath.pathPoints[i] = tile.Tilemap.GetCellCenterWorld(tile.Position);
             canvasPath.pathTiles[i++] = tile;
         }
@@ -67,13 +64,10 @@ public class ReachableTilesDisplay : MonoBehaviour
     public void RefreshPath(TileProperties tile) {
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
-            if (reachables.Contains(currentPointedTile)) {
-                currentPath = AStarSearch.Path(movable.CurrentTile, tile);
-                ColorPath(new Stack<TileProperties>(currentPath));
-            } else {
-                canvasPath.pathPoints = new Vector3[0];
-                canvasPath.UpdatePath();
-            }
+            currentPath = AStarSearch.Path(movable.CurrentTile, tile);
+            movable.Path = currentPath;
+            ColorPath(new Stack<TileProperties>(currentPath));
         }
     }
 }
+

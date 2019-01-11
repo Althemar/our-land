@@ -6,6 +6,8 @@ using TMPro;
 
 public class PathUI : MonoBehaviour
 {
+
+    public MotherShip motherShip;
     public Vector3[] pathPoints;
     public TileProperties[] pathTiles;
 
@@ -38,10 +40,10 @@ public class PathUI : MonoBehaviour
         for(int i = 0; i < pathPoints.Length; i++) {
             poolPoint[i].transform.position = pathPoints[i];
        
-           if (i != pathTiles.Length - 1 && ( i == 0 || pathTiles[i].ActionPointCost != pathTiles[i-1].ActionPointCost )) {
-                poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>().text = pathTiles[i].ActionPointCost.ToString();
+           if (i == 0) {
+               // poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>().text = motherShip.movementBaseCost ;
            }
-           else {
+            else {
                 poolPoint[i].transform.GetChild(0).GetComponent<TMP_Text>().text = "";
             }
 
@@ -49,7 +51,6 @@ public class PathUI : MonoBehaviour
 
             if(i + 1 < pathPoints.Length) {
                 poolLine[i].rectTransform.position = pathPoints[i];
-                //poolLine[i].rectTransform. = pathPoints[i];
                 Vector3 delta = pathPoints[i + 1] - pathPoints[i];
                 poolLine[i].rectTransform.sizeDelta = new Vector3(delta.magnitude, 0.245f);
                 poolLine[i].rectTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);

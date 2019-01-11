@@ -53,6 +53,7 @@ public class Movable : MonoBehaviour
     public Stack<TileProperties> Path
     {
         get { return path; }
+        set { path = value; }
     }
 
     public bool Moving

@@ -8,24 +8,21 @@ using UnityEngine.EventSystems;
 public class MouseController : MonoBehaviour
 {
     public HexagonalGrid hexGrid;
-    public ReachableTilesDisplay reachableTiles;
 
     public MotherShip motherShip;
-
-    public Material movementOutline;
+    
     public EntitiesHarvestableUI entitiesHarvestable;
 
     private Camera cam;
     private Movable movable;
+    private ReachableTilesDisplay reachableTiles;
 
     private TileProperties current;
-
-    List<HexagonsOutline> movementPreviews;
    
     void Start() {
         cam = Camera.main;
-        movementPreviews = new List<HexagonsOutline>();
         movable = motherShip.GetComponent<Movable>();
+        reachableTiles = motherShip.GetComponent<ReachableTilesDisplay>();
     }
 
     void Update() {
@@ -70,7 +67,7 @@ public class MouseController : MonoBehaviour
                 current = tile;
             }
         }
-        if (reachableTiles.Displaying) {
+        if (GameManager.Input.GetMouseButton(1) && reachableTiles.Displaying) {
             reachableTiles.RefreshPath(GetTile());
         }
     }
@@ -88,65 +85,27 @@ public class MouseController : MonoBehaviour
     }
 
     private void RightClickDown() {
+        motherShip.targetTile = null;
         if (entitiesHarvestable.Displaying) {
             entitiesHarvestable.Clear();
         }
         if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
             TileProperties tile = GetTile();
 
-            if (motherShip && motherShip.remainingPopulationPoints > 0) {
-                motherShip.ClearHarvestOutline();
-
-                List<TileProperties> reachables = movable.CurrentTile.TilesReachable(motherShip.remainingPopulationPoints * motherShip.reach, motherShip.reach);
-
-                List<TileProperties>[] reachablesByReach = new List<TileProperties>[motherShip.remainingPopulationPoints];
-                for (int i = 0; i < reachablesByReach.Length; i++) {
-                    reachablesByReach[i] = new List<TileProperties>();
-                }
-
-
-                for (int i = 1; i < reachables.Count; i++) {
-                    for (int j = reachables[i].ActionPointCost - 1; j < reachablesByReach.Length; j++) {
-                        reachablesByReach[j].Add(reachables[i]);
-                    }
-                }
-
-                for (int i = 0; i < reachablesByReach.Length; i++) {
-                    HexagonsOutline outline = new GameObject().AddComponent<HexagonsOutline>();
-                    MeshRenderer renderer = outline.GetComponent<MeshRenderer>();
-                    renderer.material = movementOutline;
-                    renderer.material.color = new Color(0, 0, 1f - (1f / (motherShip.remainingPopulationPoints) * (i - 1)), 1);
-
-                    movementPreviews.Add(outline);
-
-                    for (int j = 0; j < reachablesByReach[i].Count; j++) {
-                        reachablesByReach[i][j].IsInReachables = true;
-                    }
-                    outline.InitMesh(reachablesByReach[i]);
-                }
-
-                for (int i = 0; i < reachables.Count; i++) {
-                    reachables[i].IsInReachables = false;
-                }
-                movable.ReachableTiles = reachables;
-                reachableTiles.InitReachableTiles(reachables, tile, movable);
+            if (motherShip) {
+                reachableTiles.InitReachableTiles(tile, movable);
             }
-
         }
     }
 
     private void RightClickUp() {
         if (reachableTiles.Displaying) {
-            reachableTiles.UndisplayReachables();
-            for (int i = 0; i < movementPreviews.Count; i++) {
-                Destroy(movementPreviews[i].gameObject);
+            TileProperties targetTile = GetTile();
+            if (!targetTile.movingEntity) {
+                motherShip.targetTile = targetTile;
             }
-            movementPreviews.Clear();
-            if (movable.ReachableTiles.Contains(GetTile())) {
-                motherShip.BeginMove();
-                movable.MoveToTile(GetTile());
-            } else {
-                motherShip.ShowHarvestOutline();
+            else {
+                reachableTiles.UndisplayReachables();
             }
         }
     }

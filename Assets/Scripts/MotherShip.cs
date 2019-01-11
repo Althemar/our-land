@@ -1,4 +1,5 @@
-﻿using RotaryHeart.Lib.SerializableDictionary;
+﻿using NaughtyAttributes;
+using RotaryHeart.Lib.SerializableDictionary;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,20 +8,27 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Movable), typeof(Inventory))]
-public class MotherShip : MonoBehaviour
+public class MotherShip : Updatable
 {
     public int harvestDistance;
-
-    public int reach = 2;
+    
     
     public HexagonsOutline outline;
      
 
     public ResourceType populationResource;
 
+    [BoxGroup("Food")]
     public ResourceType foodResource;
+    [BoxGroup("Food")]
     public float foodConsumption;
 
+    [BoxGroup("Movement")]
+    public ResourceType fuelResource;
+    [BoxGroup("Movement")]
+    public float movementBaseCost;
+    [BoxGroup("Movement")]
+    public float movementDistanceMultiplicator;
    
     public int remainingPopulationPoints;
 
@@ -29,6 +37,10 @@ public class MotherShip : MonoBehaviour
  
     private Movable movable;
     private Inventory inventory;
+    private ReachableTilesDisplay reachableTilesDisplay;
+
+    [HideInInspector]
+    public TileProperties targetTile;
 
     private List<TileProperties> tilesInRange;
 
@@ -61,11 +73,13 @@ public class MotherShip : MonoBehaviour
     private void Start() {
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();
+        reachableTilesDisplay = GetComponent<ReachableTilesDisplay>();
         movable.OnReachEndTile += EndMove;
         OnRemainingPointsChanged?.Invoke();
         Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
         Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
         populationPoints = new List<ActivePopulationPoint>();
+        AddToTurnManager();
     }
 
     private void CmdAddPA(string[] args) {
@@ -130,17 +144,32 @@ public class MotherShip : MonoBehaviour
         }
     }
 
-    public void BeginMove() {
-        Playtest.TimedLog("Player Move");
-        OnBeginMoving?.Invoke();
-        outline.Clear();
-    }
-
     void EndMove() {
         ShowHarvestOutline();
-        
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
+        EndTurn();
     }
-        
+
+    public override void AddToTurnManager() {
+        TurnManager.Instance.AddToUpdate(this);
+    }
+
+    public override void RemoveFromTurnManager() {
+        TurnManager.Instance.RemoveFromUpdate(this);
+    }
+
+    public override void UpdateTurn() {
+        base.UpdateTurn();
+        if (targetTile != null) {
+            Playtest.TimedLog("Player Move");
+            OnBeginMoving?.Invoke();
+            reachableTilesDisplay.UndisplayReachables();
+            outline.Clear();
+            movable.MoveToTile(targetTile, false);
+        }
+        else {
+            EndTurn();
+        }
+    }
 }
