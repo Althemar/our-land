@@ -11,8 +11,6 @@ public class MouingIdleAction : Action
         if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass) {
             var nearest = entity.Tile.NearestBiomeWithoutEntities(CustomTile.TerrainType.Grass, -1);
             entity.MoveTo(nearest);
-        }
-            
-        
+        }         
     }
 }

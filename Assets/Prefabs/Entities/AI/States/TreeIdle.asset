@@ -10,11 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b918bc4152f204b8d992288277591d, type: 3}
-  m_Name: MouingHungry
+  m_Name: TreeIdle
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: b0948fbf9ca0c704e8da05e0c0eea3f9, type: 2}
-  transitions:
-  - decision: {fileID: 11400000, guid: 8fc34b87ab3f68e4281b64e52b83b936, type: 2}
-    trueState: {fileID: 11400000}
-    falseState: {fileID: 11400000, guid: 9435134720f1eae49addcb39f64df81d, type: 2}
+  - {fileID: 11400000, guid: db85d88f1e8060e4199fa9255d37e3ca, type: 2}
+  transitions: []

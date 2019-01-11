@@ -126,11 +126,11 @@ public class MovingEntity : Entity
         EndTurn();
     }
     public void MoveTo(TileProperties to) {
-        var path = AStarSearch.Path(tile, to, entitySO.availableTiles);
-        if (path != null || path.Count >= 0) {
+        var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
+        if (pathToTarget != null || pathToTarget.Count >= 0) {
             tile.currentMovable = null;
             tile.movingEntity = null;
-            tile = movable.MoveToward(path, movingEntitySO.movementPoints);
+            tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints);
             tile.movingEntity = this;
             // TODO make end turn
         }

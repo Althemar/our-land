@@ -129,5 +129,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 9435134720f1eae49addcb39f64df81d, type: 2}
-  remainState: {fileID: 11400000, guid: d88ddfa9be812ea49a5903c4d71b6a78, type: 2}
+  remainState: {fileID: 11400000, guid: 9435134720f1eae49addcb39f64df81d, type: 2}
   entity: {fileID: 0}
