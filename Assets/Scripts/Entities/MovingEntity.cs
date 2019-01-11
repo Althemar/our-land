@@ -125,6 +125,16 @@ public class MovingEntity : Entity
         */
         EndTurn();
     }
+    public void MoveTo(TileProperties to) {
+        var path = AStarSearch.Path(tile, to, entitySO.availableTiles);
+        if (path != null || path.Count >= 0) {
+            tile.currentMovable = null;
+            tile.movingEntity = null;
+            tile = movable.MoveToward(path, movingEntitySO.movementPoints);
+            tile.movingEntity = this;
+            // TODO make end turn
+        }
+    }
 
     private void Harvest() {
         if (target.population > population - reserve) { // if there is more than enough food
