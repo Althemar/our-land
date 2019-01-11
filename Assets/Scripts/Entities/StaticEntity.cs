@@ -21,8 +21,6 @@ public class StaticEntity : Entity
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        IncreasePopulation();
-        TryCreateAnotherEntity(EntityType.Static);
         EndTurn();
     }
 

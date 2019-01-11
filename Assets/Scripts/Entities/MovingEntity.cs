@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Movable))]
+[RequireComponent(typeof(StateController))]
 public class MovingEntity : Entity
 {
     private Movable movable;
-    [SerializeField]
-    private float currentFood;
-
-    private float satietyTreshold;
-    private float starvationTreshold;
 
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
-
-    private EntityHungerState hunger;
 
     private Entity target;
     private bool stopBefore;
@@ -35,7 +29,6 @@ public class MovingEntity : Entity
         
 
         movingEntitySO = entitySO as MovingEntitySO;
-        hunger = EntityHungerState.Full;
         GetComponent<SpriteRenderer>().sortingOrder = 15;
 
         // UGLY TO IMPROVE
@@ -50,7 +43,7 @@ public class MovingEntity : Entity
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        DecreaseFood();
+        /* DecreaseFood();
         if (hunger == EntityHungerState.Full) {
             if (currentFood < starvationTreshold) { 
                 hunger = EntityHungerState.Hungry;
@@ -129,29 +122,23 @@ public class MovingEntity : Entity
         if (!waitForMove) {
             EndTurn();
         }
-    }
-
-    private void DecreaseFood() {
-        currentFood -= movingEntitySO.foodConsumption * population;
-        if (currentFood < 0) {
-            currentFood = 0;
-        }
+        */
+        EndTurn();
     }
 
     private void Harvest() {
-        currentFood += target.entitySO.foodWhenHarvested * population; //j'ai rajouté * population
-        target.Eaten(movingEntitySO.damageWhenEat * population); //j'ai rajouté * population
-
+        if (target.population > population - reserve) { // if there is more than enough food
+            reserve += (int)population;
+            target.Eaten(population - reserve);
+        } else {
+            target.Eaten(target.population);
+        }
+        
         // UGLY TO MOVE
         if (movingEntitySO.eatFeedback) {
             Vector3 position = (this.transform.position + target.transform.position) / 2f;
             KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
             harvested.Initialize();
-        }
-
-        if (currentFood > satietyTreshold) {
-            //currentFood = satietyTreshold;
-            hunger = EntityHungerState.Full;
         }
     }
 
@@ -159,18 +146,10 @@ public class MovingEntity : Entity
         base.Initialize(population);
 
         tile.movingEntity = this;
-
-        UpdateFoodTresholds();
-        currentFood = satietyTreshold;
-    }
-
-    private void UpdateFoodTresholds() {
-        satietyTreshold = movingEntitySO.satietyThreshold * Mathf.Floor(population); //j'ai floor la pop
-        starvationTreshold = movingEntitySO.starvationThreshold * Mathf.Floor(population); //j'ai floor la pop
     }
 
     void EndMoving() {
-        tile.movingEntity = null;
+        /* tile.movingEntity = null;
         tile = movable.CurrentTile;
         tile.movingEntity = this;
         if (target) {
@@ -179,7 +158,7 @@ public class MovingEntity : Entity
                 Harvest();
             }
         }
-       
+       */
         EndTurn();
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7946308881498552183}
   - component: {fileID: 7946308881498552182}
   - component: {fileID: 7946308881498552177}
+  - component: {fileID: 6170086387010796709}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
   entitySO: {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
   population: 0
   basePopulation: 2
-  currentFood: 0
+  reserve: 0
   movingEntitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
 --- !u!114 &7946308881498552177
 MonoBehaviour:
@@ -115,3 +116,18 @@ MonoBehaviour:
   walkDistance: 2
   hexGrid: {fileID: 0}
   spine: {fileID: 0}
+--- !u!114 &6170086387010796709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946308881498552176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b328565334a70f489e3d99547b960d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 11400000, guid: 9435134720f1eae49addcb39f64df81d, type: 2}
+  remainState: {fileID: 11400000, guid: d88ddfa9be812ea49a5903c4d71b6a78, type: 2}
+  entity: {fileID: 0}

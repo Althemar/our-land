@@ -11,10 +11,18 @@ public abstract class Entity : Updatable
     protected TileProperties tile;
     
     public int basePopulation; 
+    public int reserve;
+
+    private StateController stateController;
 
     public TileProperties Tile
     {
         get => tile;
+    }
+
+    void Awake() {
+        stateController = GetComponent<StateController>();
+        stateController.SetupAI(true);
     }
 
     protected virtual void Start() {
@@ -47,6 +55,8 @@ public abstract class Entity : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+        stateController.TurnUpdate();
+
     }
     
     public void Eaten(float damage) {
@@ -74,17 +84,16 @@ public abstract class Entity : Updatable
         }
     }
 
-    public void IncreasePopulation() {
-        if (population < entitySO.populationMax) {
-            population += entitySO.reproductionRate; //j'ai viré le * population
-            if (population > entitySO.populationMax) {
-                population = entitySO.populationMax;
-            }
+    public void IncreasePopulation(int amount) {
+        population += amount;
+        if (population > entitySO.populationMax) {
+            population = entitySO.populationMax;
+            
         }
     }
 
     public void DecreasePopulation() {
-        population -= entitySO.deathRate; //j'ai viré le * population
+        population -= entitySO.deathRate;
     }
 
     public void TryCreateAnotherEntity(EntityType type) {
