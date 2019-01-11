@@ -58,7 +58,6 @@ public class MovingEntity : Entity
     }
 
     void UpdateSprite(HexDirection dir) {
-        Debug.Log(dir);
         if (!NWContainer || !WContainer || !SWContainer)
             return;
 

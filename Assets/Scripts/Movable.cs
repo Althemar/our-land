@@ -105,7 +105,7 @@ public class Movable : MonoBehaviour
         if (tCell > pArray.Length - 1)
             tCell = pArray.Length - 1;
 
-        if(needChangeDir) {
+        if(needChangeDir && OnChangeDirection != null) {
             for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
                 if (pArray[Mathf.FloorToInt(tCell)].GetNeighbor(dir) == pArray[Mathf.CeilToInt(tCell)]) {
                     OnChangeDirection(dir);

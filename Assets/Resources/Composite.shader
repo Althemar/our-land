@@ -11,6 +11,8 @@
 
         Pass
         {
+			Blend One OneMinusSrcAlpha
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -43,9 +45,9 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-				fixed4 ent = tex2D(_Composite, i.uv);
+				fixed4 composite = tex2D(_Composite, i.uv);
 
-                col.rgb = col.rgb * (1 - ent.a) + ent.rgb * ent.a;
+                col.rgb = col.rgb * (1 - composite.a) + composite.rgb * composite.a;
                 return col;
             }
             ENDCG
