@@ -14,13 +14,12 @@ public class Movable : MonoBehaviour
     public int walkDistance;
     public HexagonalGrid hexGrid;
 
-    public SkeletonAnimation spine;
+    public AnimationCurve movementCurve;
     
     private Tilemap tilemap;
     private DebugMovable debug;
 
     //movement
-    private Stack<TileProperties> path;
     private Vector3 beginPos;
     private Vector3 targetPos;
     private TileProperties targetTile;
@@ -50,14 +49,10 @@ public class Movable : MonoBehaviour
         set { debug = value; }
     }
 
-    public Stack<TileProperties> Path
-    {
-        get { return path; }
-    }
-
     public bool Moving
     {
         get => moving;
+        set => moving = value;
     }
 
     public List<TileProperties> ReachableTiles
@@ -71,7 +66,6 @@ public class Movable : MonoBehaviour
      */
 
     private void Start() {
-        path = new Stack<TileProperties>();
         tilemap = hexGrid.GetComponent<Tilemap>();
     }
 
@@ -80,6 +74,7 @@ public class Movable : MonoBehaviour
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             currentTile.currentMovable = this;
+            transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(currentTile.Position);
         }
         if (moving) {
             if (TurnManager.Instance != null && TurnManager.Instance.isFastTurn) {
@@ -88,10 +83,10 @@ public class Movable : MonoBehaviour
             else {
                 progress += speed * Time.deltaTime;
             }
-            
-            
-            transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
-            if (transform.position == targetPos) {
+
+
+            transform.position = Interpolate(progress); //Vector3.MoveTowards(beginPos, targetPos, progress);
+            /*if (transform.position == targetPos) {
                 progress = 0;
                 Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
 
@@ -113,22 +108,35 @@ public class Movable : MonoBehaviour
                         EndMoving();
                     }
                 }
+            }*/
+            if(progress >= 1) {
+                progress = 0;
+                EndMoving();
             }
         }
     }
 
+    public Vector3 Interpolate(float t) {
+        float tCell = movementCurve.Evaluate(t) * (pArray.Length - 1);
+        if (tCell < 0)
+            tCell = 0;
+        if (tCell > pArray.Length - 1)
+            tCell = pArray.Length - 1;
+        
+        Vector3 res = Vector3.Lerp(tilemap.CellToWorld(pArray[Mathf.FloorToInt(tCell)].Position), tilemap.CellToWorld(pArray[Mathf.CeilToInt(tCell)].Position), tCell - Mathf.FloorToInt(tCell));
+
+        currentTile.currentMovable = null;
+        currentTile = pArray[Mathf.FloorToInt(tCell)];
+        currentTile.currentMovable = this;
+
+        return res;
+    }
+    TileProperties[] pArray;
     public void MoveToTile(TileProperties goal, bool calculatePath = true) {
         if (!moving) {
             if (calculatePath) {
-                path = AStarSearch.Path(currentTile, goal);
+                pArray = AStarSearch.Path(currentTile, goal).ToArray();
             }
-            if (path.Count > 1) {
-                path.Pop();
-            }
-            targetTile = path.Pop();
-            targetPos = tilemap.CellToWorld(targetTile.Position);
-
-            UpdateSpriteDirection();
 
             beginPos = transform.position;
             moving = true;
@@ -136,32 +144,6 @@ public class Movable : MonoBehaviour
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
-        }
-    }
-
-
-
-    void UpdateSpriteDirection() {
-        if (spine == null)
-            return;
-
-        if (targetTile.Coordinates.CubicCoordinates.x == currentTile.Coordinates.CubicCoordinates.x) {
-            spine.skeleton.ScaleX = 1;
-            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
-                spine.skeleton.SetSkin("Front_Left");
-            else
-                spine.skeleton.SetSkin("Back_Right");
-        }
-        if (targetTile.Coordinates.CubicCoordinates.y == currentTile.Coordinates.CubicCoordinates.y) {
-            spine.skeleton.SetSkin("Profile_Left");
-            spine.skeleton.ScaleX = (targetTile.Coordinates.CubicCoordinates.z < currentTile.Coordinates.CubicCoordinates.z) ? -1 : 1;
-        }
-        if (targetTile.Coordinates.CubicCoordinates.z == currentTile.Coordinates.CubicCoordinates.z) {
-            spine.skeleton.ScaleX = -1;
-            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
-                spine.skeleton.SetSkin("Front_Left");
-            else
-                spine.skeleton.SetSkin("Back_Right");
         }
     }
 
@@ -191,9 +173,10 @@ public class Movable : MonoBehaviour
         if (!lastTile) {
             Debug.Log("null");
         }
-        path.Clear();
+
+        pArray = new TileProperties[pathList.Count];
         for (int i = pathList.Count - 1; i >= 0; i--) {
-            path.Push(pathList[i]);
+            pArray[i] = pathList[i];
         }
         MoveToTile(lastTile, false);
         return lastTile;

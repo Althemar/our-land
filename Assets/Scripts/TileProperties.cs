@@ -217,7 +217,12 @@ public class TileProperties : MonoBehaviour {
 
     public void PutGlacier() {
         if (this.Tile && this.Tile.riverSource) {
-            CreateSprite(grid.humidity.glacier, addonsGameObjects, 10);
+            SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+            spriteRenderer.transform.parent = addonsGameObjects.transform;
+            spriteRenderer.transform.position = transform.position;
+            spriteRenderer.sprite = grid.humidity.glacier;
+            spriteRenderer.sortingOrder = 10 - Position.y;
+            spriteRenderer.gameObject.layer = 13;
         }
     }
 
@@ -301,7 +306,7 @@ public class TileProperties : MonoBehaviour {
             spriteRenderer.transform.parent = transform;
         spriteRenderer.transform.position = transform.position;
         spriteRenderer.sprite = sprite;
-        spriteRenderer.sortingOrder = sorting;
+        spriteRenderer.sortingOrder = sorting - Position.y;
         spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
     }
 

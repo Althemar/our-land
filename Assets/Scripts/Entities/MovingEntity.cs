@@ -20,6 +20,8 @@ public class MovingEntity : Entity
     private Entity target;
     private bool stopBefore;
 
+    private int baseSorting;
+
     // UGLY TO IMPROVE
     private Transform canvasWorldSpace;
 
@@ -32,11 +34,9 @@ public class MovingEntity : Entity
             movable.CurrentTile = tile;
             tile.currentMovable = movable;
         }
-        
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-        GetComponent<SpriteRenderer>().sortingOrder = 15;
 
         // UGLY TO IMPROVE
         canvasWorldSpace = GameObject.Find("Canvas World Space").transform;

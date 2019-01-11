@@ -18,7 +18,7 @@ public abstract class Entity : Updatable
     }
 
     protected virtual void Start() {
-        GetComponent<SpriteRenderer>().sprite = entitySO.sprite;
+
     }
 
     public override void AddToTurnManager() {

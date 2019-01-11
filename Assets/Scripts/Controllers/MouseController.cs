@@ -91,7 +91,7 @@ public class MouseController : MonoBehaviour
         if (entitiesHarvestable.Displaying) {
             entitiesHarvestable.Clear();
         }
-        if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
+        if (!motherShip.OnMove && TurnManager.Instance.State == TurnManager.TurnState.Player) {
             TileProperties tile = GetTile();
 
             if (motherShip && motherShip.RemainingActionPoints > 0) {
@@ -143,8 +143,7 @@ public class MouseController : MonoBehaviour
             }
             movementPreviews.Clear();
             if (movable.ReachableTiles.Contains(GetTile())) {
-                motherShip.BeginMove();
-                movable.MoveToTile(GetTile());
+                motherShip.BeginMove(GetTile());
             } else {
                 motherShip.ShowHarvestOutline();
             }

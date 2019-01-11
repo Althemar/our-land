@@ -50,4 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   harvestEntityPrefab: {fileID: 6397461840512806603, guid: 38864f382b1b7264aad44ebdb782eb3c,
     type: 3}
+  resourcesGainedPrefab: {fileID: 6641214869133636042, guid: 0b613010ce9f8b245a8ef4c64302cd16,
+    type: 3}
   motherShip: {fileID: 0}
+  info: {fileID: 0}

@@ -1,0 +1,153 @@
+
+Muing.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Front_Body
+  rotate: true
+  xy: 358, 251
+  size: 261, 283
+  orig: 261, 369
+  offset: 0, 20
+  index: -1
+Front_Ear
+  rotate: false
+  xy: 678, 3
+  size: 31, 81
+  orig: 32, 81
+  offset: 1, 0
+  index: -1
+Front_Head
+  rotate: false
+  xy: 281, 73
+  size: 194, 176
+  orig: 204, 248
+  offset: 0, 64
+  index: -1
+Front_Jaw
+  rotate: true
+  xy: 589, 20
+  size: 64, 87
+  orig: 64, 89
+  offset: 0, 2
+  index: -1
+Front_L_BackLeg
+  rotate: true
+  xy: 384, 0
+  size: 32, 86
+  orig: 257, 327
+  offset: 207, 4
+  index: -1
+Front_L_FrontLeg
+  rotate: true
+  xy: 864, 226
+  size: 34, 93
+  orig: 257, 381
+  offset: 83, 0
+  index: -1
+Front_Neck
+  rotate: true
+  xy: 790, 262
+  size: 97, 218
+  orig: 97, 218
+  offset: 0, 0
+  index: -1
+images/Back_Body
+  rotate: false
+  xy: 0, 29
+  size: 279, 269
+  orig: 279, 297
+  offset: 0, 28
+  index: -1
+images/Back_Ear
+  rotate: true
+  xy: 770, 189
+  size: 33, 79
+  orig: 34, 79
+  offset: 0, 0
+  index: -1
+images/Back_Head
+  rotate: true
+  xy: 477, 10
+  size: 239, 110
+  orig: 239, 111
+  offset: 0, 0
+  index: -1
+images/Back_Jaw
+  rotate: true
+  xy: 281, 23
+  size: 48, 101
+  orig: 49, 101
+  offset: 0, 0
+  index: -1
+images/Back_L_BackLeg
+  rotate: true
+  xy: 384, 34
+  size: 37, 89
+  orig: 95, 141
+  offset: 0, 0
+  index: -1
+images/Back_Neck
+  rotate: false
+  xy: 643, 267
+  size: 145, 245
+  orig: 212, 245
+  offset: 67, 0
+  index: -1
+images/Back_R_FrontLeg
+  rotate: false
+  xy: 672, 86
+  size: 41, 79
+  orig: 132, 94
+  offset: 91, 0
+  index: -1
+images/Profile_BackLeg
+  rotate: false
+  xy: 729, 173
+  size: 39, 92
+  orig: 39, 93
+  offset: 0, 1
+  index: -1
+images/Profile_Body
+  rotate: false
+  xy: 0, 300
+  size: 356, 212
+  orig: 356, 283
+  offset: 0, 14
+  index: -1
+images/Profile_Ear
+  rotate: true
+  xy: 281, 265
+  size: 33, 74
+  orig: 33, 74
+  offset: 0, 0
+  index: -1
+images/Profile_FrontLeg
+  rotate: true
+  xy: 770, 224
+  size: 36, 92
+  orig: 78, 93
+  offset: 0, 1
+  index: -1
+images/Profile_Head
+  rotate: false
+  xy: 790, 361
+  size: 228, 151
+  orig: 228, 152
+  offset: 0, 0
+  index: -1
+images/Profile_Jaw
+  rotate: false
+  xy: 672, 167
+  size: 55, 98
+  orig: 55, 98
+  offset: 0, 0
+  index: -1
+images/Profile_Neck
+  rotate: false
+  xy: 589, 86
+  size: 81, 163
+  orig: 81, 163
+  offset: 0, 0
+  index: -1

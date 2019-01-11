@@ -45,12 +45,12 @@ public class DebugMovable : MonoBehaviour
             }
         }
         if (mode == DebugMode.Path) {
-            Stack<TileProperties> path = new Stack<TileProperties>(movable.Path);
+            /*Stack<TileProperties> path = new Stack<TileProperties>(movable.Path);
             while (path.Count > 0) {
                 TileProperties tileOnPath = path.Pop();
                 tileOnPath.Tilemap.SetColor(tileOnPath.Position, Color.red);
                 coloredTiles.Add(tileOnPath);
-            }
+            }*/
         }
     }
 
