@@ -30,9 +30,9 @@ public class MovingEntity : Entity
 
     private int baseSorting;
 
-    // UGLY TO IMPROVE
-    private Transform canvasWorldSpace;
-
+    public delegate void OnHarvestDelegate(MovingEntity from, Entity target);
+    public static OnHarvestDelegate OnHarvest;
+    
     protected override void Start() {
         base.Start();
         movable = GetComponent<Movable>();
@@ -46,9 +46,6 @@ public class MovingEntity : Entity
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-
-        // UGLY TO IMPROVE
-        canvasWorldSpace = GameObject.Find("Canvas World Space").transform;
     }
 
     private void Update() {
@@ -180,12 +177,7 @@ public class MovingEntity : Entity
             }
         }
 
-        // UGLY TO MOVE
-        if (movingEntitySO.eatFeedback) {
-            Vector3 position = (this.transform.position + target.transform.position) / 2f;
-            KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
-            harvested.Initialize();
-        }
+        OnHarvest(this, target);
 
         if (currentFood > satietyTreshold) {
             //currentFood = satietyTreshold;
