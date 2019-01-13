@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Tree
   sprite: {fileID: 21300000, guid: cbb56f32b24ee15438673cb8fd8d450c, type: 3}
-  populationMax: 8
-  reproductionRate: 0.7
-  deathRate: 0.2
-  foodWhenHarvested: 2
+  populationMax: 3
+  reproductionRate: 1
+  deathRate: 1
+  foodWhenHarvested: 1
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   resources:

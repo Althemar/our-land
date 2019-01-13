@@ -8,9 +8,22 @@ public class MouingIdleAction : Action
     public override void Act (StateController controller)
     {
         MovingEntity entity = controller.entity as MovingEntity;
-        if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass) {
+        if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass || entity.Tile.staticEntity != null) {
             var nearest = entity.Tile.NearestBiomeWithoutEntities(CustomTile.TerrainType.Grass, -1);
-            entity.MoveTo(nearest);
-        }         
+            if (nearest)
+                entity.MoveTo(nearest);
+        }
+        entity.remainingTurnsBeforeHungry -= 1;
+        if (entity.remainingTurnsBeforeHungry == 0) {
+            entity.isHungry = true;
+        }
+    }
+
+    public override void OnExitState(StateController controller) {  
+        
+    }
+
+    public override void OnEnterState(StateController controller) {
+
     }
 }

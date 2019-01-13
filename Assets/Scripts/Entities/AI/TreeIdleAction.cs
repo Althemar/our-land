@@ -12,4 +12,12 @@ public class TreeIdleAction : Action
             
         
     }
+
+    public override void OnExitState(StateController controller) {  
+        
+    }
+
+    public override void OnEnterState(StateController controller) {
+
+    }
 }

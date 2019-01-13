@@ -7,6 +7,7 @@ public class IsHungryDecision : Decision
 {
     public override bool Decide (StateController controller)
     {
-        return controller.entity.reserve >= controller.entity.population;
+        MovingEntity entity = controller.entity as MovingEntity;
+        return entity.isHungry;
     }
 }

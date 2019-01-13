@@ -10,12 +10,15 @@ public class MovingEntity : Entity
 
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
-
-    private Entity target;
     private bool stopBefore;
+    private bool isMoving = false;
 
     // UGLY TO IMPROVE
     private Transform canvasWorldSpace;
+
+    public bool isHungry = false; //used by actions
+    public int remainingTurnsBeforeHungry = -1;
+    public int remainingTurnsBeforeDie = -1;
 
     protected override void Start() {
         base.Start();
@@ -123,7 +126,7 @@ public class MovingEntity : Entity
             EndTurn();
         }
         */
-        EndTurn();
+        if (!isMoving) EndTurn();
     }
     public void MoveTo(TileProperties to) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
@@ -132,15 +135,22 @@ public class MovingEntity : Entity
             tile.movingEntity = null;
             tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints);
             tile.movingEntity = this;
+            isMoving = true;
             // TODO make end turn
         }
     }
 
-    private void Harvest() {
-        if (target.population > population - reserve) { // if there is more than enough food
-            reserve += (int)population;
-            target.Eaten(population - reserve);
+    public override EntityType GetEntityType() {
+        return EntityType.Moving;
+    }
+
+    public void Harvest(Entity target) {
+        int remainingFood = population - reserve;
+        if (target.population > remainingFood) { // if there is more than enough food        
+            reserve += remainingFood;
+            target.Eaten(remainingFood);
         } else {
+            reserve += target.population;
             target.Eaten(target.population);
         }
         
@@ -152,23 +162,18 @@ public class MovingEntity : Entity
         }
     }
 
-    public override void Initialize(float population = -1) {
+    public override void Initialize(int population = -1) {
         base.Initialize(population);
-
+        remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
+        remainingTurnsBeforeDie = movingEntitySO.nbTurnsToDie;
         tile.movingEntity = this;
     }
 
     void EndMoving() {
-        /* tile.movingEntity = null;
+        isMoving = false;
+        tile.movingEntity = null;
         tile = movable.CurrentTile;
         tile.movingEntity = this;
-        if (target) {
-            int distance = target.Tile.Coordinates.Distance(tile.Coordinates);
-            if ((stopBefore && distance == 1) || distance == 0) {
-                Harvest();
-            }
-        }
-       */
         EndTurn();
     }
 }

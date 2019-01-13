@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class StateController : MonoBehaviour {
 
     public State currentState;
-    public State remainState;
     [HideInInspector] public Entity entity;
 
     private bool aiActive;
@@ -32,14 +31,11 @@ public class StateController : MonoBehaviour {
 
     public void TransitionToState(State nextState)
     {
-        if (nextState != remainState) 
+        if (nextState != currentState) 
         {
+            currentState.OnExitState(this);
             currentState = nextState;
-            OnExitState ();
+            currentState.OnEnterState(this);
         }
-    }
-
-    private void OnExitState()
-    {
     }
 }

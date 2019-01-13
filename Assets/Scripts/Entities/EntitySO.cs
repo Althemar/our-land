@@ -22,9 +22,9 @@ public class EntitySO : ScriptableObject
     public int populationMax;
 
     [BoxGroup("Population rates")]
-    public float reproductionRate;
+    public int reproductionRate;
     [BoxGroup("Population rates")]
-    public float deathRate;
+    public int deathRate;
 
     [BoxGroup("Food")]
     public float foodWhenHarvested;
