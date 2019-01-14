@@ -16,6 +16,9 @@ public abstract class Entity : Updatable
 
     private StateController stateController;
 
+    public delegate void OnPopulationChangeDelegate();
+    public static OnPopulationChangeDelegate OnPopulationChange;
+
     public ActivePopulationPoint populationPoint;
     public TileProperties Tile
     {
@@ -69,6 +72,7 @@ public abstract class Entity : Updatable
         if (population <= 0) {
             Kill();
         }
+        OnPopulationChange();
     }
    
     public TileProperties GetFreeAdjacentTile(EntityType type) {
@@ -90,20 +94,22 @@ public abstract class Entity : Updatable
     }
 
     public void IncreasePopulation() {
-        Debug.Log("Population:" + population + "to" + population + entitySO.reproductionRate);
+        Debug.Log(this.gameObject.name + " Population: " + population + " to " + (population + entitySO.reproductionRate));
         population += entitySO.reproductionRate;
         if (population > entitySO.populationMax) {
-            Debug.Log("pop max" + entitySO.populationMax);
+            Debug.Log(this.gameObject.name + " pop max " + entitySO.populationMax);
             population = entitySO.populationMax;
             TryCreateAnotherEntity(GetEntityType());    
         }
+        OnPopulationChange();
     }
 
     public void DecreasePopulation() {
         population -= entitySO.deathRate;
         if (population <= 0) {
-            Kill();        
+            Kill();
         }
+        OnPopulationChange();
     }
 
     public void TryCreateAnotherEntity(EntityType type) {

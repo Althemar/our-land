@@ -16,20 +16,15 @@ public class TileProperties : MonoBehaviour {
     private CustomTile tile;
     private HexagonalGrid grid;
     private Tilemap tilemap;
-
-    [HideInInspector]
+    
     public Movable currentMovable;
 
     private bool isInReachables;
     private float actionPointCost = -1;
-
-    [HideInInspector]
+    
     public StaticEntity staticEntity;
-    [HideInInspector]
     public MovingEntity movingEntity;
-    [HideInInspector]
     public Wind wind;
-    [HideInInspector]
     public Whirlwind whirlwind;
 
 

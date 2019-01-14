@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 0f99355c1180362408ff70003d22c910
   - enabled: 1
-    path: Assets/Scenes/Balancing.unity
-    guid: 80b221c6ce7bd4b8db19c642b081c66a
+    path: Assets/Scenes/Togi.unity
+    guid: 2401562923a8b6345b9ab2e3bff28d70
   m_configObjects: {}

@@ -1,42 +1,60 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu (menuName = "PluggableAI/Actions/GoForFood")]
-public class GoForFoodAction : Action 
-{
-    public override void Act (StateController controller)
-    {
-        MovingEntity entity = controller.entity as MovingEntity;
+[CreateAssetMenu(menuName = "PluggableAI/Actions/GoForFood")]
+public class GoForFoodAction : Action {
+    MovingEntity entity;
+    Entity target;
+    int distanceOfHarvest;
+
+    public override void Act(StateController controller) {
+        entity = controller.entity as MovingEntity;
         var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
         if (nearestEntity) {
             bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
-            Entity target = nearestEntity.movingEntity;
-            int distanceOfHarvest = 1;
+            
             if (targetIsStatic) {
                 distanceOfHarvest = 0;
                 target = nearestEntity.staticEntity;
+            } else {
+                distanceOfHarvest = 1;
+                target = nearestEntity.movingEntity;
             }
-            if (nearestEntity.Coordinates.Distance(entity.Tile.Coordinates) != distanceOfHarvest) {
-                entity.MoveTo(nearestEntity);
+
+            if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) != distanceOfHarvest) {
+                entity.MoveTo(nearestEntity, TryHarvest);
             }
-            if (nearestEntity.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
-                entity.Harvest(target);
-                entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
-                 if (entity.reserve == entity.population) {
-                    entity.isHungry = false;          
-                }
+            else {
+                TryHarvest();
+            }
+        } else {
+            DecreasePop();
+        }
+    }
+
+    private void TryHarvest() {
+        if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
+            entity.Harvest(target);
+            entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
+            if (entity.reserve == entity.population) {
+                entity.isHungry = false;
             }
         }
-        
+
+        DecreasePop();
+    }
+
+    private void DecreasePop() {
         if (entity.remainingTurnsBeforeDie == 0) {
             entity.DecreasePopulation();
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
-        } else {
+        }
+        else {
             entity.remainingTurnsBeforeDie -= 1;
         }
-        
     }
 
     public override void OnExitState(StateController controller) {
@@ -44,7 +62,7 @@ public class GoForFoodAction : Action
         MovingEntity entity = controller.entity as MovingEntity;
         entity.reserve = 0;
         entity.remainingTurnsBeforeHungry = entity.movingEntitySO.nbTurnsToBeHungry;
-        entity.IncreasePopulation();   
+        entity.IncreasePopulation();
         entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
     }
 

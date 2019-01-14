@@ -26,7 +26,7 @@ public class TitleMenu : MonoBehaviour {
     }
 
     public void Play() {
-        SceneManager.LoadScene("Balancing");
+        SceneManager.LoadScene("Togi");
 
         Playtest.StartNewPlaytest();
     }

@@ -40,6 +40,7 @@ public class MovingEntity : Entity
         movable.hexGrid = TurnManager.Instance.grid;
         movable.OnReachEndTile += EndMoving;
         movable.OnChangeDirection += UpdateSprite;
+        OnPopulationChange += UpdateSprite;
         if (tile) {
             movable.CurrentTile = tile;
             tile.currentMovable = movable;
@@ -47,6 +48,7 @@ public class MovingEntity : Entity
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
+
     }
 
     private void Update() {
@@ -55,9 +57,16 @@ public class MovingEntity : Entity
         }
     }
 
-    void UpdateSprite(HexDirection dir) {
+    HexDirection currentDir;
+    public void UpdateSprite() {
+        UpdateSprite(currentDir);
+    }
+
+    public void UpdateSprite(HexDirection dir) {
         if (!NWContainer || !WContainer || !SWContainer)
             return;
+
+        currentDir = dir;
 
         float flip = 1;
         if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
@@ -82,12 +91,13 @@ public class MovingEntity : Entity
 
         if (!isMoving) EndTurn();
     }
-    public void MoveTo(TileProperties to) {
+    public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
         if (pathToTarget != null || pathToTarget.Count >= 0) {
             tile.currentMovable = null;
             tile.movingEntity = null;
-            tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints);
+            movable.OnReachEndTile += onEndMove;
+            tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
             tile.movingEntity = this;
             isMoving = true;
             // TODO make end turn
