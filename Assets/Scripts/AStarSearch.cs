@@ -41,7 +41,7 @@ public class AStarSearch : MonoBehaviour
                     (next.Tile.riverSource && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
                     continue;
                 }
-                else if (!movable && ((next.currentMovable && next != end) || next.asLake || next.Tile.humidityDependant)) {
+                else if (!movable && ((next.currentMovable && next != end) || next.asLake || next.Tile.riverSource)) {
                     continue;
                 }
                 double newCost = costSoFar[current] + NextCost(current, next);
