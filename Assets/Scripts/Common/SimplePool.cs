@@ -100,6 +100,26 @@ public class SimplePool<T> where T : class
 		return objToPop;
 	}
 
+    public T Pop(T objToPop) {
+        List<T> popped = new List<T>();
+        T objPopped = pool.Pop();
+        
+        while (objPopped != objToPop) {
+            if (objPopped == objToPop) {
+                break;
+            }
+            else {
+                objPopped = pool.Pop();
+                popped.Add(objPopped);
+            }
+        }
+
+        if (OnPop != null)
+            OnPop(objPopped);
+
+        return objPopped;
+    }
+
 	// Fetch multiple items at once from the pool
 	public T[] Pop( int count )
 	{

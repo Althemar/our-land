@@ -37,6 +37,7 @@ public class MotherShip : Updatable
 
     [HideInInspector]
     public List<ActivePopulationPoint> populationPoints;
+    private List<ActivePopulationPoint> savedPopulationPoints;
  
     private bool onMove;
 
@@ -88,6 +89,7 @@ public class MotherShip : Updatable
         Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
         Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
         populationPoints = new List<ActivePopulationPoint>();
+        savedPopulationPoints = new List<ActivePopulationPoint>();
         AddToTurnManager();
     }
 
@@ -104,6 +106,13 @@ public class MotherShip : Updatable
         }
         else {
             Console.Write("Usage: addActionPoints [n] \nAdd n action points.");
+        }
+    }
+
+    public void ClearActiveActionPoints() {
+        while (populationPoints.Count > 0) {
+            savedPopulationPoints.Add(populationPoints[0]);
+            populationPoints[0].RemovePopulationPoint();
         }
     }
 
@@ -142,6 +151,8 @@ public class MotherShip : Updatable
     public void ClearHarvestOutline() {
         outline.Clear();
     }
+
+    
 
     public void ShowHarvestOutline() {
         tilesInRange = movable.CurrentTile.InRange(harvestDistance);
@@ -185,6 +196,11 @@ public class MotherShip : Updatable
         reachableTilesDisplay.UndisplayReachables();
         ShowHarvestOutline();
         targetTile = null;
+        foreach (ActivePopulationPoint populationPoint in savedPopulationPoints) {
+            populationPoints.Add(populationPoint);
+            populationPoint.ReplacePopulationPoint();
+        }
+        savedPopulationPoints.Clear();
     }
 
     public override void AddToTurnManager() {

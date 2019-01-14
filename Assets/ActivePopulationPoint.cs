@@ -24,6 +24,7 @@ public class ActivePopulationPoint : Updatable
 
     public void InitPopulationPoint(Entity entity) {
         AddToTurnManager();
+        turnCount = 0;
         Vector3 position = entity.Tile.transform.position;
         position.y -= 1;
         Entity otherEntity = null;
@@ -41,6 +42,15 @@ public class ActivePopulationPoint : Updatable
 
         this.entity = entity;
         entity.populationPoint = this;
+    }
+
+    public void ReplacePopulationPoint() {
+        AddToTurnManager();
+        entity.populationPoint = this;
+        ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
+        PopulationPoints.Instance.motherShip.populationPoints.Add(populationPoint);
+        PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
+        PopulationPoints.Instance.motherShip.OnRemainingPointsChanged();
     }
 
     public override void UpdateTurn() {

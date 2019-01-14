@@ -27,6 +27,9 @@ public class PopulationPoints : MonoBehaviour {
         motherShip.populationPoints.Add(populationPoint);
         motherShip.remainingPopulationPoints--;
         motherShip.OnRemainingPointsChanged();
+        if (motherShip.targetTile) {
+            motherShip.GetComponent<ReachableTilesDisplay>().UndisplayReachables();
+        }
     }
 
     public void RemovePopulationPoint(ActivePopulationPoint point) {

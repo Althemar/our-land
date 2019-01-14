@@ -108,6 +108,7 @@ public class MouseController : MonoBehaviour
             }
             else {
                 motherShip.targetTile = targetTile;
+                motherShip.ClearActiveActionPoints();
             }
         }
     }

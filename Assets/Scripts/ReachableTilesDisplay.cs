@@ -39,6 +39,7 @@ public class ReachableTilesDisplay : MonoBehaviour
     public void UndisplayReachables() {
         displaying = false;
         currentPointedTile = null;
+        motherShip.targetTile = null;
         canvasPath.pathPoints = new Vector3[0];
         canvasPath.UpdatePath();
     }
