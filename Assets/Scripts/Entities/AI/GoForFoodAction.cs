@@ -20,7 +20,8 @@ public class GoForFoodAction : Action
             }
             if (nearestEntity.Coordinates.Distance(entity.Tile.Coordinates) != distanceOfHarvest) {
                 entity.MoveTo(nearestEntity);
-            } else {
+            }
+            if (nearestEntity.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
                 entity.Harvest(target);
                 entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
                  if (entity.reserve == entity.population) {

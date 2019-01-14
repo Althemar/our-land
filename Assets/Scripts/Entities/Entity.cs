@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PopulationState {
+    UnderPopulated,
+    Populated,
+    OverPopulated
+}
+
 public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
@@ -13,7 +19,6 @@ public abstract class Entity : Updatable
     
     public int basePopulation; 
     public int reserve;
-    
 
     private StateController stateController;
 
