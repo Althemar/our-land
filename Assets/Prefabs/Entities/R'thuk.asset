@@ -17,6 +17,7 @@ MonoBehaviour:
   populationMax: 3
   reproductionRate: 1
   deathRate: 1
+  foodsPerTurn: []
   foodWhenHarvested: 1
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
@@ -48,7 +49,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _values: 02000000
+    _values:
+    - gain: 02000000050000000a000000
   harvestSound: Play_SFX_Kill_Rhtuk_Victory
   movementPoints: 2
   nbTurnsToDie: 3

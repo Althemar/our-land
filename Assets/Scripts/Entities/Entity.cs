@@ -6,7 +6,6 @@ public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
 
-
     [SerializeField]
     public int population;
     protected TileProperties tile;
@@ -15,6 +14,8 @@ public abstract class Entity : Updatable
     public int reserve;
 
     private StateController stateController;
+    private bool harvestedThisTurn = false;
+    private int harvestedBonus = 0;
 
     public delegate void OnPopulationChangeDelegate();
     public static OnPopulationChangeDelegate OnPopulationChange;
@@ -23,6 +24,10 @@ public abstract class Entity : Updatable
     public TileProperties Tile
     {
         get => tile;
+    }
+
+    public int HarvestedBonus {
+        get => harvestedBonus;
     }
 
     void Awake() {
@@ -63,8 +68,14 @@ public abstract class Entity : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        stateController.TurnUpdate();
 
+        if (!harvestedThisTurn) {
+            stateController.TurnUpdate();
+            harvestedBonus = 0;
+        }
+        else harvestedBonus++;
+
+        harvestedThisTurn = false;
     }
     
     public void Eaten(int damage) {
@@ -110,6 +121,11 @@ public abstract class Entity : Updatable
             Kill();
         }
         OnPopulationChange();
+    }
+
+    public void Harvest() {
+        DecreasePopulation();
+        harvestedThisTurn = true;
     }
 
     public void TryCreateAnotherEntity(EntityType type) {

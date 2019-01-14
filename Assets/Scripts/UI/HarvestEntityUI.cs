@@ -33,7 +33,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
             ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
             temp.GetComponent<RectTransform>().sizeDelta = new Vector2(2f, 1);
             temp.icon.sprite = res.Key.icon;
-            temp.value.text = "+" + (res.Value * Mathf.Floor(entity.population));
+            temp.value.text = "+" + (res.Value.gain[entity.HarvestedBonus]);
             temp.value.color = Color.black;
         }
         ResourceTemplate pa = Instantiate(ressourcesTemplate, ressourcesPreview.transform);

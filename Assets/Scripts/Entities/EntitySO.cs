@@ -5,8 +5,13 @@ using NaughtyAttributes;
 using System;
 using RotaryHeart.Lib.SerializableDictionary;
 
+[System.Serializable]
+public class ArrayRessources {
+    public int[] gain;
+}
+
 [Serializable]
-public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, int>
+public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, ArrayRessources>
 {
 }
 

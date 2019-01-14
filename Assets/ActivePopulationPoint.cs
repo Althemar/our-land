@@ -23,7 +23,6 @@ public class ActivePopulationPoint : Updatable
     }
 
     public void InitPopulationPoint(Entity entity) {
-        
         AddToTurnManager();
         Vector3 position = entity.Tile.transform.position;
         position.y -= 1;
@@ -42,7 +41,7 @@ public class ActivePopulationPoint : Updatable
 
         this.entity = entity;
         entity.populationPoint = this;
-        entity.RemoveFromTurnManager();
+        //entity.RemoveFromTurnManager();
     }
 
     public override void UpdateTurn() {
@@ -54,7 +53,8 @@ public class ActivePopulationPoint : Updatable
     }
 
     private void HarvestEntity() {
-        foreach (KeyValuePair<ResourceType, int> resource in entity.entitySO.resources) {
+        Debug.Log("Harvest");
+        foreach (KeyValuePair<ResourceType, ArrayRessources> resource in entity.entitySO.resources) {
             float population;
             if (entity.population < 0) {
                 population = 1;
@@ -62,9 +62,9 @@ public class ActivePopulationPoint : Updatable
             else {
                 population = Mathf.Floor(entity.population);
             }
-            PopulationPoints.Instance.motherShip.Inventory.AddItem(resource.Key, resource.Value * population);
+            PopulationPoints.Instance.motherShip.Inventory.AddItem(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
         }
-        entity.Kill();
+        entity.Harvest();
         entityDestroyed = true;
         if (entity.entitySO)
             AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
@@ -78,19 +78,16 @@ public class ActivePopulationPoint : Updatable
     public IEnumerator DisplayHarvestedResourcesCoroutine(Entity entity) {
         ResourcesToHarvest resources = entity.entitySO.resources;
         Vector3 position = entity.transform.position;
-        foreach (KeyValuePair<ResourceType, int> resource in resources) {
+        foreach (KeyValuePair<ResourceType, ArrayRessources> resource in resources) {
             ResourceHarvestedUI harvested = Instantiate(PopulationPoints.Instance.resourceGainedPrefab, position, Quaternion.identity, transform.parent).GetComponent<ResourceHarvestedUI>();
-            harvested.Initialize(resource.Key, resource.Value * Mathf.Floor(entity.population));
+            harvested.Initialize(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
             yield return new WaitForSeconds(1);
         }
     }
 
     public void RemovePopulationPoint() {
         RemoveFromTurnManager();
-        if (!entityDestroyed) {
-            entity.populationPoint = null;
-            entity.AddToTurnManager();
-        }
+        entity.populationPoint = null;
         PopulationPoints.Instance.PopulationPointsPool.Push(this);
 
     }
