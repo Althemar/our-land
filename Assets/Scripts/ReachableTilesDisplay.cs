@@ -64,7 +64,7 @@ public class ReachableTilesDisplay : MonoBehaviour
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
             currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
-            movable.Path = currentPath;
+            movable.Path = currentPath.ToArray();
             ColorPath(new Stack<TileProperties>(currentPath));
         }
     }

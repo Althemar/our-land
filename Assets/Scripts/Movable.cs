@@ -36,11 +36,13 @@ public class Movable : MonoBehaviour
     public delegate void OnMovableDelegate();
 
     public event OnMovableDelegate OnReachEndTile;
-
-
+    
     public delegate void OnDirectionDelegate(HexDirection dir);
 
     public event OnDirectionDelegate OnChangeDirection;
+
+    private TileProperties[] pArray;
+    private bool needChangeDir;
 
     /*
      * Properties
@@ -58,10 +60,10 @@ public class Movable : MonoBehaviour
         set { debug = value; }
     }
 
-    public Stack<TileProperties> Path
+    public TileProperties[] Path
     {
-        get { return path; }
-        set { path = value; }
+        get { return pArray; }
+        set { pArray = value; }
     }
 
     public bool Moving
@@ -136,8 +138,7 @@ public class Movable : MonoBehaviour
 
         return res;
     }
-    TileProperties[] pArray;
-    bool needChangeDir;
+
     public void MoveToTile(TileProperties goal, bool calculatePath = true) {
         if (!moving) {
             if (calculatePath) {
