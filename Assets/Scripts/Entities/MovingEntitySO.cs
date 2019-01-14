@@ -7,13 +7,10 @@ using NaughtyAttributes;
 public class MovingEntitySO : EntitySO
 {
     public int movementPoints;
+    public int nbTurnsToDie;
 
     [BoxGroup("Food")]
-    public float foodConsumption;
-    [BoxGroup("Food")]
-    public float satietyThreshold;
-    [BoxGroup("Food")]
-    public float starvationThreshold;
+    public int nbTurnsToBeHungry;
 
     public float damageWhenEat;
     public GameObject eatFeedback;

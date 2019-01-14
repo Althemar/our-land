@@ -8,17 +8,24 @@ public abstract class Entity : Updatable
 
 
     [SerializeField]
-    public float population;
+    public int population;
     protected TileProperties tile;
     
-    public int basePopulation;
+    public int basePopulation; 
+    public int reserve;
+    
 
-    public EntityPopulationState populationState;
+    private StateController stateController;
+
     public ActivePopulationPoint populationPoint;
-
     public TileProperties Tile
     {
         get => tile;
+    }
+
+    void Awake() {
+        stateController = GetComponent<StateController>();
+        stateController.SetupAI(true);
     }
 
     protected virtual void Start() {
@@ -33,8 +40,10 @@ public abstract class Entity : Updatable
         TurnManager.Instance.RemoveFromUpdate(entitySO, this);
     }
 
+    public abstract EntityType GetEntityType();
 
-    public virtual void Initialize(float population = -1) {
+
+    public virtual void Initialize(int population = -1) {
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(cellPosition);
@@ -42,18 +51,21 @@ public abstract class Entity : Updatable
         }
         AddToTurnManager();
         if (population == -1) {
-            this.population = basePopulation;//entitySO.basePopulation;
+            this.population = basePopulation;
         }
         else {
             this.population = population;
         }
+        reserve = 0;
     }
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+        stateController.TurnUpdate();
+
     }
     
-    public void Eaten(float damage) {
+    public void Eaten(int damage) {
         population -= damage;
         if (population <= 0) {
             Kill();
@@ -79,25 +91,27 @@ public abstract class Entity : Updatable
     }
 
     public void IncreasePopulation() {
-        if (population < entitySO.populationMax) {
-            population += entitySO.reproductionRate; //j'ai viré le * population
-            if (population > entitySO.populationMax) {
-                population = entitySO.populationMax;
-            }
+        Debug.Log("Population:" + population + "to" + population + entitySO.reproductionRate);
+        population += entitySO.reproductionRate;
+        if (population > entitySO.populationMax) {
+            Debug.Log("pop max" + entitySO.populationMax);
+            population = entitySO.populationMax;
+            TryCreateAnotherEntity(GetEntityType());    
         }
     }
 
     public void DecreasePopulation() {
-        population -= entitySO.deathRate; //j'ai viré le * population
+        population -= entitySO.deathRate;
+        if (population <= 0) {
+            Kill();        
+        }
     }
 
     public void TryCreateAnotherEntity(EntityType type) {
         if (population >= entitySO.populationMax) {
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
-                
-
-                population /= 2;
+                population = 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
 
@@ -129,7 +143,7 @@ public abstract class Entity : Updatable
                         adjacent.wind.DestroyWind();
                     }
                 }
-                entity.Initialize(population);
+                entity.Initialize(1);
             }
         }
     }

@@ -509,6 +509,10 @@ public class TileProperties : MonoBehaviour {
         return false;
     }
 
+    public bool IsEmpty() {
+        return staticEntity == null && movingEntity == null && currentMovable == null;
+    }
+
     public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
         return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !currentMovable))
              || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);

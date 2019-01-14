@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Mouing
   sprite: {fileID: 21300000, guid: 7e2ddc2d621e52341a2d91a97754fa84, type: 3}
-  populationMax: 6
-  reproductionRate: 0.9
+  populationMax: 3
+  reproductionRate: 1
   deathRate: 1
-  foodWhenHarvested: 6
+  foodWhenHarvested: 1
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
@@ -50,10 +50,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _values: 05000000
   harvestSound: Play_SFX_Kill_Sheep_Victory
-  movementPoints: 3
-  foodConsumption: 1
-  satietyThreshold: 4
-  starvationThreshold: 2
+  movementPoints: 1
+  nbTurnsToDie: 3
+  nbTurnsToBeHungry: 3
   damageWhenEat: 1
   eatFeedback: {fileID: 6641214869133636042, guid: e54f865f06f01114d8530fb19da7c39b,
     type: 3}

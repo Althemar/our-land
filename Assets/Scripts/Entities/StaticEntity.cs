@@ -21,13 +21,15 @@ public class StaticEntity : Entity
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        IncreasePopulation();
-        TryCreateAnotherEntity(EntityType.Static);
         EndTurn();
     }
 
-    public override void Initialize(float population = -1) {
+    public override void Initialize(int population = -1) {
         base.Initialize(population);
         tile.staticEntity = this;
+    }
+
+    public override EntityType GetEntityType() {
+        return EntityType.Static;
     }
 }
