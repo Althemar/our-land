@@ -15,36 +15,64 @@ public class MovingEntity : Entity
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
 
+    public GameObject[] NW;
+    public GameObject[] W;
+    public GameObject[] SW;
+
+    public GameObject NWContainer;
+    public GameObject WContainer;
+    public GameObject SWContainer;
+
     private EntityHungerState hunger;
 
     private Entity target;
     private bool stopBefore;
 
-    // UGLY TO IMPROVE
-    private Transform canvasWorldSpace;
+    private int baseSorting;
 
+    public delegate void OnHarvestDelegate(MovingEntity from, Entity target);
+    public static OnHarvestDelegate OnHarvest;
+    
     protected override void Start() {
         base.Start();
         movable = GetComponent<Movable>();
         movable.hexGrid = TurnManager.Instance.grid;
         movable.OnReachEndTile += EndMoving;
+        movable.OnChangeDirection += UpdateSprite;
         if (tile) {
             movable.CurrentTile = tile;
             tile.currentMovable = movable;
         }
-        
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-        GetComponent<SpriteRenderer>().sortingOrder = 15;
-
-        // UGLY TO IMPROVE
-        canvasWorldSpace = GameObject.Find("Canvas World Space").transform;
     }
 
     private void Update() {
         if (GameManager.Instance.FrameCount == 0) {
             Initialize();
+        }
+    }
+
+    void UpdateSprite(HexDirection dir) {
+        if (!NWContainer || !WContainer || !SWContainer)
+            return;
+
+        float flip = 1;
+        if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
+            flip = -1;
+        NWContainer.transform.localScale = new Vector3(flip, 1, 1);
+        WContainer.transform.localScale = new Vector3(flip, 1, 1);
+        SWContainer.transform.localScale = new Vector3(flip, 1, 1);
+
+        for (int i = 0; i < NW.Length; i++) {
+            NW[i].SetActive((dir == HexDirection.NW || dir == HexDirection.NE) && population > i);
+        }
+        for (int i = 0; i < W.Length; i++) {
+            W[i].SetActive((dir == HexDirection.W || dir == HexDirection.E) && population > i);
+        }
+        for (int i = 0; i < SW.Length; i++) {
+            SW[i].SetActive((dir == HexDirection.SW || dir == HexDirection.SE) && population > i);
         }
     }
 
@@ -140,12 +168,14 @@ public class MovingEntity : Entity
         currentFood += target.entitySO.foodWhenHarvested * population; //j'ai rajouté * population
         target.Eaten(movingEntitySO.damageWhenEat * population); //j'ai rajouté * population
 
-        // UGLY TO MOVE
-        if (movingEntitySO.eatFeedback) {
-            Vector3 position = (this.transform.position + target.transform.position) / 2f;
-            KillFeedbackUI harvested = Instantiate(movingEntitySO.eatFeedback, position, Quaternion.identity, canvasWorldSpace).GetComponent<KillFeedbackUI>();
-            harvested.Initialize();
+        for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
+            if (Tile.GetNeighbor(dir) == target.Tile) {
+                UpdateSprite(dir);
+                break;
+            }
         }
+
+        OnHarvest(this, target);
 
         if (currentFood > satietyTreshold) {
             //currentFood = satietyTreshold;
@@ -160,6 +190,7 @@ public class MovingEntity : Entity
 
         UpdateFoodTresholds();
         currentFood = satietyTreshold;
+        UpdateSprite((HexDirection)Random.Range(0, 5));
     }
 
     private void UpdateFoodTresholds() {

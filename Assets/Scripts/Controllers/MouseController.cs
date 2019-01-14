@@ -89,7 +89,7 @@ public class MouseController : MonoBehaviour
         if (entitiesHarvestable.Displaying) {
             entitiesHarvestable.Clear();
         }
-        if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
+        if (!motherShip.OnMove && TurnManager.Instance.State == TurnManager.TurnState.Player) {
             TileProperties tile = GetTile();
 
             if (motherShip) {

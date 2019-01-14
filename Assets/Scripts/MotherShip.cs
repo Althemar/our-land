@@ -4,8 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using Spine.Unity;
+using Spine;
 
 [RequireComponent(typeof(Movable), typeof(Inventory))]
 public class MotherShip : Updatable
@@ -14,7 +14,9 @@ public class MotherShip : Updatable
     
     
     public HexagonsOutline outline;
-   
+    public SkeletonAnimation spineShip;
+
+
     public ResourceType populationResource;
 
     [BoxGroup("Food")]
@@ -34,6 +36,8 @@ public class MotherShip : Updatable
     [HideInInspector]
     public List<ActivePopulationPoint> populationPoints;
  
+    private bool onMove;
+
     private Movable movable;
     private Inventory inventory;
     private ReachableTilesDisplay reachableTilesDisplay;
@@ -54,6 +58,9 @@ public class MotherShip : Updatable
     public OnMotherShipDelegate OnEndMoving;
     public OnMotherShipDelegate OnRemainingPointsChanged;
 
+    public bool OnMove {
+        get => onMove;
+    }
     public List<TileProperties> TilesInRange
     {
         get => tilesInRange;
@@ -142,11 +149,30 @@ public class MotherShip : Updatable
             tilesInRange[i].IsInReachables = false;
         }
     }
+    TileProperties goal;
+    public void BeginMove(TileProperties goal) {
+        Playtest.TimedLog("Player Move");
 
+        onMove = true;
+        OnBeginMoving?.Invoke();
+        outline.Clear();
+        spineShip.state.ClearTrack(0);
+        spineShip.state.SetAnimation(0, "Decollage", false);
+        spineShip.timeScale = 1;
+        this.goal = goal;
+        spineShip.state.Complete += ShipTakeOff;
+    }
+    private void ShipTakeOff(TrackEntry trackEntry) {
+        Debug.Log("Move");
+        movable.MoveToTile(goal);
+    }
     void EndMove() {
         ShowHarvestOutline();
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
+        spineShip.state.Complete -= ShipTakeOff;
+        spineShip.timeScale = -2;
+        onMove = false;
         targetTile = null;
         EndTurn();
     }

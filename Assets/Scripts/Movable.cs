@@ -18,13 +18,12 @@ public class Movable : MonoBehaviour
 
     public HexagonalGrid hexGrid;
 
-    public SkeletonAnimation spine;
+    public AnimationCurve movementCurve;
     
     private Tilemap tilemap;
     private DebugMovable debug;
 
     //movement
-    private Stack<TileProperties> path;
     private Vector3 beginPos;
     private Vector3 targetPos;
     private TileProperties targetTile;
@@ -37,6 +36,11 @@ public class Movable : MonoBehaviour
     public delegate void OnMovableDelegate();
 
     public event OnMovableDelegate OnReachEndTile;
+
+
+    public delegate void OnDirectionDelegate(HexDirection dir);
+
+    public event OnDirectionDelegate OnChangeDirection;
 
     /*
      * Properties
@@ -63,6 +67,7 @@ public class Movable : MonoBehaviour
     public bool Moving
     {
         get => moving;
+        set => moving = value;
     }
 
     public List<TileProperties> ReachableTiles
@@ -76,7 +81,6 @@ public class Movable : MonoBehaviour
      */
 
     private void Start() {
-        path = new Stack<TileProperties>();
         tilemap = hexGrid.GetComponent<Tilemap>();
     }
 
@@ -85,6 +89,7 @@ public class Movable : MonoBehaviour
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             currentTile.currentMovable = this;
+            transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(currentTile.Position);
         }
         if (moving) {
             if (TurnManager.Instance != null && TurnManager.Instance.isFastTurn) {
@@ -94,79 +99,58 @@ public class Movable : MonoBehaviour
                 progress += speed * Time.deltaTime;
             }
             
-            
-            transform.position = Vector3.MoveTowards(beginPos, targetPos, progress);
-            if (transform.position == targetPos) {
-                progress = 0;
-                Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+            transform.position = Interpolate(progress);
 
-                currentTile.currentMovable = null;
-                currentTile = targetTile;   
-                currentTile.currentMovable = this;
-                if (path.Count == 0) {
-                    EndMoving();
-                }
-                else {
-                    if (path.Count >= 1) {
-                        targetTile = path.Pop();
-                        beginPos = transform.position;
-                        targetPos = tilemap.CellToWorld(targetTile.Position);
-                        
-                        UpdateSpriteDirection();
-                    }
-                    else {
-                        EndMoving();
-                    }
-                }
+            if(progress >= 1) {
+                progress = 0;
+                EndMoving();
             }
         }
     }
 
+    public Vector3 Interpolate(float t) {
+        float tCell = movementCurve.Evaluate(t) * (pArray.Length - 1);
+        if (tCell < 0)
+            tCell = 0;
+        if (tCell > pArray.Length - 1)
+            tCell = pArray.Length - 1;
+
+        if(needChangeDir && OnChangeDirection != null) {
+            for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
+                if (pArray[Mathf.FloorToInt(tCell)].GetNeighbor(dir) == pArray[Mathf.CeilToInt(tCell)]) {
+                    OnChangeDirection(dir);
+                    break;
+                }
+            }
+            needChangeDir = false;
+        }
+
+        Vector3 res = Vector3.Lerp(tilemap.CellToWorld(pArray[Mathf.FloorToInt(tCell)].Position), tilemap.CellToWorld(pArray[Mathf.CeilToInt(tCell)].Position), tCell - Mathf.FloorToInt(tCell));
+
+        if(currentTile != pArray[Mathf.FloorToInt(tCell)]) {
+            currentTile.currentMovable = null;
+            currentTile = pArray[Mathf.FloorToInt(tCell)];
+            currentTile.currentMovable = this;
+            needChangeDir = true;
+        }
+
+        return res;
+    }
+    TileProperties[] pArray;
+    bool needChangeDir;
     public void MoveToTile(TileProperties goal, bool calculatePath = true) {
         if (!moving) {
             if (calculatePath) {
-                path = AStarSearch.Path(currentTile, goal);
+                pArray = AStarSearch.Path(currentTile, goal).ToArray();
             }
-            if (path.Count > 1) {
-                path.Pop();
-            }
-            targetTile = path.Pop();
-            targetPos = tilemap.CellToWorld(targetTile.Position);
-
-            UpdateSpriteDirection();
 
             beginPos = transform.position;
+            needChangeDir = true;
             moving = true;
             progress = 0;
 
             currentTile.currentMovable = null;
             goal.currentMovable = this;
-        }
-    }
-
-
-
-    void UpdateSpriteDirection() {
-        if (spine == null)
-            return;
-
-        if (targetTile.Coordinates.CubicCoordinates.x == currentTile.Coordinates.CubicCoordinates.x) {
-            spine.skeleton.ScaleX = 1;
-            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
-                spine.skeleton.SetSkin("Front_Left");
-            else
-                spine.skeleton.SetSkin("Back_Right");
-        }
-        if (targetTile.Coordinates.CubicCoordinates.y == currentTile.Coordinates.CubicCoordinates.y) {
-            spine.skeleton.SetSkin("Profile_Left");
-            spine.skeleton.ScaleX = (targetTile.Coordinates.CubicCoordinates.z < currentTile.Coordinates.CubicCoordinates.z) ? -1 : 1;
-        }
-        if (targetTile.Coordinates.CubicCoordinates.z == currentTile.Coordinates.CubicCoordinates.z) {
-            spine.skeleton.ScaleX = -1;
-            if (targetTile.Coordinates.CubicCoordinates.y < currentTile.Coordinates.CubicCoordinates.y)
-                spine.skeleton.SetSkin("Front_Left");
-            else
-                spine.skeleton.SetSkin("Back_Right");
         }
     }
 
@@ -196,14 +180,13 @@ public class Movable : MonoBehaviour
         if (!lastTile) {
             Debug.Log("null");
         }
-        path.Clear();
+
+        pArray = new TileProperties[pathList.Count];
         for (int i = pathList.Count - 1; i >= 0; i--) {
-            path.Push(pathList[i]);
+            pArray[i] = pathList[i];
         }
         MoveToTile(lastTile, false);
         return lastTile;
-        
-       
     }
 
     public void EndMoving() {
