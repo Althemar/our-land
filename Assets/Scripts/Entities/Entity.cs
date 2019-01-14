@@ -73,7 +73,11 @@ public abstract class Entity : Updatable
             stateController.TurnUpdate();
             harvestedBonus = 0;
         }
-        else harvestedBonus++;
+        else {
+            harvestedBonus++;
+            if (harvestedBonus > 2)
+                harvestedBonus = 2;
+        }
 
         harvestedThisTurn = false;
     }

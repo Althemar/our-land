@@ -41,15 +41,16 @@ public class ActivePopulationPoint : Updatable
 
         this.entity = entity;
         entity.populationPoint = this;
-        //entity.RemoveFromTurnManager();
     }
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+        Debug.Log(entity.population);
         turnCount++;
         HarvestEntity();
         EndTurn();
-        RemovePopulationPoint();
+        if(entity.population <= 0)
+            RemovePopulationPoint();
     }
 
     private void HarvestEntity() {
@@ -87,8 +88,7 @@ public class ActivePopulationPoint : Updatable
 
     public void RemovePopulationPoint() {
         RemoveFromTurnManager();
+        PopulationPoints.Instance.RemovePopulationPoint(this);
         entity.populationPoint = null;
-        PopulationPoints.Instance.PopulationPointsPool.Push(this);
-
     }
 }

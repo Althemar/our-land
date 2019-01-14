@@ -30,8 +30,10 @@ public class MotherShip : Updatable
     public float movementBaseCost;
     [BoxGroup("Movement")]
     public float movementDistanceMultiplicator;
-   
+
+    [HideInInspector]
     public int remainingPopulationPoints;
+    public int maxPopulationPoints;
 
     [HideInInspector]
     public List<ActivePopulationPoint> populationPoints;
@@ -82,6 +84,7 @@ public class MotherShip : Updatable
         reachableTilesDisplay = GetComponent<ReachableTilesDisplay>();
         movable.OnReachEndTile += EndMove;
         OnRemainingPointsChanged?.Invoke();
+        remainingPopulationPoints = maxPopulationPoints;
         Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
         Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
         populationPoints = new List<ActivePopulationPoint>();
@@ -112,7 +115,8 @@ public class MotherShip : Updatable
                 return;
             }
 
-            remainingPopulationPoints = n;
+            remainingPopulationPoints = n - (maxPopulationPoints - remainingPopulationPoints);
+            maxPopulationPoints = n;
             OnRemainingPointsChanged?.Invoke();
         }
         else {

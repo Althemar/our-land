@@ -205,6 +205,7 @@ MonoBehaviour:
   movementBaseCost: 1
   movementDistanceMultiplicator: 1.7
   remainingPopulationPoints: 3
+  maxPopulationPoints: 3
   populationPoints: []
   targetTile: {fileID: 0}
 --- !u!114 &439891537792229837

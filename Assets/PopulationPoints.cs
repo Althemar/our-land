@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopulationPoints : MonoBehaviour
-{
+public class PopulationPoints : MonoBehaviour {
     public MotherShip motherShip;
     public GameObject populationPointPrefab;
     public GameObject resourceGainedPrefab;
@@ -11,8 +10,7 @@ public class PopulationPoints : MonoBehaviour
 
     public static PopulationPoints Instance;
 
-    public SimplePool<ActivePopulationPoint> PopulationPointsPool
-    {
+    public SimplePool<ActivePopulationPoint> PopulationPointsPool {
         get => populationPointsPool;
     }
 
@@ -28,7 +26,13 @@ public class PopulationPoints : MonoBehaviour
         populationPoint.InitPopulationPoint(entity);
         motherShip.populationPoints.Add(populationPoint);
         motherShip.remainingPopulationPoints--;
+        motherShip.OnRemainingPointsChanged();
     }
 
-  
+    public void RemovePopulationPoint(ActivePopulationPoint point) {
+        PopulationPointsPool.Push(point);
+        motherShip.populationPoints.Remove(point);
+        motherShip.remainingPopulationPoints++;
+        motherShip.OnRemainingPointsChanged();
+    }
 }

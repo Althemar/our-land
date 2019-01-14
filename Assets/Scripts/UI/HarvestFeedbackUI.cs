@@ -8,6 +8,10 @@ public class HarvestFeedbackUI : MonoBehaviour {
         MovingEntity.OnHarvest += ShowHarvest;
     }
 
+    void OnDestroy() {
+        MovingEntity.OnHarvest -= ShowHarvest;
+    }
+
     void ShowHarvest(MovingEntity from, Entity target) {
         if (from.movingEntitySO.eatFeedback) {
             Vector3 position = (from.transform.position + target.transform.position) / 2f;
