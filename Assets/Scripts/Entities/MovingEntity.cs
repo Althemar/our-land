@@ -47,10 +47,6 @@ public class MovingEntity : Entity
 
         movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
-        GetComponent<SpriteRenderer>().sortingOrder = 15;
-
-        // UGLY TO IMPROVE
-        canvasWorldSpace = GameObject.Find("Canvas World Space").transform;
     }
 
     private void Update() {
@@ -202,6 +198,8 @@ public class MovingEntity : Entity
         remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
         remainingTurnsBeforeDie = movingEntitySO.nbTurnsToDie;
         tile.movingEntity = this;
+
+        UpdateSprite((HexDirection)Random.Range(0, 5));
     }
 
     void EndMoving() {

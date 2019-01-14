@@ -47,6 +47,7 @@ public class ActivePopulationPoint : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+        turnCount++;
         HarvestEntity();
         EndTurn();
         RemovePopulationPoint();

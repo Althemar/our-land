@@ -1486,6 +1486,7 @@ GameObject:
   - component: {fileID: 6059205685924054439}
   - component: {fileID: 6059205685924054433}
   - component: {fileID: 6059205685924054438}
+  - component: {fileID: 3603127411759555489}
   m_Layer: 0
   m_Name: R'thuk
   m_TagString: Untagged
@@ -1525,8 +1526,9 @@ MonoBehaviour:
   updated: 0
   entitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
   population: 0
-  basePopulation: 0
-  currentFood: 0
+  basePopulation: 1
+  reserve: 0
+  populationPoint: {fileID: 0}
   movingEntitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
   NW:
   - {fileID: 3114330407687817699}
@@ -1543,6 +1545,9 @@ MonoBehaviour:
   NWContainer: {fileID: 2938477650488438120}
   WContainer: {fileID: 6914062646222901779}
   SWContainer: {fileID: 2393570678979964063}
+  isHungry: 1
+  remainingTurnsBeforeHungry: 2
+  remainingTurnsBeforeDie: 5
 --- !u!114 &6059205685924054438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,7 +1561,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  walkDistance: 2
+  canPassAboveEntities: 0
+  canPassAboveMontains: 0
+  canPassAboveLakes: 0
+  canPassAboveWindOrigins: 0
   hexGrid: {fileID: 0}
   movementCurve:
     serializedVersion: 2
@@ -1582,6 +1590,20 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3603127411759555489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059205685924054434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b328565334a70f489e3d99547b960d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 11400000, guid: d88ddfa9be812ea49a5903c4d71b6a78, type: 2}
+  entity: {fileID: 0}
 --- !u!1 &6209174541251596995
 GameObject:
   m_ObjectHideFlags: 0

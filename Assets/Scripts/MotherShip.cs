@@ -149,8 +149,8 @@ public class MotherShip : Updatable
             tilesInRange[i].IsInReachables = false;
         }
     }
-    TileProperties goal;
-    public void BeginMove(TileProperties goal) {
+
+    public void BeginMove() {
         Playtest.TimedLog("Player Move");
 
         onMove = true;
@@ -159,13 +159,13 @@ public class MotherShip : Updatable
         spineShip.state.ClearTrack(0);
         spineShip.state.SetAnimation(0, "Decollage", false);
         spineShip.timeScale = 1;
-        this.goal = goal;
         spineShip.state.Complete += ShipTakeOff;
     }
+
     private void ShipTakeOff(TrackEntry trackEntry) {
-        Debug.Log("Move");
-        movable.MoveToTile(goal);
+        movable.MoveToTile(targetTile);
     }
+
     void EndMove() {
         ShowHarvestOutline();
         OnEndMoving?.Invoke();
@@ -198,10 +198,9 @@ public class MotherShip : Updatable
             OnBeginMoving?.Invoke();
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();
-            movable.MoveToTile(targetTile, false);
+            BeginMove();
             inventory.AddItem(fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
-        }
-        else {
+        } else {
             EndTurn();
         }
     }

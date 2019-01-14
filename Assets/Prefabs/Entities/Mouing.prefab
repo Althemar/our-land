@@ -1738,6 +1738,7 @@ GameObject:
   - component: {fileID: 7946308881498552180}
   - component: {fileID: 7946308881498552182}
   - component: {fileID: 7946308881498552177}
+  - component: {fileID: 9065083475956989051}
   m_Layer: 0
   m_Name: Mouing
   m_TagString: Untagged
@@ -1778,7 +1779,8 @@ MonoBehaviour:
   entitySO: {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
   population: 0
   basePopulation: 2
-  currentFood: 0
+  reserve: 0
+  populationPoint: {fileID: 0}
   movingEntitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
   NW:
   - {fileID: 601386506519412279}
@@ -1795,6 +1797,9 @@ MonoBehaviour:
   NWContainer: {fileID: 2157027261844186112}
   WContainer: {fileID: 871457953837044572}
   SWContainer: {fileID: 649297351630940329}
+  isHungry: 1
+  remainingTurnsBeforeHungry: 5
+  remainingTurnsBeforeDie: 2
 --- !u!114 &7946308881498552177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,7 +1813,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  walkDistance: 2
+  canPassAboveEntities: 0
+  canPassAboveMontains: 0
+  canPassAboveLakes: 0
+  canPassAboveWindOrigins: 0
   hexGrid: {fileID: 0}
   movementCurve:
     serializedVersion: 2
@@ -1834,6 +1842,20 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9065083475956989051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946308881498552176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b328565334a70f489e3d99547b960d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 11400000, guid: 9435134720f1eae49addcb39f64df81d, type: 2}
+  entity: {fileID: 0}
 --- !u!1 &8351150509561560313
 GameObject:
   m_ObjectHideFlags: 0
