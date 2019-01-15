@@ -6,16 +6,15 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/GoForFood")]
 public class GoForFoodAction : Action {
-    MovingEntity entity;
-    Entity target;
-    int distanceOfHarvest;
-
     public override void Act(StateController controller) {
-        entity = controller.entity as MovingEntity;
+        MovingEntity entity = controller.entity as MovingEntity;
         var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
         if (nearestEntity) {
             bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
-            
+
+            Entity target;
+            int distanceOfHarvest;
+
             if (targetIsStatic) {
                 distanceOfHarvest = 0;
                 target = nearestEntity.staticEntity;
@@ -25,17 +24,17 @@ public class GoForFoodAction : Action {
             }
 
             if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) != distanceOfHarvest) {
-                entity.MoveTo(nearestEntity, TryHarvest);
+                entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
             }
             else {
-                TryHarvest();
+                TryHarvest(entity, target, distanceOfHarvest);
             }
         } else {
-            DecreasePop();
+            DecreasePop(entity);
         }
     }
 
-    private void TryHarvest() {
+    private void TryHarvest(MovingEntity entity, Entity target, int distanceOfHarvest) {
         if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
             entity.Harvest(target);
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
@@ -44,10 +43,10 @@ public class GoForFoodAction : Action {
             }
         }
 
-        DecreasePop();
+        DecreasePop(entity);
     }
 
-    private void DecreasePop() {
+    private void DecreasePop(MovingEntity entity) {
         if (entity.remainingTurnsBeforeDie == 0) {
             entity.DecreasePopulation();
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;

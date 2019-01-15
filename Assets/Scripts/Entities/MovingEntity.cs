@@ -91,12 +91,14 @@ public class MovingEntity : Entity
 
         if (!isMoving) EndTurn();
     }
+
+    private Movable.OnMovableDelegate eventAfterMove;
     public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
         if (pathToTarget != null || pathToTarget.Count >= 0) {
             tile.currentMovable = null;
             tile.movingEntity = null;
-            movable.OnReachEndTile += onEndMove;
+            eventAfterMove = onEndMove;
             tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
             tile.movingEntity = this;
             isMoving = true;
@@ -109,6 +111,14 @@ public class MovingEntity : Entity
     }
 
     public void Harvest(Entity target) {
+        for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
+            if (Tile.GetNeighbor(dir) == target.Tile) {
+                UpdateSprite(dir);
+                break;
+            }
+        }
+        OnHarvest(this, target);
+
         int remainingFood = population - reserve;
         if (target.population > remainingFood) { // if there is more than enough food        
             reserve += remainingFood;
@@ -117,13 +127,6 @@ public class MovingEntity : Entity
             reserve += target.population;
             target.Eaten(target.population);
         }
-        for (HexDirection dir = HexDirection.NE; dir <= HexDirection.NW; dir++) {
-            if (Tile.GetNeighbor(dir) == target.Tile) {
-                UpdateSprite(dir);
-                break;
-            }
-        }
-        OnHarvest(this, target);
     }
 
     public override void Initialize(int population = -1) {
@@ -136,6 +139,8 @@ public class MovingEntity : Entity
     }
 
     void EndMoving() {
+        eventAfterMove?.Invoke();
+        eventAfterMove = null;
         isMoving = false;
         tile.movingEntity = null;
         tile = movable.CurrentTile;

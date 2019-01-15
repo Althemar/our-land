@@ -105,7 +105,8 @@ public class Movable : MonoBehaviour
 
             if(progress >= 1) {
                 progress = 0;
-                EndMoving();
+                moving = false;
+                OnReachEndTile?.Invoke();
             }
         }
     }
@@ -189,14 +190,6 @@ public class Movable : MonoBehaviour
         MoveToTile(lastTile, false);
         return lastTile;
     }
-
-    public void EndMoving() {
-        moving = false;
-        if (OnReachEndTile != null) {
-            OnReachEndTile();
-        }
-    }
-
 }
 
     
