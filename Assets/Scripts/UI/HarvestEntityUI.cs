@@ -14,6 +14,7 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private EntitiesHarvestableUI entitiesHarvestable;
 
     public GameObject ressourcesPreview;
+    
     public ResourceTemplate ressourcesTemplate;
 
     private bool pointerIsOnButton = false;
@@ -36,13 +37,15 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
             temp.value.text = "+" + (res.Value.gain[entity.HarvestedBonus]);
             temp.value.color = Color.black;
         }
+
+        /*
         ResourceTemplate pa = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
         pa.GetComponent<RectTransform>().sizeDelta = new Vector2(3f, 1);
         pa.icon.sprite = null;
         pa.icon.color = Color.clear;
         pa.value.text = "-1 PA";
         pa.value.color = Color.black;
-
+        */
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
         if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
