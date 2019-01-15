@@ -24,6 +24,8 @@ public class MovingEntity : Entity
     private Entity target;
     private bool stopBefore;
     private bool isMoving = false;
+    [HideInInspector]
+    public bool hasFled = false;
 
     private int baseSorting;
 
@@ -106,6 +108,8 @@ public class MovingEntity : Entity
         }
     }
 
+
+
     public override EntityType GetEntityType() {
         return EntityType.Moving;
     }
@@ -147,4 +151,6 @@ public class MovingEntity : Entity
         tile.movingEntity = this;
         EndTurn();
     }
+
+    
 }

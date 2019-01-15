@@ -82,9 +82,23 @@ public class HexCoordinates
         return c;
     }
 
+    public static HexCoordinates operator-(HexCoordinates c1, HexCoordinates c2) {
+        HexCoordinates c = new HexCoordinates(c1);
+        c.cubic -= c2.cubic;
+        c.axial = CubicToAxial(c.cubic);
+        c.offset = AxialToOffset(c.axial);
+        return c;
+    }
+
     // Get the distance between two cubic coordinates
     public int Distance(HexCoordinates c2) {
         return (Mathf.Abs(cubic.x - c2.cubic.x) + Mathf.Abs(cubic.y - c2.cubic.y) + Mathf.Abs(cubic.z - c2.cubic.z)) / 2;
+    }
+
+    public HexCoordinates Opposite(HexCoordinates c2) {
+        HexCoordinates difference = c2 - this;
+        HexCoordinates opposite = this - difference;
+        return opposite;
     }
 }
 
