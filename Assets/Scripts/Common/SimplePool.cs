@@ -105,13 +105,12 @@ public class SimplePool<T> where T : class
         T objPopped = pool.Pop();
         
         while (objPopped != objToPop) {
-            if (objPopped == objToPop) {
-                break;
-            }
-            else {
-                objPopped = pool.Pop();
-                popped.Add(objPopped);
-            }
+            popped.Add(objPopped);
+            objPopped = pool.Pop();
+        }
+
+        foreach (T obj in popped) {
+            pool.Push(obj);
         }
 
         if (OnPop != null)

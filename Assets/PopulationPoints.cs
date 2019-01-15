@@ -29,6 +29,7 @@ public class PopulationPoints : MonoBehaviour {
         motherShip.OnRemainingPointsChanged();
         if (motherShip.targetTile) {
             motherShip.GetComponent<ReachableTilesDisplay>().UndisplayReachables();
+            motherShip.targetTile = null;
         }
     }
 

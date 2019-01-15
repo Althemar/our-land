@@ -48,7 +48,6 @@ public class ActivePopulationPoint : Updatable
         AddToTurnManager();
         entity.populationPoint = this;
         ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
-        PopulationPoints.Instance.motherShip.populationPoints.Add(populationPoint);
         PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
         PopulationPoints.Instance.motherShip.OnRemainingPointsChanged();
     }
