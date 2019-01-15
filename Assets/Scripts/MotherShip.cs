@@ -113,6 +113,7 @@ public class MotherShip : Updatable
         while (populationPoints.Count > 0) {
             savedPopulationPoints.Add(populationPoints[0]);
             populationPoints[0].RemovePopulationPoint();
+            populationPoints.RemoveAt(0);
         }
     }
 
@@ -220,6 +221,7 @@ public class MotherShip : Updatable
             outline.Clear();
             BeginMove();
             inventory.AddItem(fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
+            savedPopulationPoints.Clear();
         } else {
             EndTurn();
         }
