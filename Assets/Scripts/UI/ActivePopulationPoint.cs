@@ -76,7 +76,7 @@ public class ActivePopulationPoint : Updatable
         }
         entity.Harvest();
         entityDestroyed = true;
-        if (entity.entitySO)
+        if (entity.entitySO && entity.entitySO.harvestSound != "")
             AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
         DisplayHarvestedResources(entity); 
     }

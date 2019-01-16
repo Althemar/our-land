@@ -195,16 +195,20 @@ public class TileProperties : MonoBehaviour {
     public void SetRiver(HexDirection direction, River r) {
         HexDirection opposite = direction.Opposite();
         rivers[(int)direction] = true;
-        GetNeighbor(direction).rivers[(int)opposite] = true;
+        if(GetNeighbor(direction))
+            GetNeighbor(direction).rivers[(int)opposite] = true;
         asRiver = true;
-        GetNeighbor(direction).asRiver = true;
+        if (GetNeighbor(direction))
+            GetNeighbor(direction).asRiver = true;
 
 
         if (r.counterClockwise) {
             if (riverJonction[(int)direction] == null || riverJonction[(int)direction].force == 0) {
                 riverJonction[(int)direction] = r;
-                GetNeighbor(direction).riverJonction[(int)direction.Opposite().Next()] = r;
-                GetNeighbor(direction.Previous()).riverJonction[(int)direction.Next().Next()] = r;
+                if (GetNeighbor(direction))
+                    GetNeighbor(direction).riverJonction[(int)direction.Opposite().Next()] = r;
+                if (GetNeighbor(direction.Previous()))
+                    GetNeighbor(direction.Previous()).riverJonction[(int)direction.Next().Next()] = r;
             }
             else {
                 riverJonction[(int)direction].force += r.force;
@@ -218,8 +222,10 @@ public class TileProperties : MonoBehaviour {
                 if (riverJonction[(int)direction.Next()] != null)
                     r.force++;
                 riverJonction[(int)direction.Next()] = r;
-                GetNeighbor(direction).riverJonction[(int)direction.Opposite()] = r;
-                GetNeighbor(direction.Next()).riverJonction[(int)direction.Previous()] = r;
+                if(GetNeighbor(direction))
+                    GetNeighbor(direction).riverJonction[(int)direction.Opposite()] = r;
+                if (GetNeighbor(direction.Next()))
+                    GetNeighbor(direction.Next()).riverJonction[(int)direction.Previous()] = r;
             }
             else {
                 riverJonction[(int)direction.Next()].force += r.force;

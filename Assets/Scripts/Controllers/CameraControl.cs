@@ -16,8 +16,6 @@ public class CameraControl : MonoBehaviour {
     float zoomTarget = 10f;
     Vector2 targetPosition = new Vector2(0, 0);
 
-
-
     Camera cam;
     public Tilemap tilemap;
     Bounds bounds;
@@ -52,52 +50,52 @@ public class CameraControl : MonoBehaviour {
         follow = false;
     }
 
-    Vector3 viewportOrigin;
     void Update () {
         if(follow)
             targetPosition = playerShip.transform.position;
-        
-        if(GameManager.Input.GetMouseButtonDown(0)) {
-            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
-        }
 
-        if(GameManager.Input.GetMouseButton(0)) {
-            Vector2 drag = viewportOrigin - cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+        MoveCamera();
+        ZoomCamera();
 
-            targetPosition += drag;
-            targetPosition = LimitToBounds(targetPosition);
-
-            this.transform.position = targetPosition;
-
-            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
-        } else {
-            Vector2 movementCam = new Vector2(GameManager.Input.GetAxis("Horizontal"), GameManager.Input.GetAxis("Vertical"));
-
-            if (enableBorderMovement) {
-            if (GameManager.Input.mousePosition.x < 5)
-                movementCam.x -= 0.75f;
-            if (GameManager.Input.mousePosition.x > Screen.width - 5)
-                movementCam.x += 0.75f;
-            if (GameManager.Input.mousePosition.y < 5)
-                movementCam.y -= 0.75f;
-            if (GameManager.Input.mousePosition.y > Screen.height - 5)
-                movementCam.y += 0.75f;
-            }
-
-            MoveCamera(movementCam.x, movementCam.y);
-        }
-
-        ZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
-
-        
         AkSoundEngine.SetRTPCValue("AMBIANCE_WIND_MOD", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
         AkSoundEngine.SetRTPCValue("ZOOM_LEVEL", Mathf.InverseLerp(zoomLimit.x, zoomLimit.y, zoomValue) * 100f);
     }
 
-    void MoveCamera(float x, float y) {
-        targetPosition += new Vector2(x, y) * Time.deltaTime * speed;
+    public void DragCamera(Vector2 drag) {
+        targetPosition += drag;
         targetPosition = LimitToBounds(targetPosition);
 
+        this.transform.position = targetPosition;
+    }
+
+    public void MoveTargetCamera(float x, float y) {
+        targetPosition += new Vector2(x, y) * Time.deltaTime * speed;
+        targetPosition = LimitToBounds(targetPosition);
+    }
+
+    public void SetTarget(Vector3 targ) {
+        targetPosition = targ;
+    }
+
+    public void SetZoomLevel(float targ) {
+        zoomTarget = targ;
+
+        if (zoomTarget < zoomLimit.x)
+            zoomTarget = zoomLimit.x;
+        if (zoomTarget > zoomLimit.y)
+            zoomTarget = zoomLimit.y;
+    }
+
+    public void ChangeZoomCamera(float delta) {
+        zoomTarget += delta;
+
+        if (zoomTarget < zoomLimit.x)
+            zoomTarget = zoomLimit.x;
+        if (zoomTarget > zoomLimit.y)
+            zoomTarget = zoomLimit.y;
+    }
+
+    void MoveCamera() {
         Vector2 nextPosition = Vector2.MoveTowards(this.transform.position, targetPosition, Time.deltaTime * maxSpeed);
         nextPosition = LimitToBounds(nextPosition);
 
@@ -118,14 +116,7 @@ public class CameraControl : MonoBehaviour {
         return vec;
     }
 
-    void ZoomCamera(float delta) {
-        zoomTarget += delta;
-
-        if (zoomTarget < zoomLimit.x)
-            zoomTarget = zoomLimit.x;
-        if (zoomTarget > zoomLimit.y)
-            zoomTarget = zoomLimit.y;
-
+    void ZoomCamera() {
         zoomValue = Mathf.Lerp(zoomValue, zoomTarget, zoomLerp);
 
         //ORTHOGRAPHIC CAMERA ONLY
