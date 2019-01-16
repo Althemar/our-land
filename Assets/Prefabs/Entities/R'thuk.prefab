@@ -1545,6 +1545,7 @@ MonoBehaviour:
   NWContainer: {fileID: 2938477650488438120}
   WContainer: {fileID: 6914062646222901779}
   SWContainer: {fileID: 2393570678979964063}
+  hasFled: 0
   isHungry: 1
   remainingTurnsBeforeHungry: 2
   remainingTurnsBeforeDie: 5
@@ -1602,7 +1603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b328565334a70f489e3d99547b960d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: d88ddfa9be812ea49a5903c4d71b6a78, type: 2}
+  currentState: {fileID: 11400000, guid: 28a6cdc5a9fdbbc4b84aa7329412b59e, type: 2}
   entity: {fileID: 0}
 --- !u!1 &6209174541251596995
 GameObject:
