@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f596dc542c0bf5b49a919484a4a318ec, type: 3}
-  m_Name: MouingIdleAction
+  m_Script: {fileID: 11500000, guid: dd10f9698324c2d4e9ff0a01e21858c0, type: 3}
+  m_Name: Rthuk Go To Mountain
   m_EditorClassIdentifier: 
-  fleeRange: 1
+  terrains: 01000000
+  goOnTile: 0
+  range: 2

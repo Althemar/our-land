@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2b918bc4152f204b8d992288277591d, type: 3}
-  m_Name: MoingIdle
+  m_Name: RthukHungry
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 2bf172f41474cdb48a7cc2008562403c, type: 2}
-  - {fileID: 11400000, guid: f367e07af27f9da41af298c67f521589, type: 2}
+  - {fileID: 11400000, guid: b0948fbf9ca0c704e8da05e0c0eea3f9, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 8fc34b87ab3f68e4281b64e52b83b936, type: 2}
-    trueState: {fileID: 11400000, guid: d88ddfa9be812ea49a5903c4d71b6a78, type: 2}
-    falseState: {fileID: 11400000}
+    trueState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 28a6cdc5a9fdbbc4b84aa7329412b59e, type: 2}

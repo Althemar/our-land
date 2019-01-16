@@ -60,3 +60,5 @@ MonoBehaviour:
     type: 3}
   foods:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
+  predators:
+  - {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
