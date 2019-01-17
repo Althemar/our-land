@@ -176,8 +176,9 @@ MonoBehaviour:
   updated: 0
   entitySO: {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
   population: 0
-  basePopulation: 0
+  basePopulation: 2
   reserve: 0
+  populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
 --- !u!114 &7965635613132808035
 MonoBehaviour:
@@ -192,5 +193,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 4b35222bfe4f84d48bd62dc3034d43df, type: 2}
-  remainState: {fileID: 11400000, guid: 4b35222bfe4f84d48bd62dc3034d43df, type: 2}
   entity: {fileID: 0}

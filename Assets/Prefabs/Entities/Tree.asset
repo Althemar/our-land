@@ -54,3 +54,4 @@ MonoBehaviour:
     - gain: 02000000050000000a000000
     - gain: 02000000050000000a000000
   harvestSound: 
+  nbTurnsBeforeReproduction: 8

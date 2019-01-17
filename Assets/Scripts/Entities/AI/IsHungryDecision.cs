@@ -9,8 +9,9 @@ public class IsHungryDecision : Decision
     {
         MovingEntity entity = controller.entity as MovingEntity;
         entity.remainingTurnsBeforeHungry -= 1;
-        if (entity.remainingTurnsBeforeHungry == 0) {
+        if (entity.remainingTurnsBeforeHungry <= 0) {
             entity.isHungry = true;
+            entity.remainingTurnsBeforeHungry  = entity.movingEntitySO.nbTurnsToBeHungry;
         }
         return entity.isHungry;
     }

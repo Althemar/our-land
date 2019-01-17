@@ -109,10 +109,8 @@ public abstract class Entity : Updatable
     }
 
     public void IncreasePopulation() {
-        Debug.Log(this.gameObject.name + " Population: " + population + " to " + (population + entitySO.reproductionRate));
         population += entitySO.reproductionRate;
         if (population > entitySO.populationMax) {
-            Debug.Log(this.gameObject.name + " pop max " + entitySO.populationMax);
             population = entitySO.populationMax;
             TryCreateAnotherEntity(GetEntityType());    
         }

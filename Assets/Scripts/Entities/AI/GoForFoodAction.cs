@@ -43,9 +43,11 @@ public class GoForFoodAction : Action {
         if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
             entity.Harvest(target);
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
-            if (entity.reserve == entity.population) {
+            
+            /*/if (entity.reserve == entity.population) {
                 entity.isHungry = false;
-            }
+            }*/
+            entity.isHungry = false;
         }
 
         DecreasePop(entity);

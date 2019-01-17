@@ -7,10 +7,13 @@ public class StaticEntity : Entity
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
 
+    public int remainingTurnsBeforReproduction = -1;
+
     protected override void Start() {
         base.Start();
         GetComponent<SpriteRenderer>().sortingOrder = 10;
         staticEntitySO = entitySO as StaticEntitySO;
+        remainingTurnsBeforReproduction = staticEntitySO.nbTurnsBeforeReproduction;
     }
 
     private void Update() {
