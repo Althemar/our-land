@@ -127,8 +127,6 @@ public class AudioAmbient : MonoBehaviour {
             AkSoundEngine.SetRTPCValue("AMBIANCE_VOLUME_" + d.Key, (float)d.Value.num / (float)total * 100.0f);
             if (d.Value.num != 0)
                 AkSoundEngine.SetRTPCValue("AMBIANCE_SPAT_" + d.Key, (d.Value.sumPos / d.Value.num).x);
-            else
-                AkSoundEngine.SetRTPCValue("AMBIANCE_SPAT_" + d.Key, 0.5f);
         }
     }
 }

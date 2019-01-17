@@ -97,7 +97,7 @@ public class MovingEntity : Entity
     private Movable.OnMovableDelegate eventAfterMove;
     public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
-        if (pathToTarget != null || pathToTarget.Count >= 0) {
+        if (pathToTarget != null && pathToTarget.Count >= 0) {
             tile.currentMovable = null;
             tile.movingEntity = null;
             eventAfterMove = onEndMove;

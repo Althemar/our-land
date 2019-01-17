@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,7 +65,19 @@ public class ReachableTilesDisplay : MonoBehaviour
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
             currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
-            movable.Path = currentPath.ToArray();
+            TileProperties[] arr = currentPath.ToArray();
+
+            TileProperties[] path;
+            if (arr[arr.Length - 1].movingEntity) {
+                path = new TileProperties[arr.Length - 1];
+                Array.Copy(arr, path, arr.Length - 1);
+            }
+            else {
+                path = arr;
+            }
+
+            movable.Path = path;
+
             ColorPath(new Stack<TileProperties>(currentPath));
         }
     }
