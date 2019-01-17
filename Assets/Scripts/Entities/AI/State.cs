@@ -9,10 +9,29 @@ public class State : ScriptableObject
     public Action[] actions;
     public Transition[] transitions;
 
+    public bool init = false;
+
+    private void Awake() {
+        
+    }
+
+    public void InitState(StateController controller) {
+        controller.entity.OnEndTurn += onEndTurn;
+        init = true;
+    }
+
     public void UpdateState(StateController controller)
     {
         DoActions (controller);
-        CheckTransitions (controller);
+    }
+
+    private void onEndTurn(Updatable up) {
+        StateController st = up.GetComponent<StateController>();
+        if (st != null) {
+            CheckTransitions(st);
+        } else {
+            Debug.LogError("Wtf no state controller");
+        }
     }
 
     private void DoActions(StateController controller)

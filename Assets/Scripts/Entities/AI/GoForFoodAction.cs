@@ -32,6 +32,7 @@ public class GoForFoodAction : Action {
                 entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
             }
             else if (rightDistance) {
+                entity.isHungry = false;
                 TryHarvest(entity, target, distanceOfHarvest);
             }
         } else {
@@ -43,11 +44,17 @@ public class GoForFoodAction : Action {
         if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
             entity.Harvest(target);
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
-            
+            entity.isHungry = false;
             /*/if (entity.reserve == entity.population) {
                 entity.isHungry = false;
             }*/
-            entity.isHungry = false;
+
+        if(entity.movingEntitySO.reproduceAtEachHarvest) {
+                    entity.IncreasePopulation();
+        }  
+
+    
+        entity.isHungry = false;
         }
 
         DecreasePop(entity);
@@ -68,7 +75,6 @@ public class GoForFoodAction : Action {
         MovingEntity entity = controller.entity as MovingEntity;
         entity.reserve = 0;
         entity.remainingTurnsBeforeHungry = entity.movingEntitySO.nbTurnsToBeHungry;
-        entity.IncreasePopulation();
         entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
     }
 

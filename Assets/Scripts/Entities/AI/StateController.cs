@@ -26,6 +26,9 @@ public class StateController : MonoBehaviour {
     {
         if (!aiActive)
             return;
+        if (! currentState.init) {
+            currentState.InitState(this);
+        }
         currentState.UpdateState (this);
     }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Movable))]
-[RequireComponent(typeof(StateController))]
 public class MovingEntity : Entity
 {
     private Movable movable;

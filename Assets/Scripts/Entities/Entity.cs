@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StateController))]
 public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
@@ -16,6 +17,8 @@ public abstract class Entity : Updatable
     private StateController stateController;
     private bool harvestedThisTurn = false;
     private int harvestedBonus = 0;
+
+    public int remainingTurnsBeforReproduction = -1;
 
     public delegate void OnPopulationChangeDelegate();
     public static OnPopulationChangeDelegate OnPopulationChange;
@@ -33,10 +36,12 @@ public abstract class Entity : Updatable
     void Awake() {
         stateController = GetComponent<StateController>();
         stateController.SetupAI(true);
+        
+
     }
 
     protected virtual void Start() {
-
+                remainingTurnsBeforReproduction = entitySO.nbTurnsBeforeReproduction;
     }
 
     public override void AddToTurnManager() {
