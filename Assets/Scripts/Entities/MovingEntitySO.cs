@@ -18,4 +18,7 @@ public class MovingEntitySO : EntitySO
     [BoxGroup("Food")]
     [ReorderableList]
     public List<EntitySO> foods;
+    [BoxGroup("Food")]
+    [ReorderableList]
+    public List<EntitySO> predators;
 }

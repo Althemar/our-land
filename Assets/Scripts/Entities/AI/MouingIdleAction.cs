@@ -5,17 +5,24 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/MouingIdle")]
 public class MouingIdleAction : Action {
+
+    public int fleeRange;
+
     public override void Act(StateController controller) {
         MovingEntity entity = controller.entity as MovingEntity;
-        if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass || entity.Tile.staticEntity != null) {
-            var nearest = entity.Tile.NearestBiomeWithoutEntities(CustomTile.TerrainType.Grass, -1);
-            if (nearest)
-                entity.MoveTo(nearest, Nothing);
+        if (!entity.hasFled) {
+            if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass || entity.Tile.staticEntity != null) {
+                var nearest = entity.Tile.NearestBiomeWithoutEntities(CustomTile.TerrainType.Grass, -1);
+                if (nearest)
+                    entity.MoveTo(nearest, Nothing);
+            }
         }
+        /* // Moved this into IsHungryDecision
         entity.remainingTurnsBeforeHungry -= 1;
         if (entity.remainingTurnsBeforeHungry == 0) {
             entity.isHungry = true;
-        }
+        }*/
+
     }
 
     private void Nothing() {

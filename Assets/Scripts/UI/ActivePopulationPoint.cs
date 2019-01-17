@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ActivePopulationPoint : Updatable
 {
-    public SpriteRenderer pointIsActiveSprite;
-    public SpriteRenderer removePointSprite;
+    public Image pointIsActiveSprite;
+    public Sprite normalSprite;
 
     private Entity entity;
+    private Button button;
     private int turnCount = 0;
 
     bool entityDestroyed;
-    
+
+    public Vector3 beginPosition, targetPosition;
+
+
+    private void Start() {
+        button = GetComponent<Button>();
+    }
 
     public override void AddToTurnManager() {
         TurnManager.Instance.AddToUpdate(this);
@@ -22,9 +29,16 @@ public class ActivePopulationPoint : Updatable
         TurnManager.Instance.RemoveFromUpdate(this);
     }
 
-    public void InitPopulationPoint(Entity entity) {
+    
+
+    public void InitPopulationPoint(Entity entity, int turnCount = 0) {
+        button = GetComponent<Button>();
+
+        button.transition = Selectable.Transition.SpriteSwap;
+        //removePointSprite.gameObject.SetActive(false);
+
         AddToTurnManager();
-        turnCount = 0;
+        this.turnCount = turnCount;
         Vector3 position = entity.Tile.transform.position;
         position.y -= 1;
         Entity otherEntity = null;
@@ -38,18 +52,19 @@ public class ActivePopulationPoint : Updatable
             otherEntity.populationPoint.transform.position += new Vector3(-0.5f, 0, 0);
             position.x += 0.5f;
         }
-        transform.position = position;
 
         this.entity = entity;
         entity.populationPoint = this;
+        beginPosition = PopulationPoints.Instance.motherShip.transform.position;
+        targetPosition = position;
+        StartCoroutine(MoveToTargetPosition());
     }
 
     public void ReplacePopulationPoint() {
-        AddToTurnManager();
-        entity.populationPoint = this;
         ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
         PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
         PopulationPoints.Instance.motherShip.OnRemainingPointsChanged();
+        InitPopulationPoint(entity);
     }
 
     public override void UpdateTurn() {
@@ -97,7 +112,27 @@ public class ActivePopulationPoint : Updatable
 
     public void RemovePopulationPoint() {
         RemoveFromTurnManager();
-        PopulationPoints.Instance.RemovePopulationPoint(this);
         entity.populationPoint = null;
+        beginPosition = transform.position;
+        targetPosition = PopulationPoints.Instance.motherShip.transform.position;
+        StartCoroutine(MoveToTargetPosition(true));
+
+    }
+
+    private IEnumerator MoveToTargetPosition(bool pushInPool = false) {
+        if (pushInPool) {
+            button.transition = Selectable.Transition.None;
+        }
+        pointIsActiveSprite.sprite = normalSprite;
+        float progress = 0;
+        while (progress <= 1) {
+            transform.position = Vector3.Lerp(beginPosition, targetPosition, progress);
+            progress += 0.07f;
+            yield return null;
+        }
+        transform.position = Vector3.Lerp(beginPosition, targetPosition, 1);
+        if (pushInPool) {
+            PopulationPoints.Instance.RemovePopulationPoint(this);
+        }
     }
 }

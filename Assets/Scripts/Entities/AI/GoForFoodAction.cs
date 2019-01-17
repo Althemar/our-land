@@ -7,7 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Actions/GoForFood")]
 public class GoForFoodAction : Action {
     public override void Act(StateController controller) {
+
         MovingEntity entity = controller.entity as MovingEntity;
+        
         var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
         if (nearestEntity) {
             bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
@@ -23,10 +25,13 @@ public class GoForFoodAction : Action {
                 target = nearestEntity.movingEntity;
             }
 
-            if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) != distanceOfHarvest) {
+            int distance = target.Tile.Coordinates.Distance(entity.Tile.Coordinates);
+            bool rightDistance = distance <= distanceOfHarvest;
+            
+            if (!entity.hasFled && !rightDistance) {
                 entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
             }
-            else {
+            else if (rightDistance) {
                 TryHarvest(entity, target, distanceOfHarvest);
             }
         } else {
