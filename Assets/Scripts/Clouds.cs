@@ -21,7 +21,7 @@ public class Clouds : MonoBehaviour {
     void Update() {
         float val = cameraman.GetZoomValue();
         foreach (SpriteRenderer renderer in cloudObjects) {
-            renderer.color = new Color(1, 1, 1, val / 2f);
+            renderer.color = new Color(1, 1, 1, val / 1.5f);
             renderer.transform.position += new Vector3(-0.3f, -0.1f) * renderer.transform.position.z * Time.deltaTime;
         }
     }

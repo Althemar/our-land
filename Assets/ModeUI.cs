@@ -9,6 +9,8 @@ public class ModeUI : MonoBehaviour {
     public MouseController mouse;
     public DrawEntity shaderComposite;
 
+    public GameObject harvestPoint;
+
     public Button actionButton;
     public Toggle harvestButton;
     public Toggle moveButton;
@@ -30,7 +32,10 @@ public class ModeUI : MonoBehaviour {
 
     private void Update() {
         bool activeButton = false;
+
+        harvestPoint.SetActive(false);
         if (harvestButton.isOn) {
+            harvestPoint.SetActive(true);
             if (mouse.motherShip.populationPoints.Count == 1) {
                 actionText.text = I18N.GetText("harvestEntity");
                 activeButton = true;

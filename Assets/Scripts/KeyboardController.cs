@@ -8,13 +8,14 @@ public class KeyboardController : MonoBehaviour {
     GameObject pauseInstance = null;
 
     void Update () {
-        if(GameManager.Input.GetButtonDown("Cancel")) {
+        if(Input.GetButtonDown("Cancel")) {
+            Debug.Log("PAUSE");
             if(pauseInstance == null) {
-                Camera.main.cullingMask = Camera.main.cullingMask & (~LayerMask.GetMask("UI"));
+                Camera.main.GetComponent<DrawEntity>().UICam.cullingMask = Camera.main.GetComponent<DrawEntity>().UICam.cullingMask & (~LayerMask.GetMask("UI"));
                 pauseInstance = Instantiate(pausePrefab);
             }
             else {
-                Camera.main.cullingMask = Camera.main.cullingMask | LayerMask.GetMask("UI");
+                Camera.main.GetComponent<DrawEntity>().UICam.cullingMask = Camera.main.GetComponent<DrawEntity>().UICam.cullingMask | LayerMask.GetMask("UI");
                 Destroy(pauseInstance);
             }
         }
