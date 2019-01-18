@@ -15,6 +15,7 @@ public class StateController : MonoBehaviour {
     void Awake () 
     {
         entity = GetComponent<Entity>();
+        currentState.InitState(this);
     }
 
     public void SetupAI(bool aiActivation)
@@ -26,6 +27,7 @@ public class StateController : MonoBehaviour {
     {
         if (!aiActive)
             return;
+        
         currentState.UpdateState (this);
     }
 
@@ -33,6 +35,8 @@ public class StateController : MonoBehaviour {
     {
         if (nextState != currentState) 
         {
+            nextState.InitState(this);
+            currentState.DeInitState(this);
             currentState.OnExitState(this);
             currentState = nextState;
             currentState.OnEnterState(this);

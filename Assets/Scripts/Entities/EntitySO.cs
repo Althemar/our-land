@@ -26,10 +26,18 @@ public class EntitySO : ScriptableObject
     [BoxGroup("Population")]
     public int populationMax;
 
+    [BoxGroup("Population")]
+    public int nbTurnsBeforeReproduction;
+
+    [BoxGroup("Population")]
+    public bool reproduceAtEachHarvest;
+
     [BoxGroup("Population rates")]
     public int reproductionRate;
     [BoxGroup("Population rates")]
     public int deathRate;
+
+
 
     [BoxGroup("Food")]
     public List<float> foodsPerTurn;

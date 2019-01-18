@@ -39,10 +39,13 @@ public class GoToNearestBiome : Action
     }
 
     public void TryMoveToBiome(TileProperties tileToGo) {
+        if(tileToGo.Coordinates.Distance(entity.Tile.Coordinates) <= range) {
+            return;
+        }
         List<TileProperties> inRange = tileToGo.InRange(range);
         inRange.Shuffle();
         foreach (TileProperties tile in inRange) {
-            if ((!goOnTile && tile == tileToGo) || !tile.IsWalkable() || tile.asLake || tile.windOrigin ) {
+            if ((!goOnTile && tile == tileToGo) || !tile.Tile || !tile.IsWalkable() || tile.asLake || tile.windOrigin ) {
                 continue;
             }
             entity.MoveTo(tile, null);

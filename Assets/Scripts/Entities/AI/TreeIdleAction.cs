@@ -8,8 +8,12 @@ public class TreeIdleAction : Action
     public override void Act (StateController controller)
     {
         StaticEntity entity = controller.entity as StaticEntity;
-
-        entity.IncreasePopulation();
+        if (entity.remainingTurnsBeforReproduction == 0) {
+            entity.IncreasePopulation();
+            entity.remainingTurnsBeforReproduction = entity.staticEntitySO.nbTurnsBeforeReproduction;
+        }
+        else
+            entity.remainingTurnsBeforReproduction--;
         
     }
 

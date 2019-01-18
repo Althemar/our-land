@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Movable))]
-[RequireComponent(typeof(StateController))]
 public class MovingEntity : Entity
 {
     private Movable movable;
@@ -123,7 +122,9 @@ public class MovingEntity : Entity
         }
         OnHarvest(this, target);
 
-        int remainingFood = population - reserve;
+        target.Eaten(1);
+
+        /*int remainingFood = population - reserve;
         if (target.population > remainingFood) { // if there is more than enough food        
             reserve += remainingFood;
             target.Eaten(remainingFood);
@@ -131,6 +132,7 @@ public class MovingEntity : Entity
             reserve += target.population;
             target.Eaten(target.population);
         }
+        */
     }
 
     public override void Initialize(int population = -1) {
