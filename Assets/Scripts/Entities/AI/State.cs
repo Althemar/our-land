@@ -17,7 +17,10 @@ public class State : ScriptableObject
 
     public void InitState(StateController controller) {
         controller.entity.OnEndTurn += onEndTurn;
-        init = true;
+    }
+
+    public void DeInitState(StateController controller) {
+        controller.entity.OnEndTurn -= onEndTurn;
     }
 
     public void UpdateState(StateController controller)
@@ -66,6 +69,10 @@ public class State : ScriptableObject
         for (int i = 0; i < actions.Length; i++) {
             actions [i].OnExitState (controller);
         }
+    }
+
+    private void OnDisable() {
+        init = false;
     }
 
 }

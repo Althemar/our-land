@@ -71,7 +71,6 @@ public class GoForFoodAction : Action {
     }
 
     public override void OnExitState(StateController controller) {
-        Debug.Log("On exit");
         MovingEntity entity = controller.entity as MovingEntity;
         entity.reserve = 0;
         entity.remainingTurnsBeforeHungry = entity.movingEntitySO.nbTurnsToBeHungry;
