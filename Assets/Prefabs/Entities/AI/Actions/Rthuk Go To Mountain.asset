@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrains: 01000000
   goOnTile: 0
-  range: 2
+  range: 1
