@@ -15,6 +15,7 @@ public class MouseController : MonoBehaviour {
     public CameraControl cameraman;
 
     public bool harvestMode;
+    public bool moveMode;
 
     private Camera cam;
     private Movable movable;
@@ -29,45 +30,48 @@ public class MouseController : MonoBehaviour {
     }
 
     Vector3 viewportOrigin;
+    bool drag = false;
     void Update() {
 
         if (GameManager.Instance.GameState != GameState.Playing) {
             return;
         }
 
-        if (!harvestMode) {
-            if (GameManager.Input.GetMouseButtonDown(0)) {
-                viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
-            }
 
-            if (GameManager.Input.GetMouseButton(0)) {
-                Vector2 drag = viewportOrigin - cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+        if (GameManager.Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
+            drag = true;
+        }
 
-                cameraman.DragCamera(drag);
+        if (GameManager.Input.GetMouseButton(0) && drag) {
+            Vector2 drag = viewportOrigin - cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
 
-                viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
-            }
-            else {
-                Vector2 movementCam = new Vector2(GameManager.Input.GetAxis("Horizontal"), GameManager.Input.GetAxis("Vertical"));
+            cameraman.DragCamera(drag);
 
-                if (cameraman.enableBorderMovement) {
-                    if (GameManager.Input.mousePosition.x < 5)
-                        movementCam.x -= 0.75f;
-                    if (GameManager.Input.mousePosition.x > Screen.width - 5)
-                        movementCam.x += 0.75f;
-                    if (GameManager.Input.mousePosition.y < 5)
-                        movementCam.y -= 0.75f;
-                    if (GameManager.Input.mousePosition.y > Screen.height - 5)
-                        movementCam.y += 0.75f;
-                }
-
-                cameraman.MoveTargetCamera(movementCam.x, movementCam.y);
-            }
-            cameraman.ChangeZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
+            viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
         }
         else {
-            cameraman.SetTarget(motherShip.transform.position);
-            cameraman.SetZoomLevel(7f);
+            drag = false;
+            Vector2 movementCam = new Vector2(GameManager.Input.GetAxis("Horizontal"), GameManager.Input.GetAxis("Vertical"));
+
+            if (cameraman.enableBorderMovement) {
+                if (GameManager.Input.mousePosition.x < 5)
+                    movementCam.x -= 0.75f;
+                if (GameManager.Input.mousePosition.x > Screen.width - 5)
+                    movementCam.x += 0.75f;
+                if (GameManager.Input.mousePosition.y < 5)
+                    movementCam.y -= 0.75f;
+                if (GameManager.Input.mousePosition.y > Screen.height - 5)
+                    movementCam.y += 0.75f;
+            }
+
+            cameraman.MoveTargetCamera(movementCam.x, movementCam.y);
+        }
+        cameraman.ChangeZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
+
+        if (harvestMode) {
+            //cameraman.SetTarget(motherShip.transform.position);
+            //cameraman.SetZoomLevel(7f);
             if (GameManager.Input.GetMouseButtonDown(0)) {
                 if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
                     TileProperties tile = GetTile();
@@ -82,20 +86,21 @@ public class MouseController : MonoBehaviour {
                 }
             }
         }
-        
 
-        if (GameManager.Input.GetMouseButtonDown(1)) {
-            RightClickDown();
-        }
-        else if (GameManager.Input.GetMouseButtonUp(1)) {
-            RightClickUp();
+        if(moveMode) {
+            if (GameManager.Input.GetMouseButtonDown(1)) {
+                ShowPath();
+            }
+            else if (GameManager.Input.GetMouseButtonUp(1)) {
+                SetTarget();
+            }
+
+            if (GameManager.Input.GetMouseButton(1) && reachableTiles.Displaying) {
+                reachableTiles.RefreshPath(GetTile());
+            }
         }
         
         OutlineHex();
-
-        if (GameManager.Input.GetMouseButton(1) && reachableTiles.Displaying) {
-            reachableTiles.RefreshPath(GetTile());
-        }
     }
 
     void OutlineHex() {
@@ -129,7 +134,7 @@ public class MouseController : MonoBehaviour {
         return cellPosition;
     }
 
-    private void RightClickDown() {
+    private void ShowPath() {
         motherShip.targetTile = null;
         if (entitiesHarvestable.Displaying) {
             entitiesHarvestable.Clear();
@@ -143,7 +148,7 @@ public class MouseController : MonoBehaviour {
         }
     }
 
-    private void RightClickUp() {
+    private void SetTarget() {
         if (reachableTiles.Displaying) {
             TileProperties targetTile = GetTile();
             if (targetTile.movingEntity || targetTile.ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource) || targetTile == motherShip.Movable.CurrentTile
@@ -153,6 +158,7 @@ public class MouseController : MonoBehaviour {
             }
             else {
                 motherShip.targetTile = targetTile;
+                reachableTiles.ValidReachables();
                 motherShip.ClearActiveActionPoints();
             }
         }

@@ -65,15 +65,23 @@ public class PathUI : MonoBehaviour
                     text.color = Color.black;
                 }
             }
-            if (i == 0 && pathTiles[i].IsWalkable()) {
-                text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
-                poolPoint[i].interactable = true;
+            poolPoint[i].InitCirclePath();
+            if (i == 0) {
+                if(pathTiles[i].IsWalkable() && !pathTiles[i].movingEntity) {
+                    text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+                    poolPoint[i].removeImage.gameObject.SetActive(false);
+                }
+                else {
+                    text.text = "";
+                    poolPoint[i].removeImage.gameObject.SetActive(true);
+                }
             }
             else {
                 text.text = "";
-                poolPoint[i].interactable = false;
             }
-            poolPoint[i].InitCirclePath();
+            poolPoint[i].GetComponent<Image>().raycastTarget = false;
+            poolPoint[i].interactable = false;
+
 
             poolPoint[i].gameObject.SetActive(true);
 
@@ -86,5 +94,10 @@ public class PathUI : MonoBehaviour
                 poolLine[i].gameObject.SetActive(true);
             }
         }
+    }
+
+    public void SetInteractable() {
+        poolPoint[0].GetComponent<Image>().raycastTarget = true;
+        poolPoint[0].interactable = true;
     }
 }

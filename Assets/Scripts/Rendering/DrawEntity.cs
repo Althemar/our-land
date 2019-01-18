@@ -24,9 +24,9 @@ public class DrawEntity : MonoBehaviour
     }
 
     void OnRenderImage(RenderTexture src, RenderTexture dest) {
-        RenderTexture blendHarvest = RenderTexture.GetTemporary(Screen.width, Screen.height, 0);
-        RenderTexture blendShadow = RenderTexture.GetTemporary(Screen.width, Screen.height, 0);
-        RenderTexture blendEntity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0);
+        RenderTexture blendHarvest = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
+        RenderTexture blendShadow = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
+        RenderTexture blendEntity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
 
         compositeMat.SetTexture("_Composite", shadowCam.activeTexture);
         Graphics.Blit(src, blendShadow, compositeMat);

@@ -22,7 +22,7 @@ public class EntityCamera : MonoBehaviour
     void OnRenderImage(RenderTexture src, RenderTexture dest) {
         if (entity)
             RenderTexture.ReleaseTemporary(entity);
-        entity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
+        entity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
         entityCam.targetTexture = entity;
         
         Graphics.Blit(src, dest);

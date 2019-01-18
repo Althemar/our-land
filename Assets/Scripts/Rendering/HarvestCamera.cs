@@ -21,7 +21,7 @@ public class HarvestCamera : MonoBehaviour {
     void OnRenderImage(RenderTexture src, RenderTexture dest) {
         if (entity)
             RenderTexture.ReleaseTemporary(entity);
-        entity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear, 4);
+        entity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
         HarvestCam.targetTexture = entity;
 
         Graphics.Blit(src, dest);
