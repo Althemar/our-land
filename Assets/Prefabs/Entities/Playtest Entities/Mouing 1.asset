@@ -54,8 +54,8 @@ MonoBehaviour:
     _values:
     - gain: 02000000050000000a000000
   harvestSound: Play_SFX_Kill_Sheep_Victory
-  movementPoints: 1
-  nbTurnsToDie: 3
+  movementPoints: 0
+  nbTurnsToDie: 100
   nbTurnsToBeHungry: 3
   damageWhenEat: 1
   eatFeedback: {fileID: 6641214869133636042, guid: e54f865f06f01114d8530fb19da7c39b,

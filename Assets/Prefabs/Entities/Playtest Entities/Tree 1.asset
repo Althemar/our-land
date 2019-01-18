@@ -17,7 +17,7 @@ MonoBehaviour:
   populationMax: 3
   nbTurnsBeforeReproduction: 8
   reproduceAtEachHarvest: 0
-  reproductionRate: 1
+  reproductionRate: 0
   deathRate: 1
   foodsPerTurn: []
   foodWhenHarvested: 1
