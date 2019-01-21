@@ -109,14 +109,6 @@ public class MotherShip : Updatable
         }
     }
 
-    public void ClearActiveActionPoints() {
-        while (populationPoints.Count > 0) {
-            savedPopulationPoints.Add(populationPoints[0]);
-            populationPoints[0].RemovePopulationPoint();
-            populationPoints.RemoveAt(0);
-        }
-    }
-
     private void CmdMaxPA(string[] args) {
         if (args.Length == 1) {
             int n = 0;
@@ -179,7 +171,7 @@ public class MotherShip : Updatable
     }
 
     private void ShipTakeOff(TrackEntry trackEntry) {
-        movable.MoveToTile(targetTile);
+        movable.MoveToTile(targetTile, false);
     }
 
     void EndMove() {
@@ -193,11 +185,40 @@ public class MotherShip : Updatable
         EndTurn();
     }
 
+    TileProperties savedTile;
+    public void RedoMove() {
+        if(savedTile) {
+            Debug.Log(savedTile);
+            reachableTilesDisplay.InitReachableTiles(savedTile, movable);
+            reachableTilesDisplay.RefreshPath(savedTile);
+            reachableTilesDisplay.ValidReachables();
+            targetTile = savedTile;
+        }
+    }
+
     public void CancelMove() {
         reachableTilesDisplay.UndisplayReachables();
-        ShowHarvestOutline();
+        savedTile = targetTile;
         targetTile = null;
+    }
+
+    public void RemoveActiveActionPoints() {
+        while (populationPoints.Count > 0) {
+            populationPoints[0].RemovePopulationPoint();
+            populationPoints.RemoveAt(0);
+        }
+    }
+    public void ClearActiveActionPoints() {
+        while (populationPoints.Count > 0) {
+            savedPopulationPoints.Add(populationPoints[0]);
+            populationPoints[0].RemovePopulationPoint();
+            populationPoints.RemoveAt(0);
+        }
+    }
+    public void ShowActiveActionPoints() {
         foreach (ActivePopulationPoint populationPoint in savedPopulationPoints) {
+            if (!populationPoint.IsValid())
+                continue;
             populationPoints.Add(populationPoint);
             populationPoint.ReplacePopulationPoint();
         }

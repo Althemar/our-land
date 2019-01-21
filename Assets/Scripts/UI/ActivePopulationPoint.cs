@@ -60,10 +60,14 @@ public class ActivePopulationPoint : Updatable
         StartCoroutine(MoveToTargetPosition());
     }
 
+    public bool IsValid() {
+        return entity != null;
+    }
+
     public void ReplacePopulationPoint() {
         ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
         PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
-        PopulationPoints.Instance.motherShip.OnRemainingPointsChanged();
+        PopulationPoints.Instance.motherShip.OnRemainingPointsChanged?.Invoke();
         InitPopulationPoint(entity);
     }
 
@@ -91,7 +95,7 @@ public class ActivePopulationPoint : Updatable
         }
         entity.Harvest();
         entityDestroyed = true;
-        if (entity.entitySO)
+        if (entity.entitySO && entity.entitySO.harvestSound != "")
             AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
         DisplayHarvestedResources(entity); 
     }

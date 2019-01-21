@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +9,7 @@ using UnityEngine;
  *      - Color the tiles in the path to the pointed tile
  */
 
-public class ReachableTilesDisplay : MonoBehaviour
-{
+public class ReachableTilesDisplay : MonoBehaviour {
     private bool displaying;
     private Movable movable;
     private TileProperties currentPointedTile;
@@ -19,8 +19,7 @@ public class ReachableTilesDisplay : MonoBehaviour
 
     public PathUI canvasPath;
 
-    public bool Displaying
-    {
+    public bool Displaying {
         get => displaying;
     }
 
@@ -43,6 +42,10 @@ public class ReachableTilesDisplay : MonoBehaviour
         canvasPath.UpdatePath();
     }
 
+    public void ValidReachables() {
+        canvasPath.SetInteractable();
+    }
+
     public void ColorPath(Stack<TileProperties> path) {
         canvasPath.pathPoints = new Vector3[path.Count];
         canvasPath.pathTiles = new TileProperties[path.Count];
@@ -51,7 +54,7 @@ public class ReachableTilesDisplay : MonoBehaviour
         TileProperties currentTile;
         while (path.Count > 0) {
             currentTile = path.Pop();
-            
+
             currentTile.ActionPointCost = i;
             previousTile = currentTile;
             canvasPath.pathPoints[i] = currentTile.Tilemap.GetCellCenterWorld(currentTile.Position);
@@ -64,7 +67,9 @@ public class ReachableTilesDisplay : MonoBehaviour
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
             currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
+
             movable.Path = currentPath.ToArray();
+
             ColorPath(new Stack<TileProperties>(currentPath));
         }
     }

@@ -7,7 +7,6 @@ public class ResourceUI : MonoBehaviour
     public GameObject panel;
     public GameObject templateResource;
     public Inventory inv;
-    public ResourceType debugRes;
 
     int sizePool = 10;
     ResourceTemplate[] pool;
@@ -25,10 +24,6 @@ public class ResourceUI : MonoBehaviour
         RefreshView();
 
         I18N.OnLangChange += RefreshView;
-    }
-
-    public void DebugAdd() {
-        inv.AddItem(debugRes, 10);
     }
 
     public void RefreshView() {

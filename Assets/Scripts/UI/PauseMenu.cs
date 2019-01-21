@@ -23,7 +23,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Resume() {
-        Camera.main.cullingMask = Camera.main.cullingMask | LayerMask.GetMask("UI");
+        Camera.main.GetComponent<DrawEntity>().UICam.cullingMask = Camera.main.GetComponent<DrawEntity>().UICam.cullingMask | LayerMask.GetMask("UI");
         Destroy(this.gameObject);
     }
 

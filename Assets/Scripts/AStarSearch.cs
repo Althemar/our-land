@@ -14,6 +14,8 @@ public class AStarSearch : MonoBehaviour
     }
 
     public static Stack<TileProperties> Path(TileProperties begin, TileProperties end, List<CustomTile> availableTiles = null, Movable movable = null) {
+        if (end == null)
+            return null;
         PriorityQueue<TileProperties> frontier = new PriorityQueue<TileProperties>();
         frontier.Enqueue(begin, 0);
 

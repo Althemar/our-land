@@ -179,15 +179,16 @@ public class Movable : MonoBehaviour
                 break;
             }
         }
-        if (!lastTile) {
-            Debug.Log("null");
-        }
 
         pArray = new TileProperties[pathList.Count];
         for (int i = pathList.Count - 1; i >= 0; i--) {
             pArray[i] = pathList[i];
         }
-        MoveToTile(lastTile, false);
+
+        if (lastTile) {
+            MoveToTile(lastTile, false);
+        }
+        
         return lastTile;
     }
 }

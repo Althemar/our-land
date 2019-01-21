@@ -26,7 +26,7 @@ public class PopulationPoints : MonoBehaviour {
         populationPoint.InitPopulationPoint(entity);
         motherShip.populationPoints.Add(populationPoint);
         motherShip.remainingPopulationPoints--;
-        motherShip.OnRemainingPointsChanged();
+        motherShip.OnRemainingPointsChanged?.Invoke();
         if (motherShip.targetTile) {
             motherShip.GetComponent<ReachableTilesDisplay>().UndisplayReachables();
             motherShip.targetTile = null;
@@ -37,6 +37,6 @@ public class PopulationPoints : MonoBehaviour {
         PopulationPointsPool.Push(point);
         motherShip.populationPoints.Remove(point);
         motherShip.remainingPopulationPoints++;
-        motherShip.OnRemainingPointsChanged();
+        motherShip.OnRemainingPointsChanged?.Invoke();
     }
 }
