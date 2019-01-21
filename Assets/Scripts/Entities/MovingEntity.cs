@@ -97,12 +97,16 @@ public class MovingEntity : Entity
     public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
         if (pathToTarget != null && pathToTarget.Count >= 0) {
-            tile.currentMovable = null;
-            tile.movingEntity = null;
-            eventAfterMove = onEndMove;
-            tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
-            tile.movingEntity = this;
-            isMoving = true;
+            TileProperties newTile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
+            if(newTile) {
+                tile.currentMovable = null;
+                tile.movingEntity = null;
+                eventAfterMove = onEndMove;
+
+                tile = newTile;
+                tile.movingEntity = this;
+                isMoving = true;
+            }
             // TODO make end turn
         }
     }

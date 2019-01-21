@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
-  m_Name: Mouing 1
+  m_Name: Mouing Playtest
   m_EditorClassIdentifier: 
   name: Mouing
   sprite: {fileID: 21300000, guid: 7e2ddc2d621e52341a2d91a97754fa84, type: 3}
