@@ -520,7 +520,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public bool IsWalkable() {
-        return !asLake && !windOrigin && !tile.riverSource;
+        return !asLake && !windOrigin && !tile.riverSource && tile.terrainType != CustomTile.TerrainType.Mountain;
     }
 
 }

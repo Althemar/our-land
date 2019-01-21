@@ -15,7 +15,9 @@ public class ReachableTilesDisplay : MonoBehaviour {
     private TileProperties currentPointedTile;
     private MotherShip motherShip;
 
-    private Stack<TileProperties> currentPath;
+    private Stack<TileProperties> previousPath;
+
+
 
     public PathUI canvasPath;
 
@@ -66,11 +68,17 @@ public class ReachableTilesDisplay : MonoBehaviour {
     public void RefreshPath(TileProperties tile) {
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
-            currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
+            Stack<TileProperties> currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);
 
-            movable.Path = currentPath.ToArray();
+            if (currentPath != null) {
+                movable.Path = currentPath.ToArray();
+                ColorPath(new Stack<TileProperties>(currentPath));
+                previousPath = currentPath;
+            }
+            else {
+                ColorPath(new Stack<TileProperties>(previousPath));
+            }
 
-            ColorPath(new Stack<TileProperties>(currentPath));
         }
     }
 }
