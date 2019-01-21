@@ -9,10 +9,32 @@ public class State : ScriptableObject
     public Action[] actions;
     public Transition[] transitions;
 
+    public bool init = false;
+
+    private void Awake() {
+        
+    }
+
+    public void InitState(StateController controller) {
+        controller.entity.OnEndTurn += onEndTurn;
+    }
+
+    public void DeInitState(StateController controller) {
+        controller.entity.OnEndTurn -= onEndTurn;
+    }
+
     public void UpdateState(StateController controller)
     {
         DoActions (controller);
-        CheckTransitions (controller);
+    }
+
+    private void onEndTurn(Updatable up) {
+        StateController st = up.GetComponent<StateController>();
+        if (st != null) {
+            CheckTransitions(st);
+        } else {
+            Debug.LogError("Wtf no state controller");
+        }
     }
 
     private void DoActions(StateController controller)
@@ -47,6 +69,10 @@ public class State : ScriptableObject
         for (int i = 0; i < actions.Length; i++) {
             actions [i].OnExitState (controller);
         }
+    }
+
+    private void OnDisable() {
+        init = false;
     }
 
 }

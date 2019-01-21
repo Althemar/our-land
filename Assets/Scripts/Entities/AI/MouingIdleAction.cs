@@ -17,11 +17,7 @@ public class MouingIdleAction : Action {
                     entity.MoveTo(nearest, Nothing);
             }
         }
-        /* // Moved this into IsHungryDecision
-        entity.remainingTurnsBeforeHungry -= 1;
-        if (entity.remainingTurnsBeforeHungry == 0) {
-            entity.isHungry = true;
-        }*/
+
 
     }
 

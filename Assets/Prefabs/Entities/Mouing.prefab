@@ -1797,7 +1797,8 @@ MonoBehaviour:
   NWContainer: {fileID: 2157027261844186112}
   WContainer: {fileID: 871457953837044572}
   SWContainer: {fileID: 649297351630940329}
-  isHungry: 1
+  hasFled: 0
+  isHungry: 0
   remainingTurnsBeforeHungry: 5
   remainingTurnsBeforeDie: 2
 --- !u!114 &7946308881498552177

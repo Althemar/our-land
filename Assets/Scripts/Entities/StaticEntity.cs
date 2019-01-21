@@ -7,6 +7,8 @@ public class StaticEntity : Entity
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
 
+    
+
     protected override void Start() {
         base.Start();
         GetComponent<SpriteRenderer>().sortingOrder = 10;

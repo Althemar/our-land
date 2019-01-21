@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TreeIdle
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: db85d88f1e8060e4199fa9255d37e3ca, type: 2}
+  - {fileID: 11400000, guid: 99e4152426fd8914fa68bc393cfbbb9b, type: 2}
   transitions: []
+  init: 0

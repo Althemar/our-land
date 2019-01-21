@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "PluggableAI/Actions/TreeIdle")]
-public class TreeIdleAction : Action 
+[CreateAssetMenu (menuName = "PluggableAI/Actions/Reproduce")]
+public class ReproduceAction : Action 
 {
     public override void Act (StateController controller)
     {
-        StaticEntity entity = controller.entity as StaticEntity;
+         Entity entity = controller.entity;
         if (entity.remainingTurnsBeforReproduction == 0) {
             entity.IncreasePopulation();
-            entity.remainingTurnsBeforReproduction = entity.staticEntitySO.nbTurnsBeforeReproduction;
+            entity.remainingTurnsBeforReproduction = entity.entitySO.nbTurnsBeforeReproduction;
         }
         else
             entity.remainingTurnsBeforReproduction--;
