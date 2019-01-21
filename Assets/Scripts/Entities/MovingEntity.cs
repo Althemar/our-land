@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine;
+using Spine.Unity;
 
 [RequireComponent(typeof(Movable))]
 [RequireComponent(typeof(StateController))]
@@ -19,6 +21,9 @@ public class MovingEntity : Entity
     public GameObject WContainer;
     public GameObject SWContainer;
 
+
+    
+
     private EntityHungerState hunger;
 
     private Entity target;
@@ -35,6 +40,9 @@ public class MovingEntity : Entity
     public bool isHungry = false; //used by actions
     public int remainingTurnsBeforeHungry = -1;
     public int remainingTurnsBeforeDie = -1;
+
+    [HideInInspector]
+    public bool harvestAnimation;
 
     protected override void Start() {
         base.Start();
@@ -73,18 +81,21 @@ public class MovingEntity : Entity
         float flip = 1;
         if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
             flip = -1;
-        NWContainer.transform.localScale = new Vector3(flip, 1, 1);
-        WContainer.transform.localScale = new Vector3(flip, 1, 1);
-        SWContainer.transform.localScale = new Vector3(flip, 1, 1);
 
-        for (int i = 0; i < NW.Length; i++) {
-            NW[i].SetActive((dir == HexDirection.NW || dir == HexDirection.NE) && population > i);
-        }
-        for (int i = 0; i < W.Length; i++) {
-            W[i].SetActive((dir == HexDirection.W || dir == HexDirection.E) && population > i);
-        }
-        for (int i = 0; i < SW.Length; i++) {
-            SW[i].SetActive((dir == HexDirection.SW || dir == HexDirection.SE) && population > i);
+        activatedSkeletons.Clear();
+        UpdateSkeletons(NWContainer, NW, flip, dir, HexDirection.NW, HexDirection.NE);
+        UpdateSkeletons(WContainer, W, flip, dir, HexDirection.W, HexDirection.E);
+        UpdateSkeletons(SWContainer, SW, flip, dir, HexDirection.SW, HexDirection.SE);
+    }
+
+    public void UpdateSkeletons(GameObject container, GameObject[] sprites, float flip, HexDirection dir, HexDirection dir1, HexDirection dir2) {
+        container.transform.localScale = new Vector3(flip, 1, 1);
+        for (int i = 0; i < sprites.Length; i++) {
+            bool activate = (dir == dir1 || dir == dir2) && population > i;
+            sprites[i].SetActive(activate);
+            if (activate) {
+                activatedSkeletons.Add(sprites[i].GetComponent<SkeletonAnimation>());
+            }
         }
     }
 
@@ -97,18 +108,17 @@ public class MovingEntity : Entity
     private Movable.OnMovableDelegate eventAfterMove;
     public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
-        if (pathToTarget != null || pathToTarget.Count >= 0) {
+        if (pathToTarget != null && pathToTarget.Count >= 0) {
             tile.currentMovable = null;
             tile.movingEntity = null;
             eventAfterMove = onEndMove;
             tile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
             tile.movingEntity = this;
             isMoving = true;
-            // TODO make end turn
+
+            ChangeAnimation("Walk", true);
         }
     }
-
-
 
     public override EntityType GetEntityType() {
         return EntityType.Moving;
@@ -140,6 +150,13 @@ public class MovingEntity : Entity
         tile.movingEntity = this;
 
         UpdateSprite((HexDirection)Random.Range(0, 5));
+
+        if (isHungry) {
+            ChangeAnimation("Hungry", true);
+        }
+        else {
+            ChangeAnimation("Idle", true);
+        }
     }
 
     void EndMoving() {
@@ -149,8 +166,36 @@ public class MovingEntity : Entity
         tile.movingEntity = null;
         tile = movable.CurrentTile;
         tile.movingEntity = this;
+
+        if (!harvestAnimation) {
+            if (isHungry) {
+                ChangeAnimation("Hungry", true);
+            }
+            else {
+                ChangeAnimation("Idle", true);
+            }
+        }
+        
         EndTurn();
     }
 
+
+    public void EndEating(TrackEntry trackEntry) {
+        if (isHungry) {
+            ChangeAnimation("Hungry", true);
+        }
+        else {
+            ChangeAnimation("Idle", true);
+        }
+        for (int i = 0; i < activatedSkeletons.Count; i++) {
+            activatedSkeletons[i].state.Complete -= EndEating;
+        }
+        harvestAnimation = false;
+    }
+
     
+
+    
+   
+
 }

@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Spine {
 	public class AnimationState {
@@ -461,8 +462,12 @@ namespace Spine {
 		/// <summary>Sets an animation by name. <seealso cref="SetAnimation(int, Animation, bool)" /></summary>
 		public TrackEntry SetAnimation (int trackIndex, string animationName, bool loop) {
 			Animation animation = data.skeletonData.FindAnimation(animationName);
-			if (animation == null) throw new ArgumentException("Animation not found: " + animationName, "animationName");
+            if (animation == null) {
+                Debug.LogError("Animation not found: " + animationName);
+                return null;
+            }
 			return SetAnimation(trackIndex, animation, loop);
+
 		}
 
 		/// <summary>Sets the current animation for a track, discarding any queued animations.</summary>

@@ -10,6 +10,8 @@ public class TreeIdleAction : Action
         StaticEntity entity = controller.entity as StaticEntity;
 
         entity.IncreasePopulation();
+
+        entity.UpdateSprite();
         
     }
 

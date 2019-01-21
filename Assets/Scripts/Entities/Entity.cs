@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
+using static Spine.AnimationState;
+using Spine;
 
 public abstract class Entity : Updatable
 {
@@ -16,6 +19,9 @@ public abstract class Entity : Updatable
     private StateController stateController;
     private bool harvestedThisTurn = false;
     private int harvestedBonus = 0;
+
+    [HideInInspector]
+    public List<SkeletonAnimation> activatedSkeletons;
 
     public delegate void OnPopulationChangeDelegate();
     public static OnPopulationChangeDelegate OnPopulationChange;
@@ -109,10 +115,10 @@ public abstract class Entity : Updatable
     }
 
     public void IncreasePopulation() {
-        Debug.Log(this.gameObject.name + " Population: " + population + " to " + (population + entitySO.reproductionRate));
+       // Debug.Log(this.gameObject.name + " Population: " + population + " to " + (population + entitySO.reproductionRate));
         population += entitySO.reproductionRate;
         if (population > entitySO.populationMax) {
-            Debug.Log(this.gameObject.name + " pop max " + entitySO.populationMax);
+           // Debug.Log(this.gameObject.name + " pop max " + entitySO.populationMax);
             population = entitySO.populationMax;
             TryCreateAnotherEntity(GetEntityType());    
         }
@@ -159,8 +165,15 @@ public abstract class Entity : Updatable
 
 
                 if (type == EntityType.Moving) {
-                    adjacent.movingEntity = entity as MovingEntity;
-                    adjacent.currentMovable = entity.GetComponent<Movable>();
+                    MovingEntity mv = entity as MovingEntity;
+                    adjacent.movingEntity = mv;
+                    adjacent.currentMovable = mv.GetComponent<Movable>();
+                    if (mv.isHungry) {
+                        mv.ChangeAnimation("Hungry", true);
+                    }
+                    else {
+                        mv.ChangeAnimation("Idle", true);
+                    }
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
@@ -198,7 +211,28 @@ public abstract class Entity : Updatable
         RemoveFromTurnManager();
         if (this != null) {
             Destroy(gameObject);
+            ChangeAnimation("Death", false);
         }
-
     }
+
+    public void ChangeAnimation(string animationName, bool loop = false, TrackEntryDelegate entry = null) {
+        foreach (SkeletonAnimation skeletonAnimation in activatedSkeletons) {
+            if (animationName == "Death") {
+                skeletonAnimation.state.Complete += EndDeath;
+            }
+            if (animationName == "Eating") {
+                skeletonAnimation.state.Complete += entry;
+            }
+            skeletonAnimation.state.ClearTrack(0);
+            skeletonAnimation.state.SetAnimation(0, animationName, loop);
+            SkeletonAnimation shadow = skeletonAnimation.transform.GetChild(0).GetComponent<SkeletonAnimation>();
+            shadow.state.ClearTrack(0);
+            shadow.state.SetAnimation(0, animationName, loop);
+        }
+    }
+
+    private void EndDeath(TrackEntry trackEntry) {
+        Destroy(gameObject);
+    }
+
 }

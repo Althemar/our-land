@@ -179,7 +179,7 @@ public class MotherShip : Updatable
     }
 
     private void ShipTakeOff(TrackEntry trackEntry) {
-        movable.MoveToTile(targetTile);
+        movable.MoveToTile(targetTile, false);
     }
 
     void EndMove() {

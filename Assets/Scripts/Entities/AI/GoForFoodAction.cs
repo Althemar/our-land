@@ -8,8 +8,11 @@ using UnityEngine;
 public class GoForFoodAction : Action {
     public override void Act(StateController controller) {
 
-        MovingEntity entity = controller.entity as MovingEntity;
         
+        MovingEntity entity = controller.entity as MovingEntity;
+
+        
+
         var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
         if (nearestEntity) {
             bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
@@ -37,14 +40,19 @@ public class GoForFoodAction : Action {
         } else {
             DecreasePop(entity);
         }
+        
     }
 
     private void TryHarvest(MovingEntity entity, Entity target, int distanceOfHarvest) {
         if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
+            entity.harvestAnimation = true;
+
             entity.Harvest(target);
+            entity.ChangeAnimation("Eating", false, entity.EndEating);
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
             if (entity.reserve == entity.population) {
                 entity.isHungry = false;
+                entity.IncreasePopulation();
             }
         }
 
@@ -62,11 +70,10 @@ public class GoForFoodAction : Action {
     }
 
     public override void OnExitState(StateController controller) {
-        Debug.Log("On exit");
         MovingEntity entity = controller.entity as MovingEntity;
         entity.reserve = 0;
         entity.remainingTurnsBeforeHungry = entity.movingEntitySO.nbTurnsToBeHungry;
-        entity.IncreasePopulation();
+       
         entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
     }
 
