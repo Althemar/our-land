@@ -9,7 +9,7 @@ public class GoForFoodAction : Action {
     public override void Act(StateController controller) {
 
         MovingEntity entity = controller.entity as MovingEntity;
-        
+
         var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
         if (nearestEntity) {
             bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
@@ -20,14 +20,15 @@ public class GoForFoodAction : Action {
             if (targetIsStatic) {
                 distanceOfHarvest = 0;
                 target = nearestEntity.staticEntity;
-            } else {
+            }
+            else {
                 distanceOfHarvest = 1;
                 target = nearestEntity.movingEntity;
             }
 
             int distance = target.Tile.Coordinates.Distance(entity.Tile.Coordinates);
             bool rightDistance = distance <= distanceOfHarvest;
-            
+
             if (!entity.hasFled && !rightDistance) {
                 entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
             }
@@ -35,7 +36,8 @@ public class GoForFoodAction : Action {
                 entity.isHungry = false;
                 TryHarvest(entity, target, distanceOfHarvest);
             }
-        } else {
+        }
+        else {
             DecreasePop(entity);
         }
     }
@@ -49,12 +51,12 @@ public class GoForFoodAction : Action {
                 entity.isHungry = false;
             }*/
 
-        if(entity.movingEntitySO.reproduceAtEachHarvest) {
-                    entity.IncreasePopulation();
-        }  
+            if (entity.movingEntitySO.reproduceAtEachHarvest) {
+                entity.IncreasePopulation();
+            }
 
-    
-        entity.isHungry = false;
+
+            entity.isHungry = false;
         }
 
         DecreasePop(entity);

@@ -106,8 +106,11 @@ public class MovingEntity : Entity
                 tile = newTile;
                 tile.movingEntity = this;
                 isMoving = true;
+            } else {
+                onEndMove?.Invoke();
             }
-            // TODO make end turn
+        } else {
+            onEndMove?.Invoke();
         }
     }
 
