@@ -105,9 +105,9 @@ public class MovingEntity : Entity
     }
 
     private Movable.OnMovableDelegate eventAfterMove;
-    public void MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove) {
+    public Stack<TileProperties> MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove, bool preview = false) {
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
-        if (pathToTarget != null && pathToTarget.Count >= 0) {
+        if (pathToTarget != null && pathToTarget.Count >= 0 && !preview) {
             TileProperties newTile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
             if(newTile) {
                 tile.currentMovable = null;
@@ -123,6 +123,7 @@ public class MovingEntity : Entity
         } else {
             onEndMove?.Invoke();
         }
+        return pathToTarget;
     }
 
     public override EntityType GetEntityType() {
