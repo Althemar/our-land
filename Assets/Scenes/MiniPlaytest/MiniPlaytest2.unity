@@ -1064,6 +1064,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbb81378d4f0cbd42a2f6c26ec21d6b0, type: 3}
+--- !u!114 &757043859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5053774479240587196, guid: dbb81378d4f0cbd42a2f6c26ec21d6b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 757043858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a372ae08f4acf4482185e74b4ec820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &757043860 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5053774478736439820, guid: dbb81378d4f0cbd42a2f6c26ec21d6b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 757043858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &759342095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3136508212417770705, guid: a1e694c267d9c4b4795517f21669ff3b,
@@ -2129,7 +2147,7 @@ PrefabInstance:
         type: 3}
       propertyPath: shaderComposite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 757043859}
     - target: {fileID: 208567814179067615, guid: e7e159a4617c3dd409f32ee4c9aa4cef,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2425,6 +2443,11 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 208567814135253012, guid: e7e159a4617c3dd409f32ee4c9aa4cef,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 757043860}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7e159a4617c3dd409f32ee4c9aa4cef, type: 3}
 --- !u!1 &1749107082
