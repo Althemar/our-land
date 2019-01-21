@@ -34,7 +34,10 @@ public class HexagonsOutline : MonoBehaviour
         }
 
         mesh.vertices = vertices.ToArray();
-        CreateTriangles(vertices, nbRectangles);  
+        CreateTriangles(vertices, nbRectangles);
+
+        GetComponent<MeshRenderer>().sortingLayerName = "World Layer";
+        GetComponent<MeshRenderer>().sortingOrder = -550;
     }
 
     // Get the next rechable tiles for a tile limit. Read tiles clockwise

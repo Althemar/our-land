@@ -68,6 +68,9 @@ public class GridOutline : MonoBehaviour {
             col[i] = baseColor;
         }
         mesh.colors = col;
+
+        GetComponent<MeshRenderer>().sortingLayerName = "World Layer";
+        GetComponent<MeshRenderer>().sortingOrder = -500;
     }
 
     // Add 2 vertices to the mesh
