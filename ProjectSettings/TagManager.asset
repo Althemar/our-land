@@ -13,6 +13,13 @@ TagManager:
   - UI
   - 
   - 
+  - UI_Pause
+  - UI_Movement_Point
+  - UI_Movement_Line
+  - 
+  - CastShadow
+  - Entity
+  - Mask_Harvest
   - 
   - 
   - 
@@ -29,15 +36,11 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcess
   m_SortingLayers:
+  - name: World Layer
+    uniqueID: 3291955253
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

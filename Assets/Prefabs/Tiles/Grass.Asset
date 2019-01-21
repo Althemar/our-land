@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}
+  canWalkThrough: 1
+  walkCost: 1
+  terrainType: 0
+  ambientRTPC: PRAIRIE
+  centers:
+  - {fileID: 21300000, guid: 0c2ba1f0b463ec6468060563dedf163f, type: 3}
+  - {fileID: 21300000, guid: 8db9f4435ee99134ab76c5dbf3fe16a0, type: 3}
+  - {fileID: 21300000, guid: ec6220054163cd445bd82c4b6bf08589, type: 3}
+  - {fileID: 21300000, guid: 307f5fa1602d6f5449d6decae6b4294c, type: 3}
+  - {fileID: 21300000, guid: 9cdcf21e7bcd6b64e8f3e2d72ba22687, type: 3}
+  - {fileID: 21300000, guid: dbdcd2ade67640d47bc57b1945be4c36, type: 3}
+  - {fileID: 21300000, guid: 38d78b02cfbc9a1448d5317a4b02b688, type: 3}
+  - {fileID: 21300000, guid: 329547308b683694a82337f6e00dafd5, type: 3}
+  - {fileID: 21300000, guid: edbb486afcc92934bb0a632a9040bfad, type: 3}
+  bordersNW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0400000002000000
+    _keys: 0400000002000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: e2aa4a9eabb355640be64a4130909e35, type: 3}
+      - {fileID: 21300000, guid: f6c38a430412f7b41b2aaa08b02305a2, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 2f981198ea0acda4b8e74a63b97b78b1, type: 3}
+      - {fileID: 21300000, guid: 80d46288d3170f349885c55711944a55, type: 3}
+      - {fileID: 21300000, guid: d919508e74ad3524fbce22f80e2487db, type: 3}
+  bordersW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0400000002000000
+    _keys: 0400000002000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: a4dfa4de24f13aa42a52ff4695accf16, type: 3}
+      - {fileID: 21300000, guid: 42a2a286f186baa40a868a019c0f410e, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: d9e4d43d35f629044bba045c93fd9b94, type: 3}
+      - {fileID: 21300000, guid: e312a6977d5d46d45a8689baeed15f94, type: 3}
+      - {fileID: 21300000, guid: c644f5274a8f24b4f9bed1bf048ecb73, type: 3}
+  bordersSW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0400000002000000
+    _keys: 0400000002000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 99d9853182aee164aa7e5adf18841029, type: 3}
+      - {fileID: 21300000, guid: b69f8d877832fe14c9672fb5364e7390, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: daa56478a9819e64e813e3bbcf6d1dfa, type: 3}
+      - {fileID: 21300000, guid: 49d9e3f293d9b1342bae90d97aa3d673, type: 3}
+      - {fileID: 21300000, guid: 858a53997b1587741921e6654dc4cc6f, type: 3}
+  addons:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues:
+    - 0.25
+    - 0.301
+    _keys:
+    - 0.25
+    - 0.301
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: eb75edeb5b7d093498150f43483534aa, type: 3}
+      - {fileID: 21300000, guid: 91d5391b68d6e144e9b1205612324083, type: 3}
+      - {fileID: 21300000, guid: 3485a865dfccd0b408d38939a71cabb5, type: 3}
+      - {fileID: 21300000, guid: 3bbdeb40898aa6841abcef82892db861, type: 3}
+      - {fileID: 21300000, guid: 9f723c53eb81fe44f973bc3c0a994d7d, type: 3}
+      - {fileID: 21300000, guid: cfbea77f70bd7fd499752e9788a868fe, type: 3}
+      - {fileID: 21300000, guid: dd3f9776ea137214c86df2a180a5e0cb, type: 3}
+      - {fileID: 21300000, guid: ab960c869d6abb743826a993ea3a2657, type: 3}
+      - {fileID: 21300000, guid: b44faaa18096839499b2c6c20b4be2c1, type: 3}
+      - {fileID: 21300000, guid: 122b686a0d9ebf34994252763b5e46de, type: 3}
+      - {fileID: 21300000, guid: 695da0ae77cd4864699e8e14765efbf8, type: 3}
+      - {fileID: 21300000, guid: 2f388cbf25c2c2445bde759b1c06e6cc, type: 3}
+      - {fileID: 21300000, guid: bdb2bc4494a22a9489c188ef2d0c7c34, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 7090464d7b64da041a1d107ad003ff4a, type: 3}
+      - {fileID: 21300000, guid: da21bc073aa250c40a2b48f9d7384f61, type: 3}
+      - {fileID: 21300000, guid: 0874e6d8997059b439b74e5e3b2cfed4, type: 3}
+      - {fileID: 21300000, guid: ff17b1f86115a254cb4d3e94833a9508, type: 3}
+      - {fileID: 21300000, guid: 62a8a3aacef5018468dd800a05a3fc83, type: 3}
+      - {fileID: 21300000, guid: 56013880b2d540a40a5e08dc9c0cbf70, type: 3}
+      - {fileID: 21300000, guid: c60ba3ca9653bae40af9586f21debb97, type: 3}
+      - {fileID: 21300000, guid: 67cfb7364d001f04fa683d5ffa32f11e, type: 3}
+      - {fileID: 21300000, guid: 9a68c6f24823369458c0700947e1ab6b, type: 3}
+      - {fileID: 21300000, guid: fdb6c06d526bff74faf89ac3f62a315e, type: 3}
+  humidityDependant: 1
+  riverSource: 0
+  riverDirection: 0
+  riverCounterClockwise: 0
