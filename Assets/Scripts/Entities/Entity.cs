@@ -36,12 +36,10 @@ public abstract class Entity : Updatable
     void Awake() {
         stateController = GetComponent<StateController>();
         stateController.SetupAI(true);
-        
-
     }
 
     protected virtual void Start() {
-                remainingTurnsBeforReproduction = entitySO.nbTurnsBeforeReproduction;
+        remainingTurnsBeforReproduction = entitySO.nbTurnsBeforeReproduction;
     }
 
     public override void AddToTurnManager() {
@@ -92,7 +90,7 @@ public abstract class Entity : Updatable
         if (population <= 0) {
             Kill();
         }
-        OnPopulationChange();
+        OnPopulationChange?.Invoke();
     }
    
     public TileProperties GetFreeAdjacentTile(EntityType type) {
@@ -119,7 +117,7 @@ public abstract class Entity : Updatable
             population = entitySO.populationMax;
             TryCreateAnotherEntity(GetEntityType());    
         }
-        OnPopulationChange();
+        OnPopulationChange?.Invoke();
     }
 
     public void DecreasePopulation() {
@@ -127,7 +125,7 @@ public abstract class Entity : Updatable
         if (population <= 0) {
             Kill();
         }
-        OnPopulationChange();
+        OnPopulationChange?.Invoke();
     }
 
     public void Harvest() {
