@@ -5,7 +5,7 @@ using UnityEngine;
 public static class ExtensionMethodsForAI
 {
     public static TileProperties NearestBiomeWithoutEntities(this TileProperties tp, CustomTile.TerrainType biome, int maxDistance = -1) {
-        List<TileProperties> visited = new List<TileProperties>();
+        HashSet<TileProperties> visited = new HashSet<TileProperties>();
         visited.Add(tp);
 
         List<TileProperties> fringes = new List<TileProperties>();

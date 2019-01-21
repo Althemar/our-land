@@ -9,7 +9,7 @@ public class FleeAction : Action
         MovingEntity entity = controller.entity as MovingEntity;
 
         entity.hasFled = false;
-        TileProperties nearestPredatorTile = entity.Tile.NearestEntity(entity.movingEntitySO.predators.ToArray());
+        TileProperties nearestPredatorTile = entity.Tile.NearestEntity(entity.movingEntitySO.predators.ToArray(), fleeRange);
         if (nearestPredatorTile && nearestPredatorTile.Coordinates.Distance(entity.Tile.Coordinates) <= fleeRange) {
 
             TileProperties fleeTile = HexagonalGrid.Instance.GetTile(entity.Tile.Coordinates.Opposite(nearestPredatorTile.Coordinates));
