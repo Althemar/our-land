@@ -95,6 +95,8 @@ public class AudioAmbient : MonoBehaviour {
         int total = 0;
         foreach (Vector3Int p in b.allPositionsWithin) {
             TileProperties prop = grid.GetTile(p);
+            if (!prop)
+                continue;
             CustomTile tileData = prop.Tile;
             if (!tileData)
                 continue;

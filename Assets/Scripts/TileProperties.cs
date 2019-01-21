@@ -251,13 +251,13 @@ public class TileProperties : MonoBehaviour {
             ResetAddon();
 
             if (GetNeighbor(HexDirection.SW).asLake && GetNeighbor(HexDirection.SE).asLake)
-                CreateSprite(grid.humidity.triLakeN, riversGameObjects, 2);
+                CreateSprite(grid.humidity.triLakeN, riversGameObjects, -150);
             else if (GetNeighbor(HexDirection.NE).asLake && GetNeighbor(HexDirection.E).asLake)
-                CreateSprite(grid.humidity.triLakeSW, riversGameObjects, 2);
+                CreateSprite(grid.humidity.triLakeSW, riversGameObjects, -150);
             else if (GetNeighbor(HexDirection.NW).asLake && GetNeighbor(HexDirection.W).asLake)
-                CreateSprite(grid.humidity.triLakeSE, riversGameObjects, 2);
+                CreateSprite(grid.humidity.triLakeSE, riversGameObjects, -150);
             else
-                CreateSprite(grid.humidity.lake, riversGameObjects, 2);
+                CreateSprite(grid.humidity.lake, riversGameObjects, -150);
         }
     }
 
@@ -271,46 +271,46 @@ public class TileProperties : MonoBehaviour {
             Sprite sprite = grid.humidity.ERiver;
             switch ((HexDirection)i) {
                 case HexDirection.NE:
-                    CreateSprite(grid.humidity.NERiver, riversGameObjects);
+                    CreateSprite(grid.humidity.NERiver, riversGameObjects, -300);
                     
                     if (GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.SE] && !rivers[(int)HexDirection.E])
-                        CreateSprite(grid.humidity.NEInterNW, riversGameObjects);
+                        CreateSprite(grid.humidity.NEInterNW, riversGameObjects, -300);
 
                     if (rivers[(int)HexDirection.NW] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.W])
-                        CreateSprite(grid.humidity.NWInterNE, riversGameObjects);
+                        CreateSprite(grid.humidity.NWInterNE, riversGameObjects, -300);
 
                     if (!rivers[(int)HexDirection.NW] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.W])
-                        CreateSprite(grid.humidity.NERivNW, riversGameObjects);
+                        CreateSprite(grid.humidity.NERivNW, riversGameObjects, -300);
                     else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.SE])
-                        CreateSprite(grid.humidity.NERivSE, riversGameObjects);
+                        CreateSprite(grid.humidity.NERivSE, riversGameObjects, -300);
                     break;
                 case HexDirection.E:
-                    CreateSprite(grid.humidity.ERiver, riversGameObjects);
+                    CreateSprite(grid.humidity.ERiver, riversGameObjects, -300);
                     if (rivers[(int)HexDirection.NE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
-                        CreateSprite(grid.humidity.EInterNEW, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterNEW, riversGameObjects, -300);
                     else if (rivers[(int)HexDirection.NE])
-                        CreateSprite(grid.humidity.EInterNE, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterNE, riversGameObjects, -300);
                     else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.NW])
-                        CreateSprite(grid.humidity.EInterNW, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterNW, riversGameObjects, -300);
                     else
-                        CreateSprite(grid.humidity.ERivN, riversGameObjects);
+                        CreateSprite(grid.humidity.ERivN, riversGameObjects, -300);
 
                     if (rivers[(int)HexDirection.SE] && GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
-                        CreateSprite(grid.humidity.EInterSEW, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterSEW, riversGameObjects, -300);
                     else if (rivers[(int)HexDirection.SE])
-                        CreateSprite(grid.humidity.EInterSE, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterSE, riversGameObjects, -300);
                     else if (GetNeighbor(HexDirection.E).rivers[(int)HexDirection.SW])
-                        CreateSprite(grid.humidity.EInterSW, riversGameObjects);
+                        CreateSprite(grid.humidity.EInterSW, riversGameObjects, -300);
                     else
-                        CreateSprite(grid.humidity.ERivS, riversGameObjects);
+                        CreateSprite(grid.humidity.ERivS, riversGameObjects, -300);
 
                     break;
                 case HexDirection.SE:
-                    CreateSprite(grid.humidity.SERiver, riversGameObjects);
+                    CreateSprite(grid.humidity.SERiver, riversGameObjects, -300);
                     if (!rivers[(int)HexDirection.SW] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.W])
-                        CreateSprite(grid.humidity.SERivSW, riversGameObjects);
+                        CreateSprite(grid.humidity.SERivSW, riversGameObjects, -300);
                     else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.NE])
-                        CreateSprite(grid.humidity.SERivNE, riversGameObjects);
+                        CreateSprite(grid.humidity.SERivNE, riversGameObjects, -300);
                     break;
             }
 
@@ -379,7 +379,7 @@ public class TileProperties : MonoBehaviour {
             spriteRenderer.transform.parent = bordersGameObjects.transform;
             spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.06f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
-            spriteRenderer.sortingOrder = 1;
+            spriteRenderer.sortingOrder = -750;
             spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
             if ((int)direction <= 2) {
                 spriteRenderer.flipX = true;
