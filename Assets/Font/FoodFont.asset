@@ -22,10 +22,10 @@ MonoBehaviour:
     y: 0
     width: 500
     height: 500
-    xOffset: 0
-    yOffset: 400
-    xAdvance: 500
-    scale: 1
+    xOffset: -20
+    yOffset: 380
+    xAdvance: 440
+    scale: 1.2
     name: Food
     hashCode: 2626498
     unicode: 0

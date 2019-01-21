@@ -135,7 +135,8 @@ public class MotherShip : Updatable
     }
 
     public void BeginTurn() {
-        inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
+        if(foodResource)
+            inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
         
         OnTurnBegin?.Invoke();
         OnRemainingPointsChanged?.Invoke();

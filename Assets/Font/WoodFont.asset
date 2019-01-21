@@ -24,8 +24,8 @@ MonoBehaviour:
     height: 500
     xOffset: -50
     yOffset: 400
-    xAdvance: 500
-    scale: 1
+    xAdvance: 410
+    scale: 1.3
     name: Wood
     hashCode: 3161459
     unicode: 0
