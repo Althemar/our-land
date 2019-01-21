@@ -216,6 +216,9 @@ public abstract class Entity : Updatable
             }
 
         }
+        if (updating) {
+            EndTurn();
+        }
         RemoveFromTurnManager();
         if (this != null) {
             Destroy(gameObject);
