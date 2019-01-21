@@ -90,7 +90,14 @@ public abstract class Entity : Updatable
 
         harvestedThisTurn = false;
     }
-    
+
+    public override void LateUpdateTurn() {
+        base.LateUpdateTurn();
+        stateController.LateTurnUpdate();
+        EndTurn();
+    }
+
+
     public void Eaten(int damage) {
         population -= damage;
         if (population <= 0) {

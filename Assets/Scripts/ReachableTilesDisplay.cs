@@ -66,6 +66,7 @@ public class ReachableTilesDisplay : MonoBehaviour {
     }
 
     public void RefreshPath(TileProperties tile) {
+        Debug.Log(tile.Coordinates.CubicCoordinates);
         if (tile != currentPointedTile) {
             currentPointedTile = tile;
             Stack<TileProperties> currentPath = AStarSearch.Path(movable.CurrentTile, tile, null, motherShip.Movable);

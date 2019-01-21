@@ -100,5 +100,22 @@ public class HexCoordinates
         HexCoordinates opposite = this - difference;
         return opposite;
     }
+
+    public HexDirection Direction(HexCoordinates goal) {
+        
+        if (cubic.x < goal.cubic.x && cubic.y == goal.cubic.y && cubic.z > goal.cubic.z) 
+            return HexDirection.E;
+        if (cubic.x > goal.cubic.x && cubic.y == goal.cubic.y && cubic.z < goal.cubic.z)
+            return HexDirection.W;
+        if (cubic.x == goal.cubic.x && cubic.y > goal.cubic.y && cubic.z < goal.cubic.z)
+            return HexDirection.SW;
+        if (cubic.x == goal.cubic.x && cubic.y < goal.cubic.y && cubic.z > goal.cubic.z)
+            return HexDirection.NE;
+        if (cubic.x < goal.cubic.x && cubic.y > goal.cubic.y && cubic.z == goal.cubic.z)
+            return HexDirection.SE;
+        if (cubic.x > goal.cubic.x && cubic.y < goal.cubic.y && cubic.z == goal.cubic.z)
+            return HexDirection.NW;
+        return HexDirection.NW;
+    }
 }
 

@@ -14,6 +14,10 @@ public abstract class Updatable : MonoBehaviour
         updated = true;
     }
 
+    public virtual void LateUpdateTurn() {
+        updated = true;
+    }
+
     public virtual void EndTurn() {
         OnEndTurn(this);
         TurnManager.Instance.EntityUpdated();

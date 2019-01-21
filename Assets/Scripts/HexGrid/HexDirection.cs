@@ -20,4 +20,6 @@ public static class HexDirectionExtensions
     public static HexDirection Next(this HexDirection direction) {
         return (int)direction < 5 ? (direction + 1) : (0);
     }
+
+   
 }

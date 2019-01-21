@@ -31,6 +31,12 @@ public class StateController : MonoBehaviour {
         currentState.UpdateState (this);
     }
 
+    public void LateTurnUpdate() {
+        if (!aiActive)
+            return;
+        currentState.LateUpdateState(this);
+    }
+
     public void TransitionToState(State nextState)
     {
         if (nextState != currentState) 
