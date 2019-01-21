@@ -8,40 +8,47 @@ using UnityEngine;
 public class GoForFoodAction : Action {
     public override void Act(StateController controller) {
 
-        
+
         MovingEntity entity = controller.entity as MovingEntity;
+        
 
-        var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
-        if (nearestEntity) {
-            bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
+        if (!entity.hasFled) {
+            var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
+            if (nearestEntity) {
+                bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
 
-            Entity target;
-            int distanceOfHarvest;
+                Entity target;
+                int distanceOfHarvest;
 
-            if (targetIsStatic) {
-                distanceOfHarvest = 0;
-                target = nearestEntity.staticEntity;
+                if (targetIsStatic) {
+                    distanceOfHarvest = 0;
+                    target = nearestEntity.staticEntity;
+                }
+                else {
+                    distanceOfHarvest = 1;
+                    target = nearestEntity.movingEntity;
+                }
+
+                int distance = target.Tile.Coordinates.Distance(entity.Tile.Coordinates);
+                bool rightDistance = distance <= distanceOfHarvest;
+
+                if (!entity.hasFled && !rightDistance) {
+                    entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
+                }
+                else if (rightDistance) {
+                    entity.isHungry = false;
+                    TryHarvest(entity, target, distanceOfHarvest);
+                }
             }
             else {
-                distanceOfHarvest = 1;
-                target = nearestEntity.movingEntity;
-            }
-
-            int distance = target.Tile.Coordinates.Distance(entity.Tile.Coordinates);
-            bool rightDistance = distance <= distanceOfHarvest;
-
-            if (!entity.hasFled && !rightDistance) {
-                entity.MoveTo(nearestEntity, () => TryHarvest(entity, target, distanceOfHarvest));
-            }
-            else if (rightDistance) {
-                entity.isHungry = false;
-                TryHarvest(entity, target, distanceOfHarvest);
+                DecreasePop(entity);
             }
         }
         else {
             DecreasePop(entity);
         }
-        
+
+
     }
 
     private void TryHarvest(MovingEntity entity, Entity target, int distanceOfHarvest) {
