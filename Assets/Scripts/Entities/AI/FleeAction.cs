@@ -17,8 +17,8 @@ public class FleeAction : Action
             if (distance <= fleeRange) {
                 TileProperties fleeTile = HexagonalGrid.Instance.GetTile(entity.Tile.Coordinates.Opposite(nearestPredatorTile.Coordinates));
                 if (fleeTile && !fleeTile.currentMovable && fleeTile.IsWalkable() && entity.movingEntitySO.availableTiles.Contains(fleeTile.Tile)) {
-                   // entity.MoveTo(fleeTile, null);
-                   // entity.hasFled = true;
+                   entity.MoveTo(fleeTile, null);
+                   entity.hasFled = true;
                     return;
                 }
             }

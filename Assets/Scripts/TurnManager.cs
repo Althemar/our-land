@@ -235,6 +235,7 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateEntities() {
         List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[entitiesTypeIndex]];
+
         UpdateObjects(currentEntities);
     }
 
