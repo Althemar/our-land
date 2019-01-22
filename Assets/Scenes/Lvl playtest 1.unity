@@ -1217,11 +1217,6 @@ PrefabInstance:
       propertyPath: canvasPath
       value: 
       objectReference: {fileID: 2006220360}
-    - target: {fileID: 439891537792229826, guid: f74b737bdaa524445afbb2af521463d2,
-        type: 3}
-      propertyPath: foodConsumption
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74b737bdaa524445afbb2af521463d2, type: 3}
 --- !u!114 &473431361 stripped
@@ -5530,6 +5525,7 @@ MonoBehaviour:
   grid: {fileID: 2071166889}
   motherShip: {fileID: 473431361}
   turnOrder: 01000000020000000300000004000000
+  lateTurnOrder: 02000000
   entitiesTypeOrder:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}

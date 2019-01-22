@@ -2825,6 +2825,7 @@ MonoBehaviour:
   grid: {fileID: 2071166889}
   motherShip: {fileID: 473431361}
   turnOrder: 01000000020000000300000004000000
+  lateTurnOrder: 02000000
   entitiesTypeOrder:
   - {fileID: 11400000, guid: bcb4ac5278de44648a33ce660d6c9018, type: 2}
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
