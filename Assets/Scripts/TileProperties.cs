@@ -17,7 +17,8 @@ public class TileProperties : MonoBehaviour {
     private HexagonalGrid grid;
     private Tilemap tilemap;
     
-    public Movable currentMovable;
+    public Movable movable;
+    public Movable movablePreview;
 
     private bool isInReachables;
     private float actionPointCost = -1;
@@ -431,7 +432,7 @@ public class TileProperties : MonoBehaviour {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile && neighbor.Tile.canWalkThrough && !neighbor.currentMovable && !neighbor.asLake) {
+                    if (neighbor && !visited.Contains(neighbor) && neighbor.Tile && neighbor.Tile.canWalkThrough && !neighbor.movable && !neighbor.asLake) {
                         int distance = i - 1 + neighbor.Tile.walkCost;
                         if (distance <= movement) {
                             fringes[distance].Add(neighbor);
@@ -450,7 +451,7 @@ public class TileProperties : MonoBehaviour {
         return visited;
     }
 
-    public TileProperties NearestEntity(EntitySO[] entities, int maxDistance = -1) {
+    public TileProperties NearestEntity(EntitySO[] entities, int maxDistance = -1, bool preview = false) {
         HashSet<TileProperties> visited = new HashSet<TileProperties>();
         visited.Add(this);
 
@@ -458,7 +459,7 @@ public class TileProperties : MonoBehaviour {
 
         fringes.Add(new List<TileProperties>());
         fringes[0].Add(this);
-        if ((staticEntity || movingEntity) && ContainsEntity(entities, false)) {
+        if ((staticEntity || movingEntity) && ContainsEntity(entities, false, preview)) {
             return this;
         }
 
@@ -468,17 +469,17 @@ public class TileProperties : MonoBehaviour {
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && neighbor.Tile && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
+                    if (neighbor && neighbor.Tile && !visited.Contains(neighbor) && neighbor.IsWalkable()) {
                         int distance = i - 1 + neighbor.Tile.walkCost;
 
                         while (fringes.Count <= distance) {
                             fringes.Add(new List<TileProperties>());
                         }
 
-                        if (neighbor.ContainsEntity(entities, true)) {
+                        if (neighbor.ContainsEntity(entities, true, preview)) {
                             return neighbor;
                         }
-                        else if (neighbor.currentMovable) {
+                        else if (neighbor.movable) {
 
                         }
                         else {
@@ -501,21 +502,21 @@ public class TileProperties : MonoBehaviour {
         return !movingEntity;
     }
 
-    public bool ContainsEntity(EntitySO[] entities, bool checkIfReachable = false) {
+    public bool ContainsEntity(EntitySO[] entities, bool checkIfReachable = false, bool preview = false) {
         for (int i = 0; i < entities.Length; i++) {
-            if (ContainsEntity(entities[i], checkIfReachable)) {
+            if (ContainsEntity(entities[i], checkIfReachable, preview)) {
                 return true;
             }
         }
         return false;
     }
 
-    public bool IsEmpty() {
-        return staticEntity == null && movingEntity == null && currentMovable == null;
+    public bool IsEmpty(bool preview = false) {
+        return !staticEntity && ((!movingEntity && !preview) || (!movablePreview && preview))&& !movable;
     }
 
-    public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false) {
-        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || !currentMovable))
+    public bool ContainsEntity(EntitySO entity, bool checkIfReachable = false, bool preview = false) {
+        return (staticEntity && entity.GetType() == typeof(StaticEntitySO) && staticEntity.staticEntitySO == entity && (!checkIfReachable || (!movable && !preview) || (!movablePreview && preview)))
              || (movingEntity && entity.GetType() == typeof(MovingEntitySO) && movingEntity.movingEntitySO == entity);
     }
 

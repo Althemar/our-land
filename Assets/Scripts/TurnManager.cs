@@ -132,11 +132,11 @@ public class TurnManager : MonoBehaviour
 
     private void NextTurnOrder() {
         turnOrderIndex++;
-        if (turnOrderIndex == turnOrder.Count) {
-            if (lateTurn)
-                EndTurnUpdate();
-            else
-                LateTurnUpdate();
+        if (turnOrderIndex == turnOrder.Count && !lateTurn) {
+            LateTurnUpdate();
+        }
+        else if (turnOrderIndex == lateTurnOrder.Count && lateTurn) {
+            EndTurnUpdate();
         }
         else {
             state = turnOrder[turnOrderIndex];

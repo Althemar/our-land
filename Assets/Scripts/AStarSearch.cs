@@ -13,7 +13,7 @@ public class AStarSearch : MonoBehaviour
         return next.Tile.walkCost;
     }
 
-    public static Stack<TileProperties> Path(TileProperties begin, TileProperties end, List<CustomTile> availableTiles = null, Movable movable = null) {
+    public static Stack<TileProperties> Path(TileProperties begin, TileProperties end, List<CustomTile> availableTiles = null, Movable movable = null, bool preview = false) {
         if (end == null)
             return null;
         PriorityQueue<TileProperties> frontier = new PriorityQueue<TileProperties>();
@@ -43,7 +43,7 @@ public class AStarSearch : MonoBehaviour
                     (next.Tile.terrainType == CustomTile.TerrainType.Mountain && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
                     continue;
                 }
-                else if (!movable && ((next.currentMovable && next != end) || next.asLake || next.Tile.riverSource)) {
+                else if (!movable && ((next.movable && next != end && !preview) || (next.movablePreview && next != end && preview) || next.asLake || next.Tile.riverSource)) {
                     continue;
                 }
                 double newCost = costSoFar[current] + NextCost(current, next);

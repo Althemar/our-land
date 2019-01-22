@@ -7,7 +7,8 @@ using Spine.Unity;
 [RequireComponent(typeof(Movable))]
 public class MovingEntity : Entity
 {
-    private Movable movable;
+    [HideInInspector]
+    public Movable movable;
 
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
@@ -33,6 +34,9 @@ public class MovingEntity : Entity
 
     private int baseSorting;
 
+    [HideInInspector]
+    public TileProperties previewTile;
+
     public delegate void OnHarvestDelegate(MovingEntity from, Entity target);
     public static OnHarvestDelegate OnHarvest;
     
@@ -52,7 +56,7 @@ public class MovingEntity : Entity
         OnPopulationChange += UpdateSprite;
         if (tile) {
             movable.CurrentTile = tile;
-            tile.currentMovable = movable;
+            tile.movable = movable;
         }
 
         movingEntitySO = entitySO as MovingEntitySO;
@@ -106,15 +110,20 @@ public class MovingEntity : Entity
 
     private Movable.OnMovableDelegate eventAfterMove;
     public Stack<TileProperties> MoveTo(TileProperties to, Movable.OnMovableDelegate onEndMove, bool preview = false) {
-        var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles);
+        var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles, null, preview);
         if (pathToTarget != null && pathToTarget.Count >= 0 && !preview) {
             TileProperties newTile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
             if(newTile) {
-                tile.currentMovable = null;
+                tile.movable = null;
                 tile.movingEntity = null;
+                tile.movablePreview = null;
                 eventAfterMove = onEndMove;
                 tile = newTile;
                 tile.movingEntity = this;
+                tile.movablePreview = movable;
+                HexagonalGrid.Instance.Tilemap.SetColor(previewTile.Position, Color.white);
+                previewTile.movablePreview = null;
+                previewTile = tile;
                 isMoving = true;
             ChangeAnimation("Walk", true);
             }
@@ -154,6 +163,8 @@ public class MovingEntity : Entity
         remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
         remainingTurnsBeforeDie = movingEntitySO.nbTurnsToDie;
         tile.movingEntity = this;
+        tile.movablePreview = movable;
+        previewTile = tile;
 
         UpdateSprite((HexDirection)Random.Range(0, 5));
 

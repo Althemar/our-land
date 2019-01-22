@@ -90,7 +90,7 @@ public class Movable : MonoBehaviour
         if (GameManager.Instance.FrameCount == 0) {
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-            currentTile.currentMovable = this;
+            currentTile.movable = this;
             transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(currentTile.Position);
         }
         if (moving) {
@@ -131,9 +131,9 @@ public class Movable : MonoBehaviour
         Vector3 res = Vector3.Lerp(tilemap.CellToWorld(pArray[Mathf.FloorToInt(tCell)].Position), tilemap.CellToWorld(pArray[Mathf.CeilToInt(tCell)].Position), tCell - Mathf.FloorToInt(tCell));
 
         if(currentTile != pArray[Mathf.FloorToInt(tCell)]) {
-            currentTile.currentMovable = null;
+            currentTile.movable = null;
             currentTile = pArray[Mathf.FloorToInt(tCell)];
-            currentTile.currentMovable = this;
+            currentTile.movable = this;
             needChangeDir = true;
         }
 
@@ -151,8 +151,8 @@ public class Movable : MonoBehaviour
             moving = true;
             progress = 0;
 
-            currentTile.currentMovable = null;
-            goal.currentMovable = this;
+            currentTile.movable = null;
+            goal.movable = this;
         }
     }
 

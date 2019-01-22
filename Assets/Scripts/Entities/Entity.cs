@@ -111,7 +111,7 @@ public abstract class Entity : Updatable
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
             if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind && !neighbor.asLake &&
-                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
+                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null))) {
                 freeTiles.Add(neighbor);
             }
@@ -175,7 +175,7 @@ public abstract class Entity : Updatable
                 if (type == EntityType.Moving) {
                     MovingEntity mv = entity as MovingEntity;
                     adjacent.movingEntity = mv;
-                    adjacent.currentMovable = mv.GetComponent<Movable>();
+                    adjacent.movable = mv.GetComponent<Movable>();
                     if (mv.isHungry) {
                         mv.ChangeAnimation("Hungry", true);
                     }
@@ -197,7 +197,7 @@ public abstract class Entity : Updatable
     public void Kill() {
         if (tile.movingEntity == this) {
             tile.movingEntity = null;
-            tile.currentMovable = null;
+            tile.movable = null;
         }
         else {
             tile.staticEntity = null;
