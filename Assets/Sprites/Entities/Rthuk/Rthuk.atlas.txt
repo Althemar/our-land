@@ -1,272 +1,699 @@
 
 Rthuk.png
-size: 2048,1024
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Back_Body
-  rotate: true
-  xy: 956, 535
+  rotate: false
+  xy: 446, 787
+  size: 489, 230
+  orig: 491, 232
+  offset: 1, 1
+  index: -1
+Back_Body
+  rotate: false
+  xy: 446, 787
+  size: 489, 230
+  orig: 491, 232
+  offset: 1, 1
+  index: -1
+Back_Body
+  rotate: false
+  xy: 446, 787
   size: 489, 230
   orig: 491, 232
   offset: 1, 1
   index: -1
 Back_Foreleg_Left_01
   rotate: true
-  xy: 1863, 632
+  xy: 479, 357
+  size: 99, 161
+  orig: 101, 163
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Left_01
+  rotate: true
+  xy: 479, 357
+  size: 99, 161
+  orig: 101, 163
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Left_01
+  rotate: true
+  xy: 479, 357
   size: 99, 161
   orig: 101, 163
   offset: 1, 1
   index: -1
 Back_Foreleg_Left_02
-  rotate: true
-  xy: 1736, 202
+  rotate: false
+  xy: 714, 500
+  size: 133, 142
+  orig: 135, 144
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Left_02
+  rotate: false
+  xy: 714, 500
+  size: 133, 142
+  orig: 135, 144
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Left_02
+  rotate: false
+  xy: 714, 500
   size: 133, 142
   orig: 135, 144
   offset: 1, 1
   index: -1
 Back_Foreleg_Right_01
-  rotate: true
-  xy: 1666, 437
+  rotate: false
+  xy: 349, 18
+  size: 102, 158
+  orig: 104, 160
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Right_01
+  rotate: false
+  xy: 349, 18
+  size: 102, 158
+  orig: 104, 160
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Right_01
+  rotate: false
+  xy: 349, 18
   size: 102, 158
   orig: 104, 160
   offset: 1, 1
   index: -1
 Back_Foreleg_Right_02
   rotate: false
-  xy: 1620, 541
+  xy: 213, 22
+  size: 134, 154
+  orig: 136, 156
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Right_02
+  rotate: false
+  xy: 213, 22
+  size: 134, 154
+  orig: 136, 156
+  offset: 1, 1
+  index: -1
+Back_Foreleg_Right_02
+  rotate: false
+  xy: 213, 22
   size: 134, 154
   orig: 136, 156
   offset: 1, 1
   index: -1
 Back_Hind Leg_Left_01
-  rotate: true
-  xy: 1169, 413
+  rotate: false
+  xy: 479, 458
+  size: 120, 187
+  orig: 122, 189
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Left_01
+  rotate: false
+  xy: 479, 458
+  size: 120, 187
+  orig: 122, 189
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Left_01
+  rotate: false
+  xy: 479, 458
   size: 120, 187
   orig: 122, 189
   offset: 1, 1
   index: -1
 Back_Hind Leg_Left_02
   rotate: false
-  xy: 1358, 413
+  xy: 642, 338
+  size: 114, 126
+  orig: 116, 128
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Left_02
+  rotate: false
+  xy: 642, 338
+  size: 114, 126
+  orig: 116, 128
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Left_02
+  rotate: false
+  xy: 642, 338
   size: 114, 126
   orig: 116, 128
   offset: 1, 1
   index: -1
 Back_Hind Leg_Right_01
   rotate: true
-  xy: 1307, 1
+  xy: 446, 647
+  size: 138, 215
+  orig: 140, 217
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Right_01
+  rotate: true
+  xy: 446, 647
+  size: 138, 215
+  orig: 140, 217
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Right_01
+  rotate: true
+  xy: 446, 647
   size: 138, 215
   orig: 140, 217
   offset: 1, 1
   index: -1
 Back_Hind Leg_Right_02
   rotate: false
-  xy: 1620, 728
+  xy: 601, 466
+  size: 111, 176
+  orig: 113, 178
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Right_02
+  rotate: false
+  xy: 601, 466
+  size: 111, 176
+  orig: 113, 178
+  offset: 1, 1
+  index: -1
+Back_Hind Leg_Right_02
+  rotate: false
+  xy: 601, 466
   size: 111, 176
   orig: 113, 178
   offset: 1, 1
   index: -1
 Back_Jaw + Neck
-  rotate: true
-  xy: 1620, 906
+  rotate: false
+  xy: 501, 241
+  size: 118, 114
+  orig: 120, 116
+  offset: 1, 1
+  index: -1
+Back_Jaw + Neck
+  rotate: false
+  xy: 501, 241
+  size: 118, 114
+  orig: 120, 116
+  offset: 1, 1
+  index: -1
+Back_Jaw + Neck
+  rotate: false
+  xy: 501, 241
   size: 118, 114
   orig: 120, 116
   offset: 1, 1
   index: -1
 Back_Neck
   rotate: true
-  xy: 1736, 697
+  xy: 393, 184
   size: 143, 106
   orig: 145, 108
   offset: 1, 1
   index: -1
-Back_TEMPLATE
+Back_Neck
   rotate: true
-  xy: 478, 413
-  size: 611, 476
-  orig: 613, 478
+  xy: 393, 184
+  size: 143, 106
+  orig: 145, 108
+  offset: 1, 1
+  index: -1
+Back_Neck
+  rotate: true
+  xy: 393, 184
+  size: 143, 106
+  orig: 145, 108
   offset: 1, 1
   index: -1
 Face_Body
-  rotate: true
-  xy: 534, 7
+  rotate: false
+  xy: 0, 329
+  size: 404, 325
+  orig: 406, 327
+  offset: 1, 1
+  index: -1
+Face_Body
+  rotate: false
+  xy: 0, 329
+  size: 404, 325
+  orig: 406, 327
+  offset: 1, 1
+  index: -1
+Face_Body
+  rotate: false
+  xy: 0, 329
   size: 404, 325
   orig: 406, 327
   offset: 1, 1
   index: -1
 Face_Foreleg_Left_01
   rotate: false
-  xy: 1474, 417
+  xy: 635, 123
+  size: 94, 122
+  orig: 96, 124
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Left_01
+  rotate: false
+  xy: 635, 123
+  size: 94, 122
+  orig: 96, 124
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Left_01
+  rotate: false
+  xy: 635, 123
   size: 94, 122
   orig: 96, 124
   offset: 1, 1
   index: -1
 Face_Foreleg_Left_02
   rotate: true
-  xy: 1736, 932
+  xy: 545, 9
+  size: 92, 120
+  orig: 94, 122
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Left_02
+  rotate: true
+  xy: 545, 9
+  size: 92, 120
+  orig: 94, 122
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Left_02
+  rotate: true
+  xy: 545, 9
   size: 92, 120
   orig: 94, 122
   offset: 1, 1
   index: -1
 Face_Foreleg_Right_01
-  rotate: true
-  xy: 1736, 337
+  rotate: false
+  xy: 752, 203
+  size: 98, 102
+  orig: 100, 104
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Right_01
+  rotate: false
+  xy: 752, 203
+  size: 98, 102
+  orig: 100, 104
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Right_01
+  rotate: false
+  xy: 752, 203
   size: 98, 102
   orig: 100, 104
   offset: 1, 1
   index: -1
 Face_Foreleg_Right_02
   rotate: false
-  xy: 1570, 418
+  xy: 667, 0
+  size: 94, 121
+  orig: 96, 123
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Right_02
+  rotate: false
+  xy: 667, 0
+  size: 94, 121
+  orig: 96, 123
+  offset: 1, 1
+  index: -1
+Face_Foreleg_Right_02
+  rotate: false
+  xy: 667, 0
   size: 94, 121
   orig: 96, 123
   offset: 1, 1
   index: -1
 Face_Head
-  rotate: true
-  xy: 1863, 822
+  rotate: false
+  xy: 0, 142
+  size: 202, 185
+  orig: 204, 187
+  offset: 1, 1
+  index: -1
+Face_Head
+  rotate: false
+  xy: 0, 142
+  size: 202, 185
+  orig: 204, 187
+  offset: 1, 1
+  index: -1
+Face_Head
+  rotate: false
+  xy: 0, 142
   size: 202, 185
   orig: 204, 187
   offset: 1, 1
   index: -1
 Face_Hind Leg_Left_01
   rotate: true
-  xy: 956, 413
+  xy: 0, 20
+  size: 120, 211
+  orig: 122, 213
+  offset: 1, 1
+  index: -1
+Face_Hind Leg_Left_01
+  rotate: true
+  xy: 0, 20
+  size: 120, 211
+  orig: 122, 213
+  offset: 1, 1
+  index: -1
+Face_Hind Leg_Left_01
+  rotate: true
+  xy: 0, 20
   size: 120, 211
   orig: 122, 213
   offset: 1, 1
   index: -1
 Face_Hind Leg_Left_02
   rotate: true
-  xy: 1863, 434
+  xy: 879, 598
+  size: 93, 144
+  orig: 95, 146
+  offset: 1, 1
+  index: -1
+Face_Hind Leg_Left_02
+  rotate: true
+  xy: 879, 598
+  size: 93, 144
+  orig: 95, 146
+  offset: 1, 1
+  index: -1
+Face_Hind Leg_Left_02
+  rotate: true
+  xy: 879, 598
   size: 93, 144
   orig: 95, 146
   offset: 1, 1
   index: -1
 Face_HindLeg_Right_01
-  rotate: false
-  xy: 1524, 6
+  rotate: true
+  xy: 849, 497
+  size: 99, 165
+  orig: 101, 167
+  offset: 1, 1
+  index: -1
+Face_HindLeg_Right_01
+  rotate: true
+  xy: 849, 497
+  size: 99, 165
+  orig: 101, 167
+  offset: 1, 1
+  index: -1
+Face_HindLeg_Right_01
+  rotate: true
+  xy: 849, 497
   size: 99, 165
   orig: 101, 167
   offset: 1, 1
   index: -1
 Face_HindLeg_Right_02
   rotate: false
-  xy: 1307, 141
+  xy: 406, 375
+  size: 71, 270
+  orig: 73, 272
+  offset: 1, 1
+  index: -1
+Face_HindLeg_Right_02
+  rotate: false
+  xy: 406, 375
+  size: 71, 270
+  orig: 73, 272
+  offset: 1, 1
+  index: -1
+Face_HindLeg_Right_02
+  rotate: false
+  xy: 406, 375
   size: 71, 270
   orig: 73, 272
   offset: 1, 1
   index: -1
 Face_Jaw
-  rotate: false
-  xy: 1863, 733
+  rotate: true
+  xy: 937, 833
   size: 184, 87
   orig: 186, 89
   offset: 1, 1
   index: -1
-Face_Template
+Face_Jaw
   rotate: true
-  xy: 1188, 541
-  size: 483, 430
-  orig: 485, 432
+  xy: 937, 833
+  size: 184, 87
+  orig: 186, 89
+  offset: 1, 1
+  index: -1
+Face_Jaw
+  rotate: true
+  xy: 937, 833
+  size: 184, 87
+  orig: 186, 89
   offset: 1, 1
   index: -1
 Profile_Body
   rotate: false
-  xy: 861, 50
+  xy: 0, 656
+  size: 444, 361
+  orig: 446, 363
+  offset: 1, 1
+  index: -1
+Profile_Body
+  rotate: false
+  xy: 0, 656
+  size: 444, 361
+  orig: 446, 363
+  offset: 1, 1
+  index: -1
+Profile_Body
+  rotate: false
+  xy: 0, 656
   size: 444, 361
   orig: 446, 363
   offset: 1, 1
   index: -1
 Profile_Foreleg_Left_01
-  rotate: true
-  xy: 1880, 174
+  rotate: false
+  xy: 545, 103
+  size: 88, 136
+  orig: 90, 138
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Left_01
+  rotate: false
+  xy: 545, 103
+  size: 88, 136
+  orig: 90, 138
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Left_01
+  rotate: false
+  xy: 545, 103
   size: 88, 136
   orig: 90, 138
   offset: 1, 1
   index: -1
 Profile_Foreleg_Left_02
-  rotate: false
-  xy: 1863, 43
+  rotate: true
+  xy: 621, 247
+  size: 89, 129
+  orig: 91, 131
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Left_02
+  rotate: true
+  xy: 621, 247
+  size: 89, 129
+  orig: 91, 131
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Left_02
+  rotate: true
+  xy: 621, 247
   size: 89, 129
   orig: 91, 131
   offset: 1, 1
   index: -1
 Profile_Foreleg_Right_01
-  rotate: true
-  xy: 1736, 842
+  rotate: false
+  xy: 852, 221
+  size: 88, 117
+  orig: 90, 119
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Right_01
+  rotate: false
+  xy: 852, 221
+  size: 88, 117
+  orig: 90, 119
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Right_01
+  rotate: false
+  xy: 852, 221
   size: 88, 117
   orig: 90, 119
   offset: 1, 1
   index: -1
 Profile_Foreleg_Right_02
-  rotate: true
-  xy: 1840, 342
+  rotate: false
+  xy: 453, 45
+  size: 90, 137
+  orig: 92, 139
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Right_02
+  rotate: false
+  xy: 453, 45
+  size: 90, 137
+  orig: 92, 139
+  offset: 1, 1
+  index: -1
+Profile_Foreleg_Right_02
+  rotate: false
+  xy: 453, 45
   size: 90, 137
   orig: 92, 139
   offset: 1, 1
   index: -1
 Profile_Hind Leg_Left_01
-  rotate: false
-  xy: 1593, 202
+  rotate: true
+  xy: 663, 644
+  size: 141, 214
+  orig: 143, 216
+  offset: 1, 1
+  index: -1
+Profile_Hind Leg_Left_01
+  rotate: true
+  xy: 663, 644
+  size: 141, 214
+  orig: 143, 216
+  offset: 1, 1
+  index: -1
+Profile_Hind Leg_Left_01
+  rotate: true
+  xy: 663, 644
   size: 141, 214
   orig: 143, 216
   offset: 1, 1
   index: -1
 Profile_Hind Leg_Left_02
-  rotate: false
-  xy: 1756, 550
+  rotate: true
+  xy: 879, 693
+  size: 92, 145
+  orig: 94, 147
+  offset: 1, 1
+  index: -1
+Profile_Hind Leg_Left_02
+  rotate: true
+  xy: 879, 693
+  size: 92, 145
+  orig: 94, 147
+  offset: 1, 1
+  index: -1
+Profile_Hind Leg_Left_02
+  rotate: true
+  xy: 879, 693
   size: 92, 145
   orig: 94, 147
   offset: 1, 1
   index: -1
 Profile_HindLeg_Right_01
-  rotate: true
-  xy: 1863, 529
+  rotate: false
+  xy: 845, 340
+  size: 101, 155
+  orig: 103, 157
+  offset: 1, 1
+  index: -1
+Profile_HindLeg_Right_01
+  rotate: false
+  xy: 845, 340
+  size: 101, 155
+  orig: 103, 157
+  offset: 1, 1
+  index: -1
+Profile_HindLeg_Right_01
+  rotate: false
+  xy: 845, 340
   size: 101, 155
   orig: 103, 157
   offset: 1, 1
   index: -1
 Profile_HindLeg_Right_02
-  rotate: true
-  xy: 1880, 264
+  rotate: false
+  xy: 948, 357
   size: 76, 138
   orig: 78, 140
   offset: 1, 1
   index: -1
-Profile_INFO MACHOIRE
-  rotate: true
-  xy: 1380, 173
-  size: 238, 211
-  orig: 240, 213
+Profile_HindLeg_Right_02
+  rotate: false
+  xy: 948, 357
+  size: 76, 138
+  orig: 78, 140
+  offset: 1, 1
+  index: -1
+Profile_HindLeg_Right_02
+  rotate: false
+  xy: 948, 357
+  size: 76, 138
+  orig: 78, 140
   offset: 1, 1
   index: -1
 Profile_Jaw
   rotate: true
-  xy: 1625, 9
+  xy: 758, 307
+  size: 191, 85
+  orig: 193, 87
+  offset: 1, 1
+  index: -1
+Profile_Jaw
+  rotate: true
+  xy: 758, 307
+  size: 191, 85
+  orig: 193, 87
+  offset: 1, 1
+  index: -1
+Profile_Jaw
+  rotate: true
+  xy: 758, 307
   size: 191, 85
   orig: 193, 87
   offset: 1, 1
   index: -1
 Profile_Neck
-  rotate: true
-  xy: 1712, 13
+  rotate: false
+  xy: 204, 178
   size: 187, 149
   orig: 189, 151
   offset: 1, 1
   index: -1
-Profile_TEMPLATE
+Profile_Neck
   rotate: false
-  xy: 0, 0
-  size: 532, 385
-  orig: 534, 387
+  xy: 204, 178
+  size: 187, 149
+  orig: 189, 151
   offset: 1, 1
   index: -1
-template
-  rotate: true
-  xy: 0, 387
-  size: 637, 476
-  orig: 637, 476
-  offset: 0, 0
+Profile_Neck
+  rotate: false
+  xy: 204, 178
+  size: 187, 149
+  orig: 189, 151
+  offset: 1, 1
   index: -1

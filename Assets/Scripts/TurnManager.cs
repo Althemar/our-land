@@ -26,6 +26,9 @@ public class TurnManager : MonoBehaviour
     public List<TurnState> turnOrder;
 
     [ReorderableList]
+    public List<TurnState> lateTurnOrder;
+
+    [ReorderableList]
     public List<EntitySO> entitiesTypeOrder;
 
 
@@ -47,6 +50,8 @@ public class TurnManager : MonoBehaviour
 
     public delegate void OnTurnDelegate();
     public event OnTurnDelegate OnEndTurn;
+
+    private bool lateTurn;
 
     public TurnState State
     {
@@ -128,7 +133,10 @@ public class TurnManager : MonoBehaviour
     private void NextTurnOrder() {
         turnOrderIndex++;
         if (turnOrderIndex == turnOrder.Count) {
-            EndTurnUpdate();
+            if (lateTurn)
+                EndTurnUpdate();
+            else
+                LateTurnUpdate();
         }
         else {
             state = turnOrder[turnOrderIndex];
@@ -183,8 +191,16 @@ public class TurnManager : MonoBehaviour
         if (state != TurnState.Player || motherShip.Movable.Moving || GameManager.Instance.GameState != GameState.Playing) {
             return;
         }
+        lateTurn = false;
         state = turnOrder[0];
         turnOrderIndex = 0;
+        ChooseObjectsToUpdate();
+    }
+
+    public void LateTurnUpdate() {
+        state = lateTurnOrder[0];
+        turnOrderIndex = 0;
+        lateTurn = true;
         ChooseObjectsToUpdate();
     }
 
@@ -218,6 +234,7 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateEntities() {
         List<Entity> currentEntities = entitiesToUpdate[entitiesTypeOrder[entitiesTypeIndex]];
+
         UpdateObjects(currentEntities);
     }
 
@@ -231,7 +248,10 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < copy.Count; i++) {
             if (!copy[i].updated) {
                 nbObjectsToUpdate++;
-                copy[i].UpdateTurn();
+                if (!lateTurn)
+                    copy[i].UpdateTurn();
+                else
+                    copy[i].LateUpdateTurn();
             }
         }
     }

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
+using static Spine.AnimationState;
+using Spine;
 
 [RequireComponent(typeof(StateController))]
 public abstract class Entity : Updatable
@@ -17,6 +20,9 @@ public abstract class Entity : Updatable
     private StateController stateController;
     private bool harvestedThisTurn = false;
     private int harvestedBonus = 0;
+
+    [HideInInspector]
+    public List<SkeletonAnimation> activatedSkeletons;
 
     public int remainingTurnsBeforReproduction = -1;
 
@@ -84,7 +90,14 @@ public abstract class Entity : Updatable
 
         harvestedThisTurn = false;
     }
-    
+
+    public override void LateUpdateTurn() {
+        base.LateUpdateTurn();
+        stateController.LateTurnUpdate();
+        EndTurn();
+    }
+
+
     public void Eaten(int damage) {
         population -= damage;
         if (population <= 0) {
@@ -160,8 +173,15 @@ public abstract class Entity : Updatable
 
 
                 if (type == EntityType.Moving) {
-                    adjacent.movingEntity = entity as MovingEntity;
-                    adjacent.currentMovable = entity.GetComponent<Movable>();
+                    MovingEntity mv = entity as MovingEntity;
+                    adjacent.movingEntity = mv;
+                    adjacent.currentMovable = mv.GetComponent<Movable>();
+                    if (mv.isHungry) {
+                        mv.ChangeAnimation("Hungry", true);
+                    }
+                    else {
+                        mv.ChangeAnimation("Idle", true);
+                    }
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
@@ -196,10 +216,34 @@ public abstract class Entity : Updatable
             }
 
         }
+        if (updating) {
+            EndTurn();
+        }
         RemoveFromTurnManager();
         if (this != null) {
             Destroy(gameObject);
+            ChangeAnimation("Death", false);
         }
-
     }
+
+    public void ChangeAnimation(string animationName, bool loop = false, TrackEntryDelegate entry = null) {
+        foreach (SkeletonAnimation skeletonAnimation in activatedSkeletons) {
+            if (animationName == "Death") {
+                skeletonAnimation.state.Complete += EndDeath;
+            }
+            if (animationName == "Eating") {
+                skeletonAnimation.state.Complete += entry;
+            }
+            skeletonAnimation.state.ClearTrack(0);
+            skeletonAnimation.state.SetAnimation(0, animationName, loop);
+            SkeletonAnimation shadow = skeletonAnimation.transform.GetChild(0).GetComponent<SkeletonAnimation>();
+            shadow.state.ClearTrack(0);
+            shadow.state.SetAnimation(0, animationName, loop);
+        }
+    }
+
+    private void EndDeath(TrackEntry trackEntry) {
+        Destroy(gameObject);
+    }
+
 }

@@ -40,7 +40,7 @@ public class AStarSearch : MonoBehaviour
                     continue;
                 }
                 if (movable && next!=end && ((next.movingEntity && !movable.canPassAboveEntities) || (next.asLake && !movable.canPassAboveLakes) || 
-                    (next.Tile.riverSource && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
+                    (next.Tile.terrainType == CustomTile.TerrainType.Mountain && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
                     continue;
                 }
                 else if (!movable && ((next.currentMovable && next != end) || next.asLake || next.Tile.riverSource)) {

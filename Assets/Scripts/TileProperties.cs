@@ -451,7 +451,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public TileProperties NearestEntity(EntitySO[] entities, int maxDistance = -1) {
-        List<TileProperties> visited = new List<TileProperties>();
+        HashSet<TileProperties> visited = new HashSet<TileProperties>();
         visited.Add(this);
 
         List<List<TileProperties>> fringes = new List<List<TileProperties>>();
@@ -520,7 +520,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public bool IsWalkable() {
-        return !asLake && !windOrigin && !tile.riverSource;
+        return !asLake && !windOrigin && !tile.riverSource && tile.terrainType != CustomTile.TerrainType.Mountain;
     }
 
 }

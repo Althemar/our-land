@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +10,10 @@ public class State : ScriptableObject
 
     public Action[] actions;
     public Transition[] transitions;
+
+
+    [ReorderableList]
+    public Action[] lateActions;
 
     public bool init = false;
 
@@ -37,10 +43,20 @@ public class State : ScriptableObject
         }
     }
 
+    public void LateUpdateState(StateController controller) {
+        DoLateActions(controller);
+    }
+
     private void DoActions(StateController controller)
     {
         for (int i = 0; i < actions.Length; i++) {
             actions [i].Act (controller);
+        }
+    }
+
+    private void DoLateActions(StateController controller) {
+        for (int i = 0; i < lateActions.Length; i++) {
+            lateActions[i].Act(controller);
         }
     }
 

@@ -78,7 +78,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingOrder: 15
 --- !u!114 &5465812374170497782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -141,7 +141,7 @@ Transform:
   m_Children:
   - {fileID: 5071027802791913253}
   m_Father: {fileID: 6271622815749995494}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6199986258616765765
 MeshFilter:
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -404,7 +404,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 14
 --- !u!114 &469355572001264117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -459,12 +459,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2393570678979964063}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -0.183, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 229426803861262782}
-  - {fileID: 3743348346934450944}
   - {fileID: 6935329714766755572}
+  - {fileID: 3743348346934450944}
   m_Father: {fileID: 6059205685924054439}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -579,7 +579,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 14
 --- !u!114 &4794923097356806931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1228,7 +1228,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 16
+  m_SortingOrder: 15
 --- !u!114 &663064754155941765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1528,6 +1528,7 @@ MonoBehaviour:
   population: 0
   basePopulation: 1
   reserve: 0
+  activatedSkeletons: []
   populationPoint: {fileID: 0}
   movingEntitySO: {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
   NW:
@@ -1549,6 +1550,7 @@ MonoBehaviour:
   isHungry: 1
   remainingTurnsBeforeHungry: 2
   remainingTurnsBeforeDie: 5
+  harvestAnimation: 0
 --- !u!114 &6059205685924054438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1561,7 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b6b713d589fb14997dd4f85a5a60cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.6
   canPassAboveEntities: 0
   canPassAboveMontains: 0
   canPassAboveLakes: 0
@@ -1683,7 +1685,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 16
 --- !u!114 &7557023972484131347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,7 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 60365767408a6fd4989921330204cb96, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: ef62abd1c3143dd48b611b82b3a44a93, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1837,7 +1839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1933,7 +1935,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 14
 --- !u!114 &2757276248780732636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1946,7 +1948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -2042,7 +2044,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 16
 --- !u!114 &7740812919292170022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2055,7 +2057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 5a1dc2ce72f7e03488bce0e07349e361, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 4fecbe38d42bd6b4cbd12338faa2ec38, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -2105,7 +2107,7 @@ Transform:
   m_Children:
   - {fileID: 3351477393404952443}
   m_Father: {fileID: 6271622815749995494}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2235518555840500276
 MeshFilter:
@@ -2151,7 +2153,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 15
 --- !u!114 &1675302713074881872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2164,7 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 8d7b8ed06addc43408d17eb4bc875bd3, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: b91c20194457e90439d1dab0ebedb624, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
