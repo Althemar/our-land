@@ -11,6 +11,7 @@ public class TitleMenu : MonoBehaviour {
     GameObject optionInstance = null;
 
     void Awake () {
+        AkSoundEngine.StopAll();
         Playtest.EndPlaytest();
 
         canvas = GetComponent<Canvas>();
