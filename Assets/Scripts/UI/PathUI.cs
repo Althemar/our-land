@@ -68,7 +68,7 @@ public class PathUI : MonoBehaviour
             poolPoint[i].InitCirclePath();
             if (i == 0) {
                 if(pathTiles[i].IsWalkable() && !pathTiles[i].movingEntity) {
-                    text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+                    text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString() + "<sprite=0>";
                     poolPoint[i].removeImage.gameObject.SetActive(false);
                 }
                 else {
@@ -78,6 +78,7 @@ public class PathUI : MonoBehaviour
             }
             else {
                 text.text = "";
+                poolPoint[i].removeImage.gameObject.SetActive(false);
             }
             poolPoint[i].GetComponent<Image>().raycastTarget = false;
             poolPoint[i].interactable = false;
