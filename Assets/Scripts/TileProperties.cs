@@ -155,7 +155,7 @@ public class TileProperties : MonoBehaviour {
         foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
             float rand = Random.value;
             if (rand < pair.Key && pair.Value.sprites.Count > 0) {
-                CreateSprite(pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)], addonsGameObjects,  1);
+                CreateSprite(pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)], addonsGameObjects, tile.addonSortingOffset, tile.addonLayer, tile.addonLayer != 0);
             }
         }
     }
@@ -241,7 +241,7 @@ public class TileProperties : MonoBehaviour {
             spriteRenderer.transform.parent = addonsGameObjects.transform;
             spriteRenderer.transform.position = transform.position;
             spriteRenderer.sprite = grid.humidity.glacier;
-            spriteRenderer.sortingOrder = 10 - Position.y;
+            spriteRenderer.sortingOrder = 15 - Position.y;
             spriteRenderer.gameObject.layer = 13;
         }
     }
@@ -318,7 +318,7 @@ public class TileProperties : MonoBehaviour {
         }
     }
 
-    private void CreateSprite(Sprite sprite, GameObject parent = null, int sorting = 5) {
+    private void CreateSprite(Sprite sprite, GameObject parent = null, int sorting = 5, int layer = 0, bool defaultLayer = false) {
         SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
         if(parent)
             spriteRenderer.transform.parent = parent.transform;
@@ -327,7 +327,9 @@ public class TileProperties : MonoBehaviour {
         spriteRenderer.transform.position = transform.position;
         spriteRenderer.sprite = sprite;
         spriteRenderer.sortingOrder = sorting - Position.y;
-        spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
+        if(!defaultLayer)
+            spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
+        spriteRenderer.gameObject.layer = layer;
     }
 
     public void SetBorders() {

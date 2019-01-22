@@ -31,7 +31,7 @@ public class ShadowCamera : MonoBehaviour {
         entity = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Default, 4);
         entityCam.targetTexture = entity;
 
-        blurMat.SetVector("_BlurSize", new Vector2(entity.texelSize.x * 3f, entity.texelSize.y * 3f));
+        blurMat.SetVector("_BlurSize", new Vector2(entity.texelSize.x * 2f, entity.texelSize.y * 2f));
 
         RenderTexture shadow = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
         RenderTexture tmp = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);

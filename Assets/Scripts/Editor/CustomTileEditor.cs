@@ -21,7 +21,7 @@ public class CustomTileEditor : Editor
     const float padding = 15f;
 
     SerializedProperty go, canWalkThrough, walkCost, terrainType, ambientRTPC;
-    SerializedProperty serBordersNW, serBordersW, serBordersSW, addons;
+    SerializedProperty serBordersNW, serBordersW, serBordersSW, addons, addonLayer, addonSortingOffset;
 
     SerializedProperty humidityDependant, debugRiverSource, riverDirection, riverCounterClockwise;
 
@@ -38,6 +38,9 @@ public class CustomTileEditor : Editor
         serBordersW = serializedObject.FindProperty("bordersW");
         serBordersSW = serializedObject.FindProperty("bordersSW");
         addons = serializedObject.FindProperty("addons");
+        
+        addonLayer = serializedObject.FindProperty("addonLayer");
+        addonSortingOffset = serializedObject.FindProperty("addonSortingOffset");
 
         humidityDependant = serializedObject.FindProperty("humidityDependant");
         debugRiverSource = serializedObject.FindProperty("riverSource");
@@ -75,6 +78,8 @@ public class CustomTileEditor : Editor
         EditorGUILayout.PropertyField(serBordersW);
         EditorGUILayout.PropertyField(serBordersSW);
         EditorGUILayout.PropertyField(addons);
+        EditorGUILayout.PropertyField(addonLayer);
+        EditorGUILayout.PropertyField(addonSortingOffset);
 
         serializedObject.ApplyModifiedProperties();
     }
