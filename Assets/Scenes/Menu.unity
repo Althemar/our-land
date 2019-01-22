@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9047c7c4beb25748837952dbe3a3fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: play
+  key: beginPlaytest
 --- !u!114 &1946696886
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class TitleMenu : MonoBehaviour {
     GameObject optionInstance = null;
 
     void Awake () {
+        Playtest.EndPlaytest();
+
         canvas = GetComponent<Canvas>();
 
         ConfigVar.Init();
