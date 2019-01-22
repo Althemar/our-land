@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328031368475786048}
   - component: {fileID: 7160631991121350897}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trees_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4545596891577542042}
   - component: {fileID: 1760991180344350839}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trees_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,10 +238,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updated: 0
+  updating: 0
   entitySO: {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
   population: 0
   basePopulation: 2
   reserve: 0
+  activatedSkeletons: []
+  remainingTurnsBeforReproduction: -1
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
   sprites:
@@ -272,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5572833355154025731}
   - component: {fileID: 5331246537440847500}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trees_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7360447398504620072}
   - component: {fileID: 8648172036409673541}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trees_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4943983386898636281}
   - component: {fileID: 103023389024067267}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trees_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7185816737232831773}
   - component: {fileID: 3252929780410430281}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trees_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1407,16 +1407,6 @@ PrefabInstance:
       propertyPath: canPassAboveLakes
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 439891537792229826, guid: f74b737bdaa524445afbb2af521463d2,
-        type: 3}
-      propertyPath: foodConsumption
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 439891537792229826, guid: f74b737bdaa524445afbb2af521463d2,
-        type: 3}
-      propertyPath: movementBaseCost
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4034271041068685257, guid: f74b737bdaa524445afbb2af521463d2,
         type: 3}
       propertyPath: m_Mesh
@@ -1431,6 +1421,31 @@ PrefabInstance:
       propertyPath: canvasPath
       value: 
       objectReference: {fileID: 1660982291}
+    - target: {fileID: 439891537792229826, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: foodConsumption
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 439891537792229826, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: movementBaseCost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 439891537792229837, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: resources._values.Array.data[1]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 439891537792229837, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: resources._values.Array.data[2]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 439891537792229837, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: resources._values.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74b737bdaa524445afbb2af521463d2, type: 3}
 --- !u!114 &473431361 stripped

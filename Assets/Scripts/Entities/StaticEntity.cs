@@ -14,7 +14,8 @@ public class StaticEntity : Entity
     protected override void Start() {
         base.Start();
         staticEntitySO = entitySO as StaticEntitySO;
-        
+
+        OnPopulationChange += UpdateSprite;
     }
 
     private void Update() {
@@ -36,7 +37,7 @@ public class StaticEntity : Entity
         else {
             rendererToActivate = sprites[population-1];
         }
-        if (activeSprite != rendererToActivate) {
+        if (activeSprite != rendererToActivate && rendererToActivate) {
             activeSprite?.gameObject.SetActive(false);
             rendererToActivate.gameObject.SetActive(true);
             activeSprite = rendererToActivate;
