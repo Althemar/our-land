@@ -41,6 +41,9 @@ public class CustomTile : TileBase
 
     public AddonsDictionary addons;
 
+    public int addonLayer = 0;
+    public int addonSortingOffset = 1;
+
     public bool humidityDependant = true;
     public bool riverSource = false;
     public HexDirection riverDirection;

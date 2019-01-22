@@ -11,17 +11,16 @@ public class MovingEntity : Entity
 
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
-
-    public GameObject[] NW;
-    public GameObject[] W;
-    public GameObject[] SW;
-
-    public GameObject NWContainer;
-    public GameObject WContainer;
-    public GameObject SWContainer;
-
-
     
+    public GameObject[] NWTarget;
+    public GameObject[] WTarget;
+    public GameObject[] SWTarget;
+    public SkeletonAnimation[] SpineTarget;
+
+    public SkeletonDataAsset NWSkele;
+    public SkeletonDataAsset WSkele;
+    public SkeletonDataAsset SWSkele;
+
 
     private EntityHungerState hunger;
 
@@ -72,19 +71,59 @@ public class MovingEntity : Entity
     }
 
     public void UpdateSprite(HexDirection dir) {
-        if (!NWContainer || !WContainer || !SWContainer)
-            return;
-
         currentDir = dir;
 
         float flip = 1;
         if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
             flip = -1;
+        if(dir == HexDirection.NW || dir == HexDirection.NE)
+            flip *= -1;
 
         activatedSkeletons.Clear();
-        UpdateSkeletons(NWContainer, NW, flip, dir, HexDirection.NW, HexDirection.NE);
-        UpdateSkeletons(WContainer, W, flip, dir, HexDirection.W, HexDirection.E);
-        UpdateSkeletons(SWContainer, SW, flip, dir, HexDirection.SW, HexDirection.SE);
+
+        for (int i = 0; i < SpineTarget.Length; i++) {
+            bool activate = population > i;
+            SpineTarget[i].gameObject.SetActive(activate);
+            if (activate) {
+                activatedSkeletons.Add(SpineTarget[i]);
+            }
+        }
+
+        StopAllCoroutines();
+        for(int i = 0; i < 3; i++) {
+            switch(dir) {
+                case HexDirection.NW:
+                case HexDirection.NE:
+                    SpineTarget[i].skeletonDataAsset = NWSkele;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, NWTarget[i], -flip));
+                    break;
+                case HexDirection.W:
+                case HexDirection.E:
+                    SpineTarget[i].skeletonDataAsset = WSkele;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, WTarget[i], flip));
+                    break;
+                case HexDirection.SW:
+                case HexDirection.SE:
+                    SpineTarget[i].skeletonDataAsset = SWSkele;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, SWTarget[i], flip));
+                    break;
+            }
+            SpineTarget[i].initialFlipX = (flip == -1);
+            SpineTarget[i].Initialize(true);
+        }
+        
+    }
+
+    IEnumerator GoToTarget(GameObject entity, GameObject target, float flip) {
+        Vector3 pos = target.transform.localPosition;
+        pos.x *= flip;
+        pos = target.transform.localToWorldMatrix * pos;
+        ChangeAnimation("Walk", true);
+        while (Vector3.Distance(entity.transform.position, target.transform.parent.position + pos) > 0.01f) {
+            entity.transform.position = Vector3.MoveTowards(entity.transform.position, target.transform.parent.position + pos, Time.deltaTime);
+            yield return null;
+        }
+        ChangeAnimation("Idle", true);
     }
 
     public void UpdateSkeletons(GameObject container, GameObject[] sprites, float flip, HexDirection dir, HexDirection dir1, HexDirection dir2) {
@@ -116,7 +155,7 @@ public class MovingEntity : Entity
                 tile = newTile;
                 tile.movingEntity = this;
                 isMoving = true;
-            ChangeAnimation("Walk", true);
+                ChangeAnimation("Walk", true);
             } else {
                 onEndMove?.Invoke();
             }
