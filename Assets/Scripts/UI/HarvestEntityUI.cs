@@ -59,7 +59,6 @@ public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
 
     public void HarvestEntity() {
-        Playtest.TimedLog("Harvest " + Mathf.Floor(entity.population) + " " + entity.entitySO.name);
 
         if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
             entitiesHarvestable.activePopulationPoints.PlacePopulationPoint(entity);

@@ -183,7 +183,6 @@ public class TurnManager : MonoBehaviour
         if (state != TurnState.Player || motherShip.Movable.Moving || GameManager.Instance.GameState != GameState.Playing) {
             return;
         }
-        Playtest.TimedLog("End turn " + TurnCount + " - PA " + motherShip.remainingPopulationPoints);
         state = turnOrder[0];
         turnOrderIndex = 0;
         ChooseObjectsToUpdate();

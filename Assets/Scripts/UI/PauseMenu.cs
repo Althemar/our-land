@@ -31,6 +31,10 @@ public class PauseMenu : MonoBehaviour
         optionInstance = Instantiate(optionPrefab);
     }
 
+    public void Skip() {
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+    }
+
     public void Exit() {
         //Application.Quit();
         Playtest.EndPlaytest();

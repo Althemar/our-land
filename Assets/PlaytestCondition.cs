@@ -9,6 +9,10 @@ public class PlaytestCondition : MonoBehaviour {
 
     public GameObject victoryPanel;
 
+    void Start() {
+        Playtest.TimedLog("BEGIN PLAYTEST " + level);
+    }
+
     void Update() {
         if (GameManager.Instance.FrameCount == 0) {
             GameManager.Instance.motherShip.OnTurnBegin -= GameManager.Instance.CheckDefeat;
@@ -22,20 +26,27 @@ public class PlaytestCondition : MonoBehaviour {
     void CheckPlaytest() {
         switch(level) {
             case 1:
-                if(HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)) == GameManager.Instance.motherShip.Movable.CurrentTile)
+                if(HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)) == GameManager.Instance.motherShip.Movable.CurrentTile){
                     victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
+                }
                 break;
             case 2:
-                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null)
+                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null){
                     victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
+                }
                 break;
             case 3:
-                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null)
-                    Debug.Log("PLAYTEST DONE");
+                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null){
+                    victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
+                }
                 break;
             case 4:
                 if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) == 11) {
                     victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
                 } else {
                     GameManager.Instance.CheckDefeat();
                 }
@@ -43,12 +54,29 @@ public class PlaytestCondition : MonoBehaviour {
             case 5:
                 if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) > 30) {
                     victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
                 } else {
                     GameManager.Instance.CheckDefeat();
                 }
                 break;
+            case 6:
+                if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.foodResource) == 17 &&
+                    GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) == 17) {
+                    victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
+                } else {
+                    GameManager.Instance.CheckDefeat();
+                }
+                break;
+            case 7:
+                break;
             default:
-                Debug.LogWarning("Playtest condition not defined");
+                if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) > 30) {
+                    victoryPanel.SetActive(true);
+                    Playtest.TimedLog("VICTORY");
+                } else {
+                    GameManager.Instance.CheckDefeat();
+                }
                 break;
         }
     }

@@ -118,8 +118,10 @@ public class GameManager : MonoBehaviour
             var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
             DontDestroyOnLoad(consoleUI);
             Console.Init(consoleUI);
-            Console.AddCommand("reset", CmdReset, "Reset the game");
         }
+
+        Console.AddCommand("reset", CmdReset, "Reset the game");
+        Console.AddCommand("loadScene", CmdLoad, "Load a scene");
     }
 
     public void CheckDefeat() {
@@ -129,7 +131,6 @@ public class GameManager : MonoBehaviour
             Input.SetBlock(Input.Blocker.Defeat, true);
 
             gameState = GameState.Defeat;
-            Playtest.TimedLog("Defeat");
             StartCoroutine(WaitBeforeFinish());
         }
     }
@@ -149,13 +150,31 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    public void CmdReset(string[] arg) {
+    public void CmdReset(string[] args) {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void CmdLoad(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid number");
+                return;
+            }
+
+            if (n < 0 || n >= SceneManager.sceneCountInBuildSettings) {
+                Console.Write("Error: Invalid scene");
+                return;
+            }
+
+            SceneManager.LoadScene(n);
+        }
+        else {
+            Console.Write("Usage: loadScene [n] \nLoad the n-th scene.");
+        }
+    }
+
     public void ResetGame() {
-        Playtest.TimedLog("Game Reset Turn " + TurnManager.Instance.TurnCount);
-        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

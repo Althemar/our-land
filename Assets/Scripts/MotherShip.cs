@@ -160,8 +160,6 @@ public class MotherShip : Updatable
     }
 
     public void BeginMove() {
-        Playtest.TimedLog("Player Move");
-
         onMove = true;
         OnBeginMoving?.Invoke();
         outline.Clear();
@@ -237,7 +235,6 @@ public class MotherShip : Updatable
     public override void UpdateTurn() {
         base.UpdateTurn();
         if (targetTile != null) {
-            Playtest.TimedLog("Player Move");
             OnBeginMoving?.Invoke();
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();
