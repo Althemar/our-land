@@ -55,7 +55,7 @@ public class PathUI : MonoBehaviour
                     //text.text = "";
                 }
                 else {
-                    pathTiles[i].ActionPointCost = pathTiles[i + 1].ActionPointCost * motherShip.movementDistanceMultiplicator;
+                    pathTiles[i].ActionPointCost = Mathf.Round(pathTiles[i + 1].ActionPointCost * motherShip.movementDistanceMultiplicator);
                     //text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
                 }
                 if (pathTiles[i].ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource)) {
