@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class ExtensionMethodsForAI
 {
-    public static TileProperties NearestBiomeWithoutEntities(this TileProperties tp, CustomTile.TerrainType biome, int maxDistance = -1) {
+    public static TileProperties NearestBiomeWithoutEntities(this TileProperties tp, CustomTile.TerrainType biome, int maxDistance = -1, bool preview = false) {
         HashSet<TileProperties> visited = new HashSet<TileProperties>();
         visited.Add(tp);
 
@@ -12,7 +12,7 @@ public static class ExtensionMethodsForAI
         List<TileProperties> nextfringes = new List<TileProperties>();
 
         fringes.Add(tp);
-        if (tp.IsEmpty() && tp.Tile.terrainType == biome) {
+        if (tp.IsEmpty(preview) && tp.Tile.terrainType == biome) {
             return tp;
         }
         int distanceDone = 1;
@@ -22,7 +22,7 @@ public static class ExtensionMethodsForAI
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
                     if (neighbor && neighbor.Tile && !visited.Contains(neighbor) && neighbor.Tile.canWalkThrough) {
-                        if (neighbor.IsEmpty() && neighbor.Tile.terrainType == biome) {
+                        if (neighbor.IsEmpty(preview) && neighbor.Tile.terrainType == biome) {
                             return neighbor;
                         }
                         else {
