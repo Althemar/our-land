@@ -1740,7 +1740,7 @@ GameObject:
   - component: {fileID: 7946308881498552177}
   - component: {fileID: 9065083475956989051}
   m_Layer: 0
-  m_Name: Mouing 1
+  m_Name: Mouing Playtest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   SWContainer: {fileID: 649297351630940329}
   hasFled: 0
   isHungry: 0
-  remainingTurnsBeforeHungry: 5
+  remainingTurnsBeforeHungry: 1
   remainingTurnsBeforeDie: 2
 --- !u!114 &7946308881498552177
 MonoBehaviour:

@@ -72,7 +72,7 @@ public class ModeUI : MonoBehaviour {
             mouse.motherShip.RemoveActiveActionPoints();
         }
 
-        if (TurnManager.Instance.State != TurnManager.TurnState.Player) {
+        if (TurnManager.Instance.State != TurnManager.TurnState.Player || GameManager.Input.IsBlock) {
             actionText.text = I18N.GetText("pleaseWait");
             activeButton = false;
 

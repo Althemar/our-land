@@ -23,7 +23,7 @@ public class ConsoleGUI : MonoBehaviour, IConsoleUI {
     }
 
     public void Init() {
-        buildIdText.text = "Playtest 18/12" + " (" + Application.unityVersion + ")";
+        buildIdText.text = "Playtest 22/01" + " (" + Application.unityVersion + ")";
         Console.AddCommand("clear", CmdClear, "Clear the console log");
         SetOpen(false);
     }
@@ -144,6 +144,19 @@ public class Console {
         Write("Console ready");
 
         isInit = true;
+    }
+
+    public static void Reset() {
+        s_Commands.Clear();
+
+        s_ConsoleUI.Init();
+
+        AddCommand("help", CmdHelp, "Show available commands", CmdHelpAutocomplete);
+        AddCommand("vars", CmdVars, "Show available variables");
+        AddCommand("wait", CmdWait, "Wait for X frames");
+        AddCommand("exec", CmdExec, "Executes commands from file");
+
+        Write("Console ready");
     }
 
     public static void Shutdown() {

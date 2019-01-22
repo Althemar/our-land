@@ -135,7 +135,8 @@ public class MotherShip : Updatable
     }
 
     public void BeginTurn() {
-        inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
+        if(foodResource)
+            inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
         
         OnTurnBegin?.Invoke();
         OnRemainingPointsChanged?.Invoke();
@@ -159,8 +160,6 @@ public class MotherShip : Updatable
     }
 
     public void BeginMove() {
-        Playtest.TimedLog("Player Move");
-
         onMove = true;
         OnBeginMoving?.Invoke();
         outline.Clear();
@@ -236,7 +235,6 @@ public class MotherShip : Updatable
     public override void UpdateTurn() {
         base.UpdateTurn();
         if (targetTile != null) {
-            Playtest.TimedLog("Player Move");
             OnBeginMoving?.Invoke();
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();

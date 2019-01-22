@@ -2001,13 +2001,13 @@ MonoBehaviour:
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}
-    italicTypeface: {fileID: 0}
+    italicTypeface: {fileID: 11400000, guid: 2979c3e85018a004da69858221382669, type: 2}
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
-  - regularTypeface: {fileID: 0}
-    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 11400000, guid: 5be897120429b6c4db5922a46f6271e6, type: 2}
+    italicTypeface: {fileID: 11400000, guid: 08dbd473905bbd646ae593dfc05369b2, type: 2}
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}

@@ -12,10 +12,6 @@ public class CirclePath : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public bool interactable;
     public MotherShip motherShip;
 
-    public void Start() {
-        removeImage.gameObject.SetActive(false);
-    }
-
     public void InitCirclePath() {
         text.gameObject.SetActive(true);
         removeImage.gameObject.SetActive(false);

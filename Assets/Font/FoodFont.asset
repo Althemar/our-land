@@ -22,16 +22,17 @@ MonoBehaviour:
     y: 0
     width: 500
     height: 500
-    xOffset: 0
-    yOffset: 400
-    xAdvance: 500
-    scale: 1
+    xOffset: -20
+    yOffset: 380
+    xAdvance: 440
+    scale: 1.2
     name: Food
     hashCode: 2626498
     unicode: 0
     pivot: {x: -400, y: 400}
     sprite: {fileID: 21300000, guid: 7b36bc520a8a9a149bdec6f2baf2a067, type: 3}
-  fallbackSpriteAssets: []
+  fallbackSpriteAssets:
+  - {fileID: 11400000, guid: a279cc4d37ff2cf4cb997d125a65b7f8, type: 2}
 --- !u!21 &21194981750637996
 Material:
   serializedVersion: 6

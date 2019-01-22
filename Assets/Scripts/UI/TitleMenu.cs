@@ -11,7 +11,19 @@ public class TitleMenu : MonoBehaviour {
     GameObject optionInstance = null;
 
     void Awake () {
+        Playtest.EndPlaytest();
+
         canvas = GetComponent<Canvas>();
+
+        ConfigVar.Init();
+        
+        if(!Console.isInit) {
+            var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
+            DontDestroyOnLoad(consoleUI);
+            Console.Init(consoleUI);
+        } else {
+            Console.Reset();
+        }
     }
     
     void Update() {
@@ -19,6 +31,12 @@ public class TitleMenu : MonoBehaviour {
             canvas.enabled = false;
         else
             canvas.enabled = true;
+
+        Console.ConsoleUpdate();
+    }
+
+    private void LateUpdate() {
+        Console.ConsoleLateUpdate();
     }
 
     public void ShowOptions() {
@@ -26,7 +44,7 @@ public class TitleMenu : MonoBehaviour {
     }
 
     public void Play() {
-        SceneManager.LoadScene("Togi");
+        SceneManager.LoadScene("MiniPlaytest1");
 
         Playtest.StartNewPlaytest();
     }

@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
         public enum Blocker {
             None = 0,
             Console = 1,
-            Pause = 2
+            Pause = 2,
+            Defeat = 4
         }
         static Blocker blocks;
 
@@ -42,6 +43,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        public static bool IsBlock { get {
+                return blocks != Blocker.None;
+            }
+        }
+
         public static void SetBlock(Blocker b, bool value) {
             if (value)
                 blocks |= b;
@@ -50,40 +56,40 @@ public class GameManager : MonoBehaviour
         }
 
         internal static float GetAxis(string axis) {
-            return blocks != Blocker.None ? 0.0f : UnityEngine.Input.GetAxis(axis);
+            return IsBlock ? 0.0f : UnityEngine.Input.GetAxis(axis);
         }
         internal static float GetAxisRaw(string axis) {
-            return blocks != Blocker.None ? 0.0f : UnityEngine.Input.GetAxisRaw(axis);
+            return IsBlock ? 0.0f : UnityEngine.Input.GetAxisRaw(axis);
         }
 
         internal static bool GetButton(string but) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetButton(but);
+            return IsBlock ? false : UnityEngine.Input.GetButton(but);
         }
         internal static bool GetButtonUp(string but) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetButtonUp(but);
+            return IsBlock ? false : UnityEngine.Input.GetButtonUp(but);
         }
         internal static bool GetButtonDown(string but) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetButtonDown(but);
+            return IsBlock ? false : UnityEngine.Input.GetButtonDown(but);
         }
 
         internal static bool GetKey(KeyCode key) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetKey(key);
+            return IsBlock ? false : UnityEngine.Input.GetKey(key);
         }
         internal static bool GetKeyUp(KeyCode key) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetKeyUp(key);
+            return IsBlock ? false : UnityEngine.Input.GetKeyUp(key);
         }
         internal static bool GetKeyDown(KeyCode key) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetKeyDown(key);
+            return IsBlock ? false : UnityEngine.Input.GetKeyDown(key);
         }
 
         internal static bool GetMouseButton(int button) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButton(button);
+            return IsBlock ? false : UnityEngine.Input.GetMouseButton(button);
         }
         internal static bool GetMouseButtonUp(int button) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButtonUp(button);
+            return IsBlock ? false : UnityEngine.Input.GetMouseButtonUp(button);
         }
         internal static bool GetMouseButtonDown(int button) {
-            return blocks != Blocker.None ? false : UnityEngine.Input.GetMouseButtonDown(button);
+            return IsBlock ? false : UnityEngine.Input.GetMouseButtonDown(button);
         }
     }
 
@@ -102,6 +108,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             motherShip.OnTurnBegin += CheckDefeat;
             gameOverPanel.gameObject.SetActive(false);
+            Input.SetBlock(Input.Blocker.Defeat, false);
             gameState = GameState.Playing;
         }
 
@@ -111,16 +118,19 @@ public class GameManager : MonoBehaviour
             var consoleUI = Instantiate(Resources.Load<ConsoleGUI>("ConsoleGUI"));
             DontDestroyOnLoad(consoleUI);
             Console.Init(consoleUI);
-            Console.AddCommand("reset", CmdReset, "Reset the game");
         }
+
+        Console.AddCommand("reset", CmdReset, "Reset the game");
+        Console.AddCommand("loadScene", CmdLoad, "Load a scene");
     }
 
     public void CheckDefeat() {
-        if (motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
+        if (motherShip.foodResource && motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
             gameOverPanel.gameObject.SetActive(true);
-            gameOverPanel.text.text = "Your people survived " + TurnManager.Instance.TurnCount + " turns";
+            gameOverPanel.text.text = "Votre peuple a survécu " + TurnManager.Instance.TurnCount + " tours";
+            Input.SetBlock(Input.Blocker.Defeat, true);
+
             gameState = GameState.Defeat;
-            Playtest.TimedLog("Defeat");
             StartCoroutine(WaitBeforeFinish());
         }
     }
@@ -140,13 +150,31 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    public void CmdReset(string[] arg) {
+    public void CmdReset(string[] args) {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void CmdLoad(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid number");
+                return;
+            }
+
+            if (n < 0 || n >= SceneManager.sceneCountInBuildSettings) {
+                Console.Write("Error: Invalid scene");
+                return;
+            }
+
+            SceneManager.LoadScene(n);
+        }
+        else {
+            Console.Write("Usage: loadScene [n] \nLoad the n-th scene.");
+        }
+    }
+
     public void ResetGame() {
-        Playtest.TimedLog("Game Reset Turn " + TurnManager.Instance.TurnCount);
-        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
