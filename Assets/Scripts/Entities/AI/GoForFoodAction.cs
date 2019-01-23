@@ -66,6 +66,7 @@ public class GoForFoodAction : Action {
             if (entity.movingEntitySO.reproduceAtEachHarvest) {
                 entity.IncreasePopulation();
             }
+            entity.UpdateSprite(entity.Tile.Coordinates.Direction(target.Tile.Coordinates), distanceOfHarvest == 0);
 
 
             entity.isHungry = false;

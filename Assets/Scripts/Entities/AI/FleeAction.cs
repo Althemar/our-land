@@ -16,13 +16,12 @@ public class FleeAction : Action
             int distance = nearestPredatorTile.Coordinates.Distance(entity.Tile.Coordinates);
             if (distance <= fleeRange) {
                 TileProperties fleeTile = HexagonalGrid.Instance.GetTile(entity.Tile.Coordinates.Opposite(nearestPredatorTile.Coordinates));
-                if (fleeTile && !fleeTile.currentMovable && fleeTile.IsWalkable() && entity.movingEntitySO.availableTiles.Contains(fleeTile.Tile)) {
+                if (fleeTile && !fleeTile.movable && fleeTile.IsWalkable() && entity.movingEntitySO.availableTiles.Contains(fleeTile.Tile)) {
                    entity.MoveTo(fleeTile, null);
                    entity.hasFled = true;
                     return;
                 }
             }
-            
         }
 
     }

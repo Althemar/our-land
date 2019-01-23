@@ -36,17 +36,13 @@ public class GoForFoodActionPreview : Action {
                     Stack<TileProperties> path = entity.MoveTo(nearestEntity, null, true);
                     if (path != null && path.Count > 1) {
                         TileProperties[] aPath = path.ToArray();
-                        entity.previewTile.movablePreview = null;
-                        HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.white);
 
-                        entity.previewTile = aPath[1];
-                        entity.previewTile.movablePreview = entity.movable;
-                        HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.red);
+                        entity.SetPreviewTile(aPath[1]);
                         entity.UpdateSprite(entity.Tile.Coordinates.Direction(aPath[1].Coordinates));
                     }
                 }
                 else if (rightDistance) {
-                    entity.UpdateSprite(entity.Tile.Coordinates.Direction(target.Tile.Coordinates));
+                    entity.UpdateSprite(entity.Tile.Coordinates.Direction(target.Tile.Coordinates), entity.Tile.Coordinates.Distance(target.Tile.Coordinates) == 0);
                 }
             }
         }
