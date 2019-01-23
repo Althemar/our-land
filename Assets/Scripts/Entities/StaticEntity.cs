@@ -18,6 +18,10 @@ public class StaticEntity : Entity
         OnPopulationChange += UpdateSprite;
     }
 
+    void Destroy() {
+        OnPopulationChange -= UpdateSprite;
+    }
+
     private void Update() {
         if (GameManager.Instance.FrameCount == 0) {
             Initialize();

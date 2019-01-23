@@ -151,7 +151,7 @@ public class MouseController : MonoBehaviour {
     private void SetTarget() {
         if (reachableTiles.Displaying) {
             TileProperties targetTile = GetTile();
-            if (targetTile.movingEntity || targetTile.ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource) || targetTile == motherShip.Movable.CurrentTile
+            if (targetTile.movingEntity || targetTile.staticEntity || targetTile.ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource) || targetTile == motherShip.Movable.CurrentTile
                 || !targetTile.IsWalkable()) {
                 targetTile = null;
                 reachableTiles.UndisplayReachables();

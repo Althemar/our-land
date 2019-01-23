@@ -67,7 +67,7 @@ public class PathUI : MonoBehaviour
             }
             poolPoint[i].InitCirclePath();
             if (i == 0) {
-                if(pathTiles[i].IsWalkable() && !pathTiles[i].movingEntity) {
+                if(pathTiles[i].IsWalkable() && !pathTiles[i].movingEntity && !pathTiles[i].staticEntity) {
                     text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString() + "<sprite=0>";
                     poolPoint[i].removeImage.gameObject.SetActive(false);
                 }
