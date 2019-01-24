@@ -10,6 +10,7 @@ public class UICamera : MonoBehaviour {
         UICam = GetComponent<Camera>();
         worldCam = transform.parent.GetComponent<Camera>();
 
+        UICam.clearFlags = CameraClearFlags.SolidColor;
         UICam.enabled = true;
         worldCam.cullingMask ^= UICam.cullingMask;
     }
