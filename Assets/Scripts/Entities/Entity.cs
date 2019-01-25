@@ -111,8 +111,8 @@ public abstract class Entity : Updatable
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
             if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind && !neighbor.asLake &&
-                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
-                 || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.currentMovable != GameManager.Instance.motherShip.Movable))) {
+                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
+                 || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.movable != GameManager.Instance.motherShip.Movable))) {
                 freeTiles.Add(neighbor);
             }
         }
