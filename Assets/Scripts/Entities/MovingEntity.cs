@@ -16,6 +16,7 @@ public class MovingEntity : Entity
     public GameObject[] NWTarget;
     public GameObject[] WTarget;
     public GameObject[] SWTarget;
+    public GameObject[] CenterTarget;
     public SkeletonAnimation[] SpineTarget;
 
     public SkeletonDataAsset NWSkele;
@@ -80,12 +81,15 @@ public class MovingEntity : Entity
         UpdateSprite(currentDir);
     }
 
-    public void UpdateSprite(HexDirection dir) {
+    public void UpdateSprite(HexDirection dir, bool noDir = false) {
         if (this == null || gameObject == null)
             return;
         
         currentDir = dir;
 
+        if (!noDir) {
+
+        }
         float flip = 1;
         if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
             flip = -1;
@@ -103,22 +107,33 @@ public class MovingEntity : Entity
         }
 
         StopAllCoroutines();
+
+        GameObject[] target = null;
         for(int i = 0; i < 3; i++) {
-            switch(dir) {
+            if (noDir) {
+                dir = (HexDirection)Random.Range(0, 6);
+            }
+
+            int index = (!noDir) ? i : Random.Range(0, CenterTarget.Length / 3) + (i * (CenterTarget.Length / 3));
+
+            switch (dir) {
                 case HexDirection.NW:
                 case HexDirection.NE:
                     SpineTarget[i].skeletonDataAsset = NWSkele;
-                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, NWTarget[i], -flip));
+                    target = (!noDir) ? NWTarget : CenterTarget;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], -flip));
                     break;
                 case HexDirection.W:
                 case HexDirection.E:
                     SpineTarget[i].skeletonDataAsset = WSkele;
-                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, WTarget[i], flip));
+                    target = (!noDir) ? WTarget : CenterTarget;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
                 case HexDirection.SW:
                 case HexDirection.SE:
                     SpineTarget[i].skeletonDataAsset = SWSkele;
-                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, SWTarget[i], flip));
+                    target = (!noDir) ? SWTarget : CenterTarget;
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
             }
             SpineTarget[i].initialFlipX = (flip == -1);
@@ -164,15 +179,13 @@ public class MovingEntity : Entity
             if(newTile) {
                 tile.movable = null;
                 tile.movingEntity = null;
-                tile.movablePreview = null;
                 eventAfterMove = onEndMove;
                 tile = newTile;
                 tile.movingEntity = this;
-                tile.movablePreview = movable;
-                HexagonalGrid.Instance.Tilemap.SetColor(previewTile.Position, Color.white);
-                previewTile.movablePreview = null;
-                previewTile = tile;
+                tile.movable = movable;
+
                 isMoving = true;
+                SetPreviewTile(newTile, false);
                 ChangeAnimation("Walk", true);
             } else {
                 onEndMove?.Invoke();
@@ -231,9 +244,10 @@ public class MovingEntity : Entity
         eventAfterMove?.Invoke();
         eventAfterMove = null;
         isMoving = false;
+        /*
         tile.movingEntity = null;
         tile = movable.CurrentTile;
-        tile.movingEntity = this;
+        tile.movingEntity = this;*/
 
         if (!harvestAnimation) {
             if (isHungry) {
@@ -259,6 +273,16 @@ public class MovingEntity : Entity
             activatedSkeletons[i].state.Complete -= EndEating;
         }
         harvestAnimation = false;
+    }
+
+    public void SetPreviewTile(TileProperties aPreviewTile, bool colorTile = true) {
+        previewTile.movablePreview = null;
+        HexagonalGrid.Instance.Tilemap.SetColor(previewTile.Position, Color.white);
+
+        previewTile = aPreviewTile;
+        previewTile.movablePreview = movable;
+        //if (colorTile)
+           // HexagonalGrid.Instance.Tilemap.SetColor(aPreviewTile.Position, Color.red);
     }
 
     

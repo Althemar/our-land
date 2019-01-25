@@ -18,12 +18,8 @@ public class FleeActionPreview : Action
                 TileProperties fleeTile = HexagonalGrid.Instance.GetTile(entity.Tile.Coordinates.Opposite(nearestPredatorTile.Coordinates));
                 if (fleeTile && !fleeTile.movablePreview && fleeTile.IsWalkable() && entity.movingEntitySO.availableTiles.Contains(fleeTile.Tile)) {
                     entity.hasFled = true;
-                    entity.previewTile.movablePreview = null;
-                    HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.white);
 
-                    entity.previewTile = fleeTile;
-                    fleeTile.movablePreview = entity.movable;
-                    HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.red);
+                    entity.SetPreviewTile(fleeTile);
 
                     entity.UpdateSprite(entity.Tile.Coordinates.Direction(fleeTile.Coordinates));
                 }

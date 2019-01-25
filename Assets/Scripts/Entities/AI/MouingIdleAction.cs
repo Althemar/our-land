@@ -13,10 +13,12 @@ public class MouingIdleAction : Action {
         if (!entity.hasFled) {
             if (entity.Tile.Tile.terrainType != CustomTile.TerrainType.Grass || entity.Tile.staticEntity != null) {
                 var nearest = entity.Tile.NearestBiomeWithoutEntities(CustomTile.TerrainType.Grass, -1);
-                if (nearest)
+                if (nearest) {
                     entity.MoveTo(nearest, null);
+                }
             }
         }
+       
     }
     
     public override void OnExitState(StateController controller) {

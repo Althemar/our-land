@@ -22,7 +22,6 @@ public class FleeAction : Action
                     return;
                 }
             }
-            
         }
 
     }

@@ -37,7 +37,7 @@ public class Movable : MonoBehaviour
 
     public event OnMovableDelegate OnReachEndTile;
     
-    public delegate void OnDirectionDelegate(HexDirection dir);
+    public delegate void OnDirectionDelegate(HexDirection dir, bool noDir = false);
 
     public event OnDirectionDelegate OnChangeDirection;
 

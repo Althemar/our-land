@@ -16,17 +16,15 @@ public class MouingIdleActionPreview : Action {
                     if (path != null && path.Count > 1) {
                         TileProperties[] aPath = path.ToArray();
 
-                        entity.previewTile.movablePreview = null;
-                        HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.white);
-
-                        entity.previewTile = aPath[1];
-                        entity.previewTile.movablePreview = entity.movable;
-                        HexagonalGrid.Instance.Tilemap.SetColor(entity.previewTile.Position, Color.red);
+                        entity.SetPreviewTile(aPath[1]);
 
                         entity.UpdateSprite(entity.Tile.Coordinates.Direction(aPath[1].Coordinates));
+                        return;
                     }
                 }
             }
+            entity.UpdateSprite(HexDirection.E, true);
+
         }
     }
 
