@@ -63,6 +63,12 @@ public class MovingEntity : Entity
 
     }
 
+    void Destroy() {
+        movable.OnReachEndTile -= EndMoving;
+        movable.OnChangeDirection -= UpdateSprite;
+        OnPopulationChange -= UpdateSprite;
+    }
+
     private void Update() {
         if (GameManager.Instance.FrameCount == 0) {
             Initialize();
@@ -75,6 +81,9 @@ public class MovingEntity : Entity
     }
 
     public void UpdateSprite(HexDirection dir) {
+        if (this == null || gameObject == null)
+            return;
+        
         currentDir = dir;
 
         float flip = 1;

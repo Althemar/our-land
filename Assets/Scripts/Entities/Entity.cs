@@ -102,8 +102,8 @@ public abstract class Entity : Updatable
         population -= damage;
         if (population <= 0) {
             Kill();
-        }
-        OnPopulationChange?.Invoke();
+        } else
+            OnPopulationChange?.Invoke();
     }
    
     public TileProperties GetFreeAdjacentTile(EntityType type) {
@@ -111,8 +111,8 @@ public abstract class Entity : Updatable
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
             if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind && !neighbor.asLake &&
-                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
-                 || (type == EntityType.Static && neighbor.staticEntity == null))) {
+                    ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.currentMovable == null)
+                 || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.currentMovable != GameManager.Instance.motherShip.Movable))) {
                 freeTiles.Add(neighbor);
             }
         }

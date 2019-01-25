@@ -17,7 +17,10 @@ public class HumidityGrid : MonoBehaviour
     public Sprite triLakeN;
     public Sprite triLakeSW;
     public Sprite triLakeSE;
-
+    public Sprite triLakeS;
+    public Sprite triLakeNW;
+    public Sprite triLakeNE;
+    
     public Sprite glacier;
 
     public Sprite NERiver;
@@ -48,10 +51,26 @@ public class HumidityGrid : MonoBehaviour
 
     private void Awake() {
         grid = GetComponent<HexagonalGrid>();
+
+        Console.AddCommand("computeHumidity", CmdCompute, "Recompute the humidity");
     }
 
-    public void Compute() {
-        //grid.Tilemap.RefreshAllTiles();
+    void CmdCompute(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid amount");
+                return;
+            }
+
+            Compute(n);
+        }
+        else {
+            Console.Write("Usage: computeHumidity [n] \nCompute humidity at step n");
+        }
+    }
+
+    public void Compute(int debug = -1) {
 
         foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
             wo.InitCorridor();
@@ -92,14 +111,24 @@ public class HumidityGrid : MonoBehaviour
         }
 
         bool extend;
+        int loop = 0;
         do {
+            if (debug != -1 && loop >= debug)
+                break;
+
             extend = false;
+            River best = null;
             foreach (River r in riverList) {
                 if (r.force > 0) {
-                    r.ExtendRiver(grid);
-                    extend = true;
+                    if(best == null || best.force < r.force)
+                        best = r;
                 }
             }
+            if(best != null) {
+                best.ExtendRiver(grid);
+                extend = true;
+            }
+            loop++;
         } while (extend);
 
         foreach (River r in riverList) {

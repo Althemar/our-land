@@ -204,7 +204,7 @@ public class TileProperties : MonoBehaviour {
 
 
         if (r.counterClockwise) {
-            if (riverJonction[(int)direction] == null || riverJonction[(int)direction].force == 0) {
+            if (riverJonction[(int)direction] == null) {
                 riverJonction[(int)direction] = r;
                 if (GetNeighbor(direction))
                     GetNeighbor(direction).riverJonction[(int)direction.Opposite().Next()] = r;
@@ -219,7 +219,7 @@ public class TileProperties : MonoBehaviour {
 
         }
         else {
-            if (riverJonction[(int)direction.Next()] == null || riverJonction[(int)direction.Next()].force == 0) {
+            if (riverJonction[(int)direction.Next()] == null) {
                 if (riverJonction[(int)direction.Next()] != null)
                     r.force++;
                 riverJonction[(int)direction.Next()] = r;
@@ -257,6 +257,12 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(grid.humidity.triLakeSW, riversGameObjects, -150);
             else if (GetNeighbor(HexDirection.NW).asLake && GetNeighbor(HexDirection.W).asLake)
                 CreateSprite(grid.humidity.triLakeSE, riversGameObjects, -150);
+            else if (GetNeighbor(HexDirection.NW).asLake && GetNeighbor(HexDirection.NE).asLake)
+                CreateSprite(grid.humidity.triLakeS, riversGameObjects, -150);
+            else if (GetNeighbor(HexDirection.SE).asLake && GetNeighbor(HexDirection.E).asLake)
+                CreateSprite(grid.humidity.triLakeNW, riversGameObjects, -150);
+            else if (GetNeighbor(HexDirection.SW).asLake && GetNeighbor(HexDirection.W).asLake)
+                CreateSprite(grid.humidity.triLakeNE, riversGameObjects, -150);
             else
                 CreateSprite(grid.humidity.lake, riversGameObjects, -150);
         }
@@ -282,7 +288,7 @@ public class TileProperties : MonoBehaviour {
 
                     if (!rivers[(int)HexDirection.NW] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.W])
                         CreateSprite(grid.humidity.NERivNW, riversGameObjects, -300);
-                    else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.SE])
+                    if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.NE).rivers[(int)HexDirection.SE])
                         CreateSprite(grid.humidity.NERivSE, riversGameObjects, -300);
                     break;
                 case HexDirection.E:
@@ -310,7 +316,7 @@ public class TileProperties : MonoBehaviour {
                     CreateSprite(grid.humidity.SERiver, riversGameObjects, -300);
                     if (!rivers[(int)HexDirection.SW] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.W])
                         CreateSprite(grid.humidity.SERivSW, riversGameObjects, -300);
-                    else if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.NE])
+                    if (!rivers[(int)HexDirection.E] && !GetNeighbor(HexDirection.SE).rivers[(int)HexDirection.NE])
                         CreateSprite(grid.humidity.SERivNE, riversGameObjects, -300);
                     break;
             }
