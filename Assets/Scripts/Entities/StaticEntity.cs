@@ -35,7 +35,7 @@ public class StaticEntity : Entity
 
     public void UpdateSprite() {
         SpriteRenderer rendererToActivate;
-        if (population == 0) {
+        if (population <= 0) {
             rendererToActivate = null;
         }
         else {
