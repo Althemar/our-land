@@ -6,9 +6,16 @@ using UnityEngine;
 public abstract class MissionObjective : MonoBehaviour
 {
     public string description;
+    public bool targetWithCamera;
+
+    protected bool completed;
 
     public abstract bool Evaluate();
 
-    public abstract void StartObjective();
+    public virtual void StartObjective() {
+        if (targetWithCamera) {
+            MissionManager.Instance.AddTargetPosition(transform.position);
+        }
+    }
 
 }

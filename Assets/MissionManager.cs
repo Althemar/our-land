@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
+    public CameraControl cam;
     public Mission startingMission;
     public NewMissionUI newMissionUI;
     public EndMissionUI endMissionUI;
 
     public Transform newMissionUIParent;
 
-
     private Mission mainMission;
+    private Queue<Vector3> targetPositions;
 
     public static MissionManager Instance;
 
@@ -20,8 +23,10 @@ public class MissionManager : MonoBehaviour
     }
 
     private void Start() {
-        StartMission(startingMission);
         GameManager.Instance.motherShip.OnTurnBegin += Evaluate;
+        cam.OnReachTarget += GoToTile;
+        targetPositions = new Queue<Vector3>();
+        StartMission(startingMission);
     }
 
     private void Evaluate() {
@@ -33,7 +38,9 @@ public class MissionManager : MonoBehaviour
     public void StartMission(Mission mission) {
         mainMission = mission;
         mission.StartMission();
+        AddTargetPosition(GameManager.Instance.motherShip.transform.position);
         Instantiate(newMissionUI, newMissionUIParent).Initialize(mission);
+        GoToTile();
     }
 
     public void EndMission(Mission mission) {
@@ -42,4 +49,20 @@ public class MissionManager : MonoBehaviour
         }
         Destroy(mission.gameObject);
     }
+
+    public void AddTargetPosition(Vector3 position) {
+        targetPositions.Enqueue(position);
+    }
+
+    public void GoToTile() {
+        if (targetPositions.Count > 0) {
+            StartCoroutine(GoToTileCoroutine());
+        }
+    }
+
+    public IEnumerator GoToTileCoroutine() {
+        yield return new WaitForSeconds(2);
+        cam.SetTarget(targetPositions.Dequeue(), true);
+    }
+    
 }
