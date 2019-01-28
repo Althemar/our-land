@@ -42,15 +42,17 @@ public class ActivePopulationPoint : Updatable
         Vector3 position = entity.Tile.transform.position;
         position.y -= 1;
         Entity otherEntity = null;
-        if (entity.Tile.movingEntity == entity && entity.Tile.staticEntity != null) {
+        if (entity.Tile.movingEntity == entity) {
             otherEntity = entity.Tile.staticEntity;
+            if (otherEntity) {
+                position.x += 0.5f;
+            }
         }
-        else if (entity.Tile.staticEntity == entity && entity.Tile.movingEntity != null) {
+        else if (entity.Tile.staticEntity == entity) {
             otherEntity = entity.Tile.movingEntity;
-        }
-        if (otherEntity && otherEntity.populationPoint) {
-            otherEntity.populationPoint.transform.position += new Vector3(-0.5f, 0, 0);
-            position.x += 0.5f;
+            if(otherEntity) {
+                position.x -= 0.5f;
+            }
         }
 
         this.entity = entity;
@@ -120,7 +122,6 @@ public class ActivePopulationPoint : Updatable
         beginPosition = transform.position;
         targetPosition = PopulationPoints.Instance.motherShip.transform.position;
         StartCoroutine(MoveToTargetPosition(true));
-
     }
 
     private IEnumerator MoveToTargetPosition(bool pushInPool = false) {

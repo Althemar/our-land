@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,61 +7,25 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     public GameObject harvestEntityPrefab;
     public MotherShip motherShip;
     public PopulationPoints activePopulationPoints;
-
-    private TileProperties currentTile;
+    
     private bool displaying;
-
-    int sizePool = 2;
-    HarvestEntityUI[] pool;
+    
     public InfoEntityUI info;
 
     int buttonsCount = 0;
+
+    List<HarvestEntityUI> instanciate = new List<HarvestEntityUI>();
 
     public bool Displaying {
         get => displaying;
     }
 
-    public TileProperties CurrentTile {
-        get => currentTile;
+    void Start() {
+        motherShip.OnRemainingPointsChanged += UpdateButtons;
     }
 
-    private void Awake() {
-        pool = new HarvestEntityUI[sizePool];
-        for (int i = 0; i < sizePool; i++) {
-            GameObject item = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform);
-            item.SetActive(false);
-            pool[i] = item.GetComponent<HarvestEntityUI>();
-        }
-    }
-
-    public void NewEntitiesToHarvest(TileProperties tile) {
-        if (!tile) {
-            return;
-        }
-
-        Vector3 position = tile.transform.position;
-        position.y += 2;
-        position.z = transform.position.z;
-
-        buttonsCount = 0;
-        if (tile.staticEntity && !tile.staticEntity.populationPoint && tile.movingEntity &&!tile.movingEntity.populationPoint) {
-            Vector3 secondPosition = position;
-            position.x -= 2.5f;
-            secondPosition.x += 2.5f;
-            InstantiateHarvestUI(position, tile.staticEntity);
-            buttonsCount++;
-            InstantiateHarvestUI(secondPosition, tile.movingEntity);
-            displaying = true;
-        }
-        else if (tile.staticEntity && !tile.staticEntity.populationPoint) {
-            InstantiateHarvestUI(position, tile.staticEntity);
-            displaying = true;
-        }
-        else if (tile.movingEntity && !tile.movingEntity.populationPoint) {
-            InstantiateHarvestUI(position, tile.movingEntity);
-            displaying = true;
-        }
-        buttonsCount++;
+    void OnDestroy() {
+        motherShip.OnRemainingPointsChanged += UpdateButtons;
     }
 
     public void ShowInfo(TileProperties tile) {
@@ -81,28 +46,54 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         }
     }
 
-    private void InstantiateHarvestUI(Vector3 position, Entity entity) {
-        HarvestEntityUI harvestEntity = pool[buttonsCount];
-        harvestEntity.transform.position = position;
-        harvestEntity.gameObject.SetActive(true);
-        harvestEntity.Initialize(entity, this);
+    public void EntitiesToHarvest(List<TileProperties> tilesInRange) {
+        foreach (TileProperties tile in tilesInRange) {
+            Vector3 position = tile.transform.position;
+            position.y -= 1;
+            position.z = transform.position.z;
+
+            if (tile.staticEntity && tile.movingEntity) {
+                Vector3 movingPosition = position;
+                position.x -= 0.5f;
+                movingPosition.x += 0.5f;
+
+                AddButton(tile.staticEntity, position);
+                AddButton(tile.movingEntity, movingPosition);
+
+                displaying = true;
+            }
+            else if (tile.staticEntity) {
+                AddButton(tile.staticEntity, position);
+
+                displaying = true;
+            }
+            else if (tile.movingEntity) {
+                AddButton(tile.movingEntity, position);
+
+                displaying = true;
+            }
+        }
+    }
+
+    public void UpdateButtons() {
+        foreach (HarvestEntityUI button in instanciate) {
+            button.Refresh();
+        }
+    }
+
+    void AddButton(Entity entity, Vector3 position) {
+        HarvestEntityUI button = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform).GetComponent<HarvestEntityUI>();
+        button.transform.position = position;
+        button.Initialize(entity, this);
+        instanciate.Add(button);
     }
 
     public void Clear() {
-        for (int i = 0; i < buttonsCount; i++) {
-            pool[i].gameObject.SetActive(false);
+        for (int i = 0; i < instanciate.Count; i++) {
+            Destroy(instanciate[i].gameObject);
         }
+        instanciate.Clear();
         displaying = false;
     }
-
-    public bool CursorIsOnButton() {
-        for (int i = 0; i < buttonsCount; i++) {
-            if (pool[i].gameObject.activeSelf && pool[i].PointerIsOnButton) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     
 }

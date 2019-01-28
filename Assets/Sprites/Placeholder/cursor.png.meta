@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 3014993979afc3f48a9ddcb0116cc55c
+guid: 8d6f3fe0c249fbd4783c94e670f4aeb7
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: pictoconsonew_0
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -32,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -41,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -83,31 +82,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: pictoconsonew_0
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 19
-        width: 268
-        height: 161
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8074e8bb812d9d4782aac3b033d9f10
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e587c55a059febe49b0ed439a2ce98f0
+    spriteID: 979bae31543e84b42a6514daa8c72d9e
     vertices: []
     indices: 
     edges: []

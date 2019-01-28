@@ -16,12 +16,14 @@ public class PopulationPoints : MonoBehaviour {
 
     private void Start() {
         if (!Instance) {
-            populationPointsPool = SimplePoolHelper.PopulateSimplePool(populationPointsPool, populationPointPrefab, "activePopulationPoints", 10, transform);
+            populationPointsPool = SimplePoolHelper.PopulateSimplePool(populationPointsPool, populationPointPrefab, "activePopulationPoints", motherShip.remainingPopulationPoints, transform);
             Instance = this;
         }
     }
 
     public void PlacePopulationPoint(Entity entity) {
+        if (entity.populationPoint != null)
+            return;
         ActivePopulationPoint populationPoint = populationPointsPool.Pop();
         populationPoint.InitPopulationPoint(entity);
         motherShip.populationPoints.Add(populationPoint);
