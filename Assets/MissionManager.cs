@@ -12,6 +12,8 @@ public class MissionManager : MonoBehaviour
     public Transform newMissionUIParent;
 
     private List<Mission> currentMissions;
+    private Mission previousMission;
+    private int nextMissionIndex;
 
     public static MissionManager Instance;
 
@@ -43,11 +45,27 @@ public class MissionManager : MonoBehaviour
         missionCamera.GoToTile();
     }
 
-    public void EndMission(Mission mission) {
-        foreach (Mission nextMission in mission.nextMission) {
-            StartMission(nextMission);
+    public void AcceptMission() {
+        if (previousMission) {
+            if (nextMissionIndex < previousMission.nextMission.Length) {
+                DisplayNextMission();
+            }
+            else {
+                Destroy(previousMission);
+            }
         }
-        Destroy(mission.gameObject);
+    }
+
+    private void DisplayNextMission() {
+        StartMission(previousMission.nextMission[nextMissionIndex]);
+        nextMissionIndex++;
+    }
+    
+
+    public void EndMission(Mission mission) {
+        previousMission = mission;
+        nextMissionIndex = 0;
+        DisplayNextMission();
     }
 
  

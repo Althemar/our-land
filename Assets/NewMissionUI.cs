@@ -26,8 +26,7 @@ public class NewMissionUI : MonoBehaviour
     public void AcceptMission() {
         GameManager.Input.SetBlock(GameManager.Input.Blocker.Defeat, false);
         MissionManager.Instance.missionCamera.ReturnToShip(mission);
+        MissionManager.Instance.AcceptMission();
         Destroy(gameObject);
     }
-
-
 }
