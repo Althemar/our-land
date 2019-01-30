@@ -73,7 +73,7 @@ public class ActivePopulationPoint : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        Debug.Log(entity.population);
+        //Debug.Log(entity.population);
         turnCount++;
         HarvestEntity();
         EndTurn();
@@ -82,7 +82,7 @@ public class ActivePopulationPoint : Updatable
     }
 
     private void HarvestEntity() {
-        Debug.Log("Harvest");
+        //Debug.Log("Harvest");
         foreach (KeyValuePair<ResourceType, ArrayRessources> resource in entity.entitySO.resources) {
             float population;
             if (entity.population < 0) {
@@ -91,7 +91,7 @@ public class ActivePopulationPoint : Updatable
             else {
                 population = Mathf.Floor(entity.population);
             }
-            PopulationPoints.Instance.motherShip.Inventory.AddItem(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
+            PopulationPoints.Instance.motherShip.AddResource(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
         }
         entity.Harvest();
         entityDestroyed = true;

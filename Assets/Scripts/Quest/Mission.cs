@@ -11,18 +11,19 @@ public class Mission : MonoBehaviour
     public string awards;
 
     [ReorderableList]
-    public MissionObjective[] missionObjectives;
+    public Objective[] missionObjectives;
 
-    public Mission nextMission;
+    [ReorderableList]
+    public Mission[] nextMission;
 
     public void StartMission() {
-        foreach (MissionObjective objective in missionObjectives) {
+        foreach (Objective objective in missionObjectives) {
             objective.StartObjective();
         }
     }
 
     public bool Evaluate() {
-        foreach (MissionObjective objective in missionObjectives) {
+        foreach (Objective objective in missionObjectives) {
             if (!objective.Evaluate()) {
                 return false;
             }

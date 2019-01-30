@@ -9,35 +9,34 @@ public class MissionManager : MonoBehaviour
     public NewMissionUI newMissionUI;
     public EndMissionUI endMissionUI;
 
-
-
     public Transform newMissionUIParent;
 
-    private Mission mainMission;
+    private List<Mission> currentMissions;
 
     public static MissionManager Instance;
 
     private void Awake() {
         if (!Instance) {
             Instance = this;
+            currentMissions = new List<Mission>();
         }
     }
 
     private void Start() {
-        GameManager.Instance.motherShip.OnTurnBegin += Evaluate;
-        
-        
+        GameManager.Instance.motherShip.OnTurnBegin += Evaluate;  
         StartMission(startingMission);
     }
 
     private void Evaluate() {
-        if (mainMission && mainMission.Evaluate()) {
-            Instantiate(endMissionUI, newMissionUIParent).Initialize(mainMission);
+        foreach (Mission mission in currentMissions) {
+            if (mission.Evaluate()) {
+                Instantiate(endMissionUI, newMissionUIParent).Initialize(mission);
+            }
         }
     }
 
     public void StartMission(Mission mission) {
-        mainMission = mission;
+        currentMissions.Add(mission);
         mission.StartMission();
         Instantiate(newMissionUI, newMissionUIParent).Initialize(mission);
         missionCamera.SetTargetPositions(mission);
@@ -45,8 +44,8 @@ public class MissionManager : MonoBehaviour
     }
 
     public void EndMission(Mission mission) {
-        if (mission.nextMission) {
-            StartMission(mission.nextMission);
+        foreach (Mission nextMission in mission.nextMission) {
+            StartMission(nextMission);
         }
         Destroy(mission.gameObject);
     }

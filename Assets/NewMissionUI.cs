@@ -15,7 +15,7 @@ public class NewMissionUI : MonoBehaviour
         this.mission = mission;
         title.text = mission.title;
         objectives.text = "";
-        foreach (MissionObjective objective in mission.missionObjectives) {
+        foreach (Objective objective in mission.missionObjectives) {
             objectives.text += objective.description + "\n";
         }
         lore.text = mission.lore;

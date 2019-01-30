@@ -12,7 +12,6 @@ public class MissionCamera : MonoBehaviour
     private void Start() {
         cam.OnReachTarget += GoToTile;
         targetPositions = new Queue<Vector3>();
-
     }
 
     public void AddTargetPosition(Vector3 position) {
@@ -21,7 +20,7 @@ public class MissionCamera : MonoBehaviour
 
     public void SetTargetPositions(Mission mission) {
         targetPositions.Clear();
-        foreach (MissionObjective objective in mission.missionObjectives) {
+        foreach (Objective objective in mission.missionObjectives) {
             if (objective.targetWithCamera) {
                 AddTargetPosition(objective.transform.position);
             }
