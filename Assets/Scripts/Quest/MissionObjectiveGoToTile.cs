@@ -17,7 +17,6 @@ public class MissionObjectiveGoToTile : MissionObjective
     }
 
     public override void StartObjective() {
-        base.StartObjective();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
     }

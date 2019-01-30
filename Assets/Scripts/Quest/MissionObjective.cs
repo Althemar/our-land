@@ -12,10 +12,6 @@ public abstract class MissionObjective : MonoBehaviour
 
     public abstract bool Evaluate();
 
-    public virtual void StartObjective() {
-        if (targetWithCamera) {
-            MissionManager.Instance.AddTargetPosition(transform.position);
-        }
-    }
+    public abstract void StartObjective();
 
 }
