@@ -47,6 +47,11 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     }
 
     public void EntitiesToHarvest(List<TileProperties> tilesInRange) {
+        if (tilesInRange == null) {
+            Clear();
+            return;
+        }
+
         foreach (TileProperties tile in tilesInRange) {
             Vector3 position = tile.transform.position;
             position.y -= 1;

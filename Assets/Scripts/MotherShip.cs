@@ -79,17 +79,22 @@ public class MotherShip : Updatable
         get => movable;
     }
 
-    private void Start() {
+    void Awake() {
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();
         reachableTilesDisplay = GetComponent<ReachableTilesDisplay>();
         movable.OnReachEndTile += EndMove;
-        OnRemainingPointsChanged?.Invoke();
-        remainingPopulationPoints = maxPopulationPoints;
+
         Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
         Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
+
         populationPoints = new List<ActivePopulationPoint>();
         savedPopulationPoints = new List<ActivePopulationPoint>();
+    }
+
+    private void Start() {
+        OnRemainingPointsChanged?.Invoke();
+        remainingPopulationPoints = maxPopulationPoints;
         AddToTurnManager();
     }
 

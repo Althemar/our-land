@@ -19,5 +19,9 @@ public class MouseUI : MonoBehaviour {
             img.sprite = down;
         else
             img.sprite = up;
+
+
+        if (Input.GetMouseButton(1))
+            img.sprite = grab;
     }
 }
