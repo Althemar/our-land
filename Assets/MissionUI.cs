@@ -35,4 +35,10 @@ public class MissionUI : MonoBehaviour
             Destroy(objective.Value.gameObject);
         }
     }
+
+    public void UpdateMissionUI() {
+        foreach (KeyValuePair<Objective, ObjectiveProgressUI> objective in objectives) {
+                
+        }
+    }
 }

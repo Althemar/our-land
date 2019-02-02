@@ -25,6 +25,8 @@ public class ObjectiveGoToTile : Objective
             spriteRenderer.enabled = false;
             completed = true;
         }
+        base.Evaluate();
+        
         return completed;
     }
 }

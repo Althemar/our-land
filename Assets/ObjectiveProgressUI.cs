@@ -14,10 +14,17 @@ public class ObjectiveProgressUI : MonoBehaviour
     public void Initialize(Objective objective) {
         this.objective = objective;
         text.text = objective.GetProgressText();
+        objective.OnUpdate += UpdateObjective;
     }
 
-    public void UpdateText(bool completed) {
+    public void UpdateObjective() {
         text.text = objective.GetProgressText();
+        if (objective.Completed) {
+            completed.color = Color.green;
+        }
+        else {
+            completed.color = Color.white;
+        }
 
     }
   

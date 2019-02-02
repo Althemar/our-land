@@ -11,9 +11,12 @@ public class ObjectiveReachResources : Objective
     }
 
     public override bool Evaluate() {
+
         if (!completed && GameManager.Instance.motherShip.Inventory.GetResource(resource) >= goal) {
             completed = true;
         }
+        base.Evaluate();
+
         return completed;
     }
 

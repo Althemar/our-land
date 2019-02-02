@@ -31,7 +31,6 @@ public class MissionsUI : MonoBehaviour
             color.a = backgroundAlpha;
             image.color = color;
         }
-
     }
 
     public void EndMission(Mission mission) {
@@ -45,7 +44,12 @@ public class MissionsUI : MonoBehaviour
             color.a = 0;
             image.color = color;
         }
+    }
 
+    public void UpdateMissionsUI() {
+        foreach (KeyValuePair<Mission, MissionUI> pair in missionUIs) {
+            pair.Value.UpdateMissionUI();
+        }
     }
 
 }

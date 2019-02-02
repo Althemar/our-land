@@ -15,6 +15,7 @@ public class ObjectiveKeepResourceAbove : Objective
     }
 
     public override bool Evaluate() {
+
         if (!completed) {
             if (GameManager.Instance.motherShip.Inventory.GetResource(resource) >= amount && remainingTurns > 0) {
                 remainingTurns--;
@@ -26,11 +27,13 @@ public class ObjectiveKeepResourceAbove : Objective
                 remainingTurns++;
             }
         }
+        base.Evaluate();
+
         return completed;
     }
 
     public override string GetProgressText() {
-        return "Keep " + resource.name + " above " + amount + " during " + remainingTurns;
+        return "Keep " + resource.name + " above " + amount + " during " + remainingTurns + " turns";
     }
 }
 

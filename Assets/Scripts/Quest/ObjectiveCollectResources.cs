@@ -24,15 +24,21 @@ public class ObjectiveCollectResources : Objective
     }
 
     private void CollectResource(ResourceType resource, int count) {
-        if (this.resource == resource) {
+        if (this.resource == resource && this.count < goal) {
             this.count += count;
+            if (this.count > goal) {
+                this.count = goal;
+            }
         }
     }
 
     public override bool Evaluate() {
+
         if (!completed && count >= goal) {
             completed = true;
         }
+        base.Evaluate();
+
         return completed;
     }
 

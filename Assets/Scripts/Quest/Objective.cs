@@ -11,7 +11,15 @@ public abstract class Objective : MonoBehaviour
 
     protected bool completed;
 
-    public abstract bool Evaluate();
+    public bool Completed { get => completed; }
+
+    public delegate void Updated();
+    public Updated OnUpdate;
+
+    public virtual bool Evaluate() {
+        OnUpdate?.Invoke();
+        return false;
+    }
 
     public abstract void StartObjective();
 

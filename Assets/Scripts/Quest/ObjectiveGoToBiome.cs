@@ -13,6 +13,8 @@ public class ObjectiveGoToBiome : Objective
         if (!completed && GameManager.Instance.motherShip.Movable.CurrentTile.Tile.terrainType == terrain) {
             completed = true;
         }
+        base.Evaluate();
+
         return completed;
     }
 }
