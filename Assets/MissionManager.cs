@@ -57,8 +57,6 @@ public class MissionManager : MonoBehaviour
                 Destroy(previousMission);
             }
         }
-
-
     }
 
     private void DisplayNextMission() {

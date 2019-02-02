@@ -11,14 +11,9 @@ public class MissionsUI : MonoBehaviour
     private Dictionary<Mission, MissionUI> missionUIs;
     private Image image;
 
-    private float originalPosY;
-    private RectTransform rect;
-
     private void Awake() {
         missionUIs = new Dictionary<Mission, MissionUI>();
         image = GetComponent<Image>();
-        rect = GetComponent<RectTransform>();
-        originalPosY = rect.anchoredPosition.y;
     }
 
     private void Start() {
@@ -36,33 +31,12 @@ public class MissionsUI : MonoBehaviour
             color.a = backgroundAlpha;
             image.color = color;
         }
-        if (transform.childCount > 1) {
-            RectTransform missionRect = missionUI.GetComponent<RectTransform>();
-            float missionHeight = missionRect.rect.height;
-
-
-            Vector3 position = rect.anchoredPosition;
-            position.y -= missionHeight / 2;
-            rect.anchoredPosition = position;
-        }
 
     }
 
     public void EndMission(Mission mission) {
         MissionUI missionUI = missionUIs[mission];
-        if (transform.childCount > 1) {
-            RectTransform missionRect = missionUI.GetComponent<RectTransform>();
-            float missionHeight = missionRect.rect.height;
-            Vector3 position = rect.anchoredPosition;
-            position.y += missionHeight / 2;
-            rect.anchoredPosition = position;
-        }
-        else {
-            Vector3 position = rect.anchoredPosition;
-            position.y = originalPosY;
-            rect.anchoredPosition = position;
-        }
-        
+        missionUI.DestroyObjectivesUI();
         Destroy(missionUI.gameObject);
         missionUIs.Remove(mission);
 

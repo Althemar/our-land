@@ -13,6 +13,7 @@ public class ObjectiveProgressUI : MonoBehaviour
 
     public void Initialize(Objective objective) {
         this.objective = objective;
+        text.text = objective.GetProgressText();
     }
 
     public void UpdateText(bool completed) {
