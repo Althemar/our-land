@@ -5,7 +5,6 @@ using UnityEngine;
 public class ObjectiveGoToTile : Objective
 {
     private TileProperties tile;
-
     private SpriteRenderer spriteRenderer;
 
     void Update() {

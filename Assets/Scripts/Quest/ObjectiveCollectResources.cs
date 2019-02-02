@@ -35,4 +35,8 @@ public class ObjectiveCollectResources : Objective
         }
         return completed;
     }
+
+    public override string GetProgressText() {
+        return count + " / " + goal + " " + resource.name;
+    }
 }

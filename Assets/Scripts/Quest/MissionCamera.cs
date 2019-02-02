@@ -9,9 +9,12 @@ public class MissionCamera : MonoBehaviour
     private bool showObjectives;
     private Queue<Vector3> targetPositions;
 
+    private void Awake() {
+        targetPositions = new Queue<Vector3>();
+    }
+
     private void Start() {
         cam.OnReachTarget += GoToTile;
-        targetPositions = new Queue<Vector3>();
     }
 
     public void AddTargetPosition(Vector3 position) {

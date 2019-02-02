@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MissionCamera))]
 public class MissionManager : MonoBehaviour
 {
     public Mission startingMission;
@@ -10,6 +11,7 @@ public class MissionManager : MonoBehaviour
     public EndMissionUI endMissionUI;
 
     public Transform newMissionUIParent;
+    public MissionsUI missionsProgressUI;
 
     private List<Mission> currentMissions;
     private Mission previousMission;
@@ -45,7 +47,8 @@ public class MissionManager : MonoBehaviour
         missionCamera.GoToTile();
     }
 
-    public void AcceptMission() {
+    public void AcceptMission(Mission mission) {
+        missionsProgressUI.AddMission(mission);
         if (previousMission) {
             if (nextMissionIndex < previousMission.nextMission.Length) {
                 DisplayNextMission();
@@ -54,6 +57,8 @@ public class MissionManager : MonoBehaviour
                 Destroy(previousMission);
             }
         }
+
+
     }
 
     private void DisplayNextMission() {
@@ -63,9 +68,16 @@ public class MissionManager : MonoBehaviour
     
 
     public void EndMission(Mission mission) {
-        previousMission = mission;
-        nextMissionIndex = 0;
-        DisplayNextMission();
+        currentMissions.Remove(mission);
+        missionsProgressUI.EndMission(mission);
+        if (mission.nextMission.Length > 0) {
+            previousMission = mission;
+            nextMissionIndex = 0;
+            DisplayNextMission();
+        }
+        else {
+            Destroy(mission);
+        }
     }
 
  

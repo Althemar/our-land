@@ -28,5 +28,9 @@ public class ObjectiveKeepResourceAbove : Objective
         }
         return completed;
     }
+
+    public override string GetProgressText() {
+        return "Keep " + resource.name + " above " + amount + " during " + remainingTurns;
+    }
 }
 
