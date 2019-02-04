@@ -21,6 +21,6 @@ public class ObjectiveReachResources : Objective
     }
 
     public override string GetProgressText() {
-        return GameManager.Instance.motherShip.Inventory.GetResource(resource) + " / " + goal + " " + resource.name;
+        return "Reach " + GameManager.Instance.motherShip.Inventory.GetResource(resource) + " / " + goal + " " + resource.name;
     }
 }

@@ -166,7 +166,7 @@ public abstract class Entity : Updatable
                         }
                     }
                     if (computeWind) {
-                        adjacent.Grid.humidity.Compute();
+                        //adjacent.Grid.humidity.Compute();
                     }
 
                 }

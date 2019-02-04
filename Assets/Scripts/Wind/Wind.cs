@@ -97,12 +97,14 @@ public class Wind : Updatable
         }
         ps.Play();   
     }
+
     public override void UpdateTurn() {
         base.UpdateTurn();
 
         TileProperties nextTile = tile.GetNeighbor(direction);
 
         // Remove last wind
+        /*
         bool destroy = false;
         if (!previous && !previousAlreadyUpdated) {
             tile.wind = null;
@@ -135,7 +137,7 @@ public class Wind : Updatable
         if (destroy) {
             DestroyWind();
         }
-
+        */
         previousAlreadyUpdated = false;
         
         EndTurn();

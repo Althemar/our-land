@@ -43,6 +43,6 @@ public class ObjectiveCollectResources : Objective
     }
 
     public override string GetProgressText() {
-        return count + " / " + goal + " " + resource.name;
+        return "Collect " + count + " / " + goal + " " + resource.name;
     }
 }
