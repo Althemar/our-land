@@ -34,7 +34,7 @@ public class ResourceUI : MonoBehaviour {
         }
 
         int index = 0;
-        foreach (KeyValuePair<ResourceType, float> data in refCanvas.ship.Inventory.resources) {
+        foreach (KeyValuePair<ResourceType, int> data in refCanvas.ship.Inventory.resources) {
             ResourceTemplate template = pool[index++];
             template.icon.sprite = data.Key.icon;
             template.value.text = "" + data.Value;

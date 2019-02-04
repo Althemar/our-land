@@ -23,6 +23,18 @@ public class NewUX : MonoBehaviour {
 
         refCanvas.mouse.moveMode = false;
         refCanvas.mouse.harvestMode = true;
+
+        refCanvas.ship.OnTurnBegin += ReInit;
+    }
+
+    private void ReInit() {
+        isTakeOff = false;
+
+        refCanvas.mouse.moveMode = false;
+        refCanvas.mouse.harvestMode = true;
+        refCanvas.ship.CancelMove();
+        refCanvas.ship.ShowActiveActionPoints();
+        refCanvas.ship.ShowHarvestOutline();
     }
 
     private void Update() {
@@ -61,7 +73,14 @@ public class NewUX : MonoBehaviour {
             refCanvas.ship.ShowHarvestOutline();
             refCanvas.ship.CancelMove();
         }
+    }
 
-        Debug.Log("TakeOff");
+    public void EndTurn() {
+        TurnManager.Instance.EndTurn();
+
+        refCanvas.mouse.moveMode = false;
+        refCanvas.mouse.harvestMode = false;
+        refCanvas.ship.ClearActiveActionPoints();
+        refCanvas.ship.ClearHarvestOutline();
     }
 }

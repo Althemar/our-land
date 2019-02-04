@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class HarvestEntityUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class PopulationSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     public Button button;
 
     private Entity entity;

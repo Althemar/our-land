@@ -14,7 +14,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
 
     int buttonsCount = 0;
 
-    List<HarvestEntityUI> instanciate = new List<HarvestEntityUI>();
+    List<PopulationSlot> instanciate = new List<PopulationSlot>();
 
     public bool Displaying {
         get => displaying;
@@ -81,13 +81,13 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     }
 
     public void UpdateButtons() {
-        foreach (HarvestEntityUI button in instanciate) {
+        foreach (PopulationSlot button in instanciate) {
             button.Refresh();
         }
     }
 
     void AddButton(Entity entity, Vector3 position) {
-        HarvestEntityUI button = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform).GetComponent<HarvestEntityUI>();
+        PopulationSlot button = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform).GetComponent<PopulationSlot>();
         button.transform.position = position;
         button.Initialize(entity, this);
         instanciate.Add(button);

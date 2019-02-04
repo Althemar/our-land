@@ -39,7 +39,7 @@ public abstract class Entity : Updatable
         get => harvestedBonus;
     }
 
-    void Awake() {
+    protected virtual void Awake() {
         stateController = GetComponent<StateController>();
         stateController.SetupAI(true);
     }

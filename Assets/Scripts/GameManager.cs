@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
             None = 0,
             Console = 1,
             Pause = 2,
-            Defeat = 4
+            Defeat = 4,
+            Ship = 8
         }
         static Blocker blocks;
 

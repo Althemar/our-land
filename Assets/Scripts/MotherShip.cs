@@ -22,7 +22,7 @@ public class MotherShip : Updatable
     [BoxGroup("Food")]
     public ResourceType foodResource;
     [BoxGroup("Food")]
-    public float foodConsumption;
+    public int foodConsumption;
 
     [BoxGroup("Movement")]
     public ResourceType fuelResource;
@@ -53,7 +53,9 @@ public class MotherShip : Updatable
     [SerializeField]
     public Resources resources;
 
-    
+    [HideInInspector]
+    public List<Bonus> bonuses = new List<Bonus>();
+    public enum ActionType { Harvest, Move, FoodConsumption, Bonus }
 
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;
@@ -96,6 +98,7 @@ public class MotherShip : Updatable
         OnRemainingPointsChanged?.Invoke();
         remainingPopulationPoints = maxPopulationPoints;
         AddToTurnManager();
+        ShowHarvestOutline();
     }
 
     private void CmdAddPA(string[] args) {
@@ -131,17 +134,9 @@ public class MotherShip : Updatable
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.Instance.FrameCount == 0) {
-            ShowHarvestOutline();
-        }
-    }
-
     public void BeginTurn() {
         if(foodResource)
-            inventory.AddItem(foodResource, -foodConsumption * inventory.resources[populationResource]);
+            AddItem(foodResource, -foodConsumption * inventory.resources[populationResource], ActionType.FoodConsumption);
         
         OnTurnBegin?.Invoke();
         OnRemainingPointsChanged?.Invoke();
@@ -150,8 +145,13 @@ public class MotherShip : Updatable
     public void ClearHarvestOutline() {
         outline.Clear();
     }
-
     
+    public void AddItem(ResourceType type, int amount, ActionType action) {
+        foreach(Bonus b in bonuses) {
+            b.BonusEffectItem(action, type, ref amount);
+        }
+        inventory.AddItem(type, amount);
+    }
 
     public void ShowHarvestOutline() {
         tilesInRange = movable.CurrentTile.InRange(harvestDistance);
@@ -239,12 +239,17 @@ public class MotherShip : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+
+        foreach (Bonus b in bonuses) {
+            b.BonusEffectEndTurn();
+        }
+
         if (targetTile != null) {
             OnBeginMoving?.Invoke();
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();
             BeginMove();
-            inventory.AddItem(fuelResource, Mathf.Floor(-targetTile.ActionPointCost));
+            AddItem(fuelResource, (int)Mathf.Floor(-targetTile.ActionPointCost), ActionType.Move);
             savedPopulationPoints.Clear();
         } else {
             EndTurn();

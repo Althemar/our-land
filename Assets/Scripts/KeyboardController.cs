@@ -9,7 +9,6 @@ public class KeyboardController : MonoBehaviour {
 
     void Update () {
         if(Input.GetButtonDown("Cancel")) {
-            Debug.Log("PAUSE");
             if(pauseInstance == null) {
                 Camera.main.GetComponent<DrawEntity>().UICam.cullingMask = Camera.main.GetComponent<DrawEntity>().UICam.cullingMask & (~LayerMask.GetMask("UI"));
                 pauseInstance = Instantiate(pausePrefab);

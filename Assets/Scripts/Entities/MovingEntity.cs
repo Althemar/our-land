@@ -43,10 +43,14 @@ public class MovingEntity : Entity
     [HideInInspector]
     public bool harvestAnimation;
 
-    protected override void Start() {
-        base.Start();
+    protected override void Awake() {
+        base.Awake();
         movable = GetComponent<Movable>();
         movable.hexGrid = TurnManager.Instance.grid;
+    }
+
+    protected override void Start() {
+        base.Start();
         movable.OnReachEndTile += EndMoving;
         movable.OnChangeDirection += UpdateSprite;
         OnPopulationChange += UpdateSprite;
