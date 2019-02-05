@@ -23,8 +23,12 @@ public class CameraControl : MonoBehaviour {
     // UGLY, in the future: allow traget any entity
     public MotherShip playerShip;
     bool follow;
+    bool auto;
 
     public bool enableBorderMovement = true;
+
+    public delegate void CameraDelegate();
+    public event CameraDelegate OnReachTarget;
 
     void Start () {
         cam = this.transform.GetChild(0).GetComponent<Camera>();
@@ -73,8 +77,9 @@ public class CameraControl : MonoBehaviour {
         targetPosition = LimitToBounds(targetPosition);
     }
 
-    public void SetTarget(Vector3 targ) {
+    public void SetTarget(Vector3 targ, bool auto = false) {
         targetPosition = targ;
+        this.auto = auto;
     }
 
     public void SetZoomLevel(float targ) {
@@ -98,6 +103,11 @@ public class CameraControl : MonoBehaviour {
     void MoveCamera() {
         Vector2 nextPosition = Vector2.MoveTowards(this.transform.position, targetPosition, Time.deltaTime * maxSpeed);
         nextPosition = LimitToBounds(nextPosition);
+
+        if (auto && nextPosition == targetPosition) {
+            OnReachTarget?.Invoke();
+            auto = false;
+        }
 
         this.transform.position = nextPosition;
     }

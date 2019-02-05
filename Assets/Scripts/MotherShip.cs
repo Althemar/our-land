@@ -63,6 +63,9 @@ public class MotherShip : Updatable
     public OnMotherShipDelegate OnEndMoving;
     public OnMotherShipDelegate OnRemainingPointsChanged;
 
+    public delegate void InventoryChangeDelegate(ResourceType resource, int amount);
+    public InventoryChangeDelegate OnResourceGained;
+
     public bool OnMove {
         get => onMove;
     }
@@ -245,7 +248,6 @@ public class MotherShip : Updatable
         }
 
         if (targetTile != null) {
-            OnBeginMoving?.Invoke();
             reachableTilesDisplay.UndisplayReachables();
             outline.Clear();
             BeginMove();
@@ -254,5 +256,10 @@ public class MotherShip : Updatable
         } else {
             EndTurn();
         }
+    }
+
+    public void AddResource(ResourceType resource, int gain) {
+        inventory.AddItem(resource, gain);
+        OnResourceGained?.Invoke(resource, gain);
     }
 }
