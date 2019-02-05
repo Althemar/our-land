@@ -47,6 +47,8 @@ public class MovingEntity : Entity
         base.Awake();
         movable = GetComponent<Movable>();
         movable.hexGrid = TurnManager.Instance.grid;
+
+        movingEntitySO = entitySO as MovingEntitySO;
     }
 
     protected override void Start() {
@@ -59,9 +61,9 @@ public class MovingEntity : Entity
             tile.movable = movable;
         }
 
-        movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
 
+        Initialize();
     }
 
     void Destroy() {
@@ -69,13 +71,7 @@ public class MovingEntity : Entity
         movable.OnChangeDirection -= UpdateSprite;
         OnPopulationChange -= UpdateSprite;
     }
-
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Initialize();
-        }
-    }
-
+    
     HexDirection currentDir;
     public void UpdateSprite() {
         UpdateSprite(currentDir);
@@ -124,7 +120,7 @@ public class MovingEntity : Entity
                         activatedSkeletons.Add(SpineTarget[i].NW);
 
                     target = (!noDir) ? NWTarget : CenterTarget;
-                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], -flip));
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
                 case HexDirection.W:
                 case HexDirection.E:
@@ -208,16 +204,6 @@ public class MovingEntity : Entity
         OnHarvest(this, target);
 
         target.Eaten(1);
-
-        /*int remainingFood = population - reserve;
-        if (target.population > remainingFood) { // if there is more than enough food        
-            reserve += remainingFood;
-            target.Eaten(remainingFood);
-        } else {
-            reserve += target.population;
-            target.Eaten(target.population);
-        }
-        */
     }
 
     public override void Initialize(int population = -1) {
@@ -279,13 +265,6 @@ public class MovingEntity : Entity
 
         previewTile = aPreviewTile;
         previewTile.movablePreview = movable;
-        //if (colorTile)
-           // HexagonalGrid.Instance.Tilemap.SetColor(aPreviewTile.Position, Color.red);
     }
-
     
-
-    
-   
-
 }

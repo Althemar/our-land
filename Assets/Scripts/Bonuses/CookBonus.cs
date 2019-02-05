@@ -9,7 +9,7 @@ public class CookBonus : Bonus {
     public override void BonusEffectItem(MotherShip.ActionType action, ResourceType resource, ref int amount) {
         if (base.DoBonus) {
             if (action == MotherShip.ActionType.FoodConsumption && resource == GameManager.Instance.motherShip.foodResource) {
-                amount -= foodConsumptionReduction;
+                amount += foodConsumptionReduction;
             }
         }
     }

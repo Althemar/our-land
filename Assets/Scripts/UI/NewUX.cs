@@ -44,9 +44,9 @@ public class NewUX : MonoBehaviour {
             takeOffButton.interactable = false;
         } else {
             if(!isTakeOff)
-                takeOffText.text = I18N.GetText("switchToHarvest");
-            else
                 takeOffText.text = I18N.GetText("switchToMovement");
+            else
+                takeOffText.text = I18N.GetText("switchToHarvest");
 
             takeOffButton.interactable = true;
         }

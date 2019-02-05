@@ -236,9 +236,6 @@ public abstract class Entity : Updatable
             }
             skeletonAnimation.state.ClearTrack(0);
             skeletonAnimation.state.SetAnimation(0, animationName, loop);
-            SkeletonAnimation shadow = skeletonAnimation.transform.GetChild(0).GetComponent<SkeletonAnimation>();
-            shadow.state.ClearTrack(0);
-            shadow.state.SetAnimation(0, animationName, loop);
         }
     }
 
