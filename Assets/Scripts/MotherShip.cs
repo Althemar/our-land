@@ -149,11 +149,12 @@ public class MotherShip : Updatable
         outline.Clear();
     }
     
-    public void AddItem(ResourceType type, int amount, ActionType action) {
+    public void AddItem(ResourceType resource, int amount, ActionType action) {
         foreach(Bonus b in bonuses) {
-            b.BonusEffectItem(action, type, ref amount);
+            b.BonusEffectItem(action, resource, ref amount);
         }
-        inventory.AddItem(type, amount);
+        inventory.AddItem(resource, amount);
+        OnResourceGained?.Invoke(resource, amount);
     }
 
     public void ShowHarvestOutline() {
@@ -256,10 +257,5 @@ public class MotherShip : Updatable
         } else {
             EndTurn();
         }
-    }
-
-    public void AddResource(ResourceType resource, int gain) {
-        inventory.AddItem(resource, gain);
-        OnResourceGained?.Invoke(resource, gain);
     }
 }
