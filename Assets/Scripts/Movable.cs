@@ -82,17 +82,18 @@ public class Movable : MonoBehaviour
      * Methods
      */
 
-    private void Start() {
+    private void Awake() {
         tilemap = hexGrid.GetComponent<Tilemap>();
     }
 
+    private void Start() {
+        Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+        currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+        currentTile.movable = this;
+        transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(currentTile.Position);
+    }
+
     private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
-            currentTile = hexGrid.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-            currentTile.movable = this;
-            transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(currentTile.Position);
-        }
         if (moving) {
             if (TurnManager.Instance != null && TurnManager.Instance.isFastTurn) {
                 progress += speed * TurnManager.Instance.fastTurnSpeedMultiplicator * Time.deltaTime;

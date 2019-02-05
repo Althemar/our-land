@@ -17,12 +17,8 @@ public class MovingEntity : Entity
     public GameObject[] WTarget;
     public GameObject[] SWTarget;
     public GameObject[] CenterTarget;
-    public SkeletonAnimation[] SpineTarget;
 
-    public SkeletonDataAsset NWSkele;
-    public SkeletonDataAsset WSkele;
-    public SkeletonDataAsset SWSkele;
-
+    public SpineOrientation[] SpineTarget;
 
     private EntityHungerState hunger;
 
@@ -47,10 +43,16 @@ public class MovingEntity : Entity
     [HideInInspector]
     public bool harvestAnimation;
 
-    protected override void Start() {
-        base.Start();
+    protected override void Awake() {
+        base.Awake();
         movable = GetComponent<Movable>();
         movable.hexGrid = TurnManager.Instance.grid;
+
+        movingEntitySO = entitySO as MovingEntitySO;
+    }
+
+    protected override void Start() {
+        base.Start();
         movable.OnReachEndTile += EndMoving;
         movable.OnChangeDirection += UpdateSprite;
         OnPopulationChange += UpdateSprite;
@@ -59,9 +61,9 @@ public class MovingEntity : Entity
             tile.movable = movable;
         }
 
-        movingEntitySO = entitySO as MovingEntitySO;
         hunger = EntityHungerState.Full;
 
+        Initialize();
     }
 
     void Destroy() {
@@ -69,13 +71,7 @@ public class MovingEntity : Entity
         movable.OnChangeDirection -= UpdateSprite;
         OnPopulationChange -= UpdateSprite;
     }
-
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Initialize();
-        }
-    }
-
+    
     HexDirection currentDir;
     public void UpdateSprite() {
         UpdateSprite(currentDir);
@@ -93,17 +89,12 @@ public class MovingEntity : Entity
         float flip = 1;
         if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
             flip = -1;
-        if(dir == HexDirection.NW || dir == HexDirection.NE)
-            flip *= -1;
 
         activatedSkeletons.Clear();
 
         for (int i = 0; i < SpineTarget.Length; i++) {
             bool activate = population > i;
             SpineTarget[i].gameObject.SetActive(activate);
-            if (activate) {
-                activatedSkeletons.Add(SpineTarget[i]);
-            }
         }
 
         StopAllCoroutines();
@@ -116,28 +107,42 @@ public class MovingEntity : Entity
 
             int index = (!noDir) ? i : Random.Range(0, CenterTarget.Length / 3) + (i * (CenterTarget.Length / 3));
 
+
+            SpineTarget[i].NW.gameObject.SetActive(false);
+            SpineTarget[i].W.gameObject.SetActive(false);
+            SpineTarget[i].SW.gameObject.SetActive(false);
+
             switch (dir) {
                 case HexDirection.NW:
                 case HexDirection.NE:
-                    SpineTarget[i].skeletonDataAsset = NWSkele;
+                    SpineTarget[i].NW.gameObject.SetActive(true);
+                    if(population > i)
+                        activatedSkeletons.Add(SpineTarget[i].NW);
+
                     target = (!noDir) ? NWTarget : CenterTarget;
-                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], -flip));
+                    StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
                 case HexDirection.W:
                 case HexDirection.E:
-                    SpineTarget[i].skeletonDataAsset = WSkele;
+                    SpineTarget[i].W.gameObject.SetActive(true);
+                    if (population > i)
+                        activatedSkeletons.Add(SpineTarget[i].W);
+
                     target = (!noDir) ? WTarget : CenterTarget;
                     StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
                 case HexDirection.SW:
                 case HexDirection.SE:
-                    SpineTarget[i].skeletonDataAsset = SWSkele;
+                    SpineTarget[i].SW.gameObject.SetActive(true);
+                    if (population > i)
+                        activatedSkeletons.Add(SpineTarget[i].SW);
+
                     target = (!noDir) ? SWTarget : CenterTarget;
                     StartCoroutine(GoToTarget(SpineTarget[i].gameObject, target[index], flip));
                     break;
             }
-            SpineTarget[i].initialFlipX = (flip == -1);
-            SpineTarget[i].Initialize(true);
+
+            SpineTarget[i].transform.localScale = SpineTarget[i].transform.localScale.y * new Vector3(flip, 1, 1);
         }
         
     }
@@ -152,17 +157,6 @@ public class MovingEntity : Entity
             yield return null;
         }
         ChangeAnimation("Idle", true);
-    }
-
-    public void UpdateSkeletons(GameObject container, GameObject[] sprites, float flip, HexDirection dir, HexDirection dir1, HexDirection dir2) {
-        container.transform.localScale = new Vector3(flip, 1, 1);
-        for (int i = 0; i < sprites.Length; i++) {
-            bool activate = (dir == dir1 || dir == dir2) && population > i;
-            sprites[i].SetActive(activate);
-            if (activate) {
-                activatedSkeletons.Add(sprites[i].GetComponent<SkeletonAnimation>());
-            }
-        }
     }
 
     public override void UpdateTurn() {
@@ -210,16 +204,6 @@ public class MovingEntity : Entity
         OnHarvest(this, target);
 
         target.Eaten(1);
-
-        /*int remainingFood = population - reserve;
-        if (target.population > remainingFood) { // if there is more than enough food        
-            reserve += remainingFood;
-            target.Eaten(remainingFood);
-        } else {
-            reserve += target.population;
-            target.Eaten(target.population);
-        }
-        */
     }
 
     public override void Initialize(int population = -1) {
@@ -281,13 +265,6 @@ public class MovingEntity : Entity
 
         previewTile = aPreviewTile;
         previewTile.movablePreview = movable;
-        //if (colorTile)
-           // HexagonalGrid.Instance.Tilemap.SetColor(aPreviewTile.Position, Color.red);
     }
-
     
-
-    
-   
-
 }

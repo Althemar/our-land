@@ -38,12 +38,12 @@ public class MouseController : MonoBehaviour {
         }
 
 
-        if (GameManager.Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+        if (GameManager.Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject()) {
             viewportOrigin = cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
             drag = true;
         }
 
-        if (GameManager.Input.GetMouseButton(0) && drag) {
+        if (GameManager.Input.GetMouseButton(1) && drag) {
             Vector2 drag = viewportOrigin - cam.ScreenToWorldPoint(GameManager.Input.mousePosition);
 
             cameraman.DragCamera(drag);
@@ -70,32 +70,23 @@ public class MouseController : MonoBehaviour {
         cameraman.ChangeZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
 
         if (harvestMode) {
-            //cameraman.SetTarget(motherShip.transform.position);
-            //cameraman.SetZoomLevel(7f);
-            if (GameManager.Input.GetMouseButtonDown(0)) {
-                if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player) {
-                    TileProperties tile = GetTile();
-
-                    if (motherShip.TilesInRange.Contains(tile) && entitiesHarvestable.CurrentTile != tile && !entitiesHarvestable.CursorIsOnButton()) {
-                        entitiesHarvestable.Clear();
-                        entitiesHarvestable.NewEntitiesToHarvest(tile);
-                    }
-                    else if (entitiesHarvestable.Displaying && !entitiesHarvestable.CursorIsOnButton()) {
-                        entitiesHarvestable.Clear();
-                    }
-                }
+            if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player && !entitiesHarvestable.Displaying) {
+                entitiesHarvestable.Clear();
+                entitiesHarvestable.EntitiesToHarvest(motherShip.TilesInRange);
             }
+        } else {
+            entitiesHarvestable.Clear();
         }
 
         if(moveMode) {
-            if (GameManager.Input.GetMouseButtonDown(1)) {
+            if (GameManager.Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
                 ShowPath();
             }
-            else if (GameManager.Input.GetMouseButtonUp(1)) {
+            else if (GameManager.Input.GetMouseButtonUp(0)) {
                 SetTarget();
             }
 
-            if (GameManager.Input.GetMouseButton(1) && reachableTiles.Displaying) {
+            if (GameManager.Input.GetMouseButton(0) && reachableTiles.Displaying && !EventSystem.current.IsPointerOverGameObject()) {
                 reachableTiles.RefreshPath(GetTile());
             }
         }

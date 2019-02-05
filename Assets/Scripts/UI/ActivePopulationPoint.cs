@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActivePopulationPoint : Updatable
-{
+public class ActivePopulationPoint : Updatable {
     public Image pointIsActiveSprite;
     public Sprite normalSprite;
 
@@ -29,7 +28,7 @@ public class ActivePopulationPoint : Updatable
         TurnManager.Instance.RemoveFromUpdate(this);
     }
 
-    
+
 
     public void InitPopulationPoint(Entity entity, int turnCount = 0) {
         button = GetComponent<Button>();
@@ -42,15 +41,17 @@ public class ActivePopulationPoint : Updatable
         Vector3 position = entity.Tile.transform.position;
         position.y -= 1;
         Entity otherEntity = null;
-        if (entity.Tile.movingEntity == entity && entity.Tile.staticEntity != null) {
+        if (entity.Tile.movingEntity == entity) {
             otherEntity = entity.Tile.staticEntity;
+            if (otherEntity) {
+                position.x += 0.5f;
+            }
         }
-        else if (entity.Tile.staticEntity == entity && entity.Tile.movingEntity != null) {
+        else if (entity.Tile.staticEntity == entity) {
             otherEntity = entity.Tile.movingEntity;
-        }
-        if (otherEntity && otherEntity.populationPoint) {
-            otherEntity.populationPoint.transform.position += new Vector3(-0.5f, 0, 0);
-            position.x += 0.5f;
+            if (otherEntity) {
+                position.x -= 0.5f;
+            }
         }
 
         this.entity = entity;
@@ -73,16 +74,14 @@ public class ActivePopulationPoint : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-        Debug.Log(entity.population);
         turnCount++;
         HarvestEntity();
         EndTurn();
-        if(entity.population <= 0)
+        if (entity.population <= 0)
             RemovePopulationPoint();
     }
 
     private void HarvestEntity() {
-        Debug.Log("Harvest");
         foreach (KeyValuePair<ResourceType, ArrayRessources> resource in entity.entitySO.resources) {
             float population;
             if (entity.population < 0) {
@@ -91,13 +90,13 @@ public class ActivePopulationPoint : Updatable
             else {
                 population = Mathf.Floor(entity.population);
             }
-            PopulationPoints.Instance.motherShip.Inventory.AddItem(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
+            PopulationPoints.Instance.motherShip.AddItem(resource.Key, resource.Value.gain[entity.HarvestedBonus], MotherShip.ActionType.Harvest);
         }
         entity.Harvest();
         entityDestroyed = true;
         if (entity.entitySO && entity.entitySO.harvestSound != "")
             AkSoundEngine.PostEvent(entity.entitySO.harvestSound, GameManager.Instance.gameObject);
-        DisplayHarvestedResources(entity); 
+        DisplayHarvestedResources(entity);
     }
 
     public void DisplayHarvestedResources(Entity entity) {
@@ -120,7 +119,6 @@ public class ActivePopulationPoint : Updatable
         beginPosition = transform.position;
         targetPosition = PopulationPoints.Instance.motherShip.transform.position;
         StartCoroutine(MoveToTargetPosition(true));
-
     }
 
     private IEnumerator MoveToTargetPosition(bool pushInPool = false) {

@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarSearch : MonoBehaviour
-{
-    public Stack<TileProperties> path;
-
+public class AStarSearch : MonoBehaviour {
     public static double Heuristic(TileProperties a, TileProperties b) {
         return a.Coordinates.Distance(b.Coordinates);
     }
@@ -36,11 +33,11 @@ public class AStarSearch : MonoBehaviour
                 if (!next || !next.Tile || next.whirlwind) {
                     continue;
                 }
-                if (availableTiles != null && !availableTiles.Contains(next.Tile)){
+                if (availableTiles != null && !availableTiles.Contains(next.Tile)) {
                     continue;
                 }
-                if (movable && next!=end && ((next.movingEntity && !movable.canPassAboveEntities) || (next.asLake && !movable.canPassAboveLakes) || 
-                    (next.Tile.terrainType == CustomTile.TerrainType.Mountain && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))){
+                if (movable && next != end && ((next.movingEntity && !movable.canPassAboveEntities) || (next.asLake && !movable.canPassAboveLakes) ||
+                    (next.Tile.terrainType == CustomTile.TerrainType.Mountain && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))) {
                     continue;
                 }
                 else if (!movable && ((next.movable && next != end && !preview) || (next.movablePreview && next != end && preview) || next.asLake || next.Tile.riverSource)) {

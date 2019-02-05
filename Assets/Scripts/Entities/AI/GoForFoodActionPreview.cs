@@ -11,7 +11,6 @@ public class GoForFoodActionPreview : Action {
 
         MovingEntity entity = controller.entity as MovingEntity;
         
-
         if (!entity.hasFled) {
             var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
             if (nearestEntity) {

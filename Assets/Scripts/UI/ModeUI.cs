@@ -6,8 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ModeUI : MonoBehaviour {
-    public MouseController mouse;
-    public DrawEntity shaderComposite;
+    public CanvasReference refCanvas;
 
     public GameObject harvestPoint;
 
@@ -20,27 +19,29 @@ public class ModeUI : MonoBehaviour {
     TextMeshProUGUI harvestText;
     TextMeshProUGUI moveText;
     TextMeshProUGUI skipText;
-    
-    private void Start() {
+
+    void Awake() {
         actionText = actionButton.GetComponentInChildren<TextMeshProUGUI>();
         harvestText = harvestButton.GetComponentInChildren<TextMeshProUGUI>();
         moveText = moveButton.GetComponentInChildren<TextMeshProUGUI>();
         skipText = skipButton.GetComponentInChildren<TextMeshProUGUI>();
+    }
 
+    void Start() {
         actionText.text = I18N.GetText("selectAction");
     }
 
-    private void Update() {
+    void Update() {
         bool activeButton = false;
 
         harvestPoint.SetActive(false);
         if (harvestButton.isOn) {
             harvestPoint.SetActive(true);
-            if (mouse.motherShip.populationPoints.Count == 1) {
+            if (refCanvas.ship.populationPoints.Count == 1) {
                 actionText.text = I18N.GetText("harvestEntity");
                 activeButton = true;
             }
-            else if (mouse.motherShip.populationPoints.Count > 1) {
+            else if (refCanvas.ship.populationPoints.Count > 1) {
                 actionText.text = I18N.GetText("harvestEntities");
                 activeButton = true;
             }
@@ -48,7 +49,7 @@ public class ModeUI : MonoBehaviour {
                 actionText.text = I18N.GetText("chooseEntities");
         }
         else if (moveButton.isOn) {
-            if (mouse.motherShip.targetTile) {
+            if (refCanvas.ship.targetTile) {
                 actionText.text = I18N.GetText("goTo");
                 activeButton = true;
             }
@@ -68,8 +69,8 @@ public class ModeUI : MonoBehaviour {
             moveButton.isOn = false;
             skipButton.isOn = false;
 
-            mouse.motherShip.CancelMove();
-            mouse.motherShip.RemoveActiveActionPoints();
+            refCanvas.ship.CancelMove();
+            refCanvas.ship.RemoveActiveActionPoints();
         }
 
         if (TurnManager.Instance.State != TurnManager.TurnState.Player || GameManager.Input.IsBlock) {
@@ -98,10 +99,10 @@ public class ModeUI : MonoBehaviour {
         if (TurnManager.Instance.State != TurnManager.TurnState.Player)
             return;
 
-        if (harvestButton.isOn && mouse.motherShip.populationPoints.Count > 0) {
+        if (harvestButton.isOn && refCanvas.ship.populationPoints.Count > 0) {
             TurnManager.Instance.EndTurn();
         }
-        else if (moveButton.isOn && mouse.motherShip.targetTile) {
+        else if (moveButton.isOn && refCanvas.ship.targetTile) {
             TurnManager.Instance.EndTurn();
         }
         else if (skipButton.isOn) {
@@ -110,38 +111,38 @@ public class ModeUI : MonoBehaviour {
     }
 
     public void ToogleHarvest(bool state) {
-        mouse.harvestMode = state;
+        refCanvas.mouse.harvestMode = state;
         if (state) {
-            mouse.motherShip.ShowActiveActionPoints();
+            refCanvas.ship.ShowActiveActionPoints();
             harvestButton.GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
             harvestText.color = new Color(1f, 1f, 1f);
             StartCoroutine(ShowZebra(1f));
-            mouse.cameraman.SetTarget(mouse.motherShip.transform.position);
+            refCanvas.mouse.cameraman.SetTarget(refCanvas.ship.transform.position);
         }
         else {
-            mouse.motherShip.ClearActiveActionPoints();
+            refCanvas.ship.ClearActiveActionPoints();
             harvestButton.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
             harvestText.color = new Color(0f, 0f, 0f);
             StopAllCoroutines();
-            shaderComposite.effectIntensity = 0.0f;
+            refCanvas.entityDraw.effectIntensity = 0.0f;
         }
     }
 
     public void ToogleMove(bool state) {
-        mouse.moveMode = state;
+        refCanvas.mouse.moveMode = state;
         if (state) {
             moveButton.GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
             moveText.color = new Color(1f, 1f, 1f);
 
-            mouse.motherShip.ClearHarvestOutline();
-            mouse.motherShip.RedoMove();
+            refCanvas.ship.ClearHarvestOutline();
+            refCanvas.ship.RedoMove();
         }
         else {
             moveButton.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
             moveText.color = new Color(0f, 0f, 0f);
 
-            mouse.motherShip.ShowHarvestOutline();
-            mouse.motherShip.CancelMove();
+            refCanvas.ship.ShowHarvestOutline();
+            refCanvas.ship.CancelMove();
         }
     }
 
@@ -157,9 +158,9 @@ public class ModeUI : MonoBehaviour {
     }
 
     private IEnumerator ShowZebra(float time) {
-        shaderComposite.effectIntensity = 0.0f;
-        for (float t = shaderComposite.effectIntensity; t < 1.0f; t += Time.deltaTime / time) {
-            shaderComposite.effectIntensity = t;
+        refCanvas.entityDraw.effectIntensity = 0.0f;
+        for (float t = refCanvas.entityDraw.effectIntensity; t < 1.0f; t += Time.deltaTime / time) {
+            refCanvas.entityDraw.effectIntensity = t;
             yield return null;
         }
     }

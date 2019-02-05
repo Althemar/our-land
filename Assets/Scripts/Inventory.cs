@@ -5,16 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class InventorySlot
-{
+public class InventorySlot {
 
 }
 
 [Serializable]
-public class ResourcesGet : SerializableDictionaryBase<ResourceType, float> { }
+public class ResourcesGet : SerializableDictionaryBase<ResourceType, int> { }
 
-public class Inventory : MonoBehaviour
-{
+public class Inventory : MonoBehaviour {
     public ResourcesGet resources;
     public CallbackFunction OnInventoryChange;
 
@@ -22,9 +20,9 @@ public class Inventory : MonoBehaviour
 
     public void Start() {
         Console.AddCommand("addItem", CmdAdd, "Add item to your inventory", CmdAddAutocomplete);
-        
+
         ResourceType[] resources = Resources.LoadAll<ResourceType>("ResourceItems");
-        foreach(ResourceType r in resources) {
+        foreach (ResourceType r in resources) {
             items.Add(r.name.ToLower(), r);
         }
     }
@@ -69,8 +67,8 @@ public class Inventory : MonoBehaviour
 
     void CmdAdd(string[] args) {
         if (args.Length == 2) {
-            float n = 0;
-            if (!float.TryParse(args[0], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out n)) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
                 Console.Write("Error: Invalid amount");
                 return;
             }
@@ -87,12 +85,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddItem(ResourceType type, float amount) {
+    public void AddItem(ResourceType type, int amount) {
         if (!resources.ContainsKey(type)) {
             resources.Add(type, 0);
         }
         resources[type] += amount;
-        
+
         OnInventoryChange();
     }
 

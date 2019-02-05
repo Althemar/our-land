@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3014993979afc3f48a9ddcb0116cc55c, type: 3}
   infoboxPanel: infoPop
   textIcons: {fileID: 11400000, guid: 3f08ad6dfe423f7459e265750f651338, type: 2}
-  consumptionIcon: {fileID: 0}
+  consumptionIcon: {fileID: 21300000, guid: 3014993979afc3f48a9ddcb0116cc55c, type: 3}

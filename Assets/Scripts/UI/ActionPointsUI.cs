@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ActionPointsUI : MonoBehaviour
-{
-    public MotherShip motherShip;
+public class ActionPointsUI : MonoBehaviour {
+    public CanvasReference refCanvas;
 
     TMP_Text text;
-    
-    void Start()
-    {
+
+    void Start() {
         text = GetComponent<TMP_Text>();
-        motherShip.OnRemainingPointsChanged += UpdateActionPointsCount;
+        refCanvas.ship.OnRemainingPointsChanged += UpdateActionPointsCount;
     }
 
     public void UpdateActionPointsCount() {
-        text.text = motherShip.remainingPopulationPoints.ToString() + " / " + motherShip.maxPopulationPoints.ToString();
+        text.text = refCanvas.ship.remainingPopulationPoints.ToString() + " / " + refCanvas.ship.maxPopulationPoints.ToString();
     }
 }
