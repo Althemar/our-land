@@ -13,6 +13,7 @@ public class Glacier : MonoBehaviour {
 
         TileProperties tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         tile.asMountain = true;
+        GetComponent<SpriteRenderer>().sortingOrder = 15 - tile.Position.y;
         HexagonalGrid.Instance.humidity.AddGlacier(tile, this);
     }
 
