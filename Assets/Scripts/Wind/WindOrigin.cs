@@ -5,24 +5,13 @@ using UnityEngine;
 public class WindOrigin : Updatable
 {
     public HexDirection direction;
-    // public int size = 2;
-    // public int turnsBetweenSqualls = 3;
-
-    // private int turnCount;
     private TileProperties tile;
 
     private bool producingWind;
-    //private int currentSquallLength;
-
     private Wind lastProduced;
-
-    private List<TileProperties> corridor;
     
-   
-
     private void Awake() {
         AddToTurnManager();
-        corridor = new List<TileProperties>();        
     }
 
     private void Update() {
@@ -37,13 +26,6 @@ public class WindOrigin : Updatable
 
     public override void UpdateTurn() {
         base.UpdateTurn();
-
-        // NEW WIND
-        /*
-            
-
-        
-        */
         EndTurn();
     }
 
@@ -55,16 +37,39 @@ public class WindOrigin : Updatable
         TurnManager.Instance.RemoveFromUpdate(this);
     }
 
-    public void ComputeWindCorridor() {
-
+    public void ComputeWindCorridor(TileProperties beginTile = null, HexDirection beginDirection = HexDirection.E) {
         Stack<TileProperties> remainingTiles = new Stack<TileProperties>();
-
         if (!tile) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         }
-        
-        TryExpandCorridor(ref remainingTiles, tile, direction);
+
+        if (!beginTile) {
+            TryExpandCorridor(ref remainingTiles, tile, direction, false);
+        }
+        else {
+            bool tryNeighbors;
+            if (beginTile == tile) {
+                tryNeighbors = false;
+            }
+            else if (beginTile.wind.previous && beginTile.wind.direction == beginTile.wind.previous.direction) {
+                if (beginDirection == beginTile.wind.direction) {
+                    tryNeighbors = true;
+                }
+                else {
+                    tryNeighbors = false;
+                }
+            }
+            else if (beginTile.wind.previous) {
+                tryNeighbors = true;
+            }
+            else {
+                tryNeighbors = false;
+            }
+
+            TryExpandCorridor(ref remainingTiles, beginTile, beginDirection, tryNeighbors);   
+        }
+
 
         while (remainingTiles.Count > 0) {
             TileProperties affectedTile = remainingTiles.Pop();
@@ -74,47 +79,51 @@ public class WindOrigin : Updatable
         }       
     }
 
-    public void TryExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection previousDirection) {
+    public void TryExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection previousDirection, bool tryNeighbors = true) {
         TileProperties nextTile = affectedTile.GetNeighbor(previousDirection);
-        // Try to expend in the next direction, else, expend in previous and next direction
-        if (affectedTile.Tile && nextTile.Tile && !ExpandCorridor(ref remainingTiles, affectedTile, previousDirection)) { 
-            ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Previous());
-            ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Next());
+
+        if (affectedTile.Tile && nextTile.Tile) {
+            // Stop the wind if collide with another wind
+            if (nextTile.windOrigin) {
+                if (nextTile.windOrigin != affectedTile.windOrigin) {
+                    foreach (Wind wind in nextTile.wind.next) {
+                        wind.DestroyWind(true);
+                    }
+                }
+            }
+
+            // Try to expend in the next direction, else, expend in previous and next direction
+            else if (!ExpandCorridor(ref remainingTiles, affectedTile, previousDirection) && tryNeighbors) {
+                ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Previous());
+                ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Next());
+            }
         }
+
+        
     }
 
     public bool ExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection nextDirection) {
         TileProperties nextTile = affectedTile.GetNeighbor(nextDirection);
 
         if (CanCreateWindOnTile(nextTile)) {
+            
+            
+
             nextTile.nextTilesInCorridor.Add(nextDirection);
             nextTile.previousTileInCorridor = nextDirection;
             nextTile.Tilemap.SetColor(nextTile.Position, Color.red);
             remainingTiles.Push(nextTile);
             nextTile.woOnTile.Add(this);
-            corridor.Add(nextTile);
 
             Wind newWind = WindManager.Instance.WindsPool.Pop();
-            newWind.InitializeChildWind(nextTile, null, nextDirection);
-            if (lastProduced) {
-                for (int i = 0; i < lastProduced.next.Count; i++) {
-                    lastProduced.next[i].previous = newWind;
-                    newWind.next.Add(lastProduced.next[i]);
-                }
-                lastProduced.previous = newWind;
-            }
-            lastProduced = newWind;
+            newWind.InitializeChildWind(nextTile, affectedTile.wind, nextDirection);
+            newWind.tile.windOrigin = this;
 
             return true;
         }
         return false;
     }
 
-    public void InitCorridor() {
-        for (int i = 0; i < corridor.Count; i++) {
-            corridor[i].Tilemap.SetColor(corridor[i].Position, Color.white);
-        }
-    }
 
     public bool CanCreateWindOnTile(TileProperties nextTile) {
         if (WindManager.Instance.blockingTiles.Contains(nextTile.Tile)) {

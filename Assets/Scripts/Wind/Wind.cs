@@ -11,7 +11,9 @@ public class Wind : Updatable
     public List<Wind> next;
     public HexDirection direction;
 
-    private TileProperties tile;
+    public WindOrigin windOrigin;
+
+    public TileProperties tile;
 
 
     private bool previousAlreadyUpdated;
@@ -79,6 +81,9 @@ public class Wind : Updatable
     public void InitializeChildWind(TileProperties tile, Wind previous, HexDirection direction) {
         transform.position = tile.transform.position;
         this.previous = previous;
+        if (previous) {
+            previous.next.Add(this);
+        }
         this.tile = tile;
         this.direction = direction;
         next = new List<Wind>();
@@ -143,23 +148,30 @@ public class Wind : Updatable
         EndTurn();
     }
 
-    public void DestroyWind() {
+    public void DestroyWind(bool destroyNextWinds = false) {
         if (previous) {
             previous.next.Remove(this);
         }
         for (int i = 0; i < next.Count; i++) {
             next[i].previous = null;
         }
+        tile.Tilemap.SetColor(tile.Position, Color.white);
         tile.wind = null;
+        windOrigin = null;
         RemoveFromTurnManager();
 
-
-        if (!ps.isPlaying) {
+        if (!ps.isPlaying || destroyNextWinds) {
             WindManager.Instance.WindsPool.Push(this);
         }
         else {
 
             StartCoroutine(WaitBeforeDestroy());
+        }
+
+        if (destroyNextWinds) {
+            foreach (Wind nextWind in next) {
+                nextWind.DestroyWind(true);
+            }
         }
     }
 
