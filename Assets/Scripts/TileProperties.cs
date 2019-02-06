@@ -48,6 +48,8 @@ public class TileProperties : MonoBehaviour {
     [HideInInspector]
     public bool asLake;
     [HideInInspector]
+    public bool asMountain;
+    [HideInInspector]
     public float windDryness = 0;
 
     [HideInInspector]
@@ -233,17 +235,6 @@ public class TileProperties : MonoBehaviour {
                 r.force = 0;
                 r.doLake = false;
             }
-        }
-    }
-
-    public void PutGlacier() {
-        if (this.Tile && this.Tile.riverSource) {
-            SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
-            spriteRenderer.transform.parent = addonsGameObjects.transform;
-            spriteRenderer.transform.position = transform.position;
-            spriteRenderer.sprite = grid.humidity.glacier;
-            spriteRenderer.sortingOrder = 15 - Position.y;
-            spriteRenderer.gameObject.layer = 13;
         }
     }
 
@@ -529,7 +520,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public bool IsWalkable() {
-        return !asLake && !windOrigin && !tile.riverSource && tile.terrainType != CustomTile.TerrainType.Mountain;
+        return !asLake && !windOrigin && !asMountain && tile.terrainType != CustomTile.TerrainType.Mountain;
     }
 
 }

@@ -11,21 +11,19 @@ public class StaticEntity : Entity
 
     SpriteRenderer activeSprite;
 
+    protected override void Awake() {
+        base.Awake();
+        staticEntitySO = entitySO as StaticEntitySO;
+    }
+
     protected override void Start() {
         base.Start();
-        staticEntitySO = entitySO as StaticEntitySO;
-
         OnPopulationChange += UpdateSprite;
+        Initialize();
     }
 
     void Destroy() {
         OnPopulationChange -= UpdateSprite;
-    }
-
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Initialize();
-        }
     }
 
     public override void UpdateTurn() {

@@ -37,10 +37,10 @@ public class AStarSearch : MonoBehaviour {
                     continue;
                 }
                 if (movable && next != end && ((next.movingEntity && !movable.canPassAboveEntities) || (next.asLake && !movable.canPassAboveLakes) ||
-                    (next.Tile.terrainType == CustomTile.TerrainType.Mountain && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))) {
+                    ((next.Tile.terrainType == CustomTile.TerrainType.Mountain || next.asMountain) && !movable.canPassAboveMontains) || (next.windOrigin && !movable.canPassAboveWindOrigins))) {
                     continue;
                 }
-                else if (!movable && ((next.movable && next != end && !preview) || (next.movablePreview && next != end && preview) || next.asLake || next.Tile.riverSource)) {
+                else if (!movable && ((next.movable && next != end && !preview) || (next.movablePreview && next != end && preview) || next.asLake || next.asMountain)) {
                     continue;
                 }
                 double newCost = costSoFar[current] + NextCost(current, next);

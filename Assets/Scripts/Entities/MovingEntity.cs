@@ -266,5 +266,17 @@ public class MovingEntity : Entity
         previewTile = aPreviewTile;
         previewTile.movablePreview = movable;
     }
-    
+
+    private void OnMouseEnter() {
+        for (int i = 0; i < activatedSkeletons.Count; i++) {
+            activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0.5f);
+        }
+    }
+
+    private void OnMouseExit() {
+        for (int i = 0; i < activatedSkeletons.Count; i++) {
+            activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0f);
+        }
+    }
+
 }

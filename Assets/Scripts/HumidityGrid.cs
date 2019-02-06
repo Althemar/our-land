@@ -1,18 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HumidityGrid : MonoBehaviour
 {
-    public int riverRadius = 5;
-    public int riverForce = 5;
-    public int normalHumityTreshold;
-    public int highHumityTreshold;
-
-    public CustomTile lowHumidityTile;
-    public CustomTile normalHumidityTile;
-    public CustomTile highHumidityTile;
-
     public Sprite lake;
     public Sprite triLakeN;
     public Sprite triLakeSW;
@@ -20,8 +12,6 @@ public class HumidityGrid : MonoBehaviour
     public Sprite triLakeS;
     public Sprite triLakeNW;
     public Sprite triLakeNE;
-    
-    public Sprite glacier;
 
     public Sprite NERiver;
     public Sprite ERiver;
@@ -70,6 +60,11 @@ public class HumidityGrid : MonoBehaviour
         }
     }
 
+    Dictionary<TileProperties, Glacier> props = new Dictionary<TileProperties, Glacier>();
+    public void AddGlacier(TileProperties tileProperties, Glacier G) {
+        props.Add(tileProperties, G);
+    }
+
     public void Compute(int debug = -1) {
 
         foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
@@ -98,7 +93,12 @@ public class HumidityGrid : MonoBehaviour
 
         List<River> riverList = new List<River>();
 
-        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+        foreach(var glacier in props) {
+            River R = new River(glacier.Key.Coordinates, glacier.Value.riverDirection, glacier.Value.riverCounterClockwise, glacier.Value.riverForce);
+            riverList.Add(R);
+        }
+        
+        /*for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 TileProperties prop = grid.tilesArray[i, j];
                 if (prop != null) {
@@ -108,7 +108,7 @@ public class HumidityGrid : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
 
         bool extend;
         int loop = 0;
@@ -135,7 +135,7 @@ public class HumidityGrid : MonoBehaviour
             r.PutLac(grid);
         }
 
-
+        /*
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 TileProperties prop = grid.tilesArray[i, j];
@@ -159,7 +159,7 @@ public class HumidityGrid : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
 
         ComputeDryness();
 
@@ -182,7 +182,7 @@ public class HumidityGrid : MonoBehaviour
     }
 
     public void UpdateTile(TileProperties tile) {
-        CustomTile previousCustomTile = tile.Tile;
+        /*CustomTile previousCustomTile = tile.Tile;
         UpdateCustomTile(tile);
         if (previousCustomTile != tile.Tile) {
             tile.ResetTile();
@@ -194,11 +194,11 @@ public class HumidityGrid : MonoBehaviour
             }
             tile.SetBorders();
             tile.PutRivers();
-        }
+        }*/
     }
 
     public void UpdateTiles() {
-        
+        /*
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
@@ -218,7 +218,7 @@ public class HumidityGrid : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
 
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
@@ -233,12 +233,12 @@ public class HumidityGrid : MonoBehaviour
                 grid.tilesArray[i, j].SetBorders();
                 grid.tilesArray[i, j].PutLake();
                 grid.tilesArray[i, j].PutRivers();
-                grid.tilesArray[i, j].PutGlacier();
             }
         }
     }
 
     public void UpdateCustomTile(TileProperties tile) {
+        /*
         if (tile.Tile && tile.Tile.humidityDependant) {
             if (tile.humidity < normalHumityTreshold)
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, lowHumidityTile);
@@ -247,5 +247,6 @@ public class HumidityGrid : MonoBehaviour
             else
                 grid.Tilemap.SetTile(tile.Coordinates.OffsetCoordinates, normalHumidityTile);
         }
+        */
     }
 }
