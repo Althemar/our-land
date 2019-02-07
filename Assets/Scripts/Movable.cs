@@ -11,6 +11,7 @@ public class Movable : MonoBehaviour
      */
      
     public float speed;
+    public bool canUseWind;
     public bool canPassAboveEntities;
     public bool canPassAboveMontains;
     public bool canPassAboveLakes;

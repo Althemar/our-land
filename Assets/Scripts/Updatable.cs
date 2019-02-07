@@ -6,6 +6,7 @@ public abstract class Updatable : MonoBehaviour
 {
     [HideInInspector]
     public bool updated = true;
+    [HideInInspector]
     public bool updating = false;
 
     public delegate void OnEndTurnAction(Updatable up);

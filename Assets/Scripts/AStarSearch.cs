@@ -1,12 +1,34 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarSearch : MonoBehaviour {
-    public static double Heuristic(TileProperties a, TileProperties b) {
-        return a.Coordinates.Distance(b.Coordinates);
+    public static double Heuristic(TileProperties a, TileProperties b, Movable movable) {
+        return a.Coordinates.Distance(b.Coordinates) * 0.5 ;
     }
 
-    public static double NextCost(TileProperties current, TileProperties next) {
+    public static double NextCost(TileProperties current, TileProperties next, Movable movable) {
+        if (movable && movable.canUseWind && next.wind) { // Free movement if wind
+            HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
+
+            HexDirection beginDir = (current.wind) ? current.wind.direction : movableDir;
+            if (current.wind
+                && ((beginDir == next.wind.direction && beginDir == movableDir)
+                || (beginDir == next.wind.direction.Previous() && next.wind.direction == movableDir)
+                || (beginDir == next.wind.direction.Next() && next.wind.direction == movableDir))) {
+                return 0;
+            }
+            /*
+            else if (!current.wind && (beginDir == next.wind.direction
+                    || beginDir == next.wind.direction.Previous()
+                    || beginDir == next.wind.direction.Next())) {
+                return 0;
+            }*/
+            else if (current.wind
+                && ((beginDir == next.wind.direction && beginDir == movableDir.Opposite())
+                || (beginDir == next.wind.direction.Previous() && next.wind.direction.Previous() == movableDir.Opposite())
+                || (beginDir == next.wind.direction.Next() && next.wind.direction.Next() == movableDir.Opposite()))) {
+                return next.Tile.walkCost * 1.5;
+            }
+        }
         return next.Tile.walkCost;
     }
 
@@ -30,7 +52,7 @@ public class AStarSearch : MonoBehaviour {
 
             TileProperties[] neighbors = current.GetNeighbors();
             foreach (TileProperties next in neighbors) {
-                if (!next || !next.Tile || next.whirlwind) {
+                if (!next || !next.Tile) {
                     continue;
                 }
                 if (availableTiles != null && !availableTiles.Contains(next.Tile)) {
@@ -43,10 +65,10 @@ public class AStarSearch : MonoBehaviour {
                 else if (!movable && ((next.movable && next != end && !preview) || (next.movablePreview && next != end && preview) || next.asLake || next.Tile.riverSource)) {
                     continue;
                 }
-                double newCost = costSoFar[current] + NextCost(current, next);
+                double newCost = costSoFar[current] + NextCost(current, next, movable);
                 if (!costSoFar.ContainsKey(next) || newCost < costSoFar[next]) {
                     costSoFar[next] = newCost;
-                    double priority = newCost + Heuristic(next, end);
+                    double priority = newCost + Heuristic(next, end, movable);
                     frontier.Enqueue(next, priority);
                     cameFrom[next] = current;
                 }

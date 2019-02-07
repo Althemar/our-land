@@ -23,18 +23,18 @@ public class TileLayersUI : MonoBehaviour
     }
 
     public void RiverLayer() {
-        float radius = HexagonalGrid.Instance.humidity.riverRadius;
+        /*float radius = HexagonalGrid.Instance.humidity.riverRadius;
         foreach (TileProperties tile in HexagonalGrid.Instance.tilesArray) {
             float riverInfluence = tile.humidity - tile.windDryness;
             tile.hexagonLayer.color = Color.Lerp(lowRiverColor, highRiverColor, riverInfluence / radius);
-        }
+        }*/
     }
 
     public void WindLayer() {
-        float maxDryness = WindManager.Instance.maxBaseDryness;
+        /*float maxDryness = WindManager.Instance.maxBaseDryness;
         foreach (TileProperties tile in HexagonalGrid.Instance.tilesArray) {
             tile.hexagonLayer.color = Color.Lerp(lowWindColor, highWindColor, (-tile.windDryness) / maxDryness);
-        }
+        }*/
     }
 
     public void HumidityLayer() {

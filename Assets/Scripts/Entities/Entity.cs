@@ -110,7 +110,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind && !neighbor.asLake &&
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.asLake &&
                     ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.movable != GameManager.Instance.motherShip.Movable))) {
                 freeTiles.Add(neighbor);
@@ -154,24 +154,6 @@ public abstract class Entity : Updatable
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
 
-                if (WindManager.Instance.blockingEntities.Contains(entity.entitySO)){
-                    bool computeWind = false;
-                    if (adjacent.woOnTile.Count > 0) {
-                        computeWind = true;
-                    }
-                    for (int i = 0; i < 6; i++) {
-                        TileProperties neighbor = adjacent.GetNeighbor((HexDirection)i);
-                        if (neighbor.woOnTile.Count > 0 && neighbor.previousTileInCorridor == ((HexDirection)i).Opposite()) {
-                            computeWind = true;
-                        }
-                    }
-                    if (computeWind) {
-                        adjacent.Grid.humidity.Compute();
-                    }
-
-                }
-
-
                 if (type == EntityType.Moving) {
                     MovingEntity mv = entity as MovingEntity;
                     adjacent.movingEntity = mv;
@@ -185,11 +167,21 @@ public abstract class Entity : Updatable
                 }
                 else {
                     adjacent.staticEntity = entity as StaticEntity;
-                    if (adjacent.wind) {
-                        adjacent.wind.DestroyWind();
-                    }
                 }
                 entity.Initialize(1);
+
+                if (adjacent.wind && WindManager.Instance.blockingEntities.Contains(entity.entitySO)) {
+                    WindOrigin wo = adjacent.wind.windOrigin;
+                    if (adjacent.wind.previous) {
+                        TileProperties previous = adjacent.wind.previous.tile;
+                        HexDirection dir = adjacent.wind.direction;
+                        adjacent.wind.DestroyWind(true);
+                        wo.ComputeWindCorridor(previous, dir);
+                    }
+                    else {
+                        adjacent.wind.DestroyWind(true);
+                    }
+                }
             }
         }
     }
@@ -204,17 +196,24 @@ public abstract class Entity : Updatable
         }
 
         if (WindManager.Instance.blockingEntities.Contains(entitySO)) {
-            bool computeWind = false;
             for (int i = 0; i < 6; i++) {
                 TileProperties neighbor = tile.GetNeighbor((HexDirection)i);
-                if (neighbor.woOnTile.Count > 0 && neighbor.previousTileInCorridor == ((HexDirection)i).Opposite()) {
-                    computeWind = true;
+                if ((neighbor.wind && neighbor.wind.direction == ((HexDirection)i).Opposite()) 
+                    || (neighbor.windOrigin && neighbor.windOrigin.direction == ((HexDirection)i).Opposite())) {
+                    if (neighbor.wind) {
+                        WindOrigin wo = neighbor.wind.windOrigin;
+                        while (neighbor.wind.next.Count > 0) {
+                            neighbor.wind.next[0].DestroyWind(true);
+                        }
+                        wo.ComputeWindCorridor(neighbor.wind.tile, neighbor.wind.direction);
+                    }
+                    else if (neighbor.windOrigin){
+                        WindOrigin wo = neighbor.windOrigin;
+                        wo.ComputeWindCorridor();
+                    }
+                    break;
                 }
             }
-            if (computeWind) {
-                tile.Grid.humidity.Compute();
-            }
-
         }
         if (updating) {
             EndTurn();

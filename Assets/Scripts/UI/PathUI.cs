@@ -51,12 +51,27 @@ public class PathUI : MonoBehaviour
             }
             else {
                 if (i == pathPoints.Length - 3) {
-                    pathTiles[i].ActionPointCost = motherShip.movementBaseCost;
-                    //text.text = "";
+                    if (FreeWindMovement(pathTiles[i+1], pathTiles[i])){
+                        pathTiles[i].ActionPointCost = pathTiles[i + 1].ActionPointCost;
+                    }
+                    else {
+                        pathTiles[i].ActionPointCost = motherShip.movementBaseCost;
+                    }
+                    text.text = "";
                 }
                 else {
-                    pathTiles[i].ActionPointCost = Mathf.Round(pathTiles[i + 1].ActionPointCost * motherShip.movementDistanceMultiplicator);
-                    //text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
+                    if (FreeWindMovement(pathTiles[i + 1], pathTiles[i])) {
+                        pathTiles[i].ActionPointCost = pathTiles[i + 1].ActionPointCost;
+                    }
+                    else {
+                        if (pathTiles[i + 1].ActionPointCost > 0) {
+                            pathTiles[i].ActionPointCost = Mathf.Round(pathTiles[i + 1].ActionPointCost * motherShip.movementDistanceMultiplicator);
+                        }
+                        else {
+                            pathTiles[i].ActionPointCost = motherShip.movementBaseCost;
+                        }
+                    }
+                    text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString();
                 }
                 if (pathTiles[i].ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource)) {
                     text.color = Color.red;
@@ -80,6 +95,9 @@ public class PathUI : MonoBehaviour
                 text.text = "";
                 poolPoint[i].removeImage.gameObject.SetActive(false);
             }
+            //text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString() + "<sprite=0>";
+
+
             poolPoint[i].GetComponent<Image>().raycastTarget = false;
             poolPoint[i].interactable = false;
 
@@ -100,5 +118,41 @@ public class PathUI : MonoBehaviour
     public void SetInteractable() {
         poolPoint[0].GetComponent<Image>().raycastTarget = true;
         poolPoint[0].interactable = true;
+    }
+
+    private bool FreeWindMovement(TileProperties current, TileProperties next) {
+        if (next.wind) { // Free movement if wind
+            HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
+
+            HexDirection beginDir = (current.wind) ? current.wind.direction : movableDir;
+            if (current.wind
+                && ((beginDir == next.wind.direction && beginDir == movableDir)
+                || (beginDir == next.wind.direction.Previous() && next.wind.direction == movableDir)
+                || (beginDir == next.wind.direction.Next() && next.wind.direction == movableDir))) {
+                return true;
+            }
+            else if (!current.wind && (beginDir == next.wind.direction
+                    || beginDir == next.wind.direction.Previous()
+                    || beginDir == next.wind.direction.Next())) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private bool WindMalusMovement(TileProperties current, TileProperties next) {
+        if (next.wind) { // Free movement if wind
+            HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
+
+            HexDirection beginDir = (current.wind) ? current.wind.direction : movableDir;
+
+            if (current.wind
+                && ((beginDir == next.wind.direction && beginDir == movableDir.Opposite())
+                || (beginDir == next.wind.direction.Previous() && next.wind.direction.Previous() == movableDir.Opposite())
+                || (beginDir == next.wind.direction.Next() && next.wind.direction.Next() == movableDir.Opposite()))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -26,7 +26,6 @@ public class Whirlwind : Updatable
             }
         }
         if (destroy) {
-            tile.whirlwind = null;
             EndTurn();
             RemoveFromTurnManager();
             WindManager.Instance.WhirldwindsPool.Push(this);
