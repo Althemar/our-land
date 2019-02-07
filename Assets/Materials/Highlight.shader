@@ -43,9 +43,6 @@ Shader "Spine/Skeleton Highlight" {
 
 			VertexOutput vert (VertexInput v) {
 				VertexOutput o;
-
-				v.vertex += float4((0.5 - rand(v.uv.y)) * _Intensity * _SinTime.z, (0.5 - rand(v.uv.x)) * _Intensity * _CosTime.z, (0.5 - rand(v.uv)) * _Intensity * _SinTime.x, 0) * sin(_Time.w) * 50;
-
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = v.uv;
 				o.vertexColor = v.vertexColor;
@@ -59,7 +56,7 @@ Shader "Spine/Skeleton Highlight" {
 				texColor.rgb *= texColor.a;
 				#endif
 				float4 col = (texColor * i.vertexColor);
-				col = lerp(col, float4(rand(_Time.z), rand(_Time.y), rand(_Time.x), 1), _Intensity * 1.2f);
+				col = lerp(col, float4(1, 0, 0, 1), _Intensity);
 				return col;
 			}
 			ENDCG

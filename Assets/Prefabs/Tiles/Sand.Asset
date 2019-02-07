@@ -141,7 +141,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -156,11 +156,16 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: []
-    _keys: []
-    _values: []
-  humidityDependant: 1
-  riverSource: 0
-  riverDirection: 0
-  riverCounterClockwise: 0
+    isExpanded: 1
+    _keyValues:
+    - 0.2
+    _keys:
+    - 0.2
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: cb20684744d968a47b80e48af82cdf7c, type: 3}
+      - {fileID: 21300000, guid: 110b8799d7dce1443b6dd74cb93c97cb, type: 3}
+      - {fileID: 21300000, guid: 15f9feb84782d1f4a8c174d6a06f0502, type: 3}
+      - {fileID: 21300000, guid: 0ef28fbc34c2ad8468eeaedd8589b80d, type: 3}
+  addonLayer: 0
+  addonSortingOffset: 1

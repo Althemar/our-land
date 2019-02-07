@@ -158,7 +158,7 @@ public class WindOrigin : Updatable
     }
 
     public bool CanCreateWindOnTile(TileProperties nextTile) {
-        if (WindManager.Instance.blockingTiles.Contains(nextTile.Tile)) {
+        if (WindManager.Instance.blockingTiles.Contains(nextTile.Tile) || nextTile.asMountain) {
             return false;
         }
         if ((nextTile.staticEntity && WindManager.Instance.blockingEntities.Contains(nextTile.staticEntity.staticEntitySO))
