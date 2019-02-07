@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public class AStarSearch { 
+
     public static double Heuristic(TileProperties a, TileProperties b, Movable movable) {
         return a.Coordinates.Distance(b.Coordinates) * 0.5 ;
     }

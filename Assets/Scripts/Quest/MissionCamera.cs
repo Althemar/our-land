@@ -5,8 +5,7 @@ using UnityEngine;
 public class MissionCamera : MonoBehaviour
 {
     public CameraControl cam;
-
-    private bool showObjectives;
+    
     private Queue<Vector3> targetPositions;
 
     private void Awake() {
@@ -28,7 +27,6 @@ public class MissionCamera : MonoBehaviour
                 AddTargetPosition(objective.transform.position);
             }
         }
-        showObjectives = true;
     }
 
     public void ReturnToShip(Mission mission) {
