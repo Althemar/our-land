@@ -72,16 +72,10 @@ public class HumidityGrid : MonoBehaviour
 
     public void Compute(int debug = -1) {
 
-        foreach (WindOrigin wo in WindManager.Instance.windOrigins) {
-            //wo.InitCorridor();
-        }
-
         for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
             for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
                 if (grid.tilesArray[i, j] != null) {
                     grid.tilesArray[i, j].Tile = grid.Tilemap.GetTile(grid.tilesArray[i, j].Coordinates.OffsetCoordinates) as CustomTile;
-                    grid.tilesArray[i, j].windDryness = 0;
-                    grid.tilesArray[i, j].nextTilesInCorridor.Clear();
                 }
             }
         }

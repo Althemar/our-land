@@ -110,7 +110,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.whirlwind && !neighbor.asLake &&
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.asLake &&
                     ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.movable != GameManager.Instance.motherShip.Movable))) {
                 freeTiles.Add(neighbor);

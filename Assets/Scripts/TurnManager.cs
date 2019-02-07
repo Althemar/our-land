@@ -218,9 +218,6 @@ public class TurnManager : MonoBehaviour
             entitiesTypeIndex = 0;
             UpdateEntities();
         }
-        else if (state == TurnState.Wind) {
-            UpdateObjects(windsToUpdate);
-        }
         else if (state == TurnState.Whirlwind) {
             UpdateObjects(whirlwindsToUpdate);
         }

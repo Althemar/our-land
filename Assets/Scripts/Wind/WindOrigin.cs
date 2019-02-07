@@ -1,14 +1,22 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WindOrigin : Updatable
 {
     public HexDirection direction;
-    private TileProperties tile;
 
+    public bool activeAtBeginning;
+    public int turnsActive;
+    [ReorderableList]
+    public List<WindOrigin> nextWindOrigin;
+
+    private TileProperties tile;
     private bool producingWind;
-    private Wind lastProduced;
+    private Wind firstWind;
+
+    private int remainingActiveTurns;
     
     private void Awake() {
         AddToTurnManager();
@@ -20,12 +28,22 @@ public class WindOrigin : Updatable
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
             tile.windOrigin = this;
 
-            ComputeWindCorridor();
+            if (activeAtBeginning) {
+                On();
+            }
         }
     }
 
     public override void UpdateTurn() {
         base.UpdateTurn();
+
+        if (producingWind) {
+            remainingActiveTurns--;
+            if (remainingActiveTurns < 0) {
+                Off();
+            }
+        }
+
         EndTurn();
     }
 
@@ -46,6 +64,9 @@ public class WindOrigin : Updatable
 
         if (!beginTile) {
             TryExpandCorridor(ref remainingTiles, tile, direction, false);
+            if (remainingTiles.Count > 0) {
+                firstWind = remainingTiles.Peek().wind;
+            }
         }
         else {
             bool tryNeighbors;
@@ -74,7 +95,7 @@ public class WindOrigin : Updatable
         while (remainingTiles.Count > 0) {
             TileProperties affectedTile = remainingTiles.Pop();
             if (affectedTile) {
-                 TryExpandCorridor(ref remainingTiles, affectedTile, affectedTile.previousTileInCorridor);
+                 TryExpandCorridor(ref remainingTiles, affectedTile, affectedTile.wind.direction);
             }
         }       
     }
@@ -84,8 +105,8 @@ public class WindOrigin : Updatable
 
         if (affectedTile.Tile && nextTile.Tile) {
             // Stop the wind if collide with another wind
-            if (nextTile.windOrigin) {
-                if (nextTile.windOrigin != affectedTile.windOrigin) {
+            if (nextTile.wind) {
+                if (nextTile.wind.windOrigin != affectedTile.wind.windOrigin) {
                     foreach (Wind wind in nextTile.wind.next) {
                         wind.DestroyWind(true);
                     }
@@ -97,27 +118,18 @@ public class WindOrigin : Updatable
                 ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Previous());
                 ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Next());
             }
-        }
-
-        
+        }  
     }
 
     public bool ExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection nextDirection) {
         TileProperties nextTile = affectedTile.GetNeighbor(nextDirection);
 
         if (CanCreateWindOnTile(nextTile)) {
-            
-            
-
-            nextTile.nextTilesInCorridor.Add(nextDirection);
-            nextTile.previousTileInCorridor = nextDirection;
-            nextTile.Tilemap.SetColor(nextTile.Position, Color.red);
+            //nextTile.Tilemap.SetColor(nextTile.Position, Color.red);
             remainingTiles.Push(nextTile);
-            nextTile.woOnTile.Add(this);
 
             Wind newWind = WindManager.Instance.WindsPool.Pop();
             newWind.InitializeChildWind(nextTile, affectedTile.wind, nextDirection);
-            newWind.tile.windOrigin = this;
 
             return true;
         }
@@ -135,4 +147,24 @@ public class WindOrigin : Updatable
         }
         return true;
     }
+
+    public void Off() {
+        if (producingWind) {
+            firstWind.DestroyWind(true);
+            producingWind = false;
+            foreach (WindOrigin wo in nextWindOrigin) {
+                wo.On();
+            }
+        }
+    }
+
+    public void On() {
+        if (!producingWind) {
+            ComputeWindCorridor();
+
+            producingWind = true;
+            remainingActiveTurns = turnsActive;
+        }
+    }
 }
+

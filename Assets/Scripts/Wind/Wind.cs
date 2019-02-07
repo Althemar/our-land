@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-public class Wind : Updatable
+public class Wind : MonoBehaviour
 {
-    
-
     public Wind previous;
     public List<Wind> next;
     public HexDirection direction;
@@ -20,6 +18,11 @@ public class Wind : Updatable
 
     public ParticleSystem ps;
     private List<Vector4> custom1;
+
+    private void Awake() {
+        next = new List<Wind>();
+        custom1 = new List<Vector4>();
+    }
 
     private void Update() {
         if (!gameObject.activeSelf) {
@@ -86,9 +89,9 @@ public class Wind : Updatable
         }
         this.tile = tile;
         this.direction = direction;
-        next = new List<Wind>();
-        custom1 = new List<Vector4>();
-        AddToTurnManager();
+
+        next.Clear();
+        custom1.Clear();
         tile.wind = this;
         
 
@@ -103,51 +106,6 @@ public class Wind : Updatable
         ps.Play();   
     }
 
-    public override void UpdateTurn() {
-        base.UpdateTurn();
-
-        TileProperties nextTile = tile.GetNeighbor(direction);
-
-        // Remove last wind
-        /*
-        bool destroy = false;
-        if (!previous && !previousAlreadyUpdated) {
-            tile.wind = null;
-
-            for (int i = 0; i < next.Count; i++) {
-                next[i].previous = null;
-                if (!next[i].updated) {
-                    next[i].previousAlreadyUpdated = true;
-                }
-            }
-            RemoveFromTurnManager();
-            EndTurn();
-            destroy = true;
-        }
-
-        // Add wind at begin
-        if (nextTile && !nextTile.wind && !nextTile.whirlwind && !TryCreateNewWind(direction)) {
-            TryCreateNewWind(direction.Previous());
-            TryCreateNewWind(direction.Next());
-        }
-        else if (nextTile && nextTile.wind && !next.Contains(nextTile.wind)) {
-            nextTile.wind.DestroyWind();
-
-            Whirlwind newWhirlwind = WindManager.Instance.WhirldwindsPool.Pop();
-            newWhirlwind.transform.position = nextTile.transform.position;
-            nextTile.whirlwind = newWhirlwind;
-            nextTile.whirlwind.InitializeWhirlwind(nextTile);
-        }
- 
-        if (destroy) {
-            DestroyWind();
-        }
-        */
-        previousAlreadyUpdated = false;
-        
-        EndTurn();
-    }
-
     public void DestroyWind(bool destroyNextWinds = false) {
         if (previous) {
             previous.next.Remove(this);
@@ -158,13 +116,11 @@ public class Wind : Updatable
         tile.Tilemap.SetColor(tile.Position, Color.white);
         tile.wind = null;
         windOrigin = null;
-        RemoveFromTurnManager();
 
-        if (!ps.isPlaying || destroyNextWinds) {
+        if (!ps.isPlaying) {
             WindManager.Instance.WindsPool.Push(this);
         }
         else {
-
             StartCoroutine(WaitBeforeDestroy());
         }
 
@@ -201,14 +157,6 @@ public class Wind : Updatable
             return false;
         }
         return true;
-    }
-   
-    public override void AddToTurnManager() {
-        TurnManager.Instance.AddToUpdate(this);
-    }
-
-    public override void RemoveFromTurnManager() {
-        TurnManager.Instance.RemoveFromUpdate(this);
     }
 
     public IEnumerator WaitBeforeDestroy() {

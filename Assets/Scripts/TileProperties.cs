@@ -26,7 +26,6 @@ public class TileProperties : MonoBehaviour {
     public StaticEntity staticEntity;
     public MovingEntity movingEntity;
     public Wind wind;
-    public Whirlwind whirlwind;
 
 
     public GameObject addonsGameObjects;
@@ -47,17 +46,7 @@ public class TileProperties : MonoBehaviour {
     private River[] riverJonction;
     [HideInInspector]
     public bool asLake;
-    [HideInInspector]
-    public float windDryness = 0;
-
-    [HideInInspector]
-    public List<HexDirection> nextTilesInCorridor;
-    [HideInInspector]
-    public HexDirection previousTileInCorridor;
-    [HideInInspector]
-    public HashSet<WindOrigin> woAffectingTile;
-    [HideInInspector]
-    public HashSet<WindOrigin> woOnTile;
+    
     [HideInInspector]
     public WindOrigin windOrigin;
 
@@ -117,9 +106,6 @@ public class TileProperties : MonoBehaviour {
         addonsGameObjects.transform.parent = transform;
         bordersGameObjects.transform.parent = transform;
         riversGameObjects.transform.parent = transform;
-        nextTilesInCorridor = new List<HexDirection>();
-        woAffectingTile = new HashSet<WindOrigin>();
-        woOnTile = new HashSet<WindOrigin>();
 
     }
 
