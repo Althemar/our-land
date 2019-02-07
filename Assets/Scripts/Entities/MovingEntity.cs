@@ -154,6 +154,7 @@ public class MovingEntity : Entity
         ChangeAnimation("Walk", true);
         while (Vector3.Distance(entity.transform.position, target.transform.parent.position + pos) > 0.01f) {
             entity.transform.position = Vector3.MoveTowards(entity.transform.position, target.transform.parent.position + pos, Time.deltaTime);
+            //foreach()
             yield return null;
         }
         ChangeAnimation("Idle", true);
@@ -266,5 +267,17 @@ public class MovingEntity : Entity
         previewTile = aPreviewTile;
         previewTile.movablePreview = movable;
     }
-    
+
+    private void OnMouseEnter() {
+        for (int i = 0; i < activatedSkeletons.Count; i++) {
+            activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0.5f);
+        }
+    }
+
+    private void OnMouseExit() {
+        for (int i = 0; i < activatedSkeletons.Count; i++) {
+            activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0f);
+        }
+    }
+
 }

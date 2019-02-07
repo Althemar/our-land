@@ -38,10 +38,10 @@ public class TileLayersUI : MonoBehaviour
     }
 
     public void HumidityLayer() {
-        float maxHumidity = HexagonalGrid.Instance.humidity.riverRadius;
+        /*float maxHumidity = HexagonalGrid.Instance.humidity.riverRadius;
         foreach (TileProperties tile in HexagonalGrid.Instance.tilesArray) {
             tile.hexagonLayer.color = Color.Lerp(lowHumidityColor, highHumidityColor, tile.humidity / maxHumidity);
-        }
+        }*/
     }
     
 }
