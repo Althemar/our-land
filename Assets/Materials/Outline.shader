@@ -32,6 +32,7 @@
 
 			sampler2D _GrainTex;
 			float4 _GrainTex_ST;
+			float2 _MousePosition;
 
 			struct v2f {
 				float4 pos : SV_POSITION;
@@ -54,6 +55,10 @@
 				return o;
 			}
 
+			float distMouse(float2 pos) {
+				return distance(_MousePosition, pos.xy) / 1920;
+			}
+
 			fixed4 frag(v2f i) : SV_Target {
 				fixed4 col = tex2D(_GrainTex, i.wpos.xy + (floor(_Time.z) * fixed2(0.5, 0)));
 
@@ -61,6 +66,7 @@
 
 				return i.color * _Color;
 			}
+
 			ENDCG
 		}
 	}

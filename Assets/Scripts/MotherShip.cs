@@ -174,11 +174,12 @@ public class MotherShip : Updatable
         outline.Clear();
         spineShip.state.ClearTrack(0);
         spineShip.state.SetAnimation(0, "Decollage", false);
+        AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
         spineShip.timeScale = 1;
-        spineShip.state.Complete += ShipTakeOff;
+        spineShip.state.Complete += AfterTakeOff;
     }
 
-    private void ShipTakeOff(TrackEntry trackEntry) {
+    private void AfterTakeOff(TrackEntry trackEntry) {
         movable.MoveToTile(targetTile, false);
     }
 
@@ -186,7 +187,7 @@ public class MotherShip : Updatable
         ShowHarvestOutline();
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
-        spineShip.state.Complete -= ShipTakeOff;
+        spineShip.state.Complete -= AfterTakeOff;
         spineShip.timeScale = -2;
         onMove = false;
         targetTile = null;

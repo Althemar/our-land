@@ -131,8 +131,7 @@ public class TileProperties : MonoBehaviour {
 
         this.grid = grid;
         this.tilemap = tilemap;
-        //tilemap.SetColor(position, new Color(0.5f, 0, 0, 0.6f));
-
+        this.tile = tilemap.GetTile(coordinates.OffsetCoordinates) as CustomTile;
     }
 
     public void SetTile(CustomTile tile) {
@@ -520,7 +519,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public bool IsWalkable() {
-        return !asLake && !windOrigin && !asMountain && tile.terrainType != CustomTile.TerrainType.Mountain;
+        return !asLake && !windOrigin && !asMountain && tile?.terrainType != CustomTile.TerrainType.Mountain;
     }
 
 }

@@ -154,7 +154,10 @@ public class MovingEntity : Entity
         ChangeAnimation("Walk", true);
         while (Vector3.Distance(entity.transform.position, target.transform.parent.position + pos) > 0.01f) {
             entity.transform.position = Vector3.MoveTowards(entity.transform.position, target.transform.parent.position + pos, Time.deltaTime);
-            //foreach()
+            
+            foreach (SkeletonAnimation ske in activatedSkeletons) {
+                
+            }
             yield return null;
         }
         ChangeAnimation("Idle", true);
