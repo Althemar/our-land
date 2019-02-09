@@ -31,6 +31,8 @@ public class EntitySO : ScriptableObject
 
     [BoxGroup("Population")]
     public bool reproduceAtEachHarvest;
+    public bool renewWhenZero;
+
 
     [BoxGroup("Population rates")]
     public int reproductionRate;
@@ -39,8 +41,8 @@ public class EntitySO : ScriptableObject
 
 
 
+
     [BoxGroup("Food")]
-    public List<float> foodsPerTurn;
     public float foodWhenHarvested;
         
     [ReorderableList]

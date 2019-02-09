@@ -14,7 +14,7 @@ public class TreeIdleAction : Action
         }
         else
             entity.remainingTurnsBeforReproduction--;
-        entity.UpdateSprite();
+        //entity.UpdateSprite();
         
     }
 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed4f5f0e8c9b9d845a2ce201eee68dfd, type: 3}
-  m_Name: Rthuk Go To Mountain Preview
+  m_Name: Rthuk Go To Swamp Preview
   m_EditorClassIdentifier: 
-  terrains: 01000000
-  goOnTile: 0
-  range: 1
+  terrains: 03000000
+  goOnTile: 1
+  range: 0

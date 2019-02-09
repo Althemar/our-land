@@ -13,6 +13,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public MotherShip motherShip;
+    public Entity fishPrefab;
 
     public DefeatUI gameOverPanel;
 

@@ -14,12 +14,14 @@ public class StaticEntity : Entity
     protected override void Awake() {
         base.Awake();
         staticEntitySO = entitySO as StaticEntitySO;
+        Initialize();
+
+
     }
 
     protected override void Start() {
         base.Start();
         OnPopulationChange += UpdateSprite;
-        Initialize();
     }
 
     void Destroy() {
@@ -43,6 +45,10 @@ public class StaticEntity : Entity
             activeSprite?.gameObject.SetActive(false);
             rendererToActivate.gameObject.SetActive(true);
             activeSprite = rendererToActivate;
+        }
+        else if (!rendererToActivate && activeSprite && population <= 0) {
+            activeSprite.gameObject.SetActive(false);
+            activeSprite = null;
         }
 
     }

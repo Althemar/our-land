@@ -40,5 +40,6 @@ public class PopulationPoints : MonoBehaviour {
         motherShip.populationPoints.Remove(point);
         motherShip.remainingPopulationPoints++;
         motherShip.OnRemainingPointsChanged?.Invoke();
+        point.EndTurn();
     }
 }

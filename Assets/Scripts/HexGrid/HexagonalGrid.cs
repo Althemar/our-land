@@ -73,7 +73,7 @@ public class HexagonalGrid : MonoBehaviour {
     }
 
     private void Update() {
-        if (GameManager.Instance.FrameCount == 1) {
+        if (GameManager.Instance.FrameCount == 0) {
             if(humidity)
                 humidity.Compute();
         }

@@ -24,6 +24,7 @@ MonoBehaviour:
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
+  - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   resources:
     reorderableList:
       canAdd: 1
@@ -61,5 +62,31 @@ MonoBehaviour:
   eatFeedback: {fileID: 6641214869133636042, guid: d45d06d1efa15da45853d1017c6aa964,
     type: 3}
   foods:
-  - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+    _values: 01000000
   predators: []

@@ -62,10 +62,15 @@ public class ActivePopulationPoint : Updatable {
     }
 
     public bool IsValid() {
-        return entity != null;
+        return entity != null && entity.population > 0;
     }
 
     public void ReplacePopulationPoint() {
+
+        /*
+        if (!gameObject.activeSelf) {
+            PopulationPoints.Instance.PopulationPointsPool.Push(this);
+        }*/
         ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
         PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
         PopulationPoints.Instance.motherShip.OnRemainingPointsChanged?.Invoke();
@@ -76,9 +81,12 @@ public class ActivePopulationPoint : Updatable {
         base.UpdateTurn();
         turnCount++;
         HarvestEntity();
-        EndTurn();
-        if (entity.population <= 0)
+        if (entity.population <= 0) {
             RemovePopulationPoint();
+        }
+        else {
+            EndTurn();
+        }
     }
 
     private void HarvestEntity() {

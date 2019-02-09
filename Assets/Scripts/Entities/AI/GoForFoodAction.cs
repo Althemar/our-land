@@ -13,7 +13,7 @@ public class GoForFoodAction : Action {
         
 
         if (!entity.hasFled) {
-            var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
+            var nearestEntity = entity.Tile.NearestFoodWithPriority(entity.movingEntitySO.foods);
             if (nearestEntity) {
                 bool targetIsStatic = !nearestEntity.movingEntity || nearestEntity.movingEntity == entity;
 

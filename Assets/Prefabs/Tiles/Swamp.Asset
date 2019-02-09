@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go: {fileID: 0}
   canWalkThrough: 1
-  walkCost: 3
-  terrainType: 0
+  walkCost: 1
+  terrainType: 3
   ambientRTPC: WETLANDS
   centers:
   - {fileID: 21300000, guid: 996d7b930ca24024399886717591093c, type: 3}
@@ -125,7 +125,5 @@ MonoBehaviour:
     _keyValues: []
     _keys: []
     _values: []
-  humidityDependant: 1
-  riverSource: 0
-  riverDirection: 0
-  riverCounterClockwise: 0
+  addonLayer: 0
+  addonSortingOffset: 1
