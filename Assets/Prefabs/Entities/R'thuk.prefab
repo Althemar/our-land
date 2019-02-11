@@ -1888,6 +1888,7 @@ GameObject:
   - component: {fileID: 6059205685924054433}
   - component: {fileID: 6059205685924054438}
   - component: {fileID: 3603127411759555489}
+  - component: {fileID: 7535688339803256423}
   m_Layer: 0
   m_Name: R'thuk
   m_TagString: Untagged
@@ -2027,6 +2028,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 28a6cdc5a9fdbbc4b84aa7329412b59e, type: 2}
   entity: {fileID: 0}
+--- !u!210 &7535688339803256423
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059205685924054434}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &6432387006318528480
 GameObject:
   m_ObjectHideFlags: 0

@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 4651248391141940335}
   - component: {fileID: 603729598982235075}
   - component: {fileID: 4287408554967380089}
+  - component: {fileID: 6481316744564551675}
   m_Layer: 0
   m_Name: Spine Mothership
   m_TagString: Untagged
@@ -474,6 +475,17 @@ MonoBehaviour:
   _animationName: 
   loop: 0
   timeScale: 1
+--- !u!210 &6481316744564551675
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051425053731954180}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &6133322894682039902
 GameObject:
   m_ObjectHideFlags: 0

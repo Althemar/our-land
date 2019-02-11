@@ -77,6 +77,7 @@ public class NewUX : MonoBehaviour {
 
     public void EndTurn() {
         TurnManager.Instance.EndTurn();
+        AkSoundEngine.PostEvent("Play_End_Turn_Pl", this.gameObject);
 
         refCanvas.mouse.moveMode = false;
         refCanvas.mouse.harvestMode = false;

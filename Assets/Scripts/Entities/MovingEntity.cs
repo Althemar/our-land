@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Spine;
 using Spine.Unity;
 
@@ -66,9 +67,7 @@ public class MovingEntity : Entity {
     }
 
     private void Update() {
-        foreach (SkeletonAnimation ske in activatedSkeletons) {
-            ske.GetComponent<MeshRenderer>().sortingOrder = -movable.CurrentTile.Position.y;
-        }
+        GetComponent<SortingGroup>().sortingOrder = -movable.CurrentTile.Position.y;
     }
 
     void Destroy() {

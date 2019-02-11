@@ -2343,6 +2343,7 @@ GameObject:
   - component: {fileID: 7946308881498552177}
   - component: {fileID: 9065083475956989051}
   - component: {fileID: 6583552018983940895}
+  - component: {fileID: 1387513534988923198}
   m_Layer: 0
   m_Name: Mouing
   m_TagString: Untagged
@@ -2503,6 +2504,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &1387513534988923198
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946308881498552176}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &8223915669750565061
 GameObject:
   m_ObjectHideFlags: 0

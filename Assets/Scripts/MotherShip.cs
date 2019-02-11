@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Spine.Unity;
 using Spine;
 
@@ -14,7 +15,7 @@ public class MotherShip : Updatable {
 
     public HexagonsOutline outline;
     public SkeletonAnimation spineShip;
-    private MeshRenderer renderer;
+    private SortingGroup sorting;
 
 
     public ResourceType populationResource;
@@ -85,7 +86,7 @@ public class MotherShip : Updatable {
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();
         reachableTilesDisplay = GetComponent<ReachableTilesDisplay>();
-        renderer = spineShip.GetComponent<MeshRenderer>();
+        sorting = spineShip.GetComponent<SortingGroup>();
         movable.OnReachEndTile += EndMove;
 
         Console.AddCommand("addPopulationPoints", CmdAddPP, "Add temporary population points");
@@ -103,7 +104,7 @@ public class MotherShip : Updatable {
     }
 
     private void Update() {
-        renderer.sortingOrder = -movable.CurrentTile.Position.y;
+        sorting.sortingOrder = -movable.CurrentTile.Position.y;
     }
 
     public override void AddToTurnManager() {
