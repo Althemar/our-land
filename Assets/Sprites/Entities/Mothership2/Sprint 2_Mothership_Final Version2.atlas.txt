@@ -1,0 +1,369 @@
+
+Sprint 2_Mothership_Final Version2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/01Corps_Miid
+  rotate: true
+  xy: 1087, 210
+  size: 862, 413
+  orig: 864, 415
+  offset: 1, 1
+  index: -1
+images/01_Body Back
+  rotate: false
+  xy: 0, 1543
+  size: 987, 503
+  orig: 989, 505
+  offset: 1, 1
+  index: -1
+images/01_Body_Sides
+  rotate: true
+  xy: 0, 77
+  size: 978, 528
+  orig: 980, 530
+  offset: 1, 1
+  index: -1
+images/01_Event_L_I_1
+  rotate: false
+  xy: 1885, 52
+  size: 159, 414
+  orig: 161, 416
+  offset: 1, 1
+  index: -1
+images/01_Event_L_I_3
+  rotate: false
+  xy: 1233, 0
+  size: 325, 209
+  orig: 327, 211
+  offset: 1, 1
+  index: -1
+images/01_Event_L_I_3 copie
+  rotate: false
+  xy: 1559, 0
+  size: 325, 209
+  orig: 327, 211
+  offset: 1, 1
+  index: -1
+images/Bras_L_S_F
+  rotate: true
+  xy: 1501, 210
+  size: 256, 121
+  orig: 258, 123
+  offset: 1, 1
+  index: -1
+images/Bras_L_S_Fond
+  rotate: false
+  xy: 715, 20
+  size: 258, 123
+  orig: 260, 125
+  offset: 1, 1
+  index: -1
+images/Bras_L_S_Fond copie
+  rotate: false
+  xy: 974, 20
+  size: 258, 123
+  orig: 260, 125
+  offset: 1, 1
+  index: -1
+images/Bras_L_S_Fond copie 2
+  rotate: true
+  xy: 1623, 210
+  size: 256, 121
+  orig: 258, 123
+  offset: 1, 1
+  index: -1
+images/Chapeau
+  rotate: true
+  xy: 1501, 467
+  size: 605, 538
+  orig: 607, 540
+  offset: 1, 1
+  index: -1
+images/Corde_L_I
+  rotate: false
+  xy: 529, 7
+  size: 92, 136
+  orig: 94, 138
+  offset: 1, 1
+  index: -1
+images/Corde_R_I
+  rotate: false
+  xy: 622, 7
+  size: 92, 136
+  orig: 94, 138
+  offset: 1, 1
+  index: -1
+images/Flame
+  rotate: false
+  xy: 1969, 1691
+  size: 71, 119
+  orig: 75, 126
+  offset: 0, 1
+  index: -1
+images/Terrain_Herbe_Nacelle
+  rotate: true
+  xy: 1969, 1589
+  size: 101, 50
+  orig: 103, 52
+  offset: 1, 1
+  index: -1
+images/Terrain_Herbe_Vaisseau
+  rotate: false
+  xy: 988, 1560
+  size: 980, 486
+  orig: 982, 488
+  offset: 1, 1
+  index: -1
+images/Terrain_Sable_Nacelle
+  rotate: true
+  xy: 1969, 1487
+  size: 101, 50
+  orig: 103, 52
+  offset: 1, 1
+  index: -1
+images/Terrain_Snow_Nacelle
+  rotate: true
+  xy: 1969, 1487
+  size: 101, 50
+  orig: 103, 52
+  offset: 1, 1
+  index: -1
+images/Terrain_Sable_Vaisseau
+  rotate: false
+  xy: 988, 1073
+  size: 980, 486
+  orig: 982, 488
+  offset: 1, 1
+  index: -1
+images/Terrain_Snow_Vaisseau
+  rotate: false
+  xy: 0, 1056
+  size: 980, 486
+  orig: 982, 488
+  offset: 1, 1
+  index: -1
+images/Terrain_Swamp_Vaisseau
+  rotate: false
+  xy: 0, 1056
+  size: 980, 486
+  orig: 982, 488
+  offset: 1, 1
+  index: -1
+images/Terrain_Swamp_Nacelle
+  rotate: true
+  xy: 1969, 1385
+  size: 101, 50
+  orig: 103, 52
+  offset: 1, 1
+  index: -1
+images/Toile
+  rotate: true
+  xy: 1745, 219
+  size: 247, 120
+  orig: 249, 122
+  offset: 1, 1
+  index: -1
+images/corde copie 3
+  rotate: true
+  xy: 1969, 1811
+  size: 118, 73
+  orig: 120, 75
+  offset: 1, 1
+  index: -1
+images/corde copie 4
+  rotate: true
+  xy: 1969, 1930
+  size: 116, 78
+  orig: 118, 80
+  offset: 1, 1
+  index: -1
+images/ground
+  rotate: true
+  xy: 529, 144
+  size: 911, 557
+  orig: 913, 559
+  offset: 1, 1
+  index: -1
+
+Sprint 2_Mothership_Final Version22.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/01_Bras_L_I_Fond1
+  rotate: false
+  xy: 304, 1596
+  size: 293, 419
+  orig: 295, 421
+  offset: 1, 1
+  index: -1
+images/01_Bras_R_I_Fond
+  rotate: false
+  xy: 0, 750
+  size: 293, 419
+  orig: 295, 421
+  offset: 1, 1
+  index: -1
+images/01_Event_L_I_2
+  rotate: true
+  xy: 0, 0
+  size: 340, 259
+  orig: 342, 261
+  offset: 1, 1
+  index: -1
+images/01_Event_R_I_1
+  rotate: true
+  xy: 598, 1497
+  size: 157, 414
+  orig: 159, 416
+  offset: 1, 1
+  index: -1
+images/01_Event_R_I_2
+  rotate: false
+  xy: 1694, 1756
+  size: 340, 259
+  orig: 342, 261
+  offset: 1, 1
+  index: -1
+images/01_L_I_Bras_Fond
+  rotate: false
+  xy: 304, 1187
+  size: 287, 408
+  orig: 289, 410
+  offset: 1, 1
+  index: -1
+images/01_R_I_Bras_Fond
+  rotate: false
+  xy: 0, 341
+  size: 287, 408
+  orig: 289, 410
+  offset: 1, 1
+  index: -1
+images/01_Voile_L_I
+  rotate: true
+  xy: 1304, 1725
+  size: 290, 389
+  orig: 292, 391
+  offset: 1, 1
+  index: -1
+images/01_Voile_R_I
+  rotate: true
+  xy: 592, 1206
+  size: 290, 389
+  orig: 292, 391
+  offset: 1, 1
+  index: -1
+images/Ballon_L_I
+  rotate: true
+  xy: 1477, 1260
+  size: 81, 158
+  orig: 83, 160
+  offset: 1, 1
+  index: -1
+images/Ballon_L_S
+  rotate: true
+  xy: 1477, 1260
+  size: 81, 158
+  orig: 83, 160
+  offset: 1, 1
+  index: -1
+images/Ballon_R_S
+  rotate: true
+  xy: 1477, 1260
+  size: 81, 158
+  orig: 83, 160
+  offset: 1, 1
+  index: -1
+images/Ballon_R_I
+  rotate: true
+  xy: 1168, 1183
+  size: 81, 159
+  orig: 83, 161
+  offset: 1, 1
+  index: -1
+images/Bras R_I
+  rotate: false
+  xy: 0, 1593
+  size: 303, 422
+  orig: 305, 424
+  offset: 1, 1
+  index: -1
+images/Bras_L_S
+  rotate: true
+  xy: 260, 10
+  size: 330, 149
+  orig: 332, 151
+  offset: 1, 1
+  index: -1
+images/Bras_L_S copie
+  rotate: false
+  xy: 592, 1056
+  size: 330, 149
+  orig: 332, 151
+  offset: 1, 1
+  index: -1
+images/Nacelle_L_I
+  rotate: true
+  xy: 1477, 1342
+  size: 108, 196
+  orig: 110, 198
+  offset: 1, 1
+  index: -1
+images/Toile L_2
+  rotate: false
+  xy: 598, 1655
+  size: 352, 360
+  orig: 354, 362
+  offset: 1, 1
+  index: -1
+images/Toile R_2
+  rotate: false
+  xy: 951, 1655
+  size: 352, 360
+  orig: 354, 362
+  offset: 1, 1
+  index: -1
+images/Toile copie
+  rotate: false
+  xy: 1013, 1534
+  size: 247, 120
+  orig: 249, 122
+  offset: 1, 1
+  index: -1
+images/Toile_L_1
+  rotate: true
+  xy: 1304, 1451
+  size: 273, 401
+  orig: 275, 403
+  offset: 1, 1
+  index: -1
+images/Toile_L_4
+  rotate: true
+  xy: 982, 1188
+  size: 308, 185
+  orig: 310, 187
+  offset: 1, 1
+  index: -1
+images/Toile_R_1
+  rotate: false
+  xy: 1706, 1360
+  size: 268, 395
+  orig: 270, 397
+  offset: 1, 1
+  index: -1
+images/Toile_R_4
+  rotate: false
+  xy: 1168, 1265
+  size: 308, 185
+  orig: 310, 187
+  offset: 1, 1
+  index: -1
+images/_Bras R
+  rotate: false
+  xy: 0, 1170
+  size: 303, 422
+  orig: 305, 424
+  offset: 1, 1
+  index: -1

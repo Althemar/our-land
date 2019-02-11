@@ -6,12 +6,10 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/GoForFood")]
 public class GoForFoodAction : Action {
+
     public override void Act(StateController controller) {
-
-
         MovingEntity entity = controller.entity as MovingEntity;
         
-
         if (!entity.hasFled) {
             var nearestEntity = entity.Tile.NearestEntity(entity.movingEntitySO.foods.ToArray(), -1);
             if (nearestEntity) {
@@ -47,8 +45,6 @@ public class GoForFoodAction : Action {
         else {
             DecreasePop(entity);
         }
-
-
     }
 
     private void TryHarvest(MovingEntity entity, Entity target, int distanceOfHarvest) {

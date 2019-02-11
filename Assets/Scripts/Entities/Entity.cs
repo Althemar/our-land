@@ -153,6 +153,7 @@ public abstract class Entity : Updatable
                 population = 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
+                entity.Initialize(1);
 
                 if (WindManager.Instance.blockingEntities.Contains(entity.entitySO)){
                     bool computeWind = false;
@@ -176,6 +177,7 @@ public abstract class Entity : Updatable
                     MovingEntity mv = entity as MovingEntity;
                     adjacent.movingEntity = mv;
                     adjacent.movable = mv.GetComponent<Movable>();
+                    adjacent.movable.CurrentTile = adjacent;
                     if (mv.isHungry) {
                         mv.ChangeAnimation("Hungry", true);
                     }
@@ -189,7 +191,6 @@ public abstract class Entity : Updatable
                         adjacent.wind.DestroyWind();
                     }
                 }
-                entity.Initialize(1);
             }
         }
     }

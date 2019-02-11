@@ -41,6 +41,9 @@ TagManager:
   - name: World Layer
     uniqueID: 3291955253
     locked: 0
+  - name: Shadow
+    uniqueID: 3717275695
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

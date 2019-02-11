@@ -12,23 +12,24 @@ public class StateController : MonoBehaviour {
     private bool aiActive;
 
 
-    void Awake () 
-    {
+    void Awake() {
         entity = GetComponent<Entity>();
         currentState.InitState(this);
     }
 
-    public void SetupAI(bool aiActivation)
-    {
+    void OnDestroy() {
+        currentState.DeInitState(this);
+    }
+
+    public void SetupAI(bool aiActivation) {
         aiActive = aiActivation;
     }
 
-    public void TurnUpdate()
-    {
+    public void TurnUpdate() {
         if (!aiActive)
             return;
-        
-        currentState.UpdateState (this);
+
+        currentState.UpdateState(this);
     }
 
     public void LateTurnUpdate() {
@@ -37,10 +38,8 @@ public class StateController : MonoBehaviour {
         currentState.LateUpdateState(this);
     }
 
-    public void TransitionToState(State nextState)
-    {
-        if (nextState != currentState) 
-        {
+    public void TransitionToState(State nextState) {
+        if (nextState != currentState) {
             nextState.InitState(this);
             currentState.DeInitState(this);
             currentState.OnExitState(this);

@@ -8,13 +8,13 @@ using Spine.Unity;
 using Spine;
 
 [RequireComponent(typeof(Movable), typeof(Inventory))]
-public class MotherShip : Updatable
-{
+public class MotherShip : Updatable {
     public int harvestDistance;
-    
-    
+
+
     public HexagonsOutline outline;
     public SkeletonAnimation spineShip;
+    private MeshRenderer renderer;
 
 
     public ResourceType populationResource;
@@ -38,7 +38,7 @@ public class MotherShip : Updatable
     [HideInInspector]
     public List<ActivePopulationPoint> populationPoints;
     private List<ActivePopulationPoint> savedPopulationPoints;
- 
+
     private bool onMove;
 
     private Movable movable;
@@ -69,18 +69,15 @@ public class MotherShip : Updatable
     public bool OnMove {
         get => onMove;
     }
-    public List<TileProperties> TilesInRange
-    {
+    public List<TileProperties> TilesInRange {
         get => tilesInRange;
     }
 
-    public Inventory Inventory
-    {
+    public Inventory Inventory {
         get => inventory;
     }
 
-    public Movable Movable
-    {
+    public Movable Movable {
         get => movable;
     }
 
@@ -88,150 +85,25 @@ public class MotherShip : Updatable
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();
         reachableTilesDisplay = GetComponent<ReachableTilesDisplay>();
+        renderer = spineShip.GetComponent<MeshRenderer>();
         movable.OnReachEndTile += EndMove;
 
-        Console.AddCommand("addActionPoints", CmdAddPA, "Add action points");
-        Console.AddCommand("setMaxActions", CmdMaxPA, "Set the max of action points");
+        Console.AddCommand("addPopulationPoints", CmdAddPP, "Add temporary population points");
+        Console.AddCommand("setPopulationPoints", CmdSetPP, "Set the number of population points");
 
+        remainingPopulationPoints = maxPopulationPoints;
         populationPoints = new List<ActivePopulationPoint>();
         savedPopulationPoints = new List<ActivePopulationPoint>();
     }
 
     private void Start() {
         OnRemainingPointsChanged?.Invoke();
-        remainingPopulationPoints = maxPopulationPoints;
         AddToTurnManager();
         ShowHarvestOutline();
     }
 
-    private void CmdAddPA(string[] args) {
-        if (args.Length == 1) {
-            int n = 0;
-            if (!int.TryParse(args[0], out n)) {
-                Console.Write("Error: Invalid amount");
-                return;
-            }
-
-            remainingPopulationPoints += n;
-            OnRemainingPointsChanged?.Invoke();
-        }
-        else {
-            Console.Write("Usage: addActionPoints [n] \nAdd n action points.");
-        }
-    }
-
-    private void CmdMaxPA(string[] args) {
-        if (args.Length == 1) {
-            int n = 0;
-            if (!int.TryParse(args[0], out n)) {
-                Console.Write("Error: Invalid amount");
-                return;
-            }
-
-            remainingPopulationPoints = n - (maxPopulationPoints - remainingPopulationPoints);
-            maxPopulationPoints = n;
-            OnRemainingPointsChanged?.Invoke();
-        }
-        else {
-            Console.Write("Usage: setMaxActions [n] \nSet the max action points to n.");
-        }
-    }
-
-    public void BeginTurn() {
-        if(foodResource)
-            AddItem(foodResource, -foodConsumption * inventory.resources[populationResource], ActionType.FoodConsumption);
-        
-        OnTurnBegin?.Invoke();
-        OnRemainingPointsChanged?.Invoke();
-    }
-
-    public void ClearHarvestOutline() {
-        outline.Clear();
-    }
-    
-    public void AddItem(ResourceType resource, int amount, ActionType action) {
-        foreach(Bonus b in bonuses) {
-            b.BonusEffectItem(action, resource, ref amount);
-        }
-        inventory.AddItem(resource, amount);
-        OnResourceGained?.Invoke(resource, amount);
-    }
-
-    public void ShowHarvestOutline() {
-        tilesInRange = movable.CurrentTile.InRange(harvestDistance);
-        for (int i = 0; i < tilesInRange.Count; i++) {
-            tilesInRange[i].IsInReachables = true;
-        }
-        outline.InitMesh(tilesInRange);
-        for (int i = 0; i < tilesInRange.Count; i++) {
-            tilesInRange[i].IsInReachables = false;
-        }
-    }
-
-    public void BeginMove() {
-        onMove = true;
-        OnBeginMoving?.Invoke();
-        outline.Clear();
-        spineShip.state.ClearTrack(0);
-        spineShip.state.SetAnimation(0, "Decollage", false);
-        AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
-        spineShip.timeScale = 1;
-        spineShip.state.Complete += AfterTakeOff;
-    }
-
-    private void AfterTakeOff(TrackEntry trackEntry) {
-        movable.MoveToTile(targetTile, false);
-    }
-
-    void EndMove() {
-        ShowHarvestOutline();
-        OnEndMoving?.Invoke();
-        OnRemainingPointsChanged?.Invoke();
-        spineShip.state.Complete -= AfterTakeOff;
-        spineShip.timeScale = -2;
-        onMove = false;
-        targetTile = null;
-        EndTurn();
-    }
-
-    TileProperties savedTile;
-    public void RedoMove() {
-        if(savedTile) {
-            Debug.Log(savedTile);
-            reachableTilesDisplay.InitReachableTiles(savedTile, movable);
-            reachableTilesDisplay.RefreshPath(savedTile);
-            reachableTilesDisplay.ValidReachables();
-            targetTile = savedTile;
-        }
-    }
-
-    public void CancelMove() {
-        reachableTilesDisplay.UndisplayReachables();
-        savedTile = targetTile;
-        targetTile = null;
-    }
-
-    public void RemoveActiveActionPoints() {
-        while (populationPoints.Count > 0) {
-            populationPoints[0].RemovePopulationPoint();
-            populationPoints.RemoveAt(0);
-        }
-    }
-    public void ClearActiveActionPoints() {
-        while (populationPoints.Count > 0) {
-            savedPopulationPoints.Add(populationPoints[0]);
-            populationPoints[0].RemovePopulationPoint();
-            populationPoints.RemoveAt(0);
-        }
-    }
-    public void ShowActiveActionPoints() {
-        foreach (ActivePopulationPoint populationPoint in savedPopulationPoints) {
-            if (!populationPoint.IsValid())
-                continue;
-            populationPoints.Add(populationPoint);
-            populationPoint.ReplacePopulationPoint();
-        }
-        savedPopulationPoints.Clear();
+    private void Update() {
+        renderer.sortingOrder = -movable.CurrentTile.Position.y;
     }
 
     public override void AddToTurnManager() {
@@ -240,6 +112,14 @@ public class MotherShip : Updatable
 
     public override void RemoveFromTurnManager() {
         TurnManager.Instance.RemoveFromUpdate(this);
+    }
+
+    public void BeginTurn() {
+        if (foodResource)
+            AddItem(foodResource, -foodConsumption * inventory.resources[populationResource], ActionType.FoodConsumption);
+
+        OnTurnBegin?.Invoke();
+        OnRemainingPointsChanged?.Invoke();
     }
 
     public override void UpdateTurn() {
@@ -255,8 +135,141 @@ public class MotherShip : Updatable
             BeginMove();
             AddItem(fuelResource, (int)Mathf.Floor(-targetTile.ActionPointCost), ActionType.Move);
             savedPopulationPoints.Clear();
-        } else {
+        }
+        else {
             EndTurn();
         }
     }
+
+    public void BeginMove() {
+        onMove = true;
+        OnBeginMoving?.Invoke();
+        outline.Clear();
+
+        spineShip.state.Complete -= AfterGrounded;
+        spineShip.state.ClearTrack(0);
+        spineShip.state.SetAnimation(0, "Decollage_Herbe", false);
+        AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
+        spineShip.state.Complete += AfterTakeOff;
+    }
+
+    private void AfterTakeOff(TrackEntry trackEntry) {
+        movable.MoveToTile(targetTile, false);
+    }
+
+    void EndMove() {
+        ShowHarvestOutline();
+        OnEndMoving?.Invoke();
+        OnRemainingPointsChanged?.Invoke();
+
+        spineShip.state.Complete -= AfterTakeOff;
+        spineShip.state.ClearTrack(0);
+        spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
+        //AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
+        spineShip.state.Complete += AfterGrounded;
+    }
+
+    private void AfterGrounded(TrackEntry trackEntry) {
+        onMove = false;
+        targetTile = null;
+        EndTurn();
+    }
+
+    public void AddItem(ResourceType resource, int amount, ActionType action) {
+        foreach (Bonus b in bonuses) {
+            b.BonusEffectItem(action, resource, ref amount);
+        }
+        inventory.AddItem(resource, amount);
+        OnResourceGained?.Invoke(resource, amount);
+    }
+
+    #region Harvest Outline
+    public void ShowHarvestOutline() {
+        tilesInRange = movable.CurrentTile.InRange(harvestDistance);
+        for (int i = 0; i < tilesInRange.Count; i++) {
+            tilesInRange[i].IsInReachables = true;
+        }
+        outline.InitMesh(tilesInRange);
+        for (int i = 0; i < tilesInRange.Count; i++) {
+            tilesInRange[i].IsInReachables = false;
+        }
+    }
+
+    public void ClearHarvestOutline() {
+        outline.Clear();
+    }
+    #endregion
+
+    #region Movement Cancel/Redo
+    TileProperties savedTile;
+    public void CancelMove() {
+        reachableTilesDisplay.UndisplayReachables();
+        savedTile = targetTile;
+        targetTile = null;
+    }
+
+    public void RedoMove() {
+        if (savedTile) {
+            reachableTilesDisplay.InitReachableTiles(savedTile, movable);
+            reachableTilesDisplay.RefreshPath(savedTile);
+            reachableTilesDisplay.ValidReachables();
+            targetTile = savedTile;
+        }
+    }
+    #endregion
+
+    #region Population Points
+    public void ShowActivePopulationPoints() {
+        foreach (ActivePopulationPoint populationPoint in savedPopulationPoints) {
+            if (!populationPoint.IsValid() && remainingPopulationPoints >= 0)
+                continue;
+            populationPoints.Add(populationPoint);
+            populationPoint.ReplacePopulationPoint();
+        }
+        savedPopulationPoints.Clear();
+    }
+    public void ClearActivePopulationPoints(bool save = true) {
+        while (populationPoints.Count > 0) {
+            if (save)
+                savedPopulationPoints.Add(populationPoints[0]);
+            populationPoints[0].RemovePopulationPoint();
+            populationPoints.RemoveAt(0);
+        }
+    }
+    #endregion
+
+    #region Commands Population Points
+    private void CmdAddPP(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid amount");
+                return;
+            }
+
+            remainingPopulationPoints += n;
+            OnRemainingPointsChanged?.Invoke();
+        }
+        else {
+            Console.Write("Usage: addPopulationPoints [n] \nAdd n temporary population points.");
+        }
+    }
+
+    private void CmdSetPP(string[] args) {
+        if (args.Length == 1) {
+            int n = 0;
+            if (!int.TryParse(args[0], out n)) {
+                Console.Write("Error: Invalid amount");
+                return;
+            }
+
+            remainingPopulationPoints = n - (maxPopulationPoints - remainingPopulationPoints);
+            maxPopulationPoints = n;
+            OnRemainingPointsChanged?.Invoke();
+        }
+        else {
+            Console.Write("Usage: setPopulation [n] \nSet the number of population points to n.");
+        }
+    }
+    #endregion
 }

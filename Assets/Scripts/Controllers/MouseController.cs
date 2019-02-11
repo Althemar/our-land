@@ -115,13 +115,15 @@ public class MouseController : MonoBehaviour {
                 hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
 
                 foreach (TileProperties neigh in current.GetNeighbors()) {
-                    hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
+                    if (neigh)
+                        hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
                 }
             }
-            hexGrid.SetTileColor(tile.Coordinates.OffsetCoordinates, new Color(1, 0, 0, 0.7f));
+            hexGrid.SetTileColor(tile.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.9f));
 
             foreach(TileProperties neigh in tile.GetNeighbors()) {
-                hexGrid.SetTileColor(neigh.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.5f));
+                if(neigh)
+                    hexGrid.SetTileColor(neigh.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.2f));
             }
 
             entitiesHarvestable.ShowInfo(tile);
@@ -166,7 +168,7 @@ public class MouseController : MonoBehaviour {
             else {
                 motherShip.targetTile = targetTile;
                 reachableTiles.ValidReachables();
-                motherShip.ClearActiveActionPoints();
+                motherShip.ClearActivePopulationPoints();
             }
         }
     }
