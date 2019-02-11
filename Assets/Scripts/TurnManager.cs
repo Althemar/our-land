@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour
-{
-    
-    public enum TurnState
-    {
+public class TurnManager : MonoBehaviour {
+
+    public enum TurnState {
         Player,
         PlayerUpdates,
-        Entities, 
+        Entities,
         Wind,
         Whirlwind,
         WindOrigin,
@@ -36,11 +34,11 @@ public class TurnManager : MonoBehaviour
 
     private Dictionary<EntitySO, List<Entity>> entitiesToUpdate;
     private List<Updatable> playersBonusUpdates;
-    private List<Updatable> playersUpdates; 
+    private List<Updatable> playersUpdates;
     private List<Wind> windsToUpdate;
     private List<Whirlwind> whirlwindsToUpdate;
     private List<WindOrigin> windOriginsToUpdate;
-    
+
     private int turnOrderIndex;
     private int entitiesTypeIndex;
 
@@ -54,20 +52,18 @@ public class TurnManager : MonoBehaviour
 
     private bool lateTurn;
 
-    public TurnState State
-    {
+    public TurnState State {
         get => state;
     }
 
-    public int TurnCount
-    {
+    public int TurnCount {
         get => turnCount;
     }
 
     private void Awake() {
         if (!Instance) {
             Instance = this;
-            entitiesToUpdate = new Dictionary<EntitySO, List<Entity>> ();
+            entitiesToUpdate = new Dictionary<EntitySO, List<Entity>>();
             for (int i = 0; i < entitiesTypeOrder.Count; i++) {
                 entitiesToUpdate.Add(entitiesTypeOrder[i], new List<Entity>());
             }
@@ -244,7 +240,7 @@ public class TurnManager : MonoBehaviour
         UpdateObjects(currentEntities);
     }
 
-    private void UpdateObjects<T>(List<T> toUpdate) where T : Updatable{
+    private void UpdateObjects<T>(List<T> toUpdate) where T : Updatable {
         updatedObjects = 0;
         for (int i = 0; i < toUpdate.Count; i++) {
             toUpdate[i].updated = false;
@@ -252,7 +248,7 @@ public class TurnManager : MonoBehaviour
         List<T> copy = new List<T>(toUpdate);
         nbObjectsToUpdate = 0;
         for (int i = 0; i < copy.Count; i++) {
-            if (!copy[i].updated) {
+            if (!copy[i].updated && copy[i]) {
                 nbObjectsToUpdate++;
                 if (!lateTurn)
                     copy[i].UpdateTurn();
@@ -260,6 +256,7 @@ public class TurnManager : MonoBehaviour
                     copy[i].LateUpdateTurn();
             }
         }
+        toUpdate.RemoveAll((entity) => { return entity == null; });
     }
 
     public void EntityUpdated() {

@@ -44,13 +44,6 @@ public class CustomTile : TileBase
     public int addonLayer = 0;
     public int addonSortingOffset = 1;
 
-    public override bool StartUp(Vector3Int location, ITilemap tilemap, GameObject go) {
-        if (HexagonalGrid.Instance && HexagonalGrid.Instance.GetTile(location))
-            HexagonalGrid.Instance.GetTile(location).SetTile(this);
-
-        return true;
-    }
-
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
         if (centers.Count > 0) {
             tileData.sprite = centers[Random.Range(0, centers.Count)];

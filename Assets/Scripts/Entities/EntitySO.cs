@@ -19,7 +19,6 @@ public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, Array
 public class EntitySO : ScriptableObject
 {
     public string name;
-    public Sprite sprite;
 
     //[BoxGroup("Population")]
     //public int basePopulation;

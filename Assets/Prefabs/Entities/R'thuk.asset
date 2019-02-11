@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: R'thuk
   m_EditorClassIdentifier: 
   name: R'thuk
-  sprite: {fileID: 21300000, guid: 08cdcabafde84a7489773fb1d7686e6f, type: 3}
   populationMax: 3
   nbTurnsBeforeReproduction: 8
   reproduceAtEachHarvest: 0

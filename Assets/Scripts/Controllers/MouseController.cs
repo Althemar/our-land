@@ -98,16 +98,34 @@ public class MouseController : MonoBehaviour {
         TileProperties tile = GetTile();
 
         if (EventSystem.current.IsPointerOverGameObject()) {
-            if (current)
+            if (current) {
                 hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
+
+                foreach (TileProperties neigh in current.GetNeighbors()) {
+                    hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
+                }
+
+            }
             tile = null;
             current = null;
         }
 
         if (tile && current != tile) {
-            if (current)
+            if (current) {
                 hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
-            hexGrid.SetTileColor(tile.Coordinates.OffsetCoordinates, new Color(1, 0, 0, 0.6f));
+
+                foreach (TileProperties neigh in current.GetNeighbors()) {
+                    if (neigh)
+                        hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
+                }
+            }
+            hexGrid.SetTileColor(tile.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.9f));
+
+            foreach(TileProperties neigh in tile.GetNeighbors()) {
+                if(neigh)
+                    hexGrid.SetTileColor(neigh.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.2f));
+            }
+
             entitiesHarvestable.ShowInfo(tile);
             current = tile;
         }
@@ -150,7 +168,7 @@ public class MouseController : MonoBehaviour {
             else {
                 motherShip.targetTile = targetTile;
                 reachableTiles.ValidReachables();
-                motherShip.ClearActiveActionPoints();
+                motherShip.ClearActivePopulationPoints();
             }
         }
     }

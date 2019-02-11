@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: Sprint 2_Mothership_Final Version2_Atlas
+  m_EditorClassIdentifier: 
+  atlasFile: {fileID: 4900000, guid: 4c85085067db1ad47aec566a39be70a2, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 70cdafec30f04a245a9d008bc8e0ef0c, type: 2}
+  - {fileID: 2100000, guid: f92085e165763fd42b0bd7e98d6c2cdb, type: 2}

@@ -51,6 +51,7 @@ public class StaticEntity : Entity
         base.Initialize(population);
         for (int i = 0; i < sprites.Count; i++) {
             sprites[i].gameObject.SetActive(false);
+            sprites[i].sortingOrder = -tile.Position.y;
         }
         tile.staticEntity = this;
         UpdateSprite();

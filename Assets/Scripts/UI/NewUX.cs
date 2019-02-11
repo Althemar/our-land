@@ -33,7 +33,7 @@ public class NewUX : MonoBehaviour {
         refCanvas.mouse.moveMode = false;
         refCanvas.mouse.harvestMode = true;
         refCanvas.ship.CancelMove();
-        refCanvas.ship.ShowActiveActionPoints();
+        refCanvas.ship.ShowActivePopulationPoints();
         refCanvas.ship.ShowHarvestOutline();
     }
 
@@ -62,14 +62,14 @@ public class NewUX : MonoBehaviour {
             refCanvas.mouse.moveMode = true;
             refCanvas.mouse.harvestMode = false;
             
-            refCanvas.ship.ClearActiveActionPoints();
+            refCanvas.ship.ClearActivePopulationPoints();
             refCanvas.ship.ClearHarvestOutline();
             refCanvas.ship.RedoMove();
         } else {
             refCanvas.mouse.moveMode = false;
             refCanvas.mouse.harvestMode = true;
 
-            refCanvas.ship.ShowActiveActionPoints();
+            refCanvas.ship.ShowActivePopulationPoints();
             refCanvas.ship.ShowHarvestOutline();
             refCanvas.ship.CancelMove();
         }
@@ -77,10 +77,11 @@ public class NewUX : MonoBehaviour {
 
     public void EndTurn() {
         TurnManager.Instance.EndTurn();
+        AkSoundEngine.PostEvent("Play_End_Turn_Pl", this.gameObject);
 
         refCanvas.mouse.moveMode = false;
         refCanvas.mouse.harvestMode = false;
-        refCanvas.ship.ClearActiveActionPoints();
+        refCanvas.ship.ClearActivePopulationPoints();
         refCanvas.ship.ClearHarvestOutline();
     }
 }

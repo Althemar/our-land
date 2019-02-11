@@ -70,7 +70,7 @@ public class ModeUI : MonoBehaviour {
             skipButton.isOn = false;
 
             refCanvas.ship.CancelMove();
-            refCanvas.ship.RemoveActiveActionPoints();
+            refCanvas.ship.ClearActivePopulationPoints(false);
         }
 
         if (TurnManager.Instance.State != TurnManager.TurnState.Player || GameManager.Input.IsBlock) {
@@ -113,14 +113,14 @@ public class ModeUI : MonoBehaviour {
     public void ToogleHarvest(bool state) {
         refCanvas.mouse.harvestMode = state;
         if (state) {
-            refCanvas.ship.ShowActiveActionPoints();
+            refCanvas.ship.ShowActivePopulationPoints();
             harvestButton.GetComponent<Image>().color = new Color(0.1f, 0.1f, 0.1f);
             harvestText.color = new Color(1f, 1f, 1f);
             StartCoroutine(ShowZebra(1f));
             refCanvas.mouse.cameraman.SetTarget(refCanvas.ship.transform.position);
         }
         else {
-            refCanvas.ship.ClearActiveActionPoints();
+            refCanvas.ship.ClearActivePopulationPoints();
             harvestButton.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
             harvestText.color = new Color(0f, 0f, 0f);
             StopAllCoroutines();

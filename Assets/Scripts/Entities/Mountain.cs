@@ -10,7 +10,7 @@ public class Mountain : MonoBehaviour {
 
         TileProperties tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         tile.asMountain = true;
-        GetComponent<SpriteRenderer>().sortingOrder = 15 - tile.Position.y;
+        GetComponent<SpriteRenderer>().sortingOrder = -tile.Position.y;
     }
 
 }
