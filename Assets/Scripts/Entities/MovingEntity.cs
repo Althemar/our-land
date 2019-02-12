@@ -22,7 +22,8 @@ public class MovingEntity : Entity {
 
     private EntityHungerState hunger;
 
-    private Entity target;
+    [HideInInspector]
+    public Entity target;
     private bool stopBefore;
     private bool isMoving = false;
     [HideInInspector]
@@ -39,6 +40,7 @@ public class MovingEntity : Entity {
     public bool isHungry = false; //used by actions
     public int remainingTurnsBeforeHungry = -1;
     public int remainingTurnsBeforeDie = -1;
+
 
     [HideInInspector]
     public bool harvestAnimation;
@@ -82,7 +84,7 @@ public class MovingEntity : Entity {
     }
 
     public void UpdateSprite(HexDirection dir, bool noDir = false) {
-        if (this == null || gameObject == null)
+        if (this == null || gameObject == null || !movingEntitySO.updateSprite)
             return;
 
         currentDir = dir;

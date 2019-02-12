@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
-  m_Name: Fish
+  m_Name: PopulationPoint
   m_EditorClassIdentifier: 
-  name: Fish
-  populationMax: 3
-  nbTurnsBeforeReproduction: 2
-  reproduceAtEachHarvest: 1
-  renewWhenZero: 1
-  reproductionRate: 1
-  deathRate: 0
+  name: PopulationPoint
+  populationMax: 1
+  nbTurnsBeforeReproduction: 0
+  reproduceAtEachHarvest: 0
+  renewWhenZero: 0
+  reproductionRate: 0
+  deathRate: 1
   resources:
     reorderableList:
       canAdd: 1
@@ -43,11 +43,11 @@ MonoBehaviour:
     reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
     isExpanded: 1
     _keyValues:
-    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    - {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
     _keys:
-    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    - {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
     _values:
-    - gain: 010000000200000003000000
+    - gain: 01000000
   randomBonus:
     reorderableList:
       canAdd: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -69,20 +69,11 @@ MonoBehaviour:
       elementNameProperty: 
       elementNameOverride: 
       elementIcon: {fileID: 0}
-    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
-    isExpanded: 1
-    _keyValues:
-    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _keys:
-    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
-    _values:
-    - randomBonus:
-      - minBonus: 1
-        maxBonus: 2
-      - minBonus: 2
-        maxBonus: 3
-      - minBonus: 3
-        maxBonus: 4
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
   availableTiles: []
   harvestSound: 
   movementPoints: 0
@@ -117,4 +108,4 @@ MonoBehaviour:
     _keys: []
     _values: 
   predators: []
-  updateSprite: 1
+  updateSprite: 0
