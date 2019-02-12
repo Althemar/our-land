@@ -22,7 +22,6 @@ MonoBehaviour:
   foodWhenHarvested: 1
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
-  - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
   resources:
     reorderableList:
       canAdd: 1

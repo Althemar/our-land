@@ -55,7 +55,7 @@ MonoBehaviour:
   harvestSound: Play_SFX_Kill_Rhtuk_Victory
   movementPoints: 2
   nbTurnsToDie: 2
-  nbTurnsToBeHungry: 3
+  nbTurnsToBeHungry: 4
   damageWhenEat: 1
   eatFeedback: {fileID: 6641214869133636042, guid: d45d06d1efa15da45853d1017c6aa964,
     type: 3}
