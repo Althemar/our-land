@@ -71,9 +71,10 @@ public class Wind : MonoBehaviour
                     }
                 }
                 else {
-                    if (particles[i].remainingLifetime > 1) {
+                    particles[i].remainingLifetime = Mathf.Min(1.0f, particles[i].remainingLifetime);
+                    /*if (particles[i].remainingLifetime > 1) {
                         particles[i].remainingLifetime = Random.Range(0, 0.3f) ;
-                    }
+                    }*/
                 }
             }
             ps.SetParticles(particles);

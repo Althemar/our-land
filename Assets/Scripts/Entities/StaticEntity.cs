@@ -52,12 +52,10 @@ public class StaticEntity : Entity
         }
 
     }
-
-    bool isInit = false;
+    
     public override void Initialize(int population = -1) {
         if (isInit)
             return;
-        isInit = true;
 
         base.Initialize(population);
         for (int i = 0; i < sprites.Count; i++) {
@@ -66,6 +64,8 @@ public class StaticEntity : Entity
         }
         tile.staticEntity = this;
         UpdateSprite();
+
+        isInit = true;
     }
 
     public override EntityType GetEntityType() {
