@@ -210,7 +210,12 @@ public class MovingEntity : Entity {
         target.Eaten(1);
     }
 
+    bool isInit = false;
     public override void Initialize(int population = -1) {
+        if (isInit)
+            return;
+        isInit = true;
+
         base.Initialize(population);
         remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
         remainingTurnsBeforeDie = movingEntitySO.nbTurnsToDie;

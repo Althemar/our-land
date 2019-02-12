@@ -58,8 +58,12 @@ public abstract class Entity : Updatable
 
     public abstract EntityType GetEntityType();
 
-
+    bool isInit = false;
     public virtual void Initialize(int population = -1) {
+        if (isInit)
+            return;
+        isInit = true;
+
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
             transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(cellPosition);
@@ -110,7 +114,7 @@ public abstract class Entity : Updatable
         TileProperties[] neighbors = tile.GetNeighbors();
         List<TileProperties> freeTiles = new List<TileProperties>();
         foreach (TileProperties neighbor in neighbors) {
-            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.asLake &&
+            if (neighbor && entitySO.availableTiles.Contains(neighbor.Tile) && !neighbor.asLake && !neighbor.asMountain &&
                     ((type == EntityType.Moving && neighbor.movingEntity == null && neighbor.movable == null)
                  || (type == EntityType.Static && neighbor.staticEntity == null && neighbor.movable != GameManager.Instance.motherShip.Movable))) {
                 freeTiles.Add(neighbor);
@@ -153,7 +157,6 @@ public abstract class Entity : Updatable
                 population = 2;
                 Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
                 entity.tile = adjacent;
-                entity.Initialize(1);
 
                 if (type == EntityType.Moving) {
                     MovingEntity mv = entity as MovingEntity;
@@ -183,6 +186,8 @@ public abstract class Entity : Updatable
                         adjacent.wind.DestroyWind(true);
                     }
                 }
+
+                entity.Initialize(1);
             }
         }
     }
