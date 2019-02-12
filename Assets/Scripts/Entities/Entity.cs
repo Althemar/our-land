@@ -10,6 +10,7 @@ public abstract class Entity : Updatable
 {
     public EntitySO entitySO;
 
+
     [SerializeField]
     public int population;
     protected TileProperties tile;
@@ -139,8 +140,14 @@ public abstract class Entity : Updatable
 
     public void DecreasePopulation() {
         population -= entitySO.deathRate;
-        if (population <= 0) {
+        if (population <= 0 && !entitySO.renewWhenZero) {
             Kill();
+        }
+        if (population <= 0 && populationPoint) {
+            //populationPoint.RemovePopulationPoint();
+        }
+        if (population < 0) {
+            population = 0;
         }
         OnPopulationChange?.Invoke();
     }

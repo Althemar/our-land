@@ -17,4 +17,6 @@
         private AudioClip _audioClip;
         [SerializeField]
         private ResourceType _scriptableObject;
+        [SerializeField]
+        private EntitySO _entitySO;
     }

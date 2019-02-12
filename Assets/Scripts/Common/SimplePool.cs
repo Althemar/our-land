@@ -102,9 +102,10 @@ public class SimplePool<T> where T : class
 
     public T Pop(T objToPop) {
         List<T> popped = new List<T>();
-        T objPopped = pool.Pop();
+        //T objPopped = pool.Pop();
+        T objPopped = null;
         
-        while (objPopped != objToPop) {
+        while (objPopped != objToPop && pool.Count > 0) {
             popped.Add(objPopped);
             objPopped = pool.Pop();
         }

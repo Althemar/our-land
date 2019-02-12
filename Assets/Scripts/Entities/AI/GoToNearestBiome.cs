@@ -26,8 +26,9 @@ public class GoToNearestBiome : Action
                 TileProperties neighbor = neighbors[j];
                 if (neighbor && neighbor.Tile && !visited.Contains(neighbor)) {
                     if (terrains.Contains(neighbor.Tile.terrainType)) {
-                        TryMoveToBiome(neighbor);
-                        return;
+                        if (TryMoveToBiome(neighbor)) {
+                            return;
+                        }
                     }
                     else {
                         fringes.Enqueue(neighbor);
@@ -38,9 +39,9 @@ public class GoToNearestBiome : Action
         }
     }
 
-    public void TryMoveToBiome(TileProperties tileToGo) {
+    public bool TryMoveToBiome(TileProperties tileToGo) {
         if(tileToGo.Coordinates.Distance(entity.Tile.Coordinates) <= range) {
-            return;
+            return false;
         }
         List<TileProperties> inRange = tileToGo.InRange(range);
         inRange.Shuffle();
@@ -49,8 +50,9 @@ public class GoToNearestBiome : Action
                 continue;
             }
             entity.MoveTo(tile, null);
-            break;
+            return true;
         }
+        return false;
     }
 
 

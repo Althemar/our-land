@@ -33,6 +33,9 @@ public class State : ScriptableObject {
     }
 
     private void onEndTurn(Updatable up) {
+        if (up == null) {
+            return;
+        }
         StateController st = up.GetComponent<StateController>();
         if (st != null) {
             CheckTransitions(st);

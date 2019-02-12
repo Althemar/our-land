@@ -15,6 +15,25 @@ public class ResourcesToHarvest : SerializableDictionaryBase<ResourceType, Array
 {
 }
 
+[System.Serializable]
+public struct RandomBonus
+{
+    public int minBonus;
+    public int maxBonus;
+}
+
+[System.Serializable]
+public struct ArrayRandomBonus
+{
+    public RandomBonus[] randomBonus;
+}
+
+
+[Serializable]
+public class ResourcesRandomBonus : SerializableDictionaryBase<ResourceType, ArrayRandomBonus>
+{
+}
+
 //[CreateAssetMenu(fileName = "Entity", menuName = "Entity", order = 1)]
 public class EntitySO : ScriptableObject
 {
@@ -30,6 +49,8 @@ public class EntitySO : ScriptableObject
 
     [BoxGroup("Population")]
     public bool reproduceAtEachHarvest;
+    public bool renewWhenZero;
+
 
     [BoxGroup("Population rates")]
     public int reproductionRate;
@@ -38,15 +59,18 @@ public class EntitySO : ScriptableObject
 
 
 
+
     [BoxGroup("Food")]
-    public List<float> foodsPerTurn;
-    public float foodWhenHarvested;
-        
+    [SerializeField]
+    public ResourcesToHarvest resources;
+    [BoxGroup("Food")]
+    [SerializeField]
+    public ResourcesRandomBonus randomBonus;
+    
+
     [ReorderableList]
     public List<CustomTile> availableTiles;
 
-    [SerializeField]
-    public ResourcesToHarvest resources;
    
 
     public string harvestSound;
