@@ -15,6 +15,8 @@ public class ActivePopulationPoint : Updatable {
 
     public Vector3 beginPosition, targetPosition;
 
+    Coroutine moveCoroutine;
+
 
     private void Start() {
         button = GetComponent<Button>();
@@ -62,11 +64,22 @@ public class ActivePopulationPoint : Updatable {
     }
 
     public bool IsValid() {
-        return entity != null;
+        return entity != null && entity.population > 0;
     }
 
     public void ReplacePopulationPoint() {
-        ActivePopulationPoint populationPoint = PopulationPoints.Instance.PopulationPointsPool.Pop(this);
+
+        /*
+        if (!gameObject.activeSelf) {
+            PopulationPoints.Instance.PopulationPointsPool.Push(this);
+        }*/
+        if (gameObject.activeSelf){
+            StopCoroutine(moveCoroutine);
+        }
+        else {
+            PopulationPoints.Instance.PopulationPointsPool.Pop(this);
+        }
+
         PopulationPoints.Instance.motherShip.remainingPopulationPoints--;
         PopulationPoints.Instance.motherShip.OnRemainingPointsChanged?.Invoke();
         InitPopulationPoint(entity);
@@ -76,9 +89,12 @@ public class ActivePopulationPoint : Updatable {
         base.UpdateTurn();
         turnCount++;
         HarvestEntity();
-        EndTurn();
-        if (entity.population <= 0)
+        if (entity.population <= 0) {
             RemovePopulationPoint();
+        }
+        else {
+            EndTurn();
+        }
     }
 
     private void HarvestEntity() {
@@ -90,7 +106,14 @@ public class ActivePopulationPoint : Updatable {
             else {
                 population = Mathf.Floor(entity.population);
             }
-            PopulationPoints.Instance.motherShip.AddItem(resource.Key, resource.Value.gain[entity.HarvestedBonus], MotherShip.ActionType.Harvest);
+
+            int gain = resource.Value.gain[entity.HarvestedBonus];
+            if (entity.entitySO.randomBonus.ContainsKey(resource.Key)){
+                RandomBonus bonus = entity.entitySO.randomBonus[resource.Key].randomBonus[entity.HarvestedBonus];
+                gain += Random.Range(bonus.minBonus, bonus.maxBonus + 1);
+            }
+
+            PopulationPoints.Instance.motherShip.AddItem(resource.Key, gain, MotherShip.ActionType.Harvest);
         }
         entity.Harvest();
         entityDestroyed = true;
@@ -108,7 +131,14 @@ public class ActivePopulationPoint : Updatable {
         Vector3 position = entity.transform.position;
         foreach (KeyValuePair<ResourceType, ArrayRessources> resource in resources) {
             ResourceHarvestedUI harvested = Instantiate(PopulationPoints.Instance.resourceGainedPrefab, position, Quaternion.identity, transform.parent).GetComponent<ResourceHarvestedUI>();
-            harvested.Initialize(resource.Key, resource.Value.gain[entity.HarvestedBonus]);
+
+            int gain = resource.Value.gain[entity.HarvestedBonus];
+            if (entity.entitySO.randomBonus.ContainsKey(resource.Key)) {
+                RandomBonus bonus = entity.entitySO.randomBonus[resource.Key].randomBonus[entity.HarvestedBonus];
+                gain += Random.Range(bonus.minBonus, bonus.maxBonus + 1);
+            }
+
+            harvested.Initialize(resource.Key, gain);
             yield return new WaitForSeconds(1);
         }
     }
@@ -118,7 +148,7 @@ public class ActivePopulationPoint : Updatable {
         entity.populationPoint = null;
         beginPosition = transform.position;
         targetPosition = PopulationPoints.Instance.motherShip.transform.position;
-        StartCoroutine(MoveToTargetPosition(true));
+        moveCoroutine = StartCoroutine(MoveToTargetPosition(true));
     }
 
     private IEnumerator MoveToTargetPosition(bool pushInPool = false) {

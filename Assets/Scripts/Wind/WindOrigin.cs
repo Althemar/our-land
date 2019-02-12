@@ -62,7 +62,10 @@ public class WindOrigin : Updatable
             tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
         }
 
-        if (!beginTile) {
+        if (!beginTile || !beginTile.wind) {
+            if (firstWind) {
+                firstWind.DestroyWind(true);
+            }
             TryExpandCorridor(ref remainingTiles, tile, direction, false);
             if (remainingTiles.Count > 0) {
                 firstWind = remainingTiles.Peek().wind;
@@ -130,6 +133,7 @@ public class WindOrigin : Updatable
 
             Wind newWind = WindManager.Instance.WindsPool.Pop();
             newWind.InitializeChildWind(nextTile, affectedTile.wind, nextDirection);
+            newWind.windOrigin = this;
 
             return true;
         }

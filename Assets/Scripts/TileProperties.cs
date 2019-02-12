@@ -241,7 +241,11 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(grid.humidity.triLakeNE, riversGameObjects, -150);
             else
                 CreateSprite(grid.humidity.lake, riversGameObjects, -150);
+
+
+            MovingEntity fish = Instantiate(GameManager.Instance.fishPrefab, transform.position, Quaternion.identity).GetComponent<MovingEntity>();
         }
+
     }
 
     public void PutRivers() {

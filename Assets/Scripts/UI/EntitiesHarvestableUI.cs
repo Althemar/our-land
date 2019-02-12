@@ -87,6 +87,9 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     }
 
     void AddButton(Entity entity, Vector3 position) {
+        if (entity.population <= 0) {
+            return;
+        }
         PopulationSlot button = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform).GetComponent<PopulationSlot>();
         button.transform.position = position;
         button.Initialize(entity, this);

@@ -38,8 +38,9 @@ public class MotherShip : Updatable {
 
     [HideInInspector]
     public List<ActivePopulationPoint> populationPoints;
-    private List<ActivePopulationPoint> savedPopulationPoints;
-
+    [HideInInspector]
+    public List<ActivePopulationPoint> savedPopulationPoints;
+ 
     private bool onMove;
 
     private Movable movable;
