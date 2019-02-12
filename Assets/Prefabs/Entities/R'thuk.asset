@@ -17,14 +17,9 @@ MonoBehaviour:
   populationMax: 3
   nbTurnsBeforeReproduction: 8
   reproduceAtEachHarvest: 0
+  renewWhenZero: 0
   reproductionRate: 1
   deathRate: 1
-  foodsPerTurn: []
-  foodWhenHarvested: 1
-  availableTiles:
-  - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
-  - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
-  - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   resources:
     reorderableList:
       canAdd: 1
@@ -54,6 +49,36 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _values:
     - gain: 020000000400000006000000
+  randomBonus:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: []
+    _keys: []
+    _values: []
+  availableTiles:
+  - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
+  - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
+  - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   harvestSound: Play_SFX_Kill_Rhtuk_Victory
   movementPoints: 2
   nbTurnsToDie: 2
@@ -86,7 +111,9 @@ MonoBehaviour:
     isExpanded: 1
     _keyValues:
     - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+    - {fileID: 11400000, guid: 651f732e6219b2b48836853aac5230ba, type: 2}
     _keys:
     - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
-    _values: 01000000
+    - {fileID: 11400000, guid: 651f732e6219b2b48836853aac5230ba, type: 2}
+    _values: 0100000001000000
   predators: []

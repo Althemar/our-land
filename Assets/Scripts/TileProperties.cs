@@ -244,7 +244,7 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(grid.humidity.lake, riversGameObjects, -150);
 
 
-            StaticEntity fish = Instantiate(GameManager.Instance.fishPrefab, transform.position, Quaternion.identity).GetComponent<StaticEntity>();
+            MovingEntity fish = Instantiate(GameManager.Instance.fishPrefab, transform.position, Quaternion.identity).GetComponent<MovingEntity>();
         }
 
     }

@@ -105,7 +105,7 @@ public static class ExtensionMethodsForAI
                 TileProperties[] neighbors = previousTile.GetNeighbors();
                 for (int j = 0; j < neighbors.Length; j++) {
                     TileProperties neighbor = neighbors[j];
-                    if (neighbor && neighbor.Tile && !visited.Contains(neighbor) && neighbor.IsWalkable()) {
+                    if (neighbor && neighbor.Tile && !visited.Contains(neighbor)){ //&& neighbor.IsWalkable()) {   // removed IsWalkable, because rthuk could not hunt fish
                         if (neighbor.ContainsEntity(foodsArray, true)) {
                             return neighbor;
                         }

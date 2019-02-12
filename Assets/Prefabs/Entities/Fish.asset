@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f36ee55967f34b4dbc30a67574414a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 36148f49d76aa8344a2806f8ca529898, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
   name: Fish
@@ -20,9 +20,78 @@ MonoBehaviour:
   renewWhenZero: 1
   reproductionRate: 1
   deathRate: 1
-  foodWhenHarvested: 0
-  availableTiles: []
   resources:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _values:
+    - gain: 010000000200000003000000
+  randomBonus:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
+    isExpanded: 1
+    _keyValues:
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _keys:
+    - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
+    _values:
+    - randomBonus:
+      - minBonus: 1
+        maxBonus: 2
+      - minBonus: 2
+        maxBonus: 3
+      - minBonus: 3
+        maxBonus: 4
+  availableTiles: []
+  harvestSound: 
+  movementPoints: 0
+  nbTurnsToDie: 0
+  nbTurnsToBeHungry: 0
+  damageWhenEat: 0
+  eatFeedback: {fileID: 0}
+  foods:
     reorderableList:
       canAdd: 1
       canRemove: 1
@@ -47,5 +116,5 @@ MonoBehaviour:
     isExpanded: 0
     _keyValues: []
     _keys: []
-    _values: []
-  harvestSound: 
+    _values: 
+  predators: []
