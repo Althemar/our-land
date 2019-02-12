@@ -16,7 +16,7 @@ public class PopulationPoints : MonoBehaviour {
 
     private void Start() {
         if (!Instance) {
-            populationPointsPool = SimplePoolHelper.PopulateSimplePool(populationPointsPool, populationPointPrefab, "activePopulationPoints", motherShip.remainingPopulationPoints, transform);
+            populationPointsPool = SimplePoolHelper.PopulateSimplePool(populationPointsPool, populationPointPrefab, "activePopulationPoints", 20, transform);
             Instance = this;
         }
     }

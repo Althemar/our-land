@@ -14,7 +14,7 @@ public class MouseUI : MonoBehaviour {
     void Update() {
         Cursor.visible = false;
         img.transform.localPosition = Input.mousePosition - new Vector3(Screen.width, Screen.height, 0) / 2;
-
+        Shader.SetGlobalVector("_MousePosition", Input.mousePosition);
         if (Input.GetMouseButton(0))
             img.sprite = down;
         else

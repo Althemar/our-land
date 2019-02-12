@@ -15,9 +15,14 @@ public class GridOutline : MonoBehaviour {
 
     public void Start() {
         mesh = GetComponent<MeshFilter>().mesh;
-        transform.position = new Vector3(0, 0, -0.1f);
-        List<Vector3> vertices = new List<Vector3>();
+        CreateMesh();
+    }
 
+    public void CreateMesh() {
+        transform.position = new Vector3(0, 0, -0.1f);
+
+        mesh.Clear();
+        List<Vector3> vertices = new List<Vector3>();
         int nbRect = 0;
         for (int x = 0; x < grid.tilesArray.GetLength(0); x++) {
             for (int y = 0; y < grid.tilesArray.GetLength(1); y++) {

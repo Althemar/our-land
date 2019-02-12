@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Spine;
 using Spine.Unity;
 
 [RequireComponent(typeof(Movable))]
-public class MovingEntity : Entity
-{
+public class MovingEntity : Entity {
     [HideInInspector]
     public Movable movable;
 
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
-    
+
     public GameObject[] NWTarget;
     public GameObject[] WTarget;
     public GameObject[] SWTarget;
@@ -35,7 +35,7 @@ public class MovingEntity : Entity
 
     public delegate void OnHarvestDelegate(MovingEntity from, Entity target);
     public static OnHarvestDelegate OnHarvest;
-    
+
     public bool isHungry = false; //used by actions
     public int remainingTurnsBeforeHungry = -1;
     public int remainingTurnsBeforeDie = -1;
@@ -66,12 +66,16 @@ public class MovingEntity : Entity
         Initialize();
     }
 
+    private void Update() {
+        GetComponent<SortingGroup>().sortingOrder = -movable.CurrentTile.Position.y;
+    }
+
     void Destroy() {
         movable.OnReachEndTile -= EndMoving;
         movable.OnChangeDirection -= UpdateSprite;
         OnPopulationChange -= UpdateSprite;
     }
-    
+
     HexDirection currentDir;
     public void UpdateSprite() {
         UpdateSprite(currentDir);
@@ -80,14 +84,11 @@ public class MovingEntity : Entity
     public void UpdateSprite(HexDirection dir, bool noDir = false) {
         if (this == null || gameObject == null)
             return;
-        
+
         currentDir = dir;
 
-        if (!noDir) {
-
-        }
         float flip = 1;
-        if(dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
+        if (dir == HexDirection.NE || dir == HexDirection.E || dir == HexDirection.SE)
             flip = -1;
 
         activatedSkeletons.Clear();
@@ -100,7 +101,7 @@ public class MovingEntity : Entity
         StopAllCoroutines();
 
         GameObject[] target = null;
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             if (noDir) {
                 dir = (HexDirection)Random.Range(0, 6);
             }
@@ -116,7 +117,7 @@ public class MovingEntity : Entity
                 case HexDirection.NW:
                 case HexDirection.NE:
                     SpineTarget[i].NW.gameObject.SetActive(true);
-                    if(population > i)
+                    if (population > i)
                         activatedSkeletons.Add(SpineTarget[i].NW);
 
                     target = (!noDir) ? NWTarget : CenterTarget;
@@ -144,7 +145,7 @@ public class MovingEntity : Entity
 
             SpineTarget[i].transform.localScale = SpineTarget[i].transform.localScale.y * new Vector3(flip, 1, 1);
         }
-        
+
     }
 
     IEnumerator GoToTarget(GameObject entity, GameObject target, float flip) {
@@ -154,7 +155,7 @@ public class MovingEntity : Entity
         ChangeAnimation("Walk", true);
         while (Vector3.Distance(entity.transform.position, target.transform.parent.position + pos) > 0.01f) {
             entity.transform.position = Vector3.MoveTowards(entity.transform.position, target.transform.parent.position + pos, Time.deltaTime);
-            //foreach()
+
             yield return null;
         }
         ChangeAnimation("Idle", true);
@@ -171,7 +172,7 @@ public class MovingEntity : Entity
         var pathToTarget = AStarSearch.Path(tile, to, entitySO.availableTiles, null, preview);
         if (pathToTarget != null && pathToTarget.Count >= 0 && !preview) {
             TileProperties newTile = movable.MoveToward(pathToTarget, movingEntitySO.movementPoints, to.movingEntity != null);
-            if(newTile) {
+            if (newTile) {
                 tile.movable = null;
                 tile.movingEntity = null;
                 eventAfterMove = onEndMove;
@@ -182,10 +183,12 @@ public class MovingEntity : Entity
                 isMoving = true;
                 SetPreviewTile(newTile, false);
                 ChangeAnimation("Walk", true);
-            } else {
+            }
+            else {
                 onEndMove?.Invoke();
             }
-        } else {
+        }
+        else {
             onEndMove?.Invoke();
         }
         return pathToTarget;
@@ -229,10 +232,6 @@ public class MovingEntity : Entity
         eventAfterMove?.Invoke();
         eventAfterMove = null;
         isMoving = false;
-        /*
-        tile.movingEntity = null;
-        tile = movable.CurrentTile;
-        tile.movingEntity = this;*/
 
         if (!harvestAnimation) {
             if (isHungry) {
@@ -242,7 +241,7 @@ public class MovingEntity : Entity
                 ChangeAnimation("Idle", true);
             }
         }
-        
+
         EndTurn();
     }
 

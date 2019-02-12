@@ -4,9 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (menuName = "PluggableAI/State")]
-public class State : ScriptableObject 
-{
+[CreateAssetMenu(menuName = "PluggableAI/State")]
+public class State : ScriptableObject {
 
     public Action[] actions;
     public Transition[] transitions;
@@ -18,7 +17,7 @@ public class State : ScriptableObject
     public bool init = false;
 
     private void Awake() {
-        
+
     }
 
     public void InitState(StateController controller) {
@@ -29,16 +28,16 @@ public class State : ScriptableObject
         controller.entity.OnEndTurn -= onEndTurn;
     }
 
-    public void UpdateState(StateController controller)
-    {
-        DoActions (controller);
+    public void UpdateState(StateController controller) {
+        DoActions(controller);
     }
 
     private void onEndTurn(Updatable up) {
         StateController st = up.GetComponent<StateController>();
         if (st != null) {
             CheckTransitions(st);
-        } else {
+        }
+        else {
             Debug.LogError("Wtf no state controller");
         }
     }
@@ -47,10 +46,9 @@ public class State : ScriptableObject
         DoLateActions(controller);
     }
 
-    private void DoActions(StateController controller)
-    {
+    private void DoActions(StateController controller) {
         for (int i = 0; i < actions.Length; i++) {
-            actions [i].Act (controller);
+            actions[i].Act(controller);
         }
     }
 
@@ -60,30 +58,28 @@ public class State : ScriptableObject
         }
     }
 
-    private void CheckTransitions(StateController controller)
-    {
-        for (int i = 0; i < transitions.Length; i++) 
-        {
-            bool decisionSucceeded = transitions [i].decision.Decide (controller);
+    private void CheckTransitions(StateController controller) {
+        for (int i = 0; i < transitions.Length; i++) {
+            bool decisionSucceeded = transitions[i].decision.Decide(controller);
 
             if (decisionSucceeded) {
-                controller.TransitionToState (transitions [i].trueState);
-            } else 
-            {
-                controller.TransitionToState (transitions [i].falseState);
+                controller.TransitionToState(transitions[i].trueState);
+            }
+            else {
+                controller.TransitionToState(transitions[i].falseState);
             }
         }
     }
 
     public void OnEnterState(StateController controller) {
         for (int i = 0; i < actions.Length; i++) {
-            actions [i].OnEnterState (controller);
+            actions[i].OnEnterState(controller);
         }
     }
 
     public void OnExitState(StateController controller) {
         for (int i = 0; i < actions.Length; i++) {
-            actions [i].OnExitState (controller);
+            actions[i].OnExitState(controller);
         }
     }
 

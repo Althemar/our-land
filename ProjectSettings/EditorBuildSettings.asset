@@ -9,24 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 0f99355c1180362408ff70003d22c910
   - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest1.unity
-    guid: 149763153372c490bbfb778d0c02c09f
-  - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest2.unity
-    guid: 3ef026a7656544b5a88473810a72c595
-  - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest3.unity
-    guid: f910e7418b26c479793d6f2f080f57a0
-  - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest4.unity
-    guid: 26d682db871354880b6c9c2265041b7c
-  - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest5.unity
-    guid: a470bf02ef58d4671ac3af6d7d45ff41
-  - enabled: 1
-    path: Assets/Scenes/MiniPlaytest/MiniPlaytest6.unity
-    guid: 682d056df7ad542daa14e805680d8fb5
-  - enabled: 1
-    path: Assets/Scenes/Lvl playtest 1.unity
-    guid: 78394d88401e8f14cb6d2ef36e9d414d
+    path: Assets/Scenes/Togi.unity
+    guid: 9da5b8549057f244d8e2593640836876
   m_configObjects: {}

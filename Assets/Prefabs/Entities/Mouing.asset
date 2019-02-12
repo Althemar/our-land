@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Mouing
   m_EditorClassIdentifier: 
   name: Mouing
-  sprite: {fileID: 21300000, guid: 7e2ddc2d621e52341a2d91a97754fa84, type: 3}
   populationMax: 3
   nbTurnsBeforeReproduction: 0
   reproduceAtEachHarvest: 1
