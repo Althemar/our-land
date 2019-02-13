@@ -167,9 +167,10 @@ public class MotherShip : Updatable {
         spineShip.state.Complete -= AfterTakeOff;
         spineShip.state.ClearTrack(0);
         spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
-        //AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
+        AkSoundEngine.PostEvent("Play_Grounded", this.gameObject);
         spineShip.state.Complete += AfterGrounded;
     }
+
 
     private void AfterGrounded(TrackEntry trackEntry) {
         onMove = false;

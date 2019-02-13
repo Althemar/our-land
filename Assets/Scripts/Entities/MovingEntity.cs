@@ -215,11 +215,10 @@ public class MovingEntity : Entity {
         target.Eaten(1);
     }
     
-    public override void Initialize(int population = -1) {
-        if (isInit)
-            return;
+    public override bool Initialize(int population = -1) {
+        if (!base.Initialize(population))
+            return false;
 
-        base.Initialize(population);
         remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
         remainingTurnsBeforeDie = movingEntitySO.nbTurnsToDie;
         tile.movingEntity = this;
@@ -234,7 +233,8 @@ public class MovingEntity : Entity {
         else {
             ChangeAnimation("Idle", true);
         }
-        isInit = true;
+
+        return true;
     }
 
     void EndMoving() {

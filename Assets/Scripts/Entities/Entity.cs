@@ -59,10 +59,10 @@ public abstract class Entity : Updatable
 
     public abstract EntityType GetEntityType();
 
-    protected bool isInit = false;
-    public virtual void Initialize(int population = -1) {
+    bool isInit = false;
+    public virtual bool Initialize(int population = -1) {
         if (isInit)
-            return;
+            return false;
 
         if (tile == null) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
@@ -79,6 +79,7 @@ public abstract class Entity : Updatable
         reserve = 0;
 
         isInit = true;
+        return true;
     }
 
     public override void UpdateTurn() {

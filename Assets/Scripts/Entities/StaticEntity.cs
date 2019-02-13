@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticEntity : Entity
-{
+public class StaticEntity : Entity {
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
 
@@ -15,8 +14,7 @@ public class StaticEntity : Entity
         base.Awake();
         staticEntitySO = entitySO as StaticEntitySO;
         Initialize();
-
-
+        transform.position = transform.position + new Vector3(0, 0, 1);
     }
 
     protected override void Start() {
@@ -39,7 +37,7 @@ public class StaticEntity : Entity
             rendererToActivate = null;
         }
         else {
-            rendererToActivate = sprites[population-1];
+            rendererToActivate = sprites[population - 1];
         }
         if (activeSprite != rendererToActivate && rendererToActivate) {
             activeSprite?.gameObject.SetActive(false);
@@ -52,12 +50,11 @@ public class StaticEntity : Entity
         }
 
     }
-    
-    public override void Initialize(int population = -1) {
-        if (isInit)
-            return;
 
-        base.Initialize(population);
+    public override bool Initialize(int population = -1) {
+        if (!base.Initialize(population))
+            return false;
+        
         for (int i = 0; i < sprites.Count; i++) {
             sprites[i].gameObject.SetActive(false);
             sprites[i].sortingOrder = -tile.Position.y;
@@ -65,7 +62,7 @@ public class StaticEntity : Entity
         tile.staticEntity = this;
         UpdateSprite();
 
-        isInit = true;
+        return true;
     }
 
     public override EntityType GetEntityType() {
