@@ -33,4 +33,6 @@ public class MovingEntitySO : EntitySO
     [BoxGroup("Food")]
     [ReorderableList]
     public List<EntitySO> predators;
+
+    public bool updateSprite = true;
 }

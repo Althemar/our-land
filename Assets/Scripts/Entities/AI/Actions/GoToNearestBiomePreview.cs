@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PluggableAI/Actions/GoToNearestTile")]
-public class GoToNearestBiome : Action
+[CreateAssetMenu(menuName = "PluggableAI/Actions/GoToNearestTilePreview")]
+public class GoToNearestBiomePreview : Action
 {
     public List<CustomTile.TerrainType> terrains;
     public bool goOnTile = true;
@@ -13,6 +13,11 @@ public class GoToNearestBiome : Action
 
     public override void Act(StateController controller) {
         entity = controller.entity as MovingEntity;
+
+        if (terrains.Contains(entity.Tile.Tile.terrainType)) {
+            return;
+        }
+
         HashSet<TileProperties> visited = new HashSet<TileProperties>();
         visited.Add(entity.Tile);
 
@@ -26,9 +31,8 @@ public class GoToNearestBiome : Action
                 TileProperties neighbor = neighbors[j];
                 if (neighbor && neighbor.Tile && !visited.Contains(neighbor)) {
                     if (terrains.Contains(neighbor.Tile.terrainType)) {
-                        if (TryMoveToBiome(neighbor)) {
-                            return;
-                        }
+                        TryMoveToBiome(neighbor);
+                        return;
                     }
                     else {
                         fringes.Enqueue(neighbor);
@@ -39,9 +43,9 @@ public class GoToNearestBiome : Action
         }
     }
 
-    public bool TryMoveToBiome(TileProperties tileToGo) {
+    public void TryMoveToBiome(TileProperties tileToGo) {
         if(tileToGo.Coordinates.Distance(entity.Tile.Coordinates) <= range) {
-            return false;
+            return;
         }
         List<TileProperties> inRange = tileToGo.InRange(range);
         inRange.Shuffle();
@@ -49,10 +53,15 @@ public class GoToNearestBiome : Action
             if ((!goOnTile && tile == tileToGo) || !tile.Tile || !tile.IsWalkable() || tile.asLake || tile.windOrigin ) {
                 continue;
             }
-            entity.MoveTo(tile, null);
-            return true;
+            Stack<TileProperties> path = entity.MoveTo(tile, null, true);
+            if (path != null && path.Count > 1) {
+                TileProperties[] aPath = path.ToArray();
+
+                entity.SetPreviewTile(aPath[1]);
+                entity.UpdateSprite(entity.Tile.Coordinates.Direction(aPath[1].Coordinates));
+            }
+            break;
         }
-        return false;
     }
 
 

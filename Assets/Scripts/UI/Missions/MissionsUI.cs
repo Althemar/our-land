@@ -45,11 +45,4 @@ public class MissionsUI : MonoBehaviour
             image.color = color;
         }
     }
-
-    public void UpdateMissionsUI() {
-        foreach (KeyValuePair<Mission, MissionUI> pair in missionUIs) {
-            pair.Value.UpdateMissionUI();
-        }
-    }
-
 }

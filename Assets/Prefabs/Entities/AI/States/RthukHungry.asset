@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RthukHungry
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: b0948fbf9ca0c704e8da05e0c0eea3f9, type: 2}
+  - {fileID: 11400000, guid: 89ec68cf1476ee2438cca3c0019c6496, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 8fc34b87ab3f68e4281b64e52b83b936, type: 2}
     trueState: {fileID: 11400000}

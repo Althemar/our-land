@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EndMissionUI : MonoBehaviour
+public class FailedMissionUI : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text lore;
-    public TMP_Text awards;
 
     private Mission mission;
 
@@ -25,5 +24,4 @@ public class EndMissionUI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
 }

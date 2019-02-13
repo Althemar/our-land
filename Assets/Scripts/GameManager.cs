@@ -128,13 +128,18 @@ public class GameManager : MonoBehaviour
 
     public void CheckDefeat() {
         if (motherShip.foodResource && motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
-            gameOverPanel.gameObject.SetActive(true);
-            gameOverPanel.text.text = "Votre peuple a survécu " + TurnManager.Instance.TurnCount + " tours";
-            Input.SetBlock(Input.Blocker.Defeat, true);
-
-            gameState = GameState.Defeat;
-            StartCoroutine(WaitBeforeFinish());
+            Defeat();
+            
         }
+    }
+
+    public void Defeat() {
+        gameOverPanel.gameObject.SetActive(true);
+        gameOverPanel.text.text = "Votre peuple a survécu " + TurnManager.Instance.TurnCount + " tours";
+        Input.SetBlock(Input.Blocker.Defeat, true);
+
+        gameState = GameState.Defeat;
+        StartCoroutine(WaitBeforeFinish());
     }
 
     private void Update() {
