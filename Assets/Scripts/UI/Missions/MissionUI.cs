@@ -7,6 +7,7 @@ using System;
 public class MissionUI : MonoBehaviour
 {
     public ObjectiveProgressUI objectiveProgressPrefab;
+    public RemainingTurnsUI remainingTurnsPrefab;
     public TMP_Text title;
 
     private Mission mission;
@@ -18,27 +19,24 @@ public class MissionUI : MonoBehaviour
 
     public void Initialize(Mission mission) {
         this.mission = mission;
+
+        if (mission.turnLimit) {
+            RemainingTurnsUI turnsUI = Instantiate(remainingTurnsPrefab, transform.parent);
+            turnsUI.UpdateRemainingTurns(mission.remainingTurns);
+            mission.OnRemainingTurnsUpdated += turnsUI.UpdateRemainingTurns;
+        }
+
         foreach (Objective objective in mission.missionObjectives) {
-            ObjectiveProgressUI objectiveUI = Instantiate(objectiveProgressPrefab, transform.parent).GetComponent<ObjectiveProgressUI>();
+            ObjectiveProgressUI objectiveUI = Instantiate(objectiveProgressPrefab, transform.parent);
             objectives.Add(objective, objectiveUI);
             objectiveUI.Initialize(objective);
             title.text = mission.title;
         }
     }
 
-    public void UpdateObjective(Objective objective) {
-        //objectives[objective].UpdateText();
-    }
-
     public void DestroyObjectivesUI() {
         foreach (KeyValuePair<Objective, ObjectiveProgressUI> objective in objectives) {
             Destroy(objective.Value.gameObject);
-        }
-    }
-
-    public void UpdateMissionUI() {
-        foreach (KeyValuePair<Objective, ObjectiveProgressUI> objective in objectives) {
-                
         }
     }
 }

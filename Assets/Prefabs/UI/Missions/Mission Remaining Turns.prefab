@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_SizeDelta: {x: 142.45, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &529877933856867106
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Mission Title
+  m_text: 4 turns remaining
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -94,14 +94,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 513
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -135,10 +135,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0.41860962, w: 0}
   m_textInfo:
     textComponent: {fileID: 529877933856867107}
-    characterCount: 13
+    characterCount: 17
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 2
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
+  m_HorizontalFit: 0
   m_VerticalFit: 0
 --- !u!1 &529877933883317878
 GameObject:
@@ -184,11 +184,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 529877933883317881}
-  - component: {fileID: 4255300979837294134}
   - component: {fileID: 2770476122374728221}
   - component: {fileID: 127594379776921157}
+  - component: {fileID: 2294039124339057623}
   m_Layer: 5
-  m_Name: Mission
+  m_Name: Mission Remaining Turns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,23 +214,6 @@ RectTransform:
   m_AnchoredPosition: {x: -128, y: 0}
   m_SizeDelta: {x: 0, y: 29.03}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4255300979837294134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 529877933883317878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f4c97b519f32f408c36e1af42ffbbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectiveProgressPrefab: {fileID: 7598888989947588785, guid: 1abcee23fbed5844e88bf5749425b903,
-    type: 3}
-  remainingTurnsPrefab: {fileID: 2294039124339057623, guid: 11e2e47e8d9ae2644b3a1a636ca23aec,
-    type: 3}
-  title: {fileID: 529877933856867107}
 --- !u!114 &2770476122374728221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,3 +251,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!114 &2294039124339057623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529877933883317878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d07927d505c64e449fef9dae2378e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnsText: {fileID: 529877933856867107}

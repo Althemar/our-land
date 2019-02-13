@@ -954,6 +954,27 @@ PrefabInstance:
       propertyPath: resources._values.Array.data[0]
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4287408554967380089, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f225da8f7d9a1284d8ece081d889178d,
+        type: 2}
+    - target: {fileID: 4651248391141940335, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 603729598982235075, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 603729598982235075, guid: f74b737bdaa524445afbb2af521463d2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 70cdafec30f04a245a9d008bc8e0ef0c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74b737bdaa524445afbb2af521463d2, type: 3}
 --- !u!114 &473431361 stripped
@@ -3970,7 +3991,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1003012043
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -1000
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 2.09, y: 1.32, z: 0}

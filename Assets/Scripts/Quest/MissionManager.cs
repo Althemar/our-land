@@ -9,6 +9,7 @@ public class MissionManager : MonoBehaviour
     public MissionCamera missionCamera;
     public NewMissionUI newMissionUI;
     public EndMissionUI endMissionUI;
+    public FailedMissionUI failedMissionUI;
 
     public Transform newMissionUIParent;
     public MissionsUI missionsProgressUI;
@@ -35,6 +36,9 @@ public class MissionManager : MonoBehaviour
         foreach (Mission mission in currentMissions) {
             if (mission.Evaluate()) {
                 Instantiate(endMissionUI, newMissionUIParent).Initialize(mission);
+            }
+            else if (mission.failed) {
+                Instantiate(failedMissionUI, newMissionUIParent).Initialize(mission);
             }
         }
     }
@@ -66,16 +70,22 @@ public class MissionManager : MonoBehaviour
     
 
     public void EndMission(Mission mission) {
-        currentMissions.Remove(mission);
-        missionsProgressUI.EndMission(mission);
-        if (mission.nextMission.Length > 0) {
-            previousMission = mission;
-            nextMissionIndex = 0;
-            DisplayNextMission();
+        if (!mission.failed) {
+            currentMissions.Remove(mission);
+            missionsProgressUI.EndMission(mission);
+            if (mission.nextMission.Length > 0) {
+                previousMission = mission;
+                nextMissionIndex = 0;
+                DisplayNextMission();
+            }
+            else {
+                Destroy(mission);
+            }
         }
         else {
-            Destroy(mission);
+            GameManager.Instance.Defeat();
         }
+        
     }
 
  

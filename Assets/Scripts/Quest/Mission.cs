@@ -10,11 +10,22 @@ public class Mission : MonoBehaviour
     public string accomplishedLore;
     public string awards;
 
+    [BoxGroup("Turn limit")]
+    public bool turnLimit;
+    [BoxGroup("Turn limit")]
+    public int remainingTurns = 0;
+
     [ReorderableList]
     public Objective[] missionObjectives;
 
     [ReorderableList]
     public Mission[] nextMission;
+
+    [HideInInspector]
+    public bool failed;
+
+    public delegate void UpdatedTurns(int turns);
+    public UpdatedTurns OnRemainingTurnsUpdated;
 
     public void StartMission() {
         foreach (Objective objective in missionObjectives) {
@@ -23,6 +34,15 @@ public class Mission : MonoBehaviour
     }
 
     public bool Evaluate() {
+        if(turnLimit && remainingTurns > 0) {
+            remainingTurns--;
+            OnRemainingTurnsUpdated?.Invoke(remainingTurns);
+            if (remainingTurns <= 0) {
+                failed = true;
+                return false;
+            }
+        }
+
         foreach (Objective objective in missionObjectives) {
             if (!objective.Evaluate()) {
                 return false;
