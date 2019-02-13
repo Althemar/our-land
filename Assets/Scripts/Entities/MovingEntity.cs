@@ -19,6 +19,7 @@ public class MovingEntity : Entity {
     public GameObject[] CenterTarget;
 
     public SpineOrientation[] SpineTarget;
+    private SortingGroup sort; 
 
     private EntityHungerState hunger;
 
@@ -49,6 +50,7 @@ public class MovingEntity : Entity {
         movable.hexGrid = TurnManager.Instance.grid;
 
         movingEntitySO = entitySO as MovingEntitySO;
+        sort = GetComponent<SortingGroup>();
     }
 
     protected override void Start() {
@@ -67,7 +69,8 @@ public class MovingEntity : Entity {
     }
 
     private void Update() {
-        GetComponent<SortingGroup>().sortingOrder = -movable.CurrentTile.Position.y;
+        if(sort)
+            sort.sortingOrder = -movable.CurrentTile.Position.y;
     }
 
     void Destroy() {
@@ -209,12 +212,10 @@ public class MovingEntity : Entity {
 
         target.Eaten(1);
     }
-
-    bool isInit = false;
+    
     public override void Initialize(int population = -1) {
         if (isInit)
             return;
-        isInit = true;
 
         base.Initialize(population);
         remainingTurnsBeforeHungry = movingEntitySO.nbTurnsToBeHungry;
@@ -231,6 +232,7 @@ public class MovingEntity : Entity {
         else {
             ChangeAnimation("Idle", true);
         }
+        isInit = true;
     }
 
     void EndMoving() {
