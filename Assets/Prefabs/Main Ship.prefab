@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  canUseWind: 0
   canPassAboveEntities: 1
   canPassAboveMontains: 0
   canPassAboveLakes: 1
@@ -187,15 +188,15 @@ MonoBehaviour:
   harvestDistance: 1
   outline: {fileID: 439891537379162920}
   spineShip: {fileID: 4287408554967380089}
-  populationResource: {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
   foodResource: {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
   foodConsumption: 1
   fuelResource: {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
   movementBaseCost: 2
   movementDistanceMultiplicator: 1.7
   remainingPopulationPoints: 3
-  maxPopulationPoints: 3
+  maxPopulationPoints: 2
   populationPoints: []
+  savedPopulationPoints: []
   targetTile: {fileID: 0}
   bonuses: []
 --- !u!114 &439891537792229837
@@ -234,14 +235,12 @@ MonoBehaviour:
     reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
     isExpanded: 1
     _keyValues:
-    - {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
     _keys:
-    - {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
-    _values: 030000001400000014000000
+    _values: 1400000014000000
 --- !u!114 &883557245
 MonoBehaviour:
   m_ObjectHideFlags: 0

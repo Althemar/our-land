@@ -10,6 +10,8 @@ public class NewUX : MonoBehaviour {
 
     public Button takeOffButton;
 
+    public GameObject hourglass;
+
     TextMeshProUGUI takeOffText;
 
     bool isTakeOff;
@@ -38,10 +40,16 @@ public class NewUX : MonoBehaviour {
     }
 
     private void Update() {
+
         if (TurnManager.Instance.State != TurnManager.TurnState.Player || GameManager.Input.IsBlock) {
             takeOffText.text = I18N.GetText("pleaseWait");
 
             takeOffButton.interactable = false;
+
+            if (Quaternion.Dot(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 180f)) < 0.999f)
+                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 110f);
+            else
+                hourglass.transform.localRotation = Quaternion.Euler(0, 0, 180f);
         } else {
             if(!isTakeOff)
                 takeOffText.text = I18N.GetText("switchToMovement");
@@ -49,6 +57,13 @@ public class NewUX : MonoBehaviour {
                 takeOffText.text = I18N.GetText("switchToHarvest");
 
             takeOffButton.interactable = true;
+
+
+            if (Quaternion.Dot(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 0)) < 0.999f)
+                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 110f);
+            else
+                hourglass.transform.localRotation = Quaternion.Euler(0, 0, 0f);
+            //hourglass.transform.localRotation = Quaternion.Slerp(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 0f), Time.deltaTime);
         }
     }
 

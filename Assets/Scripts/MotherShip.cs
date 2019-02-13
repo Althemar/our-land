@@ -11,15 +11,11 @@ using Spine;
 [RequireComponent(typeof(Movable), typeof(Inventory))]
 public class MotherShip : Updatable {
     public int harvestDistance;
-
-
+    
     public HexagonsOutline outline;
     public SkeletonAnimation spineShip;
     private SortingGroup sorting;
-
-
-    public ResourceType populationResource;
-
+    
     [BoxGroup("Food")]
     public ResourceType foodResource;
     [BoxGroup("Food")]
@@ -118,7 +114,7 @@ public class MotherShip : Updatable {
 
     public void BeginTurn() {
         if (foodResource)
-            AddItem(foodResource, -foodConsumption * inventory.resources[populationResource], ActionType.FoodConsumption);
+            AddItem(foodResource, -foodConsumption * maxPopulationPoints, ActionType.FoodConsumption);
 
         OnTurnBegin?.Invoke();
         OnRemainingPointsChanged?.Invoke();

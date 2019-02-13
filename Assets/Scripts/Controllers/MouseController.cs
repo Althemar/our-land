@@ -126,7 +126,7 @@ public class MouseController : MonoBehaviour {
                     hexGrid.SetTileColor(neigh.Coordinates.OffsetCoordinates, new Color(1, 1, 1, 0.2f));
             }
 
-            entitiesHarvestable.ShowInfo(tile);
+            //entitiesHarvestable.ShowInfo(tile);
             current = tile;
         }
     }
