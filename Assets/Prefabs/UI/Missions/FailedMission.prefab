@@ -74,80 +74,6 @@ MonoBehaviour:
   m_canvasRenderer: {fileID: 5708400781563572581}
   m_TextComponent: {fileID: 6583891757773946035}
   m_materialReferenceIndex: 1
---- !u!1 &1555621892743413413
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5780260259137751351}
-  - component: {fileID: 4570660297468383628}
-  - component: {fileID: 1706413279640430885}
-  m_Layer: 5
-  m_Name: TMP SubMeshUI [Lora-Regular SDF Material + Lora-Italic SDF Atlas]
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5780260259137751351
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555621892743413413}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3311808158004566267}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4570660297468383628
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555621892743413413}
-  m_CullTransparentMesh: 0
---- !u!114 &1706413279640430885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555621892743413413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_fontAsset: {fileID: 11400000, guid: 2979c3e85018a004da69858221382669, type: 2}
-  m_spriteAsset: {fileID: 0}
-  m_material: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
-  m_isDefaultMaterial: 0
-  m_padding: 0.5
-  m_canvasRenderer: {fileID: 4570660297468383628}
-  m_TextComponent: {fileID: 24818746690466292}
-  m_materialReferenceIndex: 1
 --- !u!1 &2693457183058565197
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 62.1}
+  m_AnchoredPosition: {x: 0, y: 59}
   m_SizeDelta: {x: -20, y: -145.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3415230563352321995
@@ -214,7 +140,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Mission 1 finished
+  m_text: Mission failed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 498140592efb0904eb1437a506cd875f, type: 2}
   m_sharedMaterial: {fileID: 21062081296124496, guid: 498140592efb0904eb1437a506cd875f,
@@ -284,10 +210,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0.3225226, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3575752116108667413}
-    characterCount: 18
+    characterCount: 14
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -341,11 +267,11 @@ RectTransform:
   m_Children:
   - {fileID: 8948912829868269215}
   m_Father: {fileID: 4508841142699104423}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 7.5}
+  m_AnchoredPosition: {x: 0, y: -18.349998}
   m_SizeDelta: {x: -20, y: -115.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5552494367086793271
@@ -376,7 +302,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: You reach a new  and fertile land
+  m_text: We did not reach a fertile land.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 498140592efb0904eb1437a506cd875f, type: 2}
   m_sharedMaterial: {fileID: 21062081296124496, guid: 498140592efb0904eb1437a506cd875f,
@@ -446,9 +372,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0.55938387, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 6583891757773946035}
-    characterCount: 33
+    characterCount: 32
     spriteCount: 0
-    spaceCount: 7
+    spaceCount: 6
     wordCount: 7
     linkCount: 0
     lineCount: 1
@@ -508,7 +434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0.000030279, y: 14.78}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1457302332856212886
@@ -588,7 +514,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1752532488489299986}
+      - m_Target: {fileID: 4304914987486194198}
         m_MethodName: EndMission
         m_Mode: 1
         m_Arguments:
@@ -671,9 +597,83 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 0.5
+  m_padding: 0
   m_canvasRenderer: {fileID: 6409205732901409309}
   m_TextComponent: {fileID: 3575752116108667413}
+  m_materialReferenceIndex: 1
+--- !u!1 &5704367534765637840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4541287148098050161}
+  - component: {fileID: 3830060021950603704}
+  - component: {fileID: 3817760098077447082}
+  m_Layer: 5
+  m_Name: TMP SubMeshUI [Lora-Regular SDF Material + Lora-Bold SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4541287148098050161
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704367534765637840}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3128855966057997528}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3830060021950603704
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704367534765637840}
+  m_CullTransparentMesh: 0
+--- !u!114 &3817760098077447082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704367534765637840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 5be897120429b6c4db5922a46f6271e6, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 0
+  m_canvasRenderer: {fileID: 3830060021950603704}
+  m_TextComponent: {fileID: 1381942677438974546}
   m_materialReferenceIndex: 1
 --- !u!1 &6366499517951714470
 GameObject:
@@ -686,9 +686,9 @@ GameObject:
   - component: {fileID: 4508841142699104423}
   - component: {fileID: 7576034984718000699}
   - component: {fileID: 8992989496767959378}
-  - component: {fileID: 1752532488489299986}
+  - component: {fileID: 4304914987486194198}
   m_Layer: 5
-  m_Name: EndMissionPanel
+  m_Name: FailedMission
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -706,16 +706,16 @@ RectTransform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 0.99990827}
   m_Children:
   - {fileID: 7530697272024220174}
+  - {fileID: 3128855966057997528}
   - {fileID: 2730348865569252646}
-  - {fileID: 3311808158004566267}
   - {fileID: 2833733049251624309}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000002861023, y: -0.0000019073486}
-  m_SizeDelta: {x: 300, y: 175}
+  m_AnchoredPosition: {x: -0.000002861023, y: 5.1}
+  m_SizeDelta: {x: 300, y: 179.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7576034984718000699
 CanvasRenderer:
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &1752532488489299986
+--- !u!114 &4304914987486194198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -763,12 +763,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6366499517951714470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7efbe64ac60fba4399cf38c7abaad44, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fa44fffa44e0694faef9b75bc03dbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 3575752116108667413}
+  title: {fileID: 1381942677438974546}
   lore: {fileID: 6583891757773946035}
-  awards: {fileID: 24818746690466292}
 --- !u!1 &7027020859224144405
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +929,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &8580428930209221758
+--- !u!1 &7409670719035130714
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -938,51 +937,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3311808158004566267}
-  - component: {fileID: 9157439134943463680}
-  - component: {fileID: 24818746690466292}
+  - component: {fileID: 3128855966057997528}
+  - component: {fileID: 4588215559339716609}
+  - component: {fileID: 1381942677438974546}
   m_Layer: 5
-  m_Name: Awards Text
+  m_Name: Mission Finished Text (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3311808158004566267
+--- !u!224 &3128855966057997528
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580428930209221758}
+  m_GameObject: {fileID: 7409670719035130714}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000018, y: 1.0000018, z: 1.0000018}
   m_Children:
-  - {fileID: 5780260259137751351}
+  - {fileID: 4541287148098050161}
   m_Father: {fileID: 4508841142699104423}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25.7}
-  m_SizeDelta: {x: -20, y: -115.56}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: -20, y: -145.94}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &9157439134943463680
+--- !u!222 &4588215559339716609
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580428930209221758}
+  m_GameObject: {fileID: 7409670719035130714}
   m_CullTransparentMesh: 0
---- !u!114 &24818746690466292
+--- !u!114 &1381942677438974546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580428930209221758}
+  m_GameObject: {fileID: 7409670719035130714}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -996,11 +995,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'You earned :
+  m_text: 'Mission Title
 
-    30 wood
-
-    20 food'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 498140592efb0904eb1437a506cd875f, type: 2}
   m_sharedMaterial: {fileID: 21062081296124496, guid: 498140592efb0904eb1437a506cd875f,
@@ -1029,14 +1026,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 21
+  m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 258
+  m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1067,15 +1064,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0.55938387, z: 0, w: 0}
+  m_margin: {x: 0, y: 0.3225226, z: 0, w: 0}
   m_textInfo:
-    textComponent: {fileID: 24818746690466292}
-    characterCount: 28
+    textComponent: {fileID: 1381942677438974546}
+    characterCount: 14
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 6
+    spaceCount: 2
+    wordCount: 2
     linkCount: 0
-    lineCount: 3
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -1087,7 +1084,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 1706413279640430885}
+  - {fileID: 3817760098077447082}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

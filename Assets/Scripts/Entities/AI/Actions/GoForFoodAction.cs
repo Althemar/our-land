@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,14 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "PluggableAI/Actions/GoForFood")]
 public class GoForFoodAction : Action {
+
+    [ReorderableList]
+    [BoxGroup("Grow entities near")]
+    public List<EntitySO> targets;
+
+    [ReorderableList]
+    [BoxGroup("Grow entities near")]
+    public List<EntitySO> entitiesToGrow;
 
     public override void Act(StateController controller) {
         MovingEntity entity = controller.entity as MovingEntity;
@@ -51,14 +60,11 @@ public class GoForFoodAction : Action {
         if (target.Tile.Coordinates.Distance(entity.Tile.Coordinates) == distanceOfHarvest) {
             entity.harvestAnimation = true;
 
+            Grow(target.Tile, target.entitySO);
+            
             entity.Harvest(target);
             entity.ChangeAnimation("Eating", false, entity.EndEating);
             entity.remainingTurnsBeforeDie = entity.movingEntitySO.nbTurnsToDie;
-            entity.isHungry = false;
-            /*/if (entity.reserve == entity.population) {
-                entity.isHungry = false;
-            }*/
-
             if (entity.movingEntitySO.reproduceAtEachHarvest) {
                 entity.IncreasePopulation();
             }
@@ -66,6 +72,8 @@ public class GoForFoodAction : Action {
 
 
             entity.isHungry = false;
+
+
         }
 
         DecreasePop(entity);
@@ -90,5 +98,30 @@ public class GoForFoodAction : Action {
 
     public override void OnEnterState(StateController controller) {
 
+    }
+
+    public void Grow(TileProperties baseTile, EntitySO targetSO) {
+
+        if (targets.Contains(targetSO)) {
+            GrowEntitiesOnTile(baseTile);
+
+            foreach (TileProperties neighbor in baseTile.GetNeighbors()) {
+                GrowEntitiesOnTile(neighbor);
+            }
+        }
+    }
+
+    private void GrowEntitiesOnTile(TileProperties tile) {
+        if (tile) {
+            GrowEntity(tile.staticEntity);
+            GrowEntity(tile.movingEntity);
+        }
+    }
+
+    private void GrowEntity(Entity otherEntity) {
+        if (otherEntity && entitiesToGrow.Contains(otherEntity.entitySO)) {
+            otherEntity.IncreasePopulation();
+            otherEntity.remainingTurnsBeforReproduction = otherEntity.entitySO.nbTurnsBeforeReproduction;
+        }
     }
 }

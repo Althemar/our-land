@@ -32,7 +32,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         if (!tile) {
             return;
         }
-        
+        Debug.Log("ShowInfo");
         if (tile.movingEntity) {
             info.Initialize(tile.movingEntity, this);
             info.gameObject.SetActive(true);

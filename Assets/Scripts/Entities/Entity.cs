@@ -139,6 +139,8 @@ public abstract class Entity : Updatable
         OnPopulationChange?.Invoke();
     }
 
+    
+
     public void DecreasePopulation() {
         population -= entitySO.deathRate;
         if (population <= 0 && !entitySO.renewWhenZero) {
