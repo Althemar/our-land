@@ -12,13 +12,14 @@ public class ScoutBonus : Bonus {
     }
 
     public override void BonusEffectEndTurn() {
+        int bonus = scoutRandMin + GetBonusUpgrade();
+
         if (base.DoBonus) {
-            int nbItem = Random.Range(scoutRandMin, scoutRandMax + 1);
+            int nbItem = Random.Range(bonus, bonus + 1);
             if(Random.value < 0.5f)
                 GameManager.Instance.motherShip.AddItem(GameManager.Instance.motherShip.fuelResource, nbItem, MotherShip.ActionType.Bonus);
             else
                 GameManager.Instance.motherShip.AddItem(GameManager.Instance.motherShip.foodResource, nbItem, MotherShip.ActionType.Bonus);
         }
     }
-
 }

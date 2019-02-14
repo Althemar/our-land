@@ -83,6 +83,8 @@ public class MotherShip : Updatable {
         get => movable;
     }
 
+    public bool canFish = false;
+
     void Awake() {
         movable = GetComponent<Movable>();
         inventory = GetComponent<Inventory>();

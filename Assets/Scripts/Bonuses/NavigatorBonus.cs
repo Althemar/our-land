@@ -7,9 +7,10 @@ public class NavigatorBonus : Bonus {
     public int fuelReduction = 1;
 
     public override void BonusEffectItem(MotherShip.ActionType action, ResourceType resource, ref int amount) {
+        int bonus = fuelReduction + GetBonusUpgrade();
         if (base.DoBonus) {
             if (action == MotherShip.ActionType.Move && resource == GameManager.Instance.motherShip.fuelResource) {
-                amount += fuelReduction;
+                amount += bonus;
             }
         }
     }
@@ -17,5 +18,4 @@ public class NavigatorBonus : Bonus {
     public override void BonusEffectEndTurn() {
 
     }
-
 }

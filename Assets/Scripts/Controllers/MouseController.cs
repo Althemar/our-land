@@ -69,12 +69,7 @@ public class MouseController : MonoBehaviour {
         }
         cameraman.ChangeZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
 
-        if (harvestMode) {
-            if (!movable.Moving && TurnManager.Instance.State == TurnManager.TurnState.Player && !entitiesHarvestable.Displaying) {
-                entitiesHarvestable.Clear();
-                entitiesHarvestable.EntitiesToHarvest(motherShip.TilesInRange);
-            }
-        } else {
+        if (!harvestMode) {
             entitiesHarvestable.Clear();
         }
 
