@@ -144,6 +144,7 @@ public class ActivePopulationPoint : Updatable {
     }
 
     public void RemovePopulationPoint() {
+        AkSoundEngine.PostEvent("Play_SFX_Button_PPOff", this.gameObject);
         RemoveFromTurnManager();
         entity.populationPoint = null;
         beginPosition = transform.position;

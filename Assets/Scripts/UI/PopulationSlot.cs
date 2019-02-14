@@ -45,6 +45,7 @@ public class PopulationSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void HarvestEntity() {
         if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
+            AkSoundEngine.PostEvent("Play_SFX_Button_PPOn", this.gameObject);
             entitiesHarvestable.activePopulationPoints.PlacePopulationPoint(entity);
         }
         entitiesHarvestable.UpdateButtons();

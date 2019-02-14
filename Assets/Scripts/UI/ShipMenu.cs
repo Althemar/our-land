@@ -25,9 +25,9 @@ public class ShipMenu : MonoBehaviour {
         isOpen ^= true;
 
         if (isOpen)
-            AkSoundEngine.PostEvent("Play_SFX_Button_YourShip_Open", this.gameObject);
+            AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Open", this.gameObject);
         else
-            AkSoundEngine.PostEvent("Play_SFX_Button_YourShip_Close", this.gameObject);
+            AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Close", this.gameObject);
 
         StopAllCoroutines();
         StartCoroutine(isOpen ? Open() : Close());
