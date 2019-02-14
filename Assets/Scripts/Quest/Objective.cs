@@ -33,5 +33,12 @@ public abstract class Objective : MonoBehaviour
     public virtual string GetProgressText() {
         return progressText;
     }
-
+    
+    public virtual int Goal() {
+        return 0;
+    }
+    
+    public virtual int Progress() {
+        return 0;
+    }
 }

@@ -12,21 +12,21 @@ public class MissionRecap : MonoBehaviour {
     public TextMeshProUGUI completionText;
 
     private Mission mission;
-    private Dictionary<Objective, ObjectiveProgressUI> objectives;
+    private int objNum;
 
-    private void Awake() {
-        objectives = new Dictionary<Objective, ObjectiveProgressUI>();
-    }
-
-    public void Initialize(Mission mission) {
+    public void Initialize(Mission mission, int objNum) {
         this.mission = mission;
+        this.objNum = objNum;
 
         questTitle.text = mission.title;
-        completion.value = 0;
-        completionText.text = "<voffset=0.5em>" + 0 + "</voffset>/<voffset=-0.5em>" + mission.missionObjectives.Length + "</voffset>";
-        //this.questGoal.text = mission.;
+        questGoal.text = "•  " + mission.missionObjectives[objNum].description;
+        mission.missionObjectives[objNum].OnUpdate += UpdateGoal;
+        UpdateGoal();
+    }
 
-        //<voffset=0.5em>x</voffset>/<voffset=-0.5em>x</voffset>
+    private void UpdateGoal() {
+        completion.value = (float)mission.missionObjectives[objNum].Progress() / (float)mission.missionObjectives[objNum].Goal();
+        completionText.text = "<voffset=0.5em>" + mission.missionObjectives[objNum].Progress() + "</voffset>/<voffset=-0.5em>" + mission.missionObjectives[objNum].Goal() + "</voffset>";
     }
 
 }
