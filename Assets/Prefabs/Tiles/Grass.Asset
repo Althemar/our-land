@@ -50,12 +50,16 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 0400000002000000
-    _keys: 0400000002000000
+    _keyValues: 040000000200000001000000
+    _keys: 040000000200000001000000
     _values:
     - sprites:
       - {fileID: 21300000, guid: e2aa4a9eabb355640be64a4130909e35, type: 3}
       - {fileID: 21300000, guid: f6c38a430412f7b41b2aaa08b02305a2, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 2f981198ea0acda4b8e74a63b97b78b1, type: 3}
+      - {fileID: 21300000, guid: 80d46288d3170f349885c55711944a55, type: 3}
+      - {fileID: 21300000, guid: d919508e74ad3524fbce22f80e2487db, type: 3}
     - sprites:
       - {fileID: 21300000, guid: 2f981198ea0acda4b8e74a63b97b78b1, type: 3}
       - {fileID: 21300000, guid: 80d46288d3170f349885c55711944a55, type: 3}

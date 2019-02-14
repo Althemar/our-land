@@ -74,14 +74,18 @@ public class NewUX : MonoBehaviour {
         isTakeOff ^= true;
 
         if (isTakeOff) {
+            AkSoundEngine.PostEvent("Play_SFX_Button_TakeOff", this.gameObject);
             refCanvas.mouse.moveMode = true;
+            refCanvas.ship.MovementMode();
             refCanvas.mouse.harvestMode = false;
             
             refCanvas.ship.ClearActivePopulationPoints();
             refCanvas.ship.ClearHarvestOutline();
             refCanvas.ship.RedoMove();
         } else {
+            AkSoundEngine.PostEvent("Play_SFX_Button_Landing", this.gameObject);
             refCanvas.mouse.moveMode = false;
+            refCanvas.ship.HarvestMode();
             refCanvas.mouse.harvestMode = true;
 
             refCanvas.ship.ShowActivePopulationPoints();

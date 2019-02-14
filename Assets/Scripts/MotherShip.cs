@@ -139,20 +139,48 @@ public class MotherShip : Updatable {
         }
     }
 
-    public void BeginMove() {
-        onMove = true;
-        OnBeginMoving?.Invoke();
-        outline.Clear();
-
+    public void MovementMode() {
         spineShip.state.Complete -= AfterGrounded;
-        spineShip.state.ClearTrack(0);
+        spineShip.state.Complete -= CanMove;
+        canMove = false;
+        //spineShip.state.ClearTrack(0);
         spineShip.state.SetAnimation(0, "Decollage_Herbe", false);
         AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
-        spineShip.state.Complete += AfterTakeOff;
+        spineShip.state.Complete += CanMove;
     }
 
-    private void AfterTakeOff(TrackEntry trackEntry) {
-        movable.MoveToTile(targetTile, false);
+    public void HarvestMode() {
+        spineShip.state.Complete -= AfterGrounded;
+        spineShip.state.Complete -= CanMove;
+        canMove = false;
+        //spineShip.state.ClearTrack(0);
+        spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
+        AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
+    }
+
+    bool canMove = false;
+    void CanMove(TrackEntry trackEntry) {
+        canMove = true;
+
+        spineShip.state.SetAnimation(0, "Idle", true);
+
+        if (onMove) {
+            canMove = false;
+            OnBeginMoving?.Invoke();
+            outline.Clear();
+            movable.MoveToTile(targetTile, false);
+        }
+    }
+
+    public void BeginMove() {
+        onMove = true;
+
+        if(canMove) {
+            canMove = false;
+            OnBeginMoving?.Invoke();
+            outline.Clear();
+            movable.MoveToTile(targetTile, false);
+        }
     }
 
     void EndMove() {
@@ -160,10 +188,10 @@ public class MotherShip : Updatable {
         OnEndMoving?.Invoke();
         OnRemainingPointsChanged?.Invoke();
 
-        spineShip.state.Complete -= AfterTakeOff;
+        spineShip.state.Complete -= CanMove;
         spineShip.state.ClearTrack(0);
         spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
-        AkSoundEngine.PostEvent("Play_Grounded", this.gameObject);
+        AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
         spineShip.state.Complete += AfterGrounded;
     }
 
