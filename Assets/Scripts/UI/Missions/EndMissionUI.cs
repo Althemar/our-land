@@ -7,7 +7,7 @@ public class EndMissionUI : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text lore;
-    public TMP_Text awards;
+    public TMP_Text rewards;
 
     private Mission mission;
 
@@ -15,6 +15,16 @@ public class EndMissionUI : MonoBehaviour
         this.mission = mission;
         title.text = mission.title;
         lore.text = mission.accomplishedLore;
+
+        rewards.text = "You earned:";
+        foreach (Objective objective in mission.missionObjectives) {
+            if (objective.Completed) {
+                foreach (Reward reward in objective.rewards) {
+                    rewards.text += "\n" + reward.Display();
+                    reward.GetReward();
+                }
+            }
+        }
 
         GameManager.Input.SetBlock(GameManager.Input.Blocker.Defeat, true);
     }

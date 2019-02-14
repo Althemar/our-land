@@ -7,6 +7,12 @@ public class ObjectiveGoToTile : Objective
     private TileProperties tile;
     private SpriteRenderer spriteRenderer;
 
+
+    public bool woodLimit;
+    public int maximumWood;
+
+    private int usedWood = 0;
+
     void Update() {
         if (GameManager.Instance.FrameCount == 0) {
             Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
@@ -16,11 +22,34 @@ public class ObjectiveGoToTile : Objective
     }
 
     public override void StartObjective() {
+
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.enabled = true;
+        if (spriteRenderer) {
+            spriteRenderer.enabled = true;
+        }
+
+        if (woodLimit) {
+            GameManager.Instance.motherShip.OnBeginMoving += ConsumeWood;
+        }
+    }
+
+    public void ConsumeWood() {
+        usedWood += (int)Mathf.Floor(GameManager.Instance.motherShip.targetTile.ActionPointCost);
+        if (!completed && usedWood > maximumWood) {
+            failed = true;
+        }
+        if (usedWood >= maximumWood) {
+            usedWood = maximumWood;
+        }
+        OnUpdate?.Invoke();
     }
 
     public override bool Evaluate() {
+
+        if (!completed && usedWood > maximumWood) {
+            failed = true;
+        }
+
         if (!completed && GameManager.Instance.motherShip.Movable.CurrentTile == tile) {
             spriteRenderer.enabled = false;
             completed = true;
@@ -28,5 +57,14 @@ public class ObjectiveGoToTile : Objective
         base.Evaluate();
         
         return completed;
+    }
+
+    public override string GetProgressText() {
+        if (!woodLimit) {
+            return "Reach the tile";
+        }
+        else {
+            return "Reach the tile using less than " + (maximumWood - usedWood) + " wood";
+        }
     }
 }
