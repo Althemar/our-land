@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
   - {fileID: 11400000, guid: 0bd19aedf83e47b4f9b693dd97ef5081, type: 2}
+  - {fileID: 11400000, guid: 651f732e6219b2b48836853aac5230ba, type: 2}
   entitiesToGrow:
   - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
+  - {fileID: 11400000, guid: 6ec21023003dee740abcfcef34f10595, type: 2}

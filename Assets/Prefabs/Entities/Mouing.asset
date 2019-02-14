@@ -76,6 +76,7 @@ MonoBehaviour:
     _values: []
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
+  - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   harvestSound: Play_SFX_Kill_Sheep_Victory
   movementPoints: 1
   nbTurnsToDie: 3
@@ -107,11 +108,12 @@ MonoBehaviour:
     reqReferences: {fileID: 11400000, guid: 3d6785e46e940b843aa5fbe4ca729d60, type: 2}
     isExpanded: 1
     _keyValues:
-    - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
     - {fileID: 11400000, guid: 6ec21023003dee740abcfcef34f10595, type: 2}
+    - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
     _keys:
-    - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
     - {fileID: 11400000, guid: 6ec21023003dee740abcfcef34f10595, type: 2}
+    - {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
     _values: 0100000001000000
   predators:
   - {fileID: 11400000, guid: 57b1906a1426ac1499a47e60b1de52d5, type: 2}
+  updateSprite: 1
