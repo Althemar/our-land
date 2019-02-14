@@ -1,14 +1,20 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public abstract class Bonus : Updatable {
     int progress = 0;
-    int level = 0;
     bool active = false;
-    bool bonus = false;
-    int activeTurn = 0;
+    int activeTurns = 0;
     MotherShip ship;
+
+    protected int level = 0;
+    protected bool bonus;
+
+    [ReorderableList]
+    public List<Upgrade> upgrades;
 
     public int Progress {
         get => progress;
@@ -46,6 +52,8 @@ public abstract class Bonus : Updatable {
     public void ToogleActive() {
         if(active) {
             active = false;
+            bonus = false;
+            activeTurns = 0;
             ship.remainingPopulationPoints++;
             ship.OnRemainingPointsChanged?.Invoke();
         } else {
@@ -60,19 +68,44 @@ public abstract class Bonus : Updatable {
     public override void UpdateTurn() {
         base.UpdateTurn();
         if(active) {
-            if (activeTurn > 0) {
-                progress++;
+            if (activeTurns == 1) {
                 bonus = true;
-                Debug.Log(gameObject.name + " progress");
             }
-            else
-                Debug.Log(gameObject.name + " activated");
-            activeTurn++;
-        } else {
-            activeTurn = 0;
-            bonus = false;
+            upgrades[level].remainingResearchTurns--;
+            if (upgrades[level].remainingResearchTurns == 0) {
+                NextLevel();
+            }
+            activeTurns++;
         }
         EndTurn();
+    }
+
+    private void NextLevel() {
+        if (level < upgrades.Count) {
+            upgrades[level].DoUpgrade();
+            level++;
+        }
+    }
+
+    public void UpdateLevel(int amount) {
+        while (amount > 0) {
+            NextLevel();
+            amount--;
+        }
+        progress = 0;
+    }
+
+    protected int GetBonusUpgrade() {
+        int bonus = 0;
+        foreach (Upgrade upgrade in upgrades) {
+            if (!upgrade.unlocked) {
+                break;
+            }
+            else if (upgrade is BonusPlusUpgrade) {
+                bonus += (upgrade as BonusPlusUpgrade).bonus;
+            }
+        }
+        return bonus;
     }
 
     public abstract void BonusEffectItem(MotherShip.ActionType action, ResourceType resource, ref int amount);

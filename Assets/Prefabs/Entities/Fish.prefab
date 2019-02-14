@@ -1933,7 +1933,7 @@ MonoBehaviour:
   updating: 0
   entitySO: {fileID: 11400000, guid: 651f732e6219b2b48836853aac5230ba, type: 2}
   population: 0
-  basePopulation: 1
+  basePopulation: 3
   reserve: 0
   activatedSkeletons: []
   remainingTurnsBeforReproduction: -1
@@ -1966,6 +1966,7 @@ MonoBehaviour:
   - {fileID: 4747551202023914969}
   - {fileID: 8432853674358243020}
   - {fileID: 165475786192872764}
+  target: {fileID: 0}
   hasFled: 0
   previewTile: {fileID: 0}
   isHungry: 0
@@ -2027,7 +2028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b328565334a70f489e3d99547b960d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: 28a6cdc5a9fdbbc4b84aa7329412b59e, type: 2}
+  currentState: {fileID: 11400000, guid: 4b35222bfe4f84d48bd62dc3034d43df, type: 2}
   entity: {fileID: 0}
 --- !u!210 &5249190464461799645
 SortingGroup:

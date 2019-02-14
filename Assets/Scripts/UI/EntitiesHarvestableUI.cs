@@ -20,6 +20,13 @@ public class EntitiesHarvestableUI : MonoBehaviour {
 
     void Start() {
         motherShip.OnRemainingPointsChanged += UpdateButtons;
+        TurnManager.Instance.OnEndTurn += EntitiesToHarvest;
+    }
+
+    private void Update() {
+        if (GameManager.Instance.FrameCount == 0) {
+            EntitiesToHarvest();
+        }
     }
 
     void OnDestroy() {
@@ -32,13 +39,9 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         }
     }
 
-    public void EntitiesToHarvest(List<TileProperties> tilesInRange) {
-        if (tilesInRange == null) {
-            Clear();
-            return;
-        }
-
-        foreach (TileProperties tile in tilesInRange) {
+    public void EntitiesToHarvest() {
+        Clear();
+        foreach (TileProperties tile in motherShip.TilesInRange) {
             Vector3 position = tile.transform.position;
             position.y -= 1;
             position.z = transform.position.z;
@@ -51,17 +54,12 @@ public class EntitiesHarvestableUI : MonoBehaviour {
                 AddButton(tile.staticEntity, position);
                 AddButton(tile.movingEntity, movingPosition);
 
-                displaying = true;
             }
             else if (tile.staticEntity) {
                 AddButton(tile.staticEntity, position);
-
-                displaying = true;
             }
             else if (tile.movingEntity) {
                 AddButton(tile.movingEntity, position);
-
-                displaying = true;
             }
         }
     }
@@ -72,14 +70,16 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         }
     }
 
-    void AddButton(Entity entity, Vector3 position) {
-        if (entity.population <= 0) {
+    public void AddButton(Entity entity, Vector3 position) {
+        if (entity.population <= 0 || (entity.entitySO == GameManager.Instance.fishPrefab.entitySO && !motherShip.canFish)) {
             return;
         }
         PopulationSlot button = Instantiate(harvestEntityPrefab, Vector3.zero, Quaternion.identity, transform).GetComponent<PopulationSlot>();
         button.transform.position = position;
         button.Initialize(entity, this);
         instanciate.Add(button);
+        displaying = true;
+
     }
 
     public void Clear() {
