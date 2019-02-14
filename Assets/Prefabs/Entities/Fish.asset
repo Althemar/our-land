@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fish
   populationMax: 3
-  nbTurnsBeforeReproduction: 2
-  reproduceAtEachHarvest: 1
+  nbTurnsBeforeReproduction: 6
+  reproduceAtEachHarvest: 0
   renewWhenZero: 1
   reproductionRate: 1
   deathRate: 0
