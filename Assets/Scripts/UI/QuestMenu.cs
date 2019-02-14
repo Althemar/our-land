@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipMenu : MonoBehaviour {
+public class QuestMenu : MonoBehaviour {
     public CanvasReference canvasRef;
 
-    public GameObject shipMenu;
+    public GameObject questMenu;
     RectTransform menu;
     Vector3 beginPosition;
     
@@ -14,10 +14,10 @@ public class ShipMenu : MonoBehaviour {
 
     private void Start() {
         isOpen = false;
-        GameManager.Input.SetBlock(GameManager.Input.Blocker.Ship, false);
-        shipMenu.SetActive(false);
+        GameManager.Input.SetBlock(GameManager.Input.Blocker.Quest, false);
+        questMenu.SetActive(false);
 
-        menu = shipMenu.transform.parent.GetComponent<RectTransform>();
+        menu = GetComponent<RectTransform>();
         beginPosition = menu.anchoredPosition;
     }
 
@@ -25,26 +25,26 @@ public class ShipMenu : MonoBehaviour {
         isOpen ^= true;
 
         if (isOpen)
-            AkSoundEngine.PostEvent("Play_SFX_Button_YourShip_Open", this.gameObject);
+            AkSoundEngine.PostEvent("Play_SFX_Button_YourQuests_Open", this.gameObject);
         else
-            AkSoundEngine.PostEvent("Play_SFX_Button_YourShip_Close", this.gameObject);
+            AkSoundEngine.PostEvent("Play_SFX_Button_YourQuests_Close", this.gameObject);
 
         StopAllCoroutines();
         StartCoroutine(isOpen ? Open() : Close());
     }
 
     IEnumerator Open() {
-        shipMenu.SetActive(true);
-        GameManager.Input.SetBlock(GameManager.Input.Blocker.Ship, true);
+        questMenu.SetActive(true);
+        GameManager.Input.SetBlock(GameManager.Input.Blocker.Quest, true);
 
         float progress = 0;
         Vector3 currentPos = menu.anchoredPosition;
         while (progress <= 1) {
-            menu.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(0, beginPosition.y, beginPosition.z), progress);
+            menu.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(-menu.rect.width, beginPosition.y, beginPosition.z), progress);
             progress += Time.deltaTime;
             yield return null;
         }
-        menu.anchoredPosition =new Vector3(0, beginPosition.y, beginPosition.z);
+        menu.anchoredPosition =new Vector3(-menu.rect.width, beginPosition.y, beginPosition.z);
     }
 
     IEnumerator Close() {
@@ -57,8 +57,8 @@ public class ShipMenu : MonoBehaviour {
         }
         menu.anchoredPosition = beginPosition;
 
-        shipMenu.SetActive(false);
-        GameManager.Input.SetBlock(GameManager.Input.Blocker.Ship, false);
+        questMenu.SetActive(false);
+        GameManager.Input.SetBlock(GameManager.Input.Blocker.Quest, false);
     }
 
 }
