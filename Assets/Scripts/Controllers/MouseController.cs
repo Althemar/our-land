@@ -102,7 +102,8 @@ public class MouseController : MonoBehaviour {
                 hexGrid.ResetTileColor(current.Coordinates.OffsetCoordinates);
 
                 foreach (TileProperties neigh in current.GetNeighbors()) {
-                    hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
+                    if (neigh)
+                        hexGrid.ResetTileColor(neigh.Coordinates.OffsetCoordinates);
                 }
 
             }

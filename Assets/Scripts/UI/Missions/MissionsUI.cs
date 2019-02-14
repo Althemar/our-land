@@ -5,36 +5,35 @@ using UnityEngine.UI;
 
 public class MissionsUI : MonoBehaviour
 {
-    public MissionUI missionUIPrefab;
-    public float backgroundAlpha = 0.7f;
+    //public MissionUI missionUIPrefab;
 
-    private Dictionary<Mission, MissionUI> missionUIs;
-    private Image image;
+    //private Dictionary<Mission, MissionUI> missionUIs;
+    
+    public MissionRecap currentMission;
 
     private void Awake() {
-        missionUIs = new Dictionary<Mission, MissionUI>();
-        image = GetComponent<Image>();
+        //missionUIs = new Dictionary<Mission, MissionUI>();
+        //image = GetComponent<Image>();
     }
-
+    /*
     private void Start() {
         Color color = image.color;
         color.a = 0;
         image.color = color;
-    }
+    }*/
 
     public void AddMission(Mission mission) {
-        MissionUI missionUI = Instantiate(missionUIPrefab, transform).GetComponent<MissionUI>();
-        missionUI.Initialize(mission);
-        missionUIs.Add(mission, missionUI);
-        if (image.color.a == 0) {
+        currentMission.Initialize(mission);
+        //missionUIs.Add(mission, missionUI);
+        /*if (image.color.a == 0) {
             Color color = image.color;
             color.a = backgroundAlpha;
             image.color = color;
-        }
+        }*/
     }
 
     public void EndMission(Mission mission) {
-        MissionUI missionUI = missionUIs[mission];
+       /* MissionUI missionUI = missionUIs[mission];
         missionUI.DestroyObjectivesUI();
         Destroy(missionUI.gameObject);
         missionUIs.Remove(mission);
@@ -43,6 +42,6 @@ public class MissionsUI : MonoBehaviour
             Color color = image.color;
             color.a = 0;
             image.color = color;
-        }
+        }*/
     }
 }
