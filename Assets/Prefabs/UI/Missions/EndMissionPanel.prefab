@@ -768,7 +768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 3575752116108667413}
   lore: {fileID: 6583891757773946035}
-  awards: {fileID: 24818746690466292}
+  rewards: {fileID: 24818746690466292}
 --- !u!1 &7027020859224144405
 GameObject:
   m_ObjectHideFlags: 0

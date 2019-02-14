@@ -75,6 +75,11 @@ public abstract class Bonus : Updatable {
         EndTurn();
     }
 
+    public void UpdateLevel(int amount) {
+        level += amount;
+        progress = 0;
+    }
+
     public abstract void BonusEffectItem(MotherShip.ActionType action, ResourceType resource, ref int amount);
     public abstract void BonusEffectEndTurn();
 }

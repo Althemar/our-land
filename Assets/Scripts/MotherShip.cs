@@ -57,7 +57,7 @@ public class MotherShip : Updatable {
 
     [HideInInspector]
     public List<Bonus> bonuses = new List<Bonus>();
-    public enum ActionType { Harvest, Move, FoodConsumption, Bonus }
+    public enum ActionType { Harvest, Move, FoodConsumption, Bonus, QuestReward }
 
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;

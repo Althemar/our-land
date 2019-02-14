@@ -8,7 +8,6 @@ public class Mission : MonoBehaviour
     public string title;
     public string lore;
     public string accomplishedLore;
-    public string awards;
 
     [BoxGroup("Turn limit")]
     public bool turnLimit;
@@ -44,7 +43,7 @@ public class Mission : MonoBehaviour
         }
 
         foreach (Objective objective in missionObjectives) {
-            if (!objective.Evaluate()) {
+            if (!objective.Evaluate() && !objective.optional) {
                 return false;
             }
         }

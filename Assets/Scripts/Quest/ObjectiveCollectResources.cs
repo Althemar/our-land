@@ -24,7 +24,7 @@ public class ObjectiveCollectResources : Objective
     }
 
     private void CollectResource(ResourceType resource, int count) {
-        if (this.resource == resource && this.count < goal) {
+        if (this.resource == resource && this.count < goal && count > 0) {
             this.count += count;
             if (this.count > goal) {
                 this.count = goal;
