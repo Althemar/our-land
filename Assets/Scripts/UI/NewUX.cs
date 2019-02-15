@@ -9,6 +9,7 @@ public class NewUX : MonoBehaviour {
     public CanvasReference refCanvas;
 
     public Button takeOffButton;
+    public EntitiesHarvestableUI entitiesHarvestable;
 
     TextMeshProUGUI takeOffText;
 
@@ -69,6 +70,7 @@ public class NewUX : MonoBehaviour {
             refCanvas.mouse.moveMode = false;
             refCanvas.mouse.harvestMode = true;
 
+            entitiesHarvestable.EntitiesToHarvest();
             refCanvas.ship.ShowActivePopulationPoints();
             refCanvas.ship.ShowHarvestOutline();
             refCanvas.ship.CancelMove();
