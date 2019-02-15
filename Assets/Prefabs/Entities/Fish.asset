@@ -18,7 +18,7 @@ MonoBehaviour:
   reproduceAtEachHarvest: 0
   renewWhenZero: 1
   reproductionRate: 1
-  deathRate: 0
+  deathRate: 1
   resources:
     reorderableList:
       canAdd: 1
