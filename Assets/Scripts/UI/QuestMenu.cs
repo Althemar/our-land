@@ -30,7 +30,7 @@ public class QuestMenu : MonoBehaviour {
     public void AddMission(Mission mission) {
         missionLog.Insert(0, mission);
         GameObject entryObject = Instantiate(entry, Vector3.zero, Quaternion.identity, containerList.transform);
-        entryObject.GetComponent<QuestEntry>().Initialize(mission);
+        entryObject.GetComponent<QuestEntry>().Initialize(mission, log);
         entryObject.transform.SetAsFirstSibling();
     }
 

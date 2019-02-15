@@ -10,9 +10,11 @@ public class QuestEntry : MonoBehaviour {
     public TextMeshProUGUI secondTitle;
 
     private Mission mission;
+    private QuestLog log;
 
-    public void Initialize(Mission mission) {
+    public void Initialize(Mission mission, QuestLog log) {
         this.mission = mission;
+        this.log = log;
 
         questTitle.text = mission.title;
         if(mission.secondaryObjectives) {
@@ -21,6 +23,12 @@ public class QuestEntry : MonoBehaviour {
         } else {
             secondaryQuest.SetActive(false);
         }
+
+        GetComponent<Button>().onClick.AddListener(UpdateLog);
+    }
+
+    public void UpdateLog() {
+        log.Initialize(mission);
     }
 
 }
