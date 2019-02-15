@@ -45,7 +45,7 @@ public class TitleMenu : MonoBehaviour {
     }
 
     public void Play() {
-        SceneManager.LoadScene("Togi");
+        SceneManager.LoadScene("LD tests");
 
         //Playtest.StartNewPlaytest();
     }

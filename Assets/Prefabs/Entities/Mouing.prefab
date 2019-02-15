@@ -2421,6 +2421,7 @@ MonoBehaviour:
   - {fileID: 5152723062595134107}
   - {fileID: 7493340382263938871}
   - {fileID: 4975455572598207166}
+  target: {fileID: 0}
   hasFled: 0
   previewTile: {fileID: 0}
   isHungry: 0
@@ -2440,6 +2441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.6
+  canUseWind: 0
   canPassAboveEntities: 0
   canPassAboveMontains: 0
   canPassAboveLakes: 0

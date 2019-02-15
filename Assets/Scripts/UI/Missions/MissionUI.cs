@@ -12,6 +12,7 @@ public class MissionUI : MonoBehaviour
 
     private Mission mission;
     private Dictionary<Objective, ObjectiveProgressUI> objectives;
+    private RemainingTurnsUI turnsUI;
 
     private void Awake() {
         objectives = new Dictionary<Objective, ObjectiveProgressUI>();
@@ -21,7 +22,7 @@ public class MissionUI : MonoBehaviour
         this.mission = mission;
 
         if (mission.turnLimit) {
-            RemainingTurnsUI turnsUI = Instantiate(remainingTurnsPrefab, transform.parent);
+            turnsUI = Instantiate(remainingTurnsPrefab, transform.parent);
             turnsUI.UpdateRemainingTurns(mission.remainingTurns);
             mission.OnRemainingTurnsUpdated += turnsUI.UpdateRemainingTurns;
         }
@@ -35,6 +36,9 @@ public class MissionUI : MonoBehaviour
     }
 
     public void DestroyObjectivesUI() {
+        if (mission.turnLimit) {
+            Destroy(turnsUI.gameObject);
+        }
         foreach (KeyValuePair<Objective, ObjectiveProgressUI> objective in objectives) {
             Destroy(objective.Value.gameObject);
         }

@@ -43,6 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328031368475786048}
   - component: {fileID: 7160631991121350897}
+  - component: {fileID: 177908522472913479}
   m_Layer: 13
   m_Name: Trees_02
   m_TagString: Untagged
@@ -101,7 +102,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cbb56f32b24ee15438673cb8fd8d450c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a56b355bac13b60458d914620dc66618, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,6 +113,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &177908522472913479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196217329685992509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c94c6cc6a5bbd4ab6a49f29fc0fd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 2cccb6d567290f74e9726d60c1eb9f9b, type: 3}
+  - {fileID: 21300000, guid: a56b355bac13b60458d914620dc66618, type: 3}
+  - {fileID: 21300000, guid: f00618582efd9184e8784c5305b0c4e3, type: 3}
 --- !u!1 &3136508212417770711
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5572833355154025731}
   - component: {fileID: 5331246537440847500}
+  - component: {fileID: 8455880773630677002}
   m_Layer: 13
   m_Name: Trees_01
   m_TagString: Untagged
@@ -264,6 +282,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8455880773630677002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125258095320507788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c94c6cc6a5bbd4ab6a49f29fc0fd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 2cccb6d567290f74e9726d60c1eb9f9b, type: 3}
+  - {fileID: 21300000, guid: a56b355bac13b60458d914620dc66618, type: 3}
+  - {fileID: 21300000, guid: f00618582efd9184e8784c5305b0c4e3, type: 3}
 --- !u!1 &5146828693157680649
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4943983386898636281}
   - component: {fileID: 103023389024067267}
+  - component: {fileID: 3758200138158124184}
   m_Layer: 13
   m_Name: Trees_03
   m_TagString: Untagged
@@ -343,3 +378,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3758200138158124184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5146828693157680649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c94c6cc6a5bbd4ab6a49f29fc0fd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 2cccb6d567290f74e9726d60c1eb9f9b, type: 3}
+  - {fileID: 21300000, guid: a56b355bac13b60458d914620dc66618, type: 3}
+  - {fileID: 21300000, guid: f00618582efd9184e8784c5305b0c4e3, type: 3}

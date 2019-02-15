@@ -49,8 +49,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 0300000004000000
-    _keys: 0300000004000000
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
     _values:
     - sprites:
       - {fileID: 21300000, guid: ac1448681839f034ea66e49edbba2c8c, type: 3}
@@ -62,6 +62,8 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 60881eef44c7fff4ca433f130bfdc9f0, type: 3}
       - {fileID: 21300000, guid: a2106d68da85af0488cbc8fcbe1cd546, type: 3}
       - {fileID: 21300000, guid: e10865e687f05154d81f97781499ec1b, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 85f7c5cc3cde2fe4f9bb0b6d41d36732, type: 3}
   bordersW:
     reorderableList:
       canAdd: 1
@@ -85,8 +87,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 0300000004000000
-    _keys: 0300000004000000
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
     _values:
     - sprites:
       - {fileID: 21300000, guid: f6ce034aa5ce3a44abdc63bc307aaf1f, type: 3}
@@ -98,6 +100,8 @@ MonoBehaviour:
       - {fileID: 21300000, guid: ccf3bb296886ffe41bb86a11d20ccf41, type: 3}
       - {fileID: 21300000, guid: 215ba258551d52b4b9a0feccf6a6e702, type: 3}
       - {fileID: 21300000, guid: d1dd0192ac5c0534083e1d451ff69e71, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: f31ceeee1e8121d4891e66b62976fcc3, type: 3}
   bordersSW:
     reorderableList:
       canAdd: 1
@@ -121,8 +125,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 0300000004000000
-    _keys: 0300000004000000
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
     _values:
     - sprites:
       - {fileID: 21300000, guid: 85774b3ede30ec94fa86f7fc6178bacd, type: 3}
@@ -134,6 +138,8 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 1c14088be20551b4694e55d40ad48276, type: 3}
       - {fileID: 21300000, guid: fac2b43f8dd74234e9314176d2e8ab87, type: 3}
       - {fileID: 21300000, guid: 4a7619075107d6842be45397dfa347e3, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 578040cfadaf54247a8894f8458661ad, type: 3}
   addons:
     reorderableList:
       canAdd: 1
