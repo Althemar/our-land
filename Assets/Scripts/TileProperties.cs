@@ -146,6 +146,13 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)], addonsGameObjects, tile.addonSortingOffset, tile.addonLayer, tile.addonLayer != 0);
             }
         }
+        
+        foreach (KeyValuePair<float, GameObject> pair in tile.addonsGO) {
+            float rand = Random.value;
+            if (rand < pair.Key) {
+                Instantiate(pair.Value, transform.position, Quaternion.identity, transform);
+            }
+        }
     }
 
     public TileProperties GetNeighbor(HexDirection direction) {

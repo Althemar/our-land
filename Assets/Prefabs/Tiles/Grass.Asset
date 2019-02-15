@@ -100,7 +100,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 0400000002000000
     _keys: 0400000002000000
     _values:
@@ -150,26 +150,10 @@ MonoBehaviour:
     reqReferences: {fileID: 0}
     isExpanded: 1
     _keyValues:
-    - 0.25
     - 0.301
     _keys:
-    - 0.25
     - 0.301
     _values:
-    - sprites:
-      - {fileID: 21300000, guid: eb75edeb5b7d093498150f43483534aa, type: 3}
-      - {fileID: 21300000, guid: 91d5391b68d6e144e9b1205612324083, type: 3}
-      - {fileID: 21300000, guid: 3485a865dfccd0b408d38939a71cabb5, type: 3}
-      - {fileID: 21300000, guid: 3bbdeb40898aa6841abcef82892db861, type: 3}
-      - {fileID: 21300000, guid: 9f723c53eb81fe44f973bc3c0a994d7d, type: 3}
-      - {fileID: 21300000, guid: cfbea77f70bd7fd499752e9788a868fe, type: 3}
-      - {fileID: 21300000, guid: dd3f9776ea137214c86df2a180a5e0cb, type: 3}
-      - {fileID: 21300000, guid: ab960c869d6abb743826a993ea3a2657, type: 3}
-      - {fileID: 21300000, guid: b44faaa18096839499b2c6c20b4be2c1, type: 3}
-      - {fileID: 21300000, guid: 122b686a0d9ebf34994252763b5e46de, type: 3}
-      - {fileID: 21300000, guid: 695da0ae77cd4864699e8e14765efbf8, type: 3}
-      - {fileID: 21300000, guid: 2f388cbf25c2c2445bde759b1c06e6cc, type: 3}
-      - {fileID: 21300000, guid: bdb2bc4494a22a9489c188ef2d0c7c34, type: 3}
     - sprites:
       - {fileID: 21300000, guid: 7090464d7b64da041a1d107ad003ff4a, type: 3}
       - {fileID: 21300000, guid: da21bc073aa250c40a2b48f9d7384f61, type: 3}
@@ -181,5 +165,34 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 67cfb7364d001f04fa683d5ffa32f11e, type: 3}
       - {fileID: 21300000, guid: 9a68c6f24823369458c0700947e1ab6b, type: 3}
       - {fileID: 21300000, guid: fdb6c06d526bff74faf89ac3f62a315e, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - 0.25
+    _keys:
+    - 0.25
+    _values:
+    - {fileID: 8838842109113693713, guid: 04d78f8de3888044fb758eb2b33162ca, type: 3}
   addonLayer: 0
   addonSortingOffset: 1

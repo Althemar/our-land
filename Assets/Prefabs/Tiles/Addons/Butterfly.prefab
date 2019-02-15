@@ -64,11 +64,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6840bce3ed53af4885e43c6cf723c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 6735969017881682354}
+  spriteRenderer: {fileID: 6735969017881682364}
   animators:
   - {fileID: 9100000, guid: d5b078d311e08a3439311cd37c3b6e86, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  animator: {fileID: 0}
+  - {fileID: 9100000, guid: db57bfc809e4092429e1a614948b6fcb, type: 2}
+  - {fileID: 9100000, guid: fc3f0c34a2bb8474a8dc48acbde9e0e3, type: 2}
+  - {fileID: 9100000, guid: fead9c8fe36868e4badfb24f2c3c731a, type: 2}
+  possibleColors:
+  - {r: 1, g: 0.96559095, b: 0, a: 1}
+  - {r: 0.15294117, g: 0.7688224, b: 0.8862745, a: 1}
+  spawnChance: 1
+  alphaDistance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.3813106
+      outSlope: -1.3813106
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.041467305
+    - serializedVersion: 3
+      time: 0.6807342
+      value: -0.0037984848
+      inSlope: 0.069526605
+      outSlope: 0.069526605
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21721865
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.011832401
+      outSlope: -0.011832401
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.27085906
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!212 &6735969017881682364
 SpriteRenderer:
   m_ObjectHideFlags: 0
