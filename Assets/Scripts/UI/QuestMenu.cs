@@ -29,7 +29,9 @@ public class QuestMenu : MonoBehaviour {
 
     public void AddMission(Mission mission) {
         missionLog.Insert(0, mission);
-        Instantiate(entry, Vector3.zero, Quaternion.identity, containerList.transform).GetComponent<QuestEntry>().Initialize(mission);
+        GameObject entryObject = Instantiate(entry, Vector3.zero, Quaternion.identity, containerList.transform);
+        entryObject.GetComponent<QuestEntry>().Initialize(mission);
+        entryObject.transform.SetAsFirstSibling();
     }
 
     public void Toogle() {
