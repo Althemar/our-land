@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 328031368475786048}
   - component: {fileID: 7160631991121350897}
   - component: {fileID: 6786417823672345803}
+  - component: {fileID: 2440059540316829518}
   m_Layer: 13
   m_Name: Trees_02
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,6 +130,32 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 47e68fd297adf444f8181859f0a4acf8, type: 3}
   - {fileID: 21300000, guid: 4483ae74f100ea94e87fecd4b2a6ca79, type: 3}
   - {fileID: 21300000, guid: 38908d24553d4c24a93a458ca412e77c, type: 3}
+--- !u!61 &2440059540316829518
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196217329685992509}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.024, y: 1.024}
+  m_EdgeRadius: 0
 --- !u!1 &3136508212417770711
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +167,7 @@ GameObject:
   - component: {fileID: 3136508212417770705}
   - component: {fileID: 3136508212417770704}
   - component: {fileID: 7965635613132808035}
+  - component: {fileID: 4427093504553002858}
   m_Layer: 13
   m_Name: Tree Swamp
   m_TagString: Untagged
@@ -202,6 +230,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 4b35222bfe4f84d48bd62dc3034d43df, type: 2}
   entity: {fileID: 0}
+--- !u!50 &4427093504553002858
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136508212417770711}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4125258095320507788
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +262,7 @@ GameObject:
   - component: {fileID: 5572833355154025731}
   - component: {fileID: 5331246537440847500}
   - component: {fileID: 4039192330396118850}
+  - component: {fileID: 4244827297833705296}
   m_Layer: 13
   m_Name: Trees_01
   m_TagString: Untagged
@@ -251,7 +301,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -295,6 +345,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites: []
+--- !u!61 &4244827297833705296
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125258095320507788}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.024, y: 1.024}
+  m_EdgeRadius: 0
 --- !u!1 &5146828693157680649
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4943983386898636281}
   - component: {fileID: 103023389024067267}
+  - component: {fileID: 3227731912765560580}
   m_Layer: 13
   m_Name: Trees_03
   m_TagString: Untagged
@@ -343,7 +420,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -374,3 +451,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &3227731912765560580
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5146828693157680649}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.019844964, y: 0.29767448}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.51937985, y: 0.2093023}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.024, y: 1.024}
+  m_EdgeRadius: 0

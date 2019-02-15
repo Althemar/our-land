@@ -80,6 +80,7 @@ public class NewMissionUI : MonoBehaviour {
     }
 
     public void AcceptMission() {
+        AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
         GameManager.Input.SetBlock(GameManager.Input.Blocker.Defeat, false);
         MissionManager.Instance.missionCamera.ReturnToShip(mission);
         MissionManager.Instance.AcceptMission(mission);

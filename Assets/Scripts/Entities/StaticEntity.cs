@@ -68,4 +68,17 @@ public class StaticEntity : Entity {
     public override EntityType GetEntityType() {
         return EntityType.Static;
     }
+
+
+    private void OnMouseEnter() {
+        for (int i = 0; i < sprites.Count; i++) {
+            sprites[i].material.SetFloat("_Intensity", 0.5f);
+        }
+    }
+
+    private void OnMouseExit() {
+        for (int i = 0; i < sprites.Count; i++) {
+            sprites[i].material.SetFloat("_Intensity", 0f);
+        }
+    }
 }

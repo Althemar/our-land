@@ -239,8 +239,13 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(grid.humidity.triLakeNW, riversGameObjects, -150);
             else if (GetNeighbor(HexDirection.SW).asLake && GetNeighbor(HexDirection.W).asLake)
                 CreateSprite(grid.humidity.triLakeNE, riversGameObjects, -150);
-            else
-                CreateSprite(grid.humidity.lake, riversGameObjects, -150);
+            else {
+                GameObject lake = CreateSprite(grid.humidity.lake, riversGameObjects, -150);
+                lake.AddComponent<BoxCollider2D>();
+                lake.AddComponent<Rigidbody2D>().isKinematic = true;
+                lake.AddComponent<HoverHighlight>();
+                lake.GetComponent<SpriteRenderer>().material = new Material(Shader.Find("Sprites/Highlight"));
+            }
 
 
             MovingEntity fish = Instantiate(GameManager.Instance.fishPrefab, transform.position, Quaternion.identity).GetComponent<MovingEntity>();
@@ -305,7 +310,7 @@ public class TileProperties : MonoBehaviour {
         }
     }
 
-    private void CreateSprite(Sprite sprite, GameObject parent = null, int sorting = 5, int layer = 0, bool defaultLayer = false) {
+    private GameObject CreateSprite(Sprite sprite, GameObject parent = null, int sorting = 5, int layer = 0, bool defaultLayer = false) {
         SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
         if(parent)
             spriteRenderer.transform.parent = parent.transform;
@@ -317,6 +322,8 @@ public class TileProperties : MonoBehaviour {
         if(!defaultLayer)
             spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
         spriteRenderer.gameObject.layer = layer;
+
+        return spriteRenderer.gameObject;
     }
 
     public void SetBorders() {

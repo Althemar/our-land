@@ -73,6 +73,7 @@ public class NewUX : MonoBehaviour {
             return;
 
         isTakeOff ^= true;
+        AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
 
         if (isTakeOff) {
             AkSoundEngine.PostEvent("Play_SFX_Button_TakeOff", this.gameObject);

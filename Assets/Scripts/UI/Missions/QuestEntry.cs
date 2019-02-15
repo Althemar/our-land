@@ -28,6 +28,7 @@ public class QuestEntry : MonoBehaviour {
     }
 
     public void UpdateLog() {
+        AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
         log.Initialize(mission);
     }
 

@@ -56,7 +56,11 @@ Shader "Spine/Skeleton Highlight" {
 				texColor.rgb *= texColor.a;
 				#endif
 				float4 col = (texColor * i.vertexColor);
-				col = lerp(col, float4(1, 0, 0, 1), _Intensity);
+				//col.rgb *= _Intensity;
+				//col.rgb *= lerp(1, 0.5, _Intensity);
+				//col.rgb = lerp(col.rgb, (((col.rgb - 0.5f) * max(1.7, 0)) + 0.5f), _Intensity);
+				col.rgb = lerp(col.rgb, float3(0, 0, 0), _Intensity);
+
 				return col;
 			}
 			ENDCG

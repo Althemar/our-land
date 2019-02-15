@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 0f99355c1180362408ff70003d22c910
   - enabled: 0
     path: Assets/Scenes/LD tests.unity
     guid: 66183f1596e3c964b8f5713e4a856276
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Damien LD 15-02.unity
     guid: 7aae73ff56c7b0a4ebbbb4355d51e8ea
+  - enabled: 1
+    path: Assets/Scenes/Togi test inte UI.unity
+    guid: 830a92f26d240874e9cd4cea2174959f
   m_configObjects: {}
