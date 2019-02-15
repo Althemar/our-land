@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MissionsUI : MonoBehaviour {
-    private List<Mission> missionLog;
-
     public MissionRecap currentMission;
     public MissionRecap secondaryMission;
 
@@ -33,10 +31,8 @@ public class MissionsUI : MonoBehaviour {
             secondaryMission.Initialize(mission, mission.secondaryObjectives);
             StartCoroutine(OpenSecondary());
         }
-        
-        //missionLog.Insert(0, mission);
-        Instantiate(questPanel.entry, Vector3.zero, Quaternion.identity, questPanel.containerList.transform).GetComponent<QuestEntry>().Initialize(mission);
-        //questPanel.containerList
+
+        questPanel.AddMission(mission);
     }
 
     public void EndMission(Mission mission) {

@@ -54,4 +54,8 @@ public class ObjectiveCollectResources : Objective
     public override int Progress() {
         return count;
     }
+    
+    public override Sprite IconCompletion() {
+        return resource.icon;
+    }
 }

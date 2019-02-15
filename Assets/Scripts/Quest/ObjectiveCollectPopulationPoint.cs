@@ -52,4 +52,12 @@ public class ObjectiveCollectPopulationPoint : Objective
     public override string GetProgressText() {
         return "Collect " + count + " / " + goal + " " + resource.name;
     }
+
+    public override int Goal() {
+        return goal;
+    }
+
+    public override int Progress() {
+        return count;
+    }
 }

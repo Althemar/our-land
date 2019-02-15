@@ -41,6 +41,9 @@ public class AudioAmbient : MonoBehaviour {
     }
 
     void PlayMusic() {
+        Debug.Log(timeBetweenMusics);
+        Debug.Log(silenceBetweenMusic.FloatValue);
+
         if (musicPlayed)
             return;
 
