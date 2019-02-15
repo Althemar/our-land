@@ -15,9 +15,11 @@ public class NewMissionUI : MonoBehaviour
         this.mission = mission;
         title.text = mission.title;
         objectives.text = "";
-        foreach (Objective objective in mission.missionObjectives) {
-            objectives.text += objective.description + "\n";
-        }
+
+        objectives.text += mission.mainObjectives.description + "\n";
+        if(mission.secondaryObjectives)
+            objectives.text += mission.secondaryObjectives.description + "\n";
+
         lore.text = mission.lore;
         GameManager.Input.SetBlock(GameManager.Input.Blocker.Defeat, true);
 

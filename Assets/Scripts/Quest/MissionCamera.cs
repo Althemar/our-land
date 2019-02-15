@@ -22,10 +22,8 @@ public class MissionCamera : MonoBehaviour
 
     public void SetTargetPositions(Mission mission) {
         targetPositions.Clear();
-        foreach (Objective objective in mission.missionObjectives) {
-            if (objective.targetWithCamera) {
-                AddTargetPosition(objective.transform.position);
-            }
+        if (mission.mainObjectives.targetWithCamera) {
+            AddTargetPosition(mission.mainObjectives.transform.position);
         }
     }
 

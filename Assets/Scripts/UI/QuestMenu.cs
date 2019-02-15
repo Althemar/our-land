@@ -7,6 +7,8 @@ public class QuestMenu : MonoBehaviour {
     public CanvasReference canvasRef;
 
     public GameObject questMenu;
+    public GameObject containerList;
+    public GameObject entry;
     RectTransform menu;
     Vector3 beginPosition;
     

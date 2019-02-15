@@ -205,11 +205,19 @@ public class MotherShip : Updatable {
     }
 
     public void AddItem(ResourceType resource, int amount, ActionType action) {
+        OnResourceGained?.Invoke(resource, amount);
+        
+        if(resource.name == "Population") {
+            maxPopulationPoints += amount;
+            remainingPopulationPoints += amount;
+            return;
+        }
+
         foreach (Bonus b in bonuses) {
             b.BonusEffectItem(action, resource, ref amount);
         }
+        
         inventory.AddItem(resource, amount);
-        OnResourceGained?.Invoke(resource, amount);
     }
 
     #region Harvest Outline

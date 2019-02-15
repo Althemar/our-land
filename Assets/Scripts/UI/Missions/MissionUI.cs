@@ -27,12 +27,17 @@ public class MissionUI : MonoBehaviour
             mission.OnRemainingTurnsUpdated += turnsUI.UpdateRemainingTurns;
         }
 
-        foreach (Objective objective in mission.missionObjectives) {
-            ObjectiveProgressUI objectiveUI = Instantiate(objectiveProgressPrefab, transform.parent);
-            objectives.Add(objective, objectiveUI);
-            objectiveUI.Initialize(objective);
-            title.text = mission.title;
+        ObjectiveProgressUI objectiveUI = Instantiate(objectiveProgressPrefab, transform.parent);
+        objectives.Add(mission.mainObjectives, objectiveUI);
+        objectiveUI.Initialize(mission.mainObjectives);
+
+        if(mission.secondaryObjectives) {
+            ObjectiveProgressUI objectiveUISecond = Instantiate(objectiveProgressPrefab, transform.parent);
+            objectives.Add(mission.secondaryObjectives, objectiveUI);
+            objectiveUISecond.Initialize(mission.secondaryObjectives);
         }
+        
+        title.text = mission.title;
     }
 
     public void DestroyObjectivesUI() {

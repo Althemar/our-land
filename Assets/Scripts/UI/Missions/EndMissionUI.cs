@@ -17,12 +17,16 @@ public class EndMissionUI : MonoBehaviour
         lore.text = mission.accomplishedLore;
 
         rewards.text = "You earned:";
-        foreach (Objective objective in mission.missionObjectives) {
-            if (objective.Completed) {
-                foreach (Reward reward in objective.rewards) {
-                    rewards.text += "\n" + reward.Display();
-                    reward.GetReward();
-                }
+        if (mission.mainObjectives.Completed) {
+            foreach (Reward reward in mission.mainObjectives.rewards) {
+                rewards.text += "\n" + reward.Display();
+                reward.GetReward();
+            }
+        }
+        if (mission.secondaryObjectives && mission.secondaryObjectives.Completed) {
+            foreach (Reward reward in mission.secondaryObjectives.rewards) {
+                rewards.text += "\n" + reward.Display();
+                reward.GetReward();
             }
         }
 

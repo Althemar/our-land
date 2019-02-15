@@ -14,8 +14,8 @@ public class Mission : MonoBehaviour
     [BoxGroup("Turn limit")]
     public int remainingTurns = 0;
 
-    [ReorderableList]
-    public Objective[] missionObjectives;
+    public Objective mainObjectives;
+    public Objective secondaryObjectives;
 
     [ReorderableList]
     public Mission[] nextMission;
@@ -27,9 +27,8 @@ public class Mission : MonoBehaviour
     public UpdatedTurns OnRemainingTurnsUpdated;
 
     public void StartMission() {
-        foreach (Objective objective in missionObjectives) {
-            objective.StartObjective();
-        }
+        mainObjectives.StartObjective();
+        secondaryObjectives?.StartObjective();
     }
 
     public bool Evaluate() {
@@ -42,11 +41,7 @@ public class Mission : MonoBehaviour
             }
         }
 
-        foreach (Objective objective in missionObjectives) {
-            if (!objective.Evaluate() && !objective.optional) {
-                return false;
-            }
-        }
-        return true;
+        secondaryObjectives?.Evaluate();
+        return mainObjectives.Evaluate();
     }   
 }

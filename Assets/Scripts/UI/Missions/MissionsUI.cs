@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MissionsUI : MonoBehaviour {
-    //private Dictionary<Mission, LogEntry> missionLog;
+    private List<Mission> missionLog;
 
     public MissionRecap currentMission;
     public MissionRecap secondaryMission;
+
+    public QuestMenu questPanel;
 
     RectTransform missionTransform, secondaryTransform;
     Vector3 beginPosition, beginPositionSecondary;
@@ -24,15 +26,17 @@ public class MissionsUI : MonoBehaviour {
 
     public void AddMission(Mission mission) {
         StopAllCoroutines();
-        currentMission.Initialize(mission, 0);
+        currentMission.Initialize(mission, mission.mainObjectives);
         StartCoroutine(Open());
 
-        if (mission.missionObjectives.Length > 1) {
-            secondaryMission.Initialize(mission, 1);
+        if (mission.secondaryObjectives) {
+            secondaryMission.Initialize(mission, mission.secondaryObjectives);
             StartCoroutine(OpenSecondary());
         }
-        //missionUIs.Add(mission, LogEntry);
-
+        
+        //missionLog.Insert(0, mission);
+        Instantiate(questPanel.entry, Vector3.zero, Quaternion.identity, questPanel.containerList.transform).GetComponent<QuestEntry>().Initialize(mission);
+        //questPanel.containerList
     }
 
     public void EndMission(Mission mission) {

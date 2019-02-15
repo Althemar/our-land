@@ -35,6 +35,7 @@ public class TurnManager : MonoBehaviour {
     private Dictionary<EntitySO, List<Entity>> entitiesToUpdate;
     private List<Updatable> playersBonusUpdates;
     private List<Updatable> playersUpdates;
+    private List<Updatable> otherUpdates;
     private List<Wind> windsToUpdate;
     private List<Whirlwind> whirlwindsToUpdate;
     private List<WindOrigin> windOriginsToUpdate;
@@ -72,6 +73,7 @@ public class TurnManager : MonoBehaviour {
             windOriginsToUpdate = new List<WindOrigin>();
             playersUpdates = new List<Updatable>();
             playersBonusUpdates = new List<Updatable>();
+            otherUpdates = new List<Updatable>();
             Console.AddCommand("fastTurn", CmdFastTurn, "Fast Turn");
         }
         else {
@@ -122,7 +124,7 @@ public class TurnManager : MonoBehaviour {
                     UpdateEntities();
                 }
             }
-            else if (state == TurnState.PlayerUpdates || state == TurnState.Wind || state == TurnState.Whirlwind || state == TurnState.WindOrigin) {
+            else if (state == TurnState.PlayerUpdates || state == TurnState.Wind || state == TurnState.Whirlwind || state == TurnState.WindOrigin || state == TurnState.Others) {
                 NextTurnOrder();
             }
         }
@@ -151,18 +153,16 @@ public class TurnManager : MonoBehaviour {
     public void AddToUpdate<T>(T obj) {
         if (obj is Wind) {
             windsToUpdate.Add(obj as Wind);
-        }
-        if (obj is Whirlwind) {
+        } else if (obj is Whirlwind) {
             whirlwindsToUpdate.Add(obj as Whirlwind);
-        }
-        if (obj is WindOrigin) {
+        } else if (obj is WindOrigin) {
             windOriginsToUpdate.Add(obj as WindOrigin);
-        }
-        if (obj is ActivePopulationPoint || obj is MotherShip) {
+        } else if (obj is ActivePopulationPoint || obj is MotherShip) {
             playersUpdates.Add(obj as Updatable);
-        }
-        if (obj is Bonus) {
+        } else if (obj is Bonus) {
             playersBonusUpdates.Add(obj as Updatable);
+        } else {
+            otherUpdates.Add(obj as Updatable);
         }
     }
 
@@ -175,18 +175,16 @@ public class TurnManager : MonoBehaviour {
     public void RemoveFromUpdate<T>(T obj) {
         if (obj is Wind) {
             windsToUpdate.Remove(obj as Wind);
-        }
-        if (obj is Whirlwind) {
+        } else if (obj is Whirlwind) {
             whirlwindsToUpdate.Remove(obj as Whirlwind);
-        }
-        if (obj is WindOrigin) {
+        } else if (obj is WindOrigin) {
             windOriginsToUpdate.Remove(obj as WindOrigin);
-        }
-        if (obj is ActivePopulationPoint || obj is MotherShip) {
+        } else if (obj is ActivePopulationPoint || obj is MotherShip) {
             playersUpdates.Remove(obj as Updatable);
-        }
-        if (obj is Bonus) {
+        } else if (obj is Bonus) {
             playersBonusUpdates.Remove(obj as Updatable);
+        } else {
+            otherUpdates.Remove(obj as Updatable);
         }
     }
 
@@ -231,6 +229,9 @@ public class TurnManager : MonoBehaviour {
         else if (state == TurnState.PlayerUpdates) {
             UpdateObjects(playersBonusUpdates);
             UpdateObjects(playersUpdates);
+        }
+        else if (state == TurnState.Others) {
+            UpdateObjects(otherUpdates);
         }
     }
 

@@ -40,14 +40,13 @@ public class NewUX : MonoBehaviour {
     }
 
     private void Update() {
-
-        if (TurnManager.Instance.State != TurnManager.TurnState.Player || GameManager.Input.IsBlock) {
+        if (TurnManager.Instance.State != TurnManager.TurnState.Player) {
             takeOffText.text = I18N.GetText("pleaseWait");
 
             takeOffButton.interactable = false;
 
-            if (Quaternion.Dot(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 180f)) < 0.999f)
-                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 110f);
+            if (Quaternion.Angle(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 180f)) > 5f)
+                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 180f);
             else
                 hourglass.transform.localRotation = Quaternion.Euler(0, 0, 180f);
         } else {
@@ -57,13 +56,15 @@ public class NewUX : MonoBehaviour {
                 takeOffText.text = I18N.GetText("switchToHarvest");
 
             takeOffButton.interactable = true;
-
-
-            if (Quaternion.Dot(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 0)) < 0.999f)
-                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 110f);
+            
+            if (Quaternion.Angle(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 0f)) > 5f)
+                hourglass.transform.localRotation *= Quaternion.Euler(0, 0, Time.deltaTime * 180f);
             else
                 hourglass.transform.localRotation = Quaternion.Euler(0, 0, 0f);
-            //hourglass.transform.localRotation = Quaternion.Slerp(hourglass.transform.localRotation, Quaternion.Euler(0, 0, 0f), Time.deltaTime);
+        }
+
+        if(GameManager.Input.IsBlock) {
+            takeOffButton.interactable = false;
         }
     }
 

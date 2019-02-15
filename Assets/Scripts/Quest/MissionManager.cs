@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MissionCamera))]
-public class MissionManager : MonoBehaviour
+public class MissionManager : Updatable
 {
     public Mission startingMission;
     public MissionCamera missionCamera;
@@ -17,6 +17,7 @@ public class MissionManager : MonoBehaviour
     private List<Mission> currentMissions;
     private Mission previousMission;
     private int nextMissionIndex;
+    private Mission newMission;
 
     public static MissionManager Instance;
 
@@ -28,20 +29,49 @@ public class MissionManager : MonoBehaviour
     }
 
     private void Start() {
-        GameManager.Instance.motherShip.OnTurnBegin += Evaluate;  
+        AddToTurnManager();
+        GameManager.Instance.motherShip.OnTurnBegin += ShowNewMission;
         StartMission(startingMission);
     }
 
-    private void Evaluate() {
+    void OnDestroy() {
+        RemoveFromTurnManager();
+    }
+
+    public override void AddToTurnManager() {
+        TurnManager.Instance.AddToUpdate(this);
+    }
+
+    public override void RemoveFromTurnManager() {
+        TurnManager.Instance.RemoveFromUpdate(this);
+    }
+
+    
+    public override void UpdateTurn() {
+        base.UpdateTurn();
+        
+        bool end = true;
         foreach (Mission mission in currentMissions) {
             if (mission.Evaluate()) {
                 Instantiate(endMissionUI, newMissionUIParent).Initialize(mission);
-
+                end = false;
             }
             else if (mission.failed) {
                 Instantiate(failedMissionUI, newMissionUIParent).Initialize(mission);
+                end = false;
             }
         }
+
+        if(end)
+            EndTurn();
+    }
+
+    public void ShowNewMission() {
+        if(!newMission)
+            return;
+        StartMission(newMission);
+        nextMissionIndex++;
+        newMission = null;
     }
 
     public void StartMission(Mission mission) {
@@ -65,8 +95,7 @@ public class MissionManager : MonoBehaviour
     }
 
     private void DisplayNextMission() {
-        StartMission(previousMission.nextMission[nextMissionIndex]);
-        nextMissionIndex++;
+        newMission = previousMission.nextMission[nextMissionIndex];
     }
     
 
@@ -82,6 +111,8 @@ public class MissionManager : MonoBehaviour
             else {
                 Destroy(mission);
             }
+            
+            EndTurn();
         }
         else {
             GameManager.Instance.Defeat();
