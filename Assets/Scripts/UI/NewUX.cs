@@ -60,7 +60,7 @@ public class NewUX : MonoBehaviour {
         isTakeOff = true;
         AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
         panelAnim.SetBool("IsUp", true);
-
+        
         AkSoundEngine.PostEvent("Play_SFX_Button_TakeOff", this.gameObject);
         refCanvas.mouse.moveMode = true;
         refCanvas.ship.MovementMode();
