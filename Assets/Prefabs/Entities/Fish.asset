@@ -78,11 +78,11 @@ MonoBehaviour:
     _values:
     - randomBonus:
       - minBonus: 1
-        maxBonus: 2
-      - minBonus: 1
         maxBonus: 3
-      - minBonus: 2
+      - minBonus: 1
         maxBonus: 4
+      - minBonus: 2
+        maxBonus: 5
   availableTiles: []
   harvestSound: 
   movementPoints: 0
