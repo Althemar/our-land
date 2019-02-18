@@ -27,6 +27,8 @@ public class NewMissionUI : MonoBehaviour {
     private Mission mission;
 
     public void Initialize(Mission mission) {
+        AkSoundEngine.PostEvent("Play_SFX_Quest_New", this.gameObject);
+
         this.mission = mission;
         title.text = mission.title;
         mainGoalText.text = "•  " + mission.mainObjectives.description;

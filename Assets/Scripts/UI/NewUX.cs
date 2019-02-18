@@ -58,7 +58,6 @@ public class NewUX : MonoBehaviour {
             return;
 
         isTakeOff = true;
-        AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
         panelAnim.SetBool("IsUp", true);
         
         AkSoundEngine.PostEvent("Play_SFX_Button_TakeOff", this.gameObject);
@@ -77,7 +76,6 @@ public class NewUX : MonoBehaviour {
             return;
 
         isTakeOff = false;
-        AkSoundEngine.PostEvent("Play_Choice_Pl", this.gameObject);
         panelAnim.SetBool("IsUp", false);
 
         AkSoundEngine.PostEvent("Play_SFX_Button_Landing", this.gameObject);
