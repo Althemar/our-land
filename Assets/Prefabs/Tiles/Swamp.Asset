@@ -44,9 +44,12 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 
-    _keys: 
-    _values: []
+    _keyValues: 04000000
+    _keys: 04000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 47e5e7b8bc15a274d9f6ccb966879e83, type: 3}
+      - {fileID: 21300000, guid: 3c37c39b522bb474395ba925d1f27f1f, type: 3}
   bordersW:
     reorderableList:
       canAdd: 1
@@ -54,7 +57,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -69,10 +72,13 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: 
-    _keys: 
-    _values: []
+    isExpanded: 1
+    _keyValues: 04000000
+    _keys: 04000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: e10d4b7f06f610d40b61f84fed8841cc, type: 3}
+      - {fileID: 21300000, guid: d0a9d1233525a794cafd49054c88b2b5, type: 3}
   bordersSW:
     reorderableList:
       canAdd: 1
@@ -80,7 +86,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -95,10 +101,13 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: 
-    _keys: 
-    _values: []
+    isExpanded: 1
+    _keyValues: 04000000
+    _keys: 04000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: b4ab9ac454e7604469643ee69f326e1d, type: 3}
+      - {fileID: 21300000, guid: 9ed255db6db35fa4c9ebb3d62e01e0ac, type: 3}
   addons:
     reorderableList:
       canAdd: 1
@@ -139,5 +148,31 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 5bd8191893dcae246a204d8d7f42b9ce, type: 3}
       - {fileID: 21300000, guid: 2f9ad4829afd5e740b1ed89ba624514e, type: 3}
       - {fileID: 21300000, guid: 15ab0d0a28188c5479753dfb35a89369, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
   addonLayer: 0
   addonSortingOffset: 1

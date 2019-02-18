@@ -7,7 +7,8 @@ using UnityEngine;
 public enum RewardType
 {
     Resource,
-    TechPoint
+    TechPoint,
+    NewPopPoint
 }
 
 [Serializable]
@@ -24,6 +25,10 @@ public class Reward
         }
         else if (rewardType == RewardType.TechPoint) {
             bonus.UpdateLevel(amount);
+        }
+        else if (rewardType == RewardType.NewPopPoint) {
+            GameManager.Instance.motherShip.maxPopulationPoints++;
+            GameManager.Instance.motherShip.remainingPopulationPoints++;
         }
     }
 

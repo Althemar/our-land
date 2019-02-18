@@ -35,11 +35,9 @@ public class CustomTile : TileBase
     public BorderDictionary bordersW;
     [SerializeField]
     public BorderDictionary bordersSW;
-    /*
-    public List<Sprite> addonsGrass;
-    public List<Sprite> addonsFlowers;*/
 
     public AddonsDictionary addons;
+    public AddonsPrefabDictionary addonsGO;
 
     public int addonLayer = 0;
     public int addonSortingOffset = 1;

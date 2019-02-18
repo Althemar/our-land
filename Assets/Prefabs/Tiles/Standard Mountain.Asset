@@ -26,7 +26,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -41,10 +41,16 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: 
-    _keys: 
-    _values: []
+    isExpanded: 1
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 6e5fb367cce264a4a97e81ae697129d1, type: 3}
+      - {fileID: 21300000, guid: 718f241db0e449d4fadb5af2985bb40f, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 07cdf957900687f4d9b0225fd7641271, type: 3}
+      - {fileID: 21300000, guid: 9c62738c13e5e7849a920a064758f00f, type: 3}
   bordersW:
     reorderableList:
       canAdd: 1
@@ -52,7 +58,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -67,10 +73,16 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: 
-    _keys: 
-    _values: []
+    isExpanded: 1
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: a499ec4e3fe29e148b99cea9d05ba0d6, type: 3}
+      - {fileID: 21300000, guid: 3c1501a94fc560c448e01ab04d74072c, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 956bdb44bc73ea04cb3c1fabdc58dcd9, type: 3}
+      - {fileID: 21300000, guid: 5088ec622a6801a4d8993ad1d085f2dd, type: 3}
   bordersSW:
     reorderableList:
       canAdd: 1
@@ -78,7 +90,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -93,10 +105,16 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: 
-    _keys: 
-    _values: []
+    isExpanded: 1
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: b61a974d487c8d544b7a456dabf48aad, type: 3}
+      - {fileID: 21300000, guid: 5c4c7ac82f450e34b8e43dc281cd3e26, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 7b24d70949081464b93868dffb349ddb, type: 3}
+      - {fileID: 21300000, guid: 1f33567225a8527438ed9510f9621f0b, type: 3}
   addons:
     reorderableList:
       canAdd: 1
@@ -127,5 +145,31 @@ MonoBehaviour:
     _values:
     - sprites:
       - {fileID: 21300000, guid: 1d45825101fb736498125acfd9398874, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
   addonLayer: 13
   addonSortingOffset: 15
