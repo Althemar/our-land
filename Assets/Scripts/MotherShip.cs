@@ -168,6 +168,7 @@ public class MotherShip : Updatable {
 
         if (onMove) {
             canMove = false;
+            AkSoundEngine.PostEvent("Play_SFX_Ship_Move", this.gameObject);
             OnBeginMoving?.Invoke();
             outline.Clear();
             movable.MoveToTile(targetTile, false);
@@ -179,6 +180,7 @@ public class MotherShip : Updatable {
 
         if(canMove) {
             canMove = false;
+            AkSoundEngine.PostEvent("Play_SFX_Ship_Move", this.gameObject);
             OnBeginMoving?.Invoke();
             outline.Clear();
             movable.MoveToTile(targetTile, false);
