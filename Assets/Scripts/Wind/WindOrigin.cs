@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindOrigin : Updatable
-{
+public class WindOrigin : Updatable {
     public HexDirection direction;
 
     public bool activeAtBeginning;
@@ -17,20 +16,18 @@ public class WindOrigin : Updatable
     private Wind firstWind;
 
     private int remainingActiveTurns;
-    
+
     private void Awake() {
         AddToTurnManager();
     }
 
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
-            tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
-            tile.windOrigin = this;
+    private void Start() {
+        Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+        tile = HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y));
+        tile.windOrigin = this;
 
-            if (activeAtBeginning) {
-                On();
-            }
+        if (activeAtBeginning) {
+            On();
         }
     }
 
@@ -91,16 +88,16 @@ public class WindOrigin : Updatable
                 tryNeighbors = false;
             }
 
-            TryExpandCorridor(ref remainingTiles, beginTile, beginDirection, tryNeighbors);   
+            TryExpandCorridor(ref remainingTiles, beginTile, beginDirection, tryNeighbors);
         }
 
 
         while (remainingTiles.Count > 0) {
             TileProperties affectedTile = remainingTiles.Pop();
             if (affectedTile) {
-                 TryExpandCorridor(ref remainingTiles, affectedTile, affectedTile.wind.direction);
+                TryExpandCorridor(ref remainingTiles, affectedTile, affectedTile.wind.direction);
             }
-        }       
+        }
     }
 
     public void TryExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection previousDirection, bool tryNeighbors = true) {
@@ -121,7 +118,7 @@ public class WindOrigin : Updatable
                 ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Previous());
                 ExpandCorridor(ref remainingTiles, affectedTile, previousDirection.Next());
             }
-        }  
+        }
     }
 
     public bool ExpandCorridor(ref Stack<TileProperties> remainingTiles, TileProperties affectedTile, HexDirection nextDirection) {

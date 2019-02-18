@@ -11,34 +11,30 @@ public class PlaytestCondition : MonoBehaviour {
 
     void Start() {
         Playtest.TimedLog("BEGIN PLAYTEST " + level);
+
+        GameManager.Instance.motherShip.OnTurnBegin -= GameManager.Instance.CheckDefeat;
+        GameManager.Instance.motherShip.OnTurnBegin += CheckPlaytest;
+
+        cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+        transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(cellPosition);
     }
 
-    void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            GameManager.Instance.motherShip.OnTurnBegin -= GameManager.Instance.CheckDefeat;
-            GameManager.Instance.motherShip.OnTurnBegin += CheckPlaytest;
-
-            cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
-            transform.position = HexagonalGrid.Instance.Tilemap.GetCellCenterWorld(cellPosition);
-        }
-    }
-    
     void CheckPlaytest() {
-        switch(level) {
+        switch (level) {
             case 1:
-                if(HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)) == GameManager.Instance.motherShip.Movable.CurrentTile){
+                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)) == GameManager.Instance.motherShip.Movable.CurrentTile) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
                 }
                 break;
             case 2:
-                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null){
+                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
                 }
                 break;
             case 3:
-                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null){
+                if (HexagonalGrid.Instance.GetTile(new HexCoordinates(cellPosition.x, cellPosition.y)).staticEntity == null) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
                 }
@@ -47,7 +43,8 @@ public class PlaytestCondition : MonoBehaviour {
                 if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) == 11) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
-                } else {
+                }
+                else {
                     GameManager.Instance.CheckDefeat();
                 }
                 break;
@@ -55,7 +52,8 @@ public class PlaytestCondition : MonoBehaviour {
                 if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) > 30) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
-                } else {
+                }
+                else {
                     GameManager.Instance.CheckDefeat();
                 }
                 break;
@@ -64,7 +62,8 @@ public class PlaytestCondition : MonoBehaviour {
                     GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) == 17) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY TURN " + TurnManager.Instance.TurnCount);
-                } else {
+                }
+                else {
                     GameManager.Instance.CheckDefeat();
                 }
                 break;
@@ -74,7 +73,8 @@ public class PlaytestCondition : MonoBehaviour {
                 if (GameManager.Instance.motherShip.Inventory.GetResource(GameManager.Instance.motherShip.fuelResource) > 30) {
                     victoryPanel.SetActive(true);
                     Playtest.TimedLog("VICTORY");
-                } else {
+                }
+                else {
                     GameManager.Instance.CheckDefeat();
                 }
                 break;

@@ -14,7 +14,7 @@ public class PathUI : MonoBehaviour
     public Image templatePoint;
     public Image templateLine;
 
-    int sizePool = 20;
+    int sizePool = 50;
     CirclePath[] poolPoint;
     Image[] poolLine;
 
@@ -82,7 +82,7 @@ public class PathUI : MonoBehaviour
             }
             poolPoint[i].InitCirclePath();
             if (i == 0) {
-                if(pathTiles[i].IsWalkable() && !pathTiles[i].movingEntity && !pathTiles[i].staticEntity) {
+                if(pathTiles[i].IsWalkable() && !pathTiles[i].asLake && !pathTiles[i].windOrigin && !pathTiles[i].movingEntity && !pathTiles[i].staticEntity && pathTiles[i].Tile.terrainType != CustomTile.TerrainType.Water) {
                     text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString() + "<sprite=0>";
                     poolPoint[i].removeImage.gameObject.SetActive(false);
                 }
@@ -121,7 +121,7 @@ public class PathUI : MonoBehaviour
     }
 
     private bool FreeWindMovement(TileProperties current, TileProperties next) {
-        if (next.wind) { // Free movement if wind
+        if (next.wind && motherShip.Movable.canUseWind) { // Free movement if wind
             HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
 
             HexDirection beginDir = (current.wind) ? current.wind.direction : movableDir;
@@ -139,7 +139,7 @@ public class PathUI : MonoBehaviour
         }
         return false;
     }
-
+    /*
     private bool WindMalusMovement(TileProperties current, TileProperties next) {
         if (next.wind) { // Free movement if wind
             HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
@@ -154,5 +154,5 @@ public class PathUI : MonoBehaviour
             }
         }
         return false;
-    }
+    }*/
 }

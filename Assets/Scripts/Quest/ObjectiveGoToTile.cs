@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectiveGoToTile : Objective
-{
+public class ObjectiveGoToTile : Objective {
     private TileProperties tile;
     private SpriteRenderer spriteRenderer;
 
@@ -13,12 +12,10 @@ public class ObjectiveGoToTile : Objective
 
     private int usedWood = 0;
 
-    void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
-            tile = HexagonalGrid.Instance.GetTile(cellPosition);
-            transform.position = tile.transform.position;
-        }
+    void Start() {
+        Vector3Int cellPosition = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+        tile = HexagonalGrid.Instance.GetTile(cellPosition);
+        transform.position = tile.transform.position;
     }
 
     public override void StartObjective() {
@@ -55,7 +52,7 @@ public class ObjectiveGoToTile : Objective
             completed = true;
         }
         base.Evaluate();
-        
+
         return completed;
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   go: {fileID: 0}
-  canWalkThrough: 0
+  canWalkThrough: 1
   walkCost: 1
   terrainType: 4
   ambientRTPC: WATER

@@ -155,9 +155,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: -1003012043
+  m_SortingLayer: -2
+  m_SortingOrder: 5000
   m_Sprite: {fileID: 21300000, guid: daa41559cc150a64ba3c9c4e8cbe75d4, type: 3}
   m_Color: {r: 0.3254717, g: 0.71347874, b: 1, a: 0}
   m_FlipX: 0
@@ -217,11 +217,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbors: []
-  currentMovable: {fileID: 0}
+  movable: {fileID: 0}
+  movablePreview: {fileID: 0}
   staticEntity: {fileID: 0}
   movingEntity: {fileID: 0}
   wind: {fileID: 0}
-  whirlwind: {fileID: 0}
   addonsGameObjects: {fileID: 154092176}
   bordersGameObjects: {fileID: 1243651355}
   riversGameObjects: {fileID: 780402218}
@@ -229,7 +229,6 @@ MonoBehaviour:
   humidity: 0
   asRiver: 0
   asLake: 0
-  windDryness: 0
-  nextTilesInCorridor: 
-  previousTileInCorridor: 0
+  asMountain: 0
+  windOrigin: {fileID: 0}
   needRefresh: 1

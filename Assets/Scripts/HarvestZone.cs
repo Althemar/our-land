@@ -8,8 +8,8 @@ public class HarvestZone : MonoBehaviour {
 
     public MotherShip ship;
 
-    void Update() {
-        if (GameManager.Instance.FrameCount == 1) {
+    void Start() {
+        //if (GameManager.Instance.FrameCount == 1) {
             List<TileProperties> tilesInRange = ship.Movable.CurrentTile.InRange(1);
             for (int i = 0; i < tilesInRange.Count; i++) {
                 tilesInRange[i].IsInReachables = true;
@@ -18,7 +18,7 @@ public class HarvestZone : MonoBehaviour {
             for (int i = 0; i < tilesInRange.Count; i++) {
                 tilesInRange[i].IsInReachables = false;
             }
-        }
+        //}
         
     }
 

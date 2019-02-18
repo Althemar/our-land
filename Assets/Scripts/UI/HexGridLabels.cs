@@ -13,18 +13,16 @@ public class HexGridLabels : MonoBehaviour {
 
     private Dictionary<Vector3Int, TMP_Text> cellTexts;
 
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            cellTexts = new Dictionary<Vector3Int, TMP_Text>();
+    private void Start() {
+        cellTexts = new Dictionary<Vector3Int, TMP_Text>();
 
-            for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
-                for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
-                    TileProperties tile = grid.tilesArray[i, j];
-                    Vector3 cellWorldPosition = grid.Tilemap.GetCellCenterWorld(tile.Position);
-                    TMP_Text text = Instantiate(tilePositionPrefab, cellWorldPosition, Quaternion.identity, transform);
-                    text.text = "";
-                    cellTexts.Add(tile.Coordinates.CubicCoordinates, text);
-                }
+        for (int i = 0; i < grid.tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < grid.tilesArray.GetLength(1); j++) {
+                TileProperties tile = grid.tilesArray[i, j];
+                Vector3 cellWorldPosition = grid.Tilemap.GetCellCenterWorld(tile.Position);
+                TMP_Text text = Instantiate(tilePositionPrefab, cellWorldPosition, Quaternion.identity, transform);
+                text.text = "";
+                cellTexts.Add(tile.Coordinates.CubicCoordinates, text);
             }
         }
     }

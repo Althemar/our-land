@@ -21,12 +21,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     void Start() {
         motherShip.OnRemainingPointsChanged += UpdateButtons;
         TurnManager.Instance.OnEndTurn += EntitiesToHarvest;
-    }
-
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            EntitiesToHarvest();
-        }
+        EntitiesToHarvest();
     }
 
     void OnDestroy() {

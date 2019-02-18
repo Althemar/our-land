@@ -157,7 +157,7 @@ public class MouseController : MonoBehaviour {
         if (reachableTiles.Displaying) {
             TileProperties targetTile = GetTile();
             if (targetTile.movingEntity || targetTile.staticEntity || targetTile.ActionPointCost > motherShip.Inventory.GetResource(motherShip.fuelResource) || targetTile == motherShip.Movable.CurrentTile
-                || !targetTile.IsWalkable()) {
+                || !targetTile.IsWalkable() || targetTile.asLake || targetTile.windOrigin || targetTile.Tile.terrainType == CustomTile.TerrainType.Water) {
                 targetTile = null;
                 reachableTiles.UndisplayReachables();
             }
