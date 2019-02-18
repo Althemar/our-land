@@ -1,0 +1,55 @@
+
+bottomPanel.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/Bas
+  rotate: false
+  xy: 0, 392
+  size: 438, 114
+  orig: 440, 116
+  offset: 1, 1
+  index: -1
+images/Curseur
+  rotate: false
+  xy: 439, 435
+  size: 51, 71
+  orig: 53, 73
+  offset: 1, 1
+  index: -1
+images/Haut
+  rotate: false
+  xy: 0, 252
+  size: 405, 139
+  orig: 407, 141
+  offset: 1, 1
+  index: -1
+images/Left Button
+  rotate: false
+  xy: 163, 36
+  size: 101, 107
+  orig: 103, 109
+  offset: 1, 1
+  index: -1
+images/Right Button
+  rotate: false
+  xy: 163, 144
+  size: 102, 107
+  orig: 104, 109
+  offset: 1, 1
+  index: -1
+images/Volet Droit
+  rotate: false
+  xy: 0, 126
+  size: 162, 125
+  orig: 164, 127
+  offset: 1, 1
+  index: -1
+images/Volet Gauche
+  rotate: false
+  xy: 0, 0
+  size: 162, 125
+  orig: 164, 127
+  offset: 1, 1
+  index: -1

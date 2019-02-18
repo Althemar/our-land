@@ -84,7 +84,7 @@ MonoBehaviour:
       - minBonus: 3
         maxBonus: 4
   availableTiles: []
-  harvestSound: 
+  harvestSound: Play_SFX_Kill_Fish
   movementPoints: 0
   nbTurnsToDie: 0
   nbTurnsToBeHungry: 0
