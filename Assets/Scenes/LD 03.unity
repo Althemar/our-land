@@ -585,12 +585,15 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: title
-      value: Essential trip
+      value: Let's get out of here
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: '"We''ve seen a fertile grassland, we should go there"'
+      value: 'The wood supply is full again. Hourray !  But we''re not going to feed
+        yourself by chewing twigs... Let''s use this ship for what it was meant to
+        : flying away.  Mother Nature, thanks to her kindness, has certainly put some
+        green areas after the horizon... '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -1140,7 +1143,15 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: We are starving !
+      value: 'Finally, a welcoming region !  A generous vegetation, some quiet mountains
+        away, few steel strange ancient structures that would make nice playgrounds
+        for the children. A bunch of Muings is grazing peacefully, checking with one
+        eye the presence of lone R''thuks hiding in the bushes.  The council of wise
+        persons quickly approuved staying in this place for a while. Anyway, no one
+        is thinking about being picky about the texture of the grass here since everyone
+        is freaking starving.  The adults split into several groups of explorers in
+        order to harvest food, while some of the elders and kids stays in the ship,
+        polishing the pots and playing instruments to keep predators away. '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -2999,12 +3010,21 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: title
-      value: More needs
+      value: New challenges
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: We are starving !
+      value: 'The tribe is growing ! The crown folks are settling in, finding their
+        way with the rest of the clan. We must adapt yourself in consequence to harvest
+        enough for everyone, by paying attention not to disturb the balance of the
+        surroundings.  If too many fruits are picked up at once, the Muings will leave
+        the area and let you deal with ravenous Rthuks on your own. Same thing if
+        we''re becoming greedy on Muing''s tasty meat.  And if we avoid picking fruits,hunt
+        and eat too many Rthuks, the well feed Muings will outnumbered the people
+        of the tribe, take control of the ressources and, in a blink of an eye, there
+        will be a millenial Muings Reich using humans as cheap labor in the whole
+        area.  It''s been seen before. Let''s try to be careful. '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -10869,12 +10889,18 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: title
-      value: The fishermen
+      value: 'Muddy the waters '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: Help them !
+      value: 'The fisherfolks are a population of freshwater sailors wandering trough
+        lakes and rivers. They feed themeselves from underwater creatures and algua,
+        and are able to make delicate pieces of craftmanshift from fish bones. Their
+        life could seem like a long, quiet river.  Except when they''re surrounded
+        by a bunch of vicious wood-snacker Tetrapods. They could eat the craft until
+        it sink off, letting the people struggle with all the carnivorous aquatic
+        creatures in the lake...  Let''s help them get out of this ! '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -11095,7 +11121,11 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: Help them !
+      value: 'All the leaves are brown, and the sky is grey. Muings wool is getting
+        more thick and bushy, protecting them from the slow drop of the cold breeze.
+        Rhtuks gradually withdraws to hibernate. Fisher needs to break the ice before
+        sailing.  Winter starts to show its frozen fingers again...   It''s about
+        time to join forces to gather enough ressources before the great cold ! '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -12370,12 +12400,19 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: title
-      value: The wind masters
+      value: Impossible
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: Help them !
+      value: 'The vigils heard plaints coming from a narrow crevice in the mountains.
+        It could be a sign of some crown folks trapped by a rockslide.  It is said,
+        that the crown folks are part of a different population who lived on the top
+        of the highest mountains since centuries, their body shaped by the brutal
+        daily climatic changes and the thick air, harder to breath. Some even tell
+        about an extraordinary power their chamans developed, one that allows every
+        member of the tribe to bend wind to its own will...  They seem to be in trouble
+        here, we should rescue them ! '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
