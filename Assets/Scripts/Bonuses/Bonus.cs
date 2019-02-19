@@ -67,7 +67,7 @@ public abstract class Bonus : Updatable {
     
     public override void UpdateTurn() {
         base.UpdateTurn();
-        if(active) {
+        if(active && level < upgrades.Count) {
             if (activeTurns == 1) {
                 bonus = true;
             }

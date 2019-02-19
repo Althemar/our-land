@@ -18,7 +18,7 @@ MonoBehaviour:
   reproduceAtEachHarvest: 0
   renewWhenZero: 1
   reproductionRate: 1
-  deathRate: 0
+  deathRate: 1
   resources:
     reorderableList:
       canAdd: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
     _keys:
     - {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
     _values:
-    - gain: 010000000200000003000000
+    - gain: 020000000300000004000000
   randomBonus:
     reorderableList:
       canAdd: 1
@@ -78,11 +78,11 @@ MonoBehaviour:
     _values:
     - randomBonus:
       - minBonus: 1
-        maxBonus: 2
-      - minBonus: 2
         maxBonus: 3
-      - minBonus: 3
+      - minBonus: 1
         maxBonus: 4
+      - minBonus: 2
+        maxBonus: 5
   availableTiles: []
   harvestSound: Play_SFX_Kill_Fish
   movementPoints: 0

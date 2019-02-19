@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 0f99355c1180362408ff70003d22c910
   - enabled: 0
-    path: Assets/Scenes/LD tests.unity
+    path: Assets/Scenes/LD 02.unity
     guid: 66183f1596e3c964b8f5713e4a856276
   - enabled: 0
     path: Assets/Scenes/Damien LD 15-02.unity

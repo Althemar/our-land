@@ -47,7 +47,7 @@ MonoBehaviour:
     _keys:
     - {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
     _values:
-    - gain: 02000000050000000a000000
+    - gain: 020000000300000005000000
   randomBonus:
     reorderableList:
       canAdd: 1

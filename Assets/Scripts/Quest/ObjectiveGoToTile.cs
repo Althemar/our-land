@@ -24,28 +24,10 @@ public class ObjectiveGoToTile : Objective {
         if (spriteRenderer) {
             spriteRenderer.enabled = true;
         }
-
-        if (woodLimit) {
-            GameManager.Instance.motherShip.OnBeginMoving += ConsumeWood;
-        }
     }
-
-    public void ConsumeWood() {
-        usedWood += (int)Mathf.Floor(GameManager.Instance.motherShip.targetTile.ActionPointCost);
-        if (!completed && usedWood > maximumWood) {
-            failed = true;
-        }
-        if (usedWood >= maximumWood) {
-            usedWood = maximumWood;
-        }
-        OnUpdate?.Invoke();
-    }
+    
 
     public override bool Evaluate() {
-
-        if (!completed && usedWood > maximumWood) {
-            failed = true;
-        }
 
         if (!completed && GameManager.Instance.motherShip.Movable.CurrentTile == tile) {
             spriteRenderer.enabled = false;
@@ -57,11 +39,6 @@ public class ObjectiveGoToTile : Objective {
     }
 
     public override string GetProgressText() {
-        if (!woodLimit) {
-            return "Reach the tile";
-        }
-        else {
-            return "Reach the tile using less than " + (maximumWood - usedWood) + " wood";
-        }
+         return "Reach the tile";
     }
 }
