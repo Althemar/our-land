@@ -146,6 +146,13 @@ public class TileProperties : MonoBehaviour {
                 CreateSprite(pair.Value.sprites[Random.Range(0, pair.Value.sprites.Count)], addonsGameObjects, tile.addonSortingOffset, tile.addonLayer, tile.addonLayer != 0);
             }
         }
+        
+        foreach (KeyValuePair<float, GameObject> pair in tile.addonsGO) {
+            float rand = Random.value;
+            if (rand < pair.Key) {
+                Instantiate(pair.Value, transform.position, Quaternion.identity, transform);
+            }
+        }
     }
 
     public TileProperties GetNeighbor(HexDirection direction) {
@@ -366,7 +373,7 @@ public class TileProperties : MonoBehaviour {
         if (borders != null && borders.Count > 0) {
             SpriteRenderer spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
             spriteRenderer.transform.parent = bordersGameObjects.transform;
-            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.06f;
+            spriteRenderer.transform.position = transform.position + grid.Metrics.GetBorder((int)direction) * -0.04f;
             spriteRenderer.sprite = borders[Random.Range(0, borders.Count)];
             spriteRenderer.sortingOrder = -750;
             spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;

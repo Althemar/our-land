@@ -31,14 +31,17 @@ public class RewardDrawer : PropertyDrawer
         Rect rectType = new Rect(position);
         position.height = fieldHeight;
         position.y += fieldHeight + padding;
-        if (rewardType == RewardType.Resource) {
-            EditorGUI.PropertyField(position, property.FindPropertyRelative("resource"), GUIContent.none);           
+        if (rewardType != RewardType.NewPopPoint) {
+            if (rewardType == RewardType.Resource) {
+                EditorGUI.PropertyField(position, property.FindPropertyRelative("resource"), GUIContent.none);
+            }
+            else {
+                EditorGUI.PropertyField(position, property.FindPropertyRelative("bonus"), GUIContent.none);
+            }
+            position.y += fieldHeight + padding;
+            EditorGUI.PropertyField(position, property.FindPropertyRelative("amount"), GUIContent.none);
         }
-        else {
-            EditorGUI.PropertyField(position, property.FindPropertyRelative("bonus"), GUIContent.none);
-        }
-        position.y += fieldHeight + padding;
-        EditorGUI.PropertyField(position, property.FindPropertyRelative("amount"), GUIContent.none);
+        
 
         EditorGUI.EndProperty();
     }

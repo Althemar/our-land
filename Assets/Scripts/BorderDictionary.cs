@@ -17,3 +17,8 @@ public class SpriteList
 {
     public List<Sprite> sprites;
 }
+
+
+[Serializable]
+public class AddonsPrefabDictionary : SerializableDictionaryBase<float, GameObject> { }
+

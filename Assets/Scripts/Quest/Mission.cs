@@ -42,11 +42,12 @@ public class Mission : MonoBehaviour
             }
         }
 
+        bool completed = true;
         foreach (Objective objective in missionObjectives) {
             if (!objective.Evaluate() && !objective.optional) {
-                return false;
+                completed = false;
             }
         }
-        return true;
+        return completed;
     }   
 }
