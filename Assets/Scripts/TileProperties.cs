@@ -117,7 +117,11 @@ public class TileProperties : MonoBehaviour {
 
         this.grid = grid;
         this.tilemap = tilemap;
-        this.tile = tilemap.GetTile(coordinates.OffsetCoordinates) as CustomTile;
+        InitializeCustomTile();
+    }
+
+    public void InitializeCustomTile() {
+        tile = tilemap.GetTile(coordinates.OffsetCoordinates) as CustomTile;
     }
 
     public void SetTile(CustomTile tile) {
@@ -137,7 +141,7 @@ public class TileProperties : MonoBehaviour {
     }
 
     public void SetAddon() {
-        if (tile == null)
+        if (tile == null )
             return;
 
         foreach (KeyValuePair<float, SpriteList> pair in tile.addons) {
@@ -150,7 +154,7 @@ public class TileProperties : MonoBehaviour {
         foreach (KeyValuePair<float, GameObject> pair in tile.addonsGO) {
             float rand = Random.value;
             if (rand < pair.Key) {
-                Instantiate(pair.Value, transform.position, Quaternion.identity, transform);
+                Instantiate(pair.Value, transform.position, Quaternion.identity, addonsGameObjects.transform);
             }
         }
     }
@@ -519,4 +523,16 @@ public class TileProperties : MonoBehaviour {
         return !asLake && !windOrigin && !asMountain && tile?.terrainType != CustomTile.TerrainType.Mountain;
     }
 
+
+    public void RemoveBorders() {
+        foreach (Transform child in bordersGameObjects.transform) {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void RemoveAddons() {
+        foreach (Transform child in addonsGameObjects.transform) {
+            Destroy(child.gameObject);
+        }
+    }
 }

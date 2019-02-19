@@ -1,12 +1,20 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class StaticEntity : Entity {
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
-
+    
     public List<SpriteRenderer> sprites;
+
+    public List<SpriteRenderer> allSprites;
+    public Transform spritesTransform;
+    public int maxNumberOfSprites;
+    public bool activateAllSprites;
+    public float minScale, maxScale;
 
     SpriteRenderer activeSprite;
 
@@ -22,6 +30,8 @@ public class StaticEntity : Entity {
         OnPopulationChange += UpdateSprite;
     }
 
+
+
     void Destroy() {
         OnPopulationChange -= UpdateSprite;
     }
@@ -32,6 +42,15 @@ public class StaticEntity : Entity {
     }
 
     public void UpdateSprite() {
+        if (activateAllSprites) {
+            for (int i = 0; i < sprites.Count; i++) {
+                if (sprites[i] && sprites[i].gameObject) {
+                    sprites[i].gameObject.SetActive((i < population));
+                }
+            }
+            return;
+        }
+
         SpriteRenderer rendererToActivate;
         if (population <= 0) {
             rendererToActivate = null;
@@ -57,10 +76,37 @@ public class StaticEntity : Entity {
         
         for (int i = 0; i < sprites.Count; i++) {
             sprites[i].gameObject.SetActive(false);
-            sprites[i].sortingOrder = -tile.Position.y;
+            sprites[i].sortingOrder -= -tile.Position.y;
+            //transform.position = new Vector3(transform.position.x, transform.position.y, -transform.position.y);
         }
         tile.staticEntity = this;
+
+        if (spritesTransform) {
+            foreach (SpriteRenderer spritePop in sprites) {
+                int numberOfSprites = Random.Range(1, maxNumberOfSprites + 1);
+                while (numberOfSprites > 0) {
+                    numberOfSprites--;
+                    int index = Random.Range(0, allSprites.Count);
+                    allSprites[index].transform.parent = spritePop.transform;
+
+                    float scale = Random.Range(minScale, maxScale);
+                    Vector3 scaleVector = new Vector3(scale, scale, 1);
+                    allSprites[index].transform.localScale = scaleVector;
+                    allSprites[index].GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
+                    
+
+                    allSprites.RemoveAt(index);
+                }
+                
+            }
+            for (int i = 0; i < allSprites.Count; i++) {
+                Destroy(allSprites[i].gameObject);
+
+            }
+        }
         UpdateSprite();
+
+        
 
         return true;
     }

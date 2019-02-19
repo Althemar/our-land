@@ -29,6 +29,7 @@ public class Wind : MonoBehaviour
             return;
         }
 
+        
         if (ps.isPlaying ) {
             Particle[] particles = new Particle[ps.particleCount];
             ps.GetParticles(particles);

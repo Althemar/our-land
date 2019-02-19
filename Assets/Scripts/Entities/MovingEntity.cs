@@ -82,8 +82,11 @@ public class MovingEntity : Entity {
     }
 
     private void Update() {
-        if(sort)
-            sort.sortingOrder = -movable.CurrentTile.Position.y;
+        if (sort) {
+            Vector3Int pos = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+            sort.sortingOrder = -pos.y;
+            
+        }
     }
 
     void Destroy() {

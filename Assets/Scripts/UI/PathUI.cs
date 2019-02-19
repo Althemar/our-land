@@ -121,7 +121,7 @@ public class PathUI : MonoBehaviour
     }
 
     private bool FreeWindMovement(TileProperties current, TileProperties next) {
-        if (next.wind) { // Free movement if wind
+        if (next.wind && motherShip.Movable.canUseWind) { // Free movement if wind
             HexDirection movableDir = current.Coordinates.Direction(next.Coordinates);
 
             HexDirection beginDir = (current.wind) ? current.wind.direction : movableDir;
