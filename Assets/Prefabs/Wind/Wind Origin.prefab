@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updated: 1
+  updating: 0
   direction: 0
-  size: 5
-  turnsBetweenSqualls: 3
-  radius: 2
-  baseDryness: 5
+  activeAtBeginning: 0
+  turnsActive: 0
+  nextWindOrigin: []
 --- !u!212 &8345111089638282234
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1000
   m_Sprite: {fileID: 21300000, guid: 77f11ce8d424de14582565ce23b13f45, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

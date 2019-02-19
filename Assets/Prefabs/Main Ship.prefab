@@ -144,7 +144,7 @@ MonoBehaviour:
   canPassAboveEntities: 1
   canPassAboveMontains: 0
   canPassAboveLakes: 1
-  canPassAboveWindOrigins: 0
+  canPassAboveWindOrigins: 1
   hexGrid: {fileID: 0}
   movementCurve:
     serializedVersion: 2
