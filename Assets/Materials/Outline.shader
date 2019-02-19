@@ -55,10 +55,6 @@
 				return o;
 			}
 
-			float distMouse(float2 pos) {
-				return distance(_MousePosition, pos.xy) / 1920;
-			}
-
 			fixed4 frag(v2f i) : SV_Target {
 				fixed4 col = tex2D(_GrainTex, i.wpos.xy + (floor(_Time.z) * fixed2(0.5, 0)));
 

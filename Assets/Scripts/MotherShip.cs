@@ -12,10 +12,11 @@ using Spine;
 public class MotherShip : Updatable {
     public int harvestDistance;
     
-    public HexagonsOutline outline;
+    public HexagonsOutline harvestOutline;
+    public WalkableOutline walkableOutline;
     public SkeletonAnimation spineShip;
     private SortingGroup sorting;
-    
+
     [BoxGroup("Food")]
     public ResourceType foodResource;
     [BoxGroup("Food")]
@@ -125,18 +126,19 @@ public class MotherShip : Updatable {
     public override void UpdateTurn() {
         base.UpdateTurn();
 
+        reachableTilesDisplay.UndisplayReachables();
+        walkableOutline.HideOutline();
+        harvestOutline.Clear();
+
         foreach (Bonus b in bonuses) {
             b.BonusEffectEndTurn();
         }
 
         if (targetTile != null) {
-            reachableTilesDisplay.UndisplayReachables();
-            outline.Clear();
             BeginMove();
             AddItem(fuelResource, (int)Mathf.Floor(-targetTile.ActionPointCost), ActionType.Move);
             savedPopulationPoints.Clear();
-        }
-        else {
+        } else {
             EndTurn();
         }
     }
@@ -145,19 +147,23 @@ public class MotherShip : Updatable {
         spineShip.state.Complete -= AfterGrounded;
         spineShip.state.Complete -= CanMove;
         canMove = false;
-        //spineShip.state.ClearTrack(0);
+
         spineShip.state.SetAnimation(0, "Decollage_Herbe", false);
         AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
         spineShip.state.Complete += CanMove;
+
+        walkableOutline.ShowOutline();
     }
 
     public void HarvestMode() {
         spineShip.state.Complete -= AfterGrounded;
         spineShip.state.Complete -= CanMove;
         canMove = false;
-        //spineShip.state.ClearTrack(0);
+
         spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
         AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
+
+        walkableOutline.HideOutline();
     }
 
     bool canMove = false;
@@ -170,7 +176,7 @@ public class MotherShip : Updatable {
             canMove = false;
             AkSoundEngine.PostEvent("Play_SFX_Ship_Move", this.gameObject);
             OnBeginMoving?.Invoke();
-            outline.Clear();
+            harvestOutline.Clear();
             movable.MoveToTile(targetTile, false);
         }
     }
@@ -182,7 +188,7 @@ public class MotherShip : Updatable {
             canMove = false;
             AkSoundEngine.PostEvent("Play_SFX_Ship_Move", this.gameObject);
             OnBeginMoving?.Invoke();
-            outline.Clear();
+            harvestOutline.Clear();
             movable.MoveToTile(targetTile, false);
         }
     }
@@ -228,14 +234,14 @@ public class MotherShip : Updatable {
         for (int i = 0; i < tilesInRange.Count; i++) {
             tilesInRange[i].IsInReachables = true;
         }
-        outline.InitMesh(tilesInRange);
+        harvestOutline.InitMesh(tilesInRange);
         for (int i = 0; i < tilesInRange.Count; i++) {
             tilesInRange[i].IsInReachables = false;
         }
     }
 
     public void ClearHarvestOutline() {
-        outline.Clear();
+        harvestOutline.Clear();
     }
     #endregion
 

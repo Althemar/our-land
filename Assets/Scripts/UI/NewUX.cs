@@ -83,9 +83,9 @@ public class NewUX : MonoBehaviour {
         refCanvas.ship.HarvestMode();
         refCanvas.mouse.harvestMode = true;
 
+        refCanvas.ship.CancelMove();
         refCanvas.ship.ShowActivePopulationPoints();
         refCanvas.ship.ShowHarvestOutline();
-        refCanvas.ship.CancelMove();
 
     }
 

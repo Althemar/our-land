@@ -1,55 +1,62 @@
 
 bottomPanel.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 images/Bas
   rotate: false
-  xy: 0, 392
-  size: 438, 114
-  orig: 440, 116
+  xy: 0, 259
+  size: 512, 243
+  orig: 514, 245
+  offset: 1, 1
+  index: -1
+images/Bouton Droit
+  rotate: false
+  xy: 513, 387
+  size: 366, 115
+  orig: 368, 117
+  offset: 1, 1
+  index: -1
+images/Bouton Gauche
+  rotate: false
+  xy: 513, 0
+  size: 196, 109
+  orig: 198, 111
   offset: 1, 1
   index: -1
 images/Curseur
   rotate: false
-  xy: 439, 435
-  size: 51, 71
-  orig: 53, 73
+  xy: 810, 335
+  size: 40, 51
+  orig: 42, 53
   offset: 1, 1
   index: -1
 images/Haut
   rotate: false
-  xy: 0, 252
-  size: 405, 139
-  orig: 407, 141
+  xy: 0, 15
+  size: 512, 243
+  orig: 514, 245
   offset: 1, 1
   index: -1
-images/Left Button
+images/Scratch
   rotate: false
-  xy: 163, 36
-  size: 101, 107
-  orig: 103, 109
-  offset: 1, 1
-  index: -1
-images/Right Button
-  rotate: false
-  xy: 163, 144
-  size: 102, 107
-  orig: 104, 109
+  xy: 880, 428
+  size: 91, 74
+  orig: 93, 76
   offset: 1, 1
   index: -1
 images/Volet Droit
   rotate: false
-  xy: 0, 126
-  size: 162, 125
-  orig: 164, 127
+  xy: 513, 110
+  size: 296, 137
+  orig: 298, 139
   offset: 1, 1
   index: -1
 images/Volet Gauche
   rotate: false
-  xy: 0, 0
-  size: 162, 125
-  orig: 164, 127
+  xy: 513, 248
+  size: 296, 138
+  orig: 298, 140
   offset: 1, 1
   index: -1

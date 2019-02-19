@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class OutlineWalkable : MonoBehaviour {
+public class WalkableOutline : MonoBehaviour {
     private Mesh mesh;
     public HexagonalGrid grid;
     private MotherShip ship;
+    GameObject tileInaccessible;
+    public Sprite inaccessibleSprite;
 
     public float outlineSize = 0.05f;
-    public Color baseColor = new Color(1, 1, 1, 0.4f);
-
-    public List<int>[,] tilesTriangles;
 
     public void Awake() {
         mesh = GetComponent<MeshFilter>().mesh;
+        tileInaccessible = new GameObject("Tiles Inaccessible");
+        tileInaccessible.transform.parent = this.transform;
     }
 
     public void Start() {
@@ -22,14 +24,15 @@ public class OutlineWalkable : MonoBehaviour {
         ship.OnTurnBegin += CreateMesh;
 
         CreateMesh();
-        //TestReachable();
     }
 
-    void TestReachable() {
-        List<TileProperties> tiles = TilesReachable(ship.Movable.CurrentTile, (int)ship.Inventory.GetResource(ship.fuelResource));
-        foreach (TileProperties tile in tiles) {
-            tile.hexagonLayer.color = Color.red;
-        }
+    public void ShowOutline() {
+        GetComponent<MeshRenderer>().enabled = true;
+        tileInaccessible.SetActive(true);
+    }
+    public void HideOutline() {
+        GetComponent<MeshRenderer>().enabled = false;
+        tileInaccessible.SetActive(false);
     }
 
     public List<TileProperties> TilesReachable(TileProperties start, int maxWood) {
@@ -107,98 +110,131 @@ public class OutlineWalkable : MonoBehaviour {
     }
 
     public void CreateMesh() {
+        HideOutline();
         List<TileProperties> tiles = TilesReachable(ship.Movable.CurrentTile, (int)ship.Inventory.GetResource(ship.fuelResource));
         foreach (TileProperties tile in tiles)
             tile.IsInReachables = true;
 
         transform.position = new Vector3(0, 0, -0.1f);
 
+        foreach(Transform child in tileInaccessible.transform)
+            Destroy(child.gameObject);
         mesh.Clear();
         List<Vector3> vertices = new List<Vector3>();
-        List<Vector3> vertices2 = new List<Vector3>();
+        List<Vector3> verticesSimple = new List<Vector3>();
+        List<Vector3> verticesHex = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
-        List<Vector2> uvs2 = new List<Vector2>();
+        List<Vector2> uvsSimple = new List<Vector2>();
         int[,] tilesNbRect = new int[grid.tilesArray.GetLength(0), grid.tilesArray.GetLength(1)];
-        int[,] tilesNbRect2 = new int[grid.tilesArray.GetLength(0), grid.tilesArray.GetLength(1)];
+        int[,] tilesNbRectSimple = new int[grid.tilesArray.GetLength(0), grid.tilesArray.GetLength(1)];
         int nbRect = 0;
-        int nbRect2 = 0;
+        int nbRectSimple = 0;
         for (int x = 0; x < grid.tilesArray.GetLength(0); x++) {
             for (int y = 0; y < grid.tilesArray.GetLength(1); y++) {
                 TileProperties tile = grid.tilesArray[x, y];
 
-                if (!tile || (tile.IsWalkable() && tile.IsInReachables))
+                if (!tile)
                     continue;
+
+                if (tile.IsInReachables && (tile.staticEntity || tile.movingEntity || tile.asLake || tile.windOrigin || tile.Tile.terrainType == CustomTile.TerrainType.Water)) {
+                    GameObject cantGo = new GameObject();
+                    cantGo.transform.parent = tileInaccessible.transform;
+                    cantGo.transform.position = tile.transform.position;
+                    SpriteRenderer renderer = cantGo.AddComponent<SpriteRenderer>();
+                    renderer.sortingOrder = -1000;
+                    renderer.sprite = inaccessibleSprite;
+                }
+
+                if (tile.IsWalkable() && tile.IsInReachables)
+                    continue;
+
                 for (HexDirection h = (HexDirection)0; h < (HexDirection)6; h++) {
                     if (!tile.GetNeighbor(h) || !tile.GetNeighbor(h.Previous()) || !tile.GetNeighbor(h.Next()))
                         continue;
 
                     if (tile.GetNeighbor(h).IsWalkable() && tile.GetNeighbor(h).IsInReachables) {
-                        if (tile.GetNeighbor(h.Previous()).IsWalkable() && tile.GetNeighbor(h.Previous()).IsInReachables)
-                            AddVertices2(ref vertices, ref uvs, tile, h, true);
-                        else
-                            AddVertices(ref vertices, ref uvs, tile, h, true);
+                        if(tile.IsWalkable()) { // SIMPLE OUTLINE
+                            if (tile.GetNeighbor(h.Previous()).IsWalkable() && tile.GetNeighbor(h.Previous()).IsInReachables)
+                                AddVertices2(ref verticesSimple, ref uvsSimple, tile, h, true);
+                            else
+                                AddVertices(ref verticesSimple, ref uvsSimple, tile, h, true);
 
-                        if (tile.GetNeighbor(h.Next()).IsWalkable() && tile.GetNeighbor(h.Next()).IsInReachables)
-                            AddVertices2(ref vertices, ref uvs, tile, h.Next(), false);
-                        else
-                            AddVertices(ref vertices, ref uvs, tile, h.Next(), false);
+                            if (tile.GetNeighbor(h.Next()).IsWalkable() && tile.GetNeighbor(h.Next()).IsInReachables)
+                                AddVertices2(ref verticesSimple, ref uvsSimple, tile, h.Next(), false);
+                            else
+                                AddVertices(ref verticesSimple, ref uvsSimple, tile, h.Next(), false);
 
-                        tilesNbRect[x, y]++;
-                        nbRect++;
+                            tilesNbRectSimple[x, y]++;
+                            nbRectSimple++;
+                        } else {
+                            if (tile.GetNeighbor(h.Previous()).IsWalkable() && tile.GetNeighbor(h.Previous()).IsInReachables)
+                                AddVertices2(ref vertices, ref uvs, tile, h, true);
+                            else
+                                AddVertices(ref vertices, ref uvs, tile, h, true);
+
+                            if (tile.GetNeighbor(h.Next()).IsWalkable() && tile.GetNeighbor(h.Next()).IsInReachables)
+                                AddVertices2(ref vertices, ref uvs, tile, h.Next(), false);
+                            else
+                                AddVertices(ref vertices, ref uvs, tile, h.Next(), false);
+
+                            tilesNbRect[x, y]++;
+                            nbRect++;
+                        }
                     }
-                    /*
-                    if (tile.GetNeighbor(h).IsInReachables) {
-                        if (tile.GetNeighbor(h.Previous()).IsInReachables)
-                            AddVertices2(ref vertices2, ref uvs2, tile, h, true);
-                        else
-                            AddVertices(ref vertices2, ref uvs2, tile, h, true);
-
-                        if (tile.GetNeighbor(h.Next()).IsInReachables)
-                            AddVertices2(ref vertices2, ref uvs2, tile, h.Next(), false);
-                        else
-                            AddVertices(ref vertices2, ref uvs2, tile, h.Next(), false);
-
-                        tilesNbRect2[x, y]++;
-                        nbRect2++;
-                    }*/
                 }
             }
         }
 
+        vertices.AddRange(verticesSimple);
+        uvs.AddRange(uvsSimple);
         mesh.vertices = vertices.ToArray();
         mesh.uv = uvs.ToArray();
 
+        int vi = 0;
 
         int trianglesSize = nbRect * 6;
         int[] triangles = new int[trianglesSize];
-        int ti = 0, vi = 0;
-        tilesTriangles = new List<int>[grid.tilesArray.GetLength(0), grid.tilesArray.GetLength(1)];
+        int ti = 0;
         for (int x = 0; x < grid.tilesArray.GetLength(0); x++) {
             for (int y = 0; y < grid.tilesArray.GetLength(1); y++) {
                 TileProperties tile = grid.tilesArray[x, y];
                 if (!tile || (tile.IsWalkable() && tile.IsInReachables))
                     continue;
-                tilesTriangles[x, y] = new List<int>();
                 for (int i = 0; i < tilesNbRect[x, y]; i++) {
                     triangles[ti] = vi;
                     triangles[ti + 1] = triangles[ti + 4] = vi + 1;
                     triangles[ti + 2] = triangles[ti + 3] = vi + 2;
                     triangles[ti + 5] = vi + 3;
-                    for (int v = 0; v < 4; v++)
-                        tilesTriangles[x, y].Add(vi + v);
+
                     ti += 6;
                     vi += 4;
                 }
-                //vi += 2;
             }
         }
-        
-        mesh.SetTriangles(triangles, 0);
-        Color[] col = new Color[vertices.Count];
-        for (int i = 0; i < vertices.Count; i++) {
-            col[i] = baseColor;
+
+        int trianglesSizeSimple = nbRectSimple * 6;
+        int[] trianglesSimple = new int[trianglesSizeSimple];
+        ti = 0;
+        for (int x = 0; x < grid.tilesArray.GetLength(0); x++) {
+            for (int y = 0; y < grid.tilesArray.GetLength(1); y++) {
+                TileProperties tile = grid.tilesArray[x, y];
+                if (!tile || (tile.IsWalkable() && tile.IsInReachables))
+                    continue;
+                for (int i = 0; i < tilesNbRectSimple[x, y]; i++) {
+                    trianglesSimple[ti] = vi;
+                    trianglesSimple[ti + 1] = trianglesSimple[ti + 4] = vi + 1;
+                    trianglesSimple[ti + 2] = trianglesSimple[ti + 3] = vi + 2;
+                    trianglesSimple[ti + 5] = vi + 3;
+
+                    ti += 6;
+                    vi += 4;
+                }
+            }
         }
-        mesh.colors = col;
+
+        mesh.subMeshCount = 2;
+        mesh.SetTriangles(triangles, 0);
+        mesh.SetTriangles(trianglesSimple, 1);
 
         GetComponent<MeshRenderer>().sortingLayerName = "World Layer";
         GetComponent<MeshRenderer>().sortingOrder = -500;
@@ -229,29 +265,5 @@ public class OutlineWalkable : MonoBehaviour {
 
     public void Clear() {
         mesh.Clear();
-    }
-
-    public void SetTileColor(int x, int y, Color c) {
-        Color[] col = mesh.colors;
-        foreach (int vIndex in tilesTriangles[x, y]) {
-            col[vIndex] = c;
-        }
-        mesh.colors = col;
-    }
-
-    public void ResetTileColor(int x, int y) {
-        Color[] col = mesh.colors;
-        foreach (int vIndex in tilesTriangles[x, y]) {
-            col[vIndex] = baseColor;
-        }
-        mesh.colors = col;
-    }
-
-    public void ResetTiles() {
-        Color[] col = mesh.colors;
-        for (int i = 0; i < col.Length; i++) {
-            col[i] = baseColor;
-        }
-        mesh.colors = col;
     }
 }

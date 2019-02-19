@@ -57,6 +57,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
                 AddButton(tile.movingEntity, position);
             }
         }
+        displaying = true;
     }
 
     public void UpdateButtons() {
@@ -73,7 +74,6 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         button.transform.position = position;
         button.Initialize(entity, this);
         instanciate.Add(button);
-        displaying = true;
 
     }
 

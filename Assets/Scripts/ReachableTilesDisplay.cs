@@ -16,8 +16,7 @@ public class ReachableTilesDisplay : MonoBehaviour {
     private MotherShip motherShip;
 
     private Stack<TileProperties> previousPath;
-
-
+    
 
     public PathUI canvasPath;
 

@@ -9,6 +9,9 @@ TextureImporter:
     21300008: images/Right Button
     21300010: images/Volet Droit
     21300012: images/Volet Gauche
+    21300014: images/Bouton Droit
+    21300016: images/Bouton Gauche
+    21300018: images/Scratch
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -95,9 +98,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6
-        width: 438
-        height: 114
+        y: 10
+        width: 512
+        height: 155
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -105,7 +108,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2a45e5ebbc369ef4c941fb486e69b8f8
+      spriteID: e76cb199ab4d19247bdb597c89cc06c1
       vertices: []
       indices: 
       edges: []
@@ -114,10 +117,10 @@ TextureImporter:
       name: images/Curseur
       rect:
         serializedVersion: 2
-        x: 439
-        y: 6
-        width: 51
-        height: 71
+        x: 810
+        y: 126
+        width: 40
+        height: 51
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,7 +128,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 726e5a16b7cdabf4c9b33c88981a0ccd
+      spriteID: 62dd37bd31c8b854ab1ba7f6c7bf282a
       vertices: []
       indices: 
       edges: []
@@ -135,9 +138,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 121
-        width: 405
-        height: 139
+        y: 254
+        width: 512
+        height: 243
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,47 +148,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be80e0afe5bd8e44a89343e83a97a73d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: images/Left Button
-      rect:
-        serializedVersion: 2
-        x: 163
-        y: 369
-        width: 101
-        height: 107
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cbf1c1639aab29f4d853373c5c9d0c97
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: images/Right Button
-      rect:
-        serializedVersion: 2
-        x: 163
-        y: 261
-        width: 102
-        height: 107
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bcaf00d0c063ace4c8b57f9b76e21e01
+      spriteID: d383861d70051314586f52f2635233a2
       vertices: []
       indices: 
       edges: []
@@ -194,18 +157,18 @@ TextureImporter:
       name: images/Volet Droit
       rect:
         serializedVersion: 2
-        x: 0
-        y: 261
-        width: 162
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 513
+        y: 265
+        width: 296
+        height: 137
+      alignment: 9
+      pivot: {x: 0.5462436, y: 0.08297173}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35755488199d07c45b333731ee967717
+      spriteID: 063fa361b416de6479f4302a257c8b7d
       vertices: []
       indices: 
       edges: []
@@ -214,10 +177,30 @@ TextureImporter:
       name: images/Volet Gauche
       rect:
         serializedVersion: 2
-        x: 0
-        y: 387
-        width: 162
-        height: 125
+        x: 513
+        y: 126
+        width: 296
+        height: 138
+      alignment: 9
+      pivot: {x: 0.45557982, y: 0.09646828}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc0fb6a1668a3534686ff139d55af53f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Bouton Droit
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 15
+        width: 104
+        height: 109
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,7 +208,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3147baa4fd8d6434689b9d9671ea63d8
+      spriteID: bf295ac82ffdb3f4bb6994a120ef636c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Bouton Gauche
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 403
+        width: 104
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5acdf1fb633309f4981057478d4886cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: images/Scratch
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 10
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b86eb9c4c2ac4e04e9cf3e6a68241b3d
       vertices: []
       indices: 
       edges: []
