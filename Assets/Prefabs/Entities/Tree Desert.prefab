@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updated: 0
   updating: 0
-  entitySO: {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
+  entitySO: {fileID: 11400000, guid: dfd11c8821e1ee6479897305a6db4a43, type: 2}
   population: 0
   basePopulation: 2
   reserve: 0
