@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
+using UnityEngine.Tilemaps;
+using RotaryHeart.Lib.SerializableDictionary;
+using System;
 
 public enum GameState
 {
     Playing,
     Defeat
 }
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -152,7 +158,11 @@ public class GameManager : MonoBehaviour
     private void Update() {
         frameCount++;
         
+
+
         Console.ConsoleUpdate();
+
+        
     }
 
     private void LateUpdate() {
@@ -191,4 +201,6 @@ public class GameManager : MonoBehaviour
     public void ResetGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    
 }

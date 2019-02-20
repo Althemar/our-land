@@ -19,4 +19,6 @@
         private ResourceType _scriptableObject;
         [SerializeField]
         private EntitySO _entitySO;
+        [SerializeField]
+        private CustomTile _customTile;
     }

@@ -57,14 +57,8 @@ public class HexagonalGrid : MonoBehaviour {
             tilesArray = new TileProperties[tilemap.cellBounds.size.x + 2, tilemap.cellBounds.size.y + 2];
 
             arrayOffset = tilemap.cellBounds.position - new Vector3Int(1, 1, 0);
-            for (int i = 0; i < tilesArray.GetLength(0); i++) {
-                for (int j = 0; j < tilesArray.GetLength(1); j++) {
-                    Vector3 position = tilemap.GetCellCenterWorld(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0));
-                    TileProperties prop = Instantiate(TileGameObject, position, Quaternion.identity, transform).GetComponent<TileProperties>();
-                    prop.InitializeTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), this, tilemap);
-                    tilesArray[i, j] = prop;
-                }
-            }
+
+            InitializeGrid();
             SetNeighbors();
         }
         else {
@@ -80,6 +74,17 @@ public class HexagonalGrid : MonoBehaviour {
 
         if (humidity && Input.GetKeyDown(KeyCode.R))
             humidity.Compute();
+    }
+
+    public void InitializeGrid() {
+        for (int i = 0; i < tilesArray.GetLength(0); i++) {
+            for (int j = 0; j < tilesArray.GetLength(1); j++) {
+                Vector3 position = tilemap.GetCellCenterWorld(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0));
+                TileProperties prop = Instantiate(TileGameObject, position, Quaternion.identity, transform).GetComponent<TileProperties>();
+                prop.InitializeTile(new Vector3Int(i + arrayOffset.x, j + arrayOffset.y, 0), this, tilemap);
+                tilesArray[i, j] = prop;
+            }
+        }
     }
 
     public void SetColor(Vector3Int coordinates, Color col) {

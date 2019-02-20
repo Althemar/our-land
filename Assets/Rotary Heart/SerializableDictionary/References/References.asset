@@ -17,3 +17,4 @@ MonoBehaviour:
   _audioClip: {fileID: 0}
   _scriptableObject: {fileID: 11400000, guid: 4d438418cb4cde84c8d07767c6f940d2, type: 2}
   _entitySO: {fileID: 11400000, guid: ef2bc60ac5121c44aa128831d655490b, type: 2}
+  _customTile: {fileID: 11400000, guid: f3808bd4dc2fd854c8ec38d05b190feb, type: 2}

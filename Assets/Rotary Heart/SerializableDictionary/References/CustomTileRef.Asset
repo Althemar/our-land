@@ -10,34 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
-  m_Name: Water
+  m_Name: CustomTileRef
   m_EditorClassIdentifier: 
   go: {fileID: 0}
-  canWalkThrough: 0
+  canWalkThrough: 1
   walkCost: 1
-  terrainType: 4
-  ambientRTPC: WATER
-  centers:
-  - {fileID: 21300000, guid: 2dcdcad5005bba541ada1cf7cd213b91, type: 3}
-  - {fileID: 21300000, guid: fe9ce46e2dc676046a30223e2875e84a, type: 3}
-  - {fileID: 21300000, guid: 78eff530b35e27b43a33fbb7c002c956, type: 3}
+  terrainType: 0
+  ambientRTPC: 
+  centers: []
   bordersNW:
     reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
+      canAdd: 0
+      canRemove: 0
+      draggable: 0
+      expandable: 0
+      multipleSelection: 0
       isExpanded: 0
       label:
-        m_Text: Keys
+        m_Text: 
         m_Image: {fileID: 0}
         m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
+      headerHeight: 0
+      footerHeight: 0
+      slideEasing: 0
+      verticalSpacing: 0
+      showDefaultBackground: 0
       elementDisplayType: 0
       elementNameProperty: 
       elementNameOverride: 
@@ -49,21 +46,21 @@ MonoBehaviour:
     _values: []
   bordersW:
     reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
+      canAdd: 0
+      canRemove: 0
+      draggable: 0
+      expandable: 0
+      multipleSelection: 0
       isExpanded: 0
       label:
-        m_Text: Keys
+        m_Text: 
         m_Image: {fileID: 0}
         m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
+      headerHeight: 0
+      footerHeight: 0
+      slideEasing: 0
+      verticalSpacing: 0
+      showDefaultBackground: 0
       elementDisplayType: 0
       elementNameProperty: 
       elementNameOverride: 
@@ -75,21 +72,21 @@ MonoBehaviour:
     _values: []
   bordersSW:
     reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
+      canAdd: 0
+      canRemove: 0
+      draggable: 0
+      expandable: 0
+      multipleSelection: 0
       isExpanded: 0
       label:
-        m_Text: Keys
+        m_Text: 
         m_Image: {fileID: 0}
         m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
+      headerHeight: 0
+      footerHeight: 0
+      slideEasing: 0
+      verticalSpacing: 0
+      showDefaultBackground: 0
       elementDisplayType: 0
       elementNameProperty: 
       elementNameOverride: 
@@ -101,21 +98,47 @@ MonoBehaviour:
     _values: []
   addons:
     reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
+      canAdd: 0
+      canRemove: 0
+      draggable: 0
+      expandable: 0
+      multipleSelection: 0
       isExpanded: 0
       label:
-        m_Text: Keys
+        m_Text: 
         m_Image: {fileID: 0}
         m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
+      headerHeight: 0
+      footerHeight: 0
+      slideEasing: 0
+      verticalSpacing: 0
+      showDefaultBackground: 0
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
+  addonsGO:
+    reorderableList:
+      canAdd: 0
+      canRemove: 0
+      draggable: 0
+      expandable: 0
+      multipleSelection: 0
+      isExpanded: 0
+      label:
+        m_Text: 
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 0
+      footerHeight: 0
+      slideEasing: 0
+      verticalSpacing: 0
+      showDefaultBackground: 0
       elementDisplayType: 0
       elementNameProperty: 
       elementNameOverride: 

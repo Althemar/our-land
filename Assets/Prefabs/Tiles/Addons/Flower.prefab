@@ -95,6 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   butterfly: {fileID: 6735969017881682355, guid: 79ec31eb35e9ce04ea87b2ecc622cc2f,
     type: 3}
+  spriteRenderer: {fileID: 8838842109113693718}
   maxNumberOfButterflies: 3
 --- !u!114 &7396650900040401257
 MonoBehaviour:
