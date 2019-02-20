@@ -1,13 +1,12 @@
 fileFormatVersion: 2
-guid: 7787299c11fb4604d835def9aaced8fa
+guid: ae1107c66d19afd40873f9c258141b6f
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: UI_ShipPanel_PopulationPoint_None_0
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -41,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -83,31 +82,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: UI_ShipPanel_PopulationPoint_None_0
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 11
-        width: 43
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61e4de7810cf8fa4bbcbdc9fbd30d832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 04ef07f7ea8337d4ab608b1566774181
+    spriteID: 95cf438309e0c324e997cb31482ca745
     vertices: []
     indices: 
     edges: []
