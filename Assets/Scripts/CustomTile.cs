@@ -15,7 +15,7 @@ public class CustomTile : TileBase
 {
     public enum TerrainType
     {
-        Grass, Mountain, Sand, Swamp, Water
+        Grass, Mountain, Sand, Swamp, Water, WaterMedium, WaterDeep
     }
 
     public GameObject go;
@@ -28,6 +28,7 @@ public class CustomTile : TileBase
     public string ambientRTPC = "";
 
     public List<Sprite> centers;
+    public Sprite editorSprite;
     
     [SerializeField]
     public BorderDictionary bordersNW;
@@ -43,7 +44,10 @@ public class CustomTile : TileBase
     public int addonSortingOffset = 1;
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
-        if (centers.Count > 0) {
+        if (!EditorApplication.isPlaying && editorSprite) {
+            tileData.sprite = editorSprite;
+        }
+        else if (centers.Count > 0) {
             tileData.sprite = centers[Random.Range(0, centers.Count)];
         }
         else {

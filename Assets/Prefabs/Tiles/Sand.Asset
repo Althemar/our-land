@@ -165,13 +165,49 @@ MonoBehaviour:
     isExpanded: 1
     _keyValues:
     - 0.2
+    - 0.05
+    - 0.01
     _keys:
     - 0.2
+    - 0.05
+    - 0.01
     _values:
     - sprites:
       - {fileID: 21300000, guid: cb20684744d968a47b80e48af82cdf7c, type: 3}
       - {fileID: 21300000, guid: 110b8799d7dce1443b6dd74cb93c97cb, type: 3}
       - {fileID: 21300000, guid: 15f9feb84782d1f4a8c174d6a06f0502, type: 3}
       - {fileID: 21300000, guid: 0ef28fbc34c2ad8468eeaedd8589b80d, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: f6c79d7e50f64454d97e36f8b3a6c095, type: 3}
+      - {fileID: 21300000, guid: d1a69c134fd55a04f8c1565aae2ec8a9, type: 3}
+      - {fileID: 21300000, guid: 093c22438540b0e4e86bf76dca05e727, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: e953219155ea46744af72ced71d063b6, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
   addonLayer: 0
   addonSortingOffset: 1

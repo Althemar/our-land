@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
+using UnityEngine.Tilemaps;
+using RotaryHeart.Lib.SerializableDictionary;
+using System;
 
 public enum GameState
 {
     Playing,
     Defeat
 }
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -19,8 +25,14 @@ public class GameManager : MonoBehaviour
 
     public float timeToWaitAfterEnd;
 
+    public int seed = 666;
+
     private int frameCount = 0;
     private GameState gameState;
+
+    [HideInInspector]
+    public bool winter;
+    
 
     public static GameManager Instance;
 
@@ -125,16 +137,17 @@ public class GameManager : MonoBehaviour
 
         Console.AddCommand("reset", CmdReset, "Reset the game");
         Console.AddCommand("loadScene", CmdLoad, "Load a scene");
+        UnityEngine.Random.InitState(seed);
     }
 
     public void CheckDefeat() {
         if (motherShip.foodResource && motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
             Defeat();
-            
         }
     }
 
     public void Defeat() {
+        AkSoundEngine.PostEvent("GameOver", gameObject);
         gameOverPanel.gameObject.SetActive(true);
         gameOverPanel.text.text = "Votre peuple a survécu " + TurnManager.Instance.TurnCount + " tours";
         Input.SetBlock(Input.Blocker.Defeat, true);
@@ -146,7 +159,11 @@ public class GameManager : MonoBehaviour
     private void Update() {
         frameCount++;
         
+
+
         Console.ConsoleUpdate();
+
+        
     }
 
     private void LateUpdate() {
@@ -185,4 +202,6 @@ public class GameManager : MonoBehaviour
     public void ResetGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    
 }

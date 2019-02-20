@@ -15,8 +15,6 @@ public class ObjectiveCollectPopulationPoint : Objective
     public bool woodLimit;
     public int maximumWood;
 
-    public MovingEntity populationPoint;
-
     private int usedWood = 0;
 
 
@@ -31,7 +29,7 @@ public class ObjectiveCollectPopulationPoint : Objective
         }
 
         if (!optional) {
-             populationPoint = Instantiate(populationPointPrefab, tile.transform.position, Quaternion.identity, transform).GetComponent<MovingEntity>();
+             MovingEntity populationPoint = Instantiate(populationPointPrefab, tile.transform.position, Quaternion.identity, transform).GetComponent<MovingEntity>();
             populationPoint.Initialize(1);
         }
        

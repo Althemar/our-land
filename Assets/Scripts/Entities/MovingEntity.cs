@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Spine;
 using Spine.Unity;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(Movable))]
 public class MovingEntity : Entity {
@@ -13,13 +14,23 @@ public class MovingEntity : Entity {
     [HideInInspector]
     public MovingEntitySO movingEntitySO;
 
+
+    [BoxGroup("Spine")]
     public GameObject[] NWTarget;
+    [BoxGroup("Spine")]
     public GameObject[] WTarget;
+    [BoxGroup("Spine")]
     public GameObject[] SWTarget;
+    [BoxGroup("Spine")]
     public GameObject[] CenterTarget;
 
+    [BoxGroup("Spine")]
     public SpineOrientation[] SpineTarget;
-    private SortingGroup sort; 
+    private SortingGroup sort;
+
+    public SpriteRenderer[] animStates;
+    private SpriteRenderer previousState;
+    public bool useSpine = true;
 
     private EntityHungerState hunger;
 
@@ -71,8 +82,11 @@ public class MovingEntity : Entity {
     }
 
     private void Update() {
-        if(sort)
-            sort.sortingOrder = -movable.CurrentTile.Position.y;
+        if (sort) {
+            Vector3Int pos = HexagonalGrid.Instance.Tilemap.WorldToCell(transform.position);
+            sort.sortingOrder = -pos.y;
+            
+        }
     }
 
     void Destroy() {
@@ -90,6 +104,21 @@ public class MovingEntity : Entity {
         if (this == null || gameObject == null || !movingEntitySO.updateSprite)
             return;
 
+        if (useSpine) {
+            UpdateSpine(dir, noDir);
+        }
+        else {
+            if (previousState) {
+                previousState.enabled = false;
+            }
+            if (population > 0) {
+                animStates[population - 1].enabled = true;
+                previousState = animStates[population - 1];
+            }
+        }
+    }
+
+    public void UpdateSpine(HexDirection dir, bool noDir) {
         currentDir = dir;
 
         float flip = 1;
@@ -150,7 +179,6 @@ public class MovingEntity : Entity {
 
             SpineTarget[i].transform.localScale = SpineTarget[i].transform.localScale.y * new Vector3(flip, 1, 1);
         }
-
     }
 
     IEnumerator GoToTarget(GameObject entity, GameObject target, float flip) {
