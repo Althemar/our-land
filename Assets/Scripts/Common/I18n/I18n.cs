@@ -17,7 +17,7 @@ public static class I18N {
 
     public static Dictionary<string, I18nText> i18n;
     public static bool initialized = false;
-    public static Lang lang = Lang.FR;
+    public static Lang lang = Lang.EN;
 
     public static CallbackFunction OnLangChange;
 
