@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
-  m_Name: Standard Mountain 1
+  m_Name: SnowMountain
   m_EditorClassIdentifier: 
   go: {fileID: 0}
   canWalkThrough: 0

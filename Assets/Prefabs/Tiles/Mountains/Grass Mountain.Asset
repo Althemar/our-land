@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
+  m_Name: Grass Mountain
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}
+  canWalkThrough: 0
+  walkCost: 1
+  terrainType: 0
+  ambientRTPC: PRAIRIE
+  centers:
+  - {fileID: 21300000, guid: 0c2ba1f0b463ec6468060563dedf163f, type: 3}
+  - {fileID: 21300000, guid: 8db9f4435ee99134ab76c5dbf3fe16a0, type: 3}
+  - {fileID: 21300000, guid: ec6220054163cd445bd82c4b6bf08589, type: 3}
+  - {fileID: 21300000, guid: 307f5fa1602d6f5449d6decae6b4294c, type: 3}
+  - {fileID: 21300000, guid: 9cdcf21e7bcd6b64e8f3e2d72ba22687, type: 3}
+  - {fileID: 21300000, guid: dbdcd2ade67640d47bc57b1945be4c36, type: 3}
+  - {fileID: 21300000, guid: 38d78b02cfbc9a1448d5317a4b02b688, type: 3}
+  - {fileID: 21300000, guid: 329547308b683694a82337f6e00dafd5, type: 3}
+  - {fileID: 21300000, guid: edbb486afcc92934bb0a632a9040bfad, type: 3}
+  editorSprite: {fileID: 21300000, guid: c62878fb2d77fdf4f84457436f42af10, type: 3}
+  bordersNW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0200000004000000
+    _keys: 0200000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 2f981198ea0acda4b8e74a63b97b78b1, type: 3}
+      - {fileID: 21300000, guid: 80d46288d3170f349885c55711944a55, type: 3}
+      - {fileID: 21300000, guid: d919508e74ad3524fbce22f80e2487db, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: e2aa4a9eabb355640be64a4130909e35, type: 3}
+      - {fileID: 21300000, guid: f6c38a430412f7b41b2aaa08b02305a2, type: 3}
+  bordersW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0200000004000000
+    _keys: 0200000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: d9e4d43d35f629044bba045c93fd9b94, type: 3}
+      - {fileID: 21300000, guid: e312a6977d5d46d45a8689baeed15f94, type: 3}
+      - {fileID: 21300000, guid: c644f5274a8f24b4f9bed1bf048ecb73, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: a4dfa4de24f13aa42a52ff4695accf16, type: 3}
+      - {fileID: 21300000, guid: 42a2a286f186baa40a868a019c0f410e, type: 3}
+  bordersSW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0200000004000000
+    _keys: 0200000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: daa56478a9819e64e813e3bbcf6d1dfa, type: 3}
+      - {fileID: 21300000, guid: 49d9e3f293d9b1342bae90d97aa3d673, type: 3}
+      - {fileID: 21300000, guid: 858a53997b1587741921e6654dc4cc6f, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 99d9853182aee164aa7e5adf18841029, type: 3}
+      - {fileID: 21300000, guid: b69f8d877832fe14c9672fb5364e7390, type: 3}
+  addons:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Infinity
+    _keys:
+    - Infinity
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 3ba9b9a3532515e4681351b7330ae287, type: 3}
+      - {fileID: 21300000, guid: e01f8485f30a4e142a4fcf3bbe131b88, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
+  addonLayer: 13
+  addonSortingOffset: 0

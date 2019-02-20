@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
+  m_Name: Sand Mountain
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}
+  canWalkThrough: 0
+  walkCost: 1
+  terrainType: 2
+  ambientRTPC: PRAIRIE
+  centers:
+  - {fileID: 21300000, guid: aa27bc3ae368e7d4697c22024601f25e, type: 3}
+  - {fileID: 21300000, guid: 50af254440856c245a4dd0ea92ef9a65, type: 3}
+  - {fileID: 21300000, guid: a9037dab53c8fe64497250f2673644e2, type: 3}
+  - {fileID: 21300000, guid: 889973be6fe617b498628112c971f07f, type: 3}
+  - {fileID: 21300000, guid: 20f713a40b25b844abd4d5810febfe83, type: 3}
+  - {fileID: 21300000, guid: 691f0de73b6311645b36033b4d5ff4f1, type: 3}
+  - {fileID: 21300000, guid: c52adeaf6bba9db43864c825c54a21b7, type: 3}
+  - {fileID: 21300000, guid: 1765b20b3080912499646d6faf60ee54, type: 3}
+  editorSprite: {fileID: 21300000, guid: b5b8c7148243263418b76a704b5484a7, type: 3}
+  bordersNW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: ac1448681839f034ea66e49edbba2c8c, type: 3}
+      - {fileID: 21300000, guid: 9d6d41ca8fa71c94b9d2d5d6eeb106cb, type: 3}
+      - {fileID: 21300000, guid: 224c2d2c02c379d4698e6c807cc793e0, type: 3}
+      - {fileID: 21300000, guid: 5d6b1b9221f74bc43a60d07349c88259, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 6a87f6835a31bb241938d254acd379bb, type: 3}
+      - {fileID: 21300000, guid: 60881eef44c7fff4ca433f130bfdc9f0, type: 3}
+      - {fileID: 21300000, guid: a2106d68da85af0488cbc8fcbe1cd546, type: 3}
+      - {fileID: 21300000, guid: e10865e687f05154d81f97781499ec1b, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 85f7c5cc3cde2fe4f9bb0b6d41d36732, type: 3}
+  bordersW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: b36d9fa4a9b2fce47b10ae38540ae218, type: 3}
+      - {fileID: 21300000, guid: 05037fb271c81d2448eb8167505d7f2d, type: 3}
+      - {fileID: 21300000, guid: b89d8b4a68794b54d97698d275174705, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 3ff7a6b25b57fb84a8aa766e081c1e28, type: 3}
+      - {fileID: 21300000, guid: ccf3bb296886ffe41bb86a11d20ccf41, type: 3}
+      - {fileID: 21300000, guid: 215ba258551d52b4b9a0feccf6a6e702, type: 3}
+      - {fileID: 21300000, guid: d1dd0192ac5c0534083e1d451ff69e71, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: f31ceeee1e8121d4891e66b62976fcc3, type: 3}
+  bordersSW:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 030000000400000001000000
+    _keys: 030000000400000001000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 85774b3ede30ec94fa86f7fc6178bacd, type: 3}
+      - {fileID: 21300000, guid: 2c7b7f2f0e5e62c4f875e3cff7a638a7, type: 3}
+      - {fileID: 21300000, guid: 3b86ed2178ffb3940a6102e87970c1ce, type: 3}
+      - {fileID: 21300000, guid: 2e531ca480289db41930d31c926a30ee, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 96dd17ca2bfd25942b017789b1faadc6, type: 3}
+      - {fileID: 21300000, guid: 1c14088be20551b4694e55d40ad48276, type: 3}
+      - {fileID: 21300000, guid: fac2b43f8dd74234e9314176d2e8ab87, type: 3}
+      - {fileID: 21300000, guid: 4a7619075107d6842be45397dfa347e3, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 578040cfadaf54247a8894f8458661ad, type: 3}
+  addons:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Infinity
+    _keys:
+    - Infinity
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 378cc057b828ae040ab92cca7b31b6cd, type: 3}
+      - {fileID: 21300000, guid: ec11fd97a4d1d1040adc5e6ba5c3bdaf, type: 3}
+  addonsGO:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: []
+  addonLayer: 13
+  addonSortingOffset: 0
