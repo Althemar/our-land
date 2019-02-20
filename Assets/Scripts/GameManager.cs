@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     public float timeToWaitAfterEnd;
 
+    public int seed = 666;
+
     private int frameCount = 0;
     private GameState gameState;
 
@@ -134,6 +136,10 @@ public class GameManager : MonoBehaviour
 
         Console.AddCommand("reset", CmdReset, "Reset the game");
         Console.AddCommand("loadScene", CmdLoad, "Load a scene");
+        UnityEngine.Random.seed = seed;
+        for (int i = 0; i < 10; i++) {
+            Debug.Log(UnityEngine.Random.Range(0, 10));
+        }
     }
 
     public void CheckDefeat() {
