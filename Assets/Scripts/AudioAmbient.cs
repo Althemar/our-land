@@ -119,6 +119,9 @@ public class AudioAmbient : MonoBehaviour {
                 total++;
             }
 
+            if (tileData.ambientRTPC == "") {
+                continue;
+            }
             ambientRTPCs[tileData.ambientRTPC].num++;
             ambientRTPCs[tileData.ambientRTPC].sumPos += posCam;
 
