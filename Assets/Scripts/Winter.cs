@@ -38,6 +38,8 @@ public class Winter : MonoBehaviour
     public void BeginWinter() {
 
         AkSoundEngine.PostEvent("Play_Winter_Wind", gameObject);
+        GameManager.Instance.winter = true;
+        Camera.main.GetComponent<AudioAmbient>().StopAmbient();
 
         TileProperties tile;
         Tilemap tilemap = HexagonalGrid.Instance.Tilemap;
