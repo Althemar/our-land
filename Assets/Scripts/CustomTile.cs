@@ -15,7 +15,7 @@ public class CustomTile : TileBase
 {
     public enum TerrainType
     {
-        Grass, Mountain, Sand, Swamp, Water
+        Grass, Mountain, Sand, Swamp, Water, WaterMedium, WaterDeep
     }
 
     public GameObject go;

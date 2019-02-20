@@ -56,6 +56,8 @@ public class MotherShip : Updatable {
     public List<Bonus> bonuses = new List<Bonus>();
     public enum ActionType { Harvest, Move, FoodConsumption, Bonus, QuestReward }
 
+    public Tents tents;
+
     public delegate void OnMotherShipDelegate();
     public OnMotherShipDelegate OnTurnBegin;
     public OnMotherShipDelegate OnBeginMoving;
@@ -135,10 +137,15 @@ public class MotherShip : Updatable {
         }
 
         if (targetTile != null) {
+            tents.ResetState();
+            reachableTilesDisplay.UndisplayReachables();
+            //outline.Clear();
             BeginMove();
             AddItem(fuelResource, (int)Mathf.Floor(-targetTile.ActionPointCost), ActionType.Move);
             savedPopulationPoints.Clear();
-        } else {
+        }
+        else {
+            tents.IncreaseState();
             EndTurn();
         }
     }
@@ -153,6 +160,7 @@ public class MotherShip : Updatable {
         spineShip.state.Complete += CanMove;
 
         walkableOutline.ShowOutline();
+        tents.ToggleTents();
     }
 
     public void HarvestMode() {
@@ -164,6 +172,8 @@ public class MotherShip : Updatable {
         AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
 
         walkableOutline.HideOutline();
+        tents.ToggleTents();
+
     }
 
     bool canMove = false;
@@ -209,6 +219,7 @@ public class MotherShip : Updatable {
     private void AfterGrounded(TrackEntry trackEntry) {
         onMove = false;
         targetTile = null;
+        tents.ToggleTents();
         EndTurn();
     }
 
