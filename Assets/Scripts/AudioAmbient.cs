@@ -60,6 +60,11 @@ public class AudioAmbient : MonoBehaviour {
     }
 
     void GetSoundAmbient() {
+
+        if (GameManager.Instance.winter) {
+            return;
+        }
+
         Ray rMin = cam.ViewportPointToRay(Vector3.zero);
         Ray rMax = cam.ViewportPointToRay(Vector3.one);
         Plane plane = new Plane(Vector3.forward, Vector3.zero);
@@ -92,6 +97,7 @@ public class AudioAmbient : MonoBehaviour {
         ambientRTPCs.Add("WETLANDS", new AudioTile() { num = 0 });
         ambientRTPCs.Add("RIVER", new AudioTile() { num = 0 });
 
+        
         int total = 0;
         foreach (Vector3Int p in b.allPositionsWithin) {
             TileProperties prop = grid.GetTile(p);
@@ -129,6 +135,22 @@ public class AudioAmbient : MonoBehaviour {
             AkSoundEngine.SetRTPCValue("AMBIANCE_VOLUME_" + d.Key, (float)d.Value.num / (float)total * 100.0f);
             if (d.Value.num != 0)
                 AkSoundEngine.SetRTPCValue("AMBIANCE_SPAT_" + d.Key, (d.Value.sumPos / d.Value.num).x);
+        }
+    }
+
+    public void StopAmbient() {
+
+        Dictionary<string, AudioTile> ambientRTPCs = new Dictionary<string, AudioTile>();
+        ambientRTPCs.Add("DESERT", new AudioTile() { num = 0 });
+        ambientRTPCs.Add("PRAIRIE", new AudioTile() { num = 0 });
+        ambientRTPCs.Add("WATER", new AudioTile() { num = 0 });
+        ambientRTPCs.Add("WETLANDS", new AudioTile() { num = 0 });
+        ambientRTPCs.Add("RIVER", new AudioTile() { num = 0 });
+
+        foreach (var d in ambientRTPCs) {
+            AkSoundEngine.SetRTPCValue("AMBIANCE_VOLUME_" + d.Key, 0);
+            if (d.Value.num != 0)
+                AkSoundEngine.SetRTPCValue("AMBIANCE_SPAT_" + d.Key, 0);
         }
     }
 }

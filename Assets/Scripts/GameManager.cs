@@ -19,8 +19,14 @@ public class GameManager : MonoBehaviour
 
     public float timeToWaitAfterEnd;
 
+    public int seed = 666;
+
     private int frameCount = 0;
     private GameState gameState;
+
+    [HideInInspector]
+    public bool winter;
+    
 
     public static GameManager Instance;
 
@@ -124,16 +130,17 @@ public class GameManager : MonoBehaviour
 
         Console.AddCommand("reset", CmdReset, "Reset the game");
         Console.AddCommand("loadScene", CmdLoad, "Load a scene");
+        UnityEngine.Random.InitState(seed);
     }
 
     public void CheckDefeat() {
         if (motherShip.foodResource && motherShip.Inventory.GetResource(motherShip.foodResource) <= 0) {
             Defeat();
-            
         }
     }
 
     public void Defeat() {
+        AkSoundEngine.PostEvent("GameOver", gameObject);
         gameOverPanel.gameObject.SetActive(true);
         gameOverPanel.text.text = "Votre peuple a survécu " + TurnManager.Instance.TurnCount + " tours";
         Input.SetBlock(Input.Blocker.Defeat, true);
