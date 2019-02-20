@@ -21,7 +21,7 @@ public class CustomTileEditor : Editor
     const float padding = 15f;
 
     SerializedProperty go, canWalkThrough, walkCost, terrainType, ambientRTPC;
-    SerializedProperty serBordersNW, serBordersW, serBordersSW, addons, addonsGO, addonLayer, addonSortingOffset;
+    SerializedProperty editorSprite, serBordersNW, serBordersW, serBordersSW, addons, addonsGO, addonLayer, addonSortingOffset;
 
     public void OnEnable() {
         SetReorderableList(ref centers, ref tile.centers);
@@ -31,6 +31,8 @@ public class CustomTileEditor : Editor
         walkCost = serializedObject.FindProperty("walkCost");
         terrainType = serializedObject.FindProperty("terrainType");
         ambientRTPC = serializedObject.FindProperty("ambientRTPC");
+
+        editorSprite = serializedObject.FindProperty("editorSprite");
 
         serBordersNW = serializedObject.FindProperty("bordersNW");
         serBordersW = serializedObject.FindProperty("bordersW");
@@ -63,6 +65,8 @@ public class CustomTileEditor : Editor
         EditorGUILayout.Space();
 
         DisplayList(0);
+
+        EditorGUILayout.PropertyField(editorSprite);
         
         EditorGUILayout.PropertyField(serBordersNW);
         EditorGUILayout.PropertyField(serBordersW);

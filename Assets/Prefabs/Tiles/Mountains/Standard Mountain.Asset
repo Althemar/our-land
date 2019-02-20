@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
-  m_Name: Standard Mountain 1
+  m_Name: Standard Mountain
   m_EditorClassIdentifier: 
   go: {fileID: 0}
   canWalkThrough: 0
@@ -18,9 +18,7 @@ MonoBehaviour:
   terrainType: 1
   ambientRTPC: PRAIRIE
   centers:
-  - {fileID: 21300000, guid: ae3628733dbe6a749a1fb736c527ea1d, type: 3}
-  - {fileID: 21300000, guid: a245af7495f7e6b49b2021bbe7ce8c6d, type: 3}
-  - {fileID: 21300000, guid: 6841b5a7009c50443967e002e2a26350, type: 3}
+  - {fileID: 21300000, guid: ec07d8074230ecb44af06a5e96126675, type: 3}
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -44,9 +42,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 
-    _keys: 
-    _values: []
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: 6e5fb367cce264a4a97e81ae697129d1, type: 3}
+      - {fileID: 21300000, guid: 718f241db0e449d4fadb5af2985bb40f, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 07cdf957900687f4d9b0225fd7641271, type: 3}
+      - {fileID: 21300000, guid: 9c62738c13e5e7849a920a064758f00f, type: 3}
   bordersW:
     reorderableList:
       canAdd: 1
@@ -70,9 +74,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 
-    _keys: 
-    _values: []
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: a499ec4e3fe29e148b99cea9d05ba0d6, type: 3}
+      - {fileID: 21300000, guid: 3c1501a94fc560c448e01ab04d74072c, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 956bdb44bc73ea04cb3c1fabdc58dcd9, type: 3}
+      - {fileID: 21300000, guid: 5088ec622a6801a4d8993ad1d085f2dd, type: 3}
   bordersSW:
     reorderableList:
       canAdd: 1
@@ -96,9 +106,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 
-    _keys: 
-    _values: []
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
+    _values:
+    - sprites:
+      - {fileID: 21300000, guid: b61a974d487c8d544b7a456dabf48aad, type: 3}
+      - {fileID: 21300000, guid: 5c4c7ac82f450e34b8e43dc281cd3e26, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 7b24d70949081464b93868dffb349ddb, type: 3}
+      - {fileID: 21300000, guid: 1f33567225a8527438ed9510f9621f0b, type: 3}
   addons:
     reorderableList:
       canAdd: 1
@@ -128,8 +144,8 @@ MonoBehaviour:
     - Infinity
     _values:
     - sprites:
-      - {fileID: 21300000, guid: 00422ead95c12064e99dc98f2cc689d0, type: 3}
-      - {fileID: 21300000, guid: f8d27abdb39f9544a871c909641b9e4d, type: 3}
+      - {fileID: 21300000, guid: 3ba9b9a3532515e4681351b7330ae287, type: 3}
+      - {fileID: 21300000, guid: 1d45825101fb736498125acfd9398874, type: 3}
   addonsGO:
     reorderableList:
       canAdd: 1
@@ -157,4 +173,4 @@ MonoBehaviour:
     _keys: []
     _values: []
   addonLayer: 13
-  addonSortingOffset: 15
+  addonSortingOffset: 0
