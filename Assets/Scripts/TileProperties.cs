@@ -324,10 +324,12 @@ public class TileProperties : MonoBehaviour {
             spriteRenderer.transform.parent = transform;
         spriteRenderer.transform.position = transform.position;
         spriteRenderer.sprite = sprite;
-        spriteRenderer.sortingOrder = sorting - Position.y;
+        spriteRenderer.sortingOrder =  - Position.y;
         if(!defaultLayer)
             spriteRenderer.sortingLayerID = HexagonalGrid.Instance.layerID;
+
         spriteRenderer.gameObject.layer = layer;
+
     }
 
     public void SetBorders() {
