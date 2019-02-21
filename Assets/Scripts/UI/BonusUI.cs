@@ -8,14 +8,20 @@ public class BonusUI : MonoBehaviour {
 
     public Bonus bonus;
     public TextMeshProUGUI progressText;
+    public Slider progressSlider;
     public GameObject populationPoints;
-
+    
     void Start() {
         GetComponent<Button>().onClick.AddListener(Toogle);
     }
 
     void OnEnable() {
-        progressText.text = "Level " + bonus.Level + "\nProgress " + bonus.Progress;
+        progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n\n";
+        progressText.text += bonus.BonusEffect(1);
+        progressText.text += bonus.BonusEffect(2);
+        progressText.text += bonus.BonusEffect(3);
+
+        progressSlider.value = bonus.Progress;
     }
 
     void Toogle() {

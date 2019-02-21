@@ -10,7 +10,7 @@ public abstract class Bonus : Updatable {
     int activeTurns = 0;
     MotherShip ship;
 
-    protected int level = 0;
+    protected int level = 1;
     protected bool bonus;
 
     [ReorderableList]
@@ -76,6 +76,7 @@ public abstract class Bonus : Updatable {
                 NextLevel();
             }
             activeTurns++;
+            progress++;
         }
         EndTurn();
     }
@@ -110,4 +111,7 @@ public abstract class Bonus : Updatable {
 
     public abstract void BonusEffectItem(MotherShip.ActionType action, ResourceType resource, ref int amount);
     public abstract void BonusEffectEndTurn();
+
+    public abstract string BonusName();
+    public abstract string BonusEffect(int level);
 }

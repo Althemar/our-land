@@ -22,4 +22,23 @@ public class ScoutBonus : Bonus {
                 GameManager.Instance.motherShip.AddItem(GameManager.Instance.motherShip.foodResource, nbItem, MotherShip.ActionType.Bonus);
         }
     }
+
+    public override string BonusName() {
+        return "Scouts";
+    }
+
+    public override string BonusEffect(int level) {
+        if (this.level < level)
+            return "";
+        switch (level) {
+            case 1:
+                return "<u>Rank 1 :</u>\n" +
+                        "Get random resources\n" +
+                        "•  +" + scoutRandMin + " or +" + scoutRandMax + " <sprite name=\"Wood\"> or <sprite name=\"Food\"> each turn\n\n";
+            case 2:
+                return "<u>Rank 2 :</u>\n" +
+                        "Predict winter\n\n";
+        }
+        return "";
+    }
 }

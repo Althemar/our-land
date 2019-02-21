@@ -18,4 +18,23 @@ public class NavigatorBonus : Bonus {
     public override void BonusEffectEndTurn() {
 
     }
+
+    public override string BonusName() {
+        return "Navigators";
+    }
+
+    public override string BonusEffect(int level) {
+        if (this.level < level)
+            return "";
+        switch (level) {
+            case 1:
+                return "<u>Rank 1 :</u>\n" +
+                        "Consume less wood\n" +
+                        "•  -" + fuelReduction + " <sprite name=\"Wood\"> by cell\n\n";
+            case 2:
+                return "<u>Rank 2 :</u>\n" +
+                        "Windy tiles are now cost free\n\n";
+        }
+        return "";
+    }
 }
