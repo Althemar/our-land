@@ -5,9 +5,10 @@ using UnityEngine;
 public class WinterIsComing : Objective
 {
     public int remainingTurns;
+    int turnBegin;
 
     public override void StartObjective() {
-
+        turnBegin = remainingTurns;
     }
 
     public override bool Evaluate() {
@@ -24,4 +25,11 @@ public class WinterIsComing : Objective
         return "Prepare for winter ! ( in " + remainingTurns + " turns)";
     }
 
+    public override int Goal() {
+        return turnBegin;
+    }
+
+    public override int Progress() {
+        return turnBegin - remainingTurns;
+    }
 }
