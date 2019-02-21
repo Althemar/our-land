@@ -144,22 +144,22 @@ public class WalkableOutline : MonoBehaviour {
                     renderer.sortingOrder = -1000;
                     renderer.sprite = inaccessibleSprite;
                 }
-
-                if (tile.IsWalkable() && tile.IsInReachables)
+                
+                if (Walkable(tile) && tile.IsInReachables)
                     continue;
 
                 for (HexDirection h = (HexDirection)0; h < (HexDirection)6; h++) {
                     if (!tile.GetNeighbor(h) || !tile.GetNeighbor(h.Previous()) || !tile.GetNeighbor(h.Next()))
                         continue;
 
-                    if (tile.GetNeighbor(h).IsWalkable() && tile.GetNeighbor(h).IsInReachables) {
-                        if(tile.IsWalkable()) { // SIMPLE OUTLINE
-                            if (tile.GetNeighbor(h.Previous()).IsWalkable() && tile.GetNeighbor(h.Previous()).IsInReachables)
+                    if (Walkable(tile.GetNeighbor(h)) && tile.GetNeighbor(h).IsInReachables) {
+                        if(Walkable(tile)) { // SIMPLE OUTLINE
+                            if (Walkable(tile.GetNeighbor(h.Previous())) && tile.GetNeighbor(h.Previous()).IsInReachables)
                                 AddVertices2(ref verticesSimple, ref uvsSimple, tile, h, true);
                             else
                                 AddVertices(ref verticesSimple, ref uvsSimple, tile, h, true);
 
-                            if (tile.GetNeighbor(h.Next()).IsWalkable() && tile.GetNeighbor(h.Next()).IsInReachables)
+                            if (Walkable(tile.GetNeighbor(h.Next())) && tile.GetNeighbor(h.Next()).IsInReachables)
                                 AddVertices2(ref verticesSimple, ref uvsSimple, tile, h.Next(), false);
                             else
                                 AddVertices(ref verticesSimple, ref uvsSimple, tile, h.Next(), false);
@@ -167,12 +167,12 @@ public class WalkableOutline : MonoBehaviour {
                             tilesNbRectSimple[x, y]++;
                             nbRectSimple++;
                         } else {
-                            if (tile.GetNeighbor(h.Previous()).IsWalkable() && tile.GetNeighbor(h.Previous()).IsInReachables)
+                            if (Walkable(tile.GetNeighbor(h.Previous())) && tile.GetNeighbor(h.Previous()).IsInReachables)
                                 AddVertices2(ref vertices, ref uvs, tile, h, true);
                             else
                                 AddVertices(ref vertices, ref uvs, tile, h, true);
 
-                            if (tile.GetNeighbor(h.Next()).IsWalkable() && tile.GetNeighbor(h.Next()).IsInReachables)
+                            if (Walkable(tile.GetNeighbor(h.Next())) && tile.GetNeighbor(h.Next()).IsInReachables)
                                 AddVertices2(ref vertices, ref uvs, tile, h.Next(), false);
                             else
                                 AddVertices(ref vertices, ref uvs, tile, h.Next(), false);
@@ -240,6 +240,10 @@ public class WalkableOutline : MonoBehaviour {
         GetComponent<MeshRenderer>().sortingOrder = -500;
         foreach (TileProperties tile in tiles)
             tile.IsInReachables = false;
+    }
+
+    private bool Walkable(TileProperties tile) {
+        return !tile.asMountain && tile.Tile?.terrainType != CustomTile.TerrainType.Mountain;
     }
 
     // Add 2 vertices to the mesh

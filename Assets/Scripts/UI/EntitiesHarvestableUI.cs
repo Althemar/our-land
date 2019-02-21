@@ -43,8 +43,8 @@ public class EntitiesHarvestableUI : MonoBehaviour {
 
             if (tile.staticEntity && tile.movingEntity) {
                 Vector3 movingPosition = position;
-                position.x -= 0.5f;
-                movingPosition.x += 0.5f;
+                position.x -= 1.1f;
+                movingPosition.x += 1.1f;
 
                 AddButton(tile.staticEntity, position);
                 AddButton(tile.movingEntity, movingPosition);

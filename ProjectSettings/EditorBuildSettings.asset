@@ -14,10 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Damien LD 15-02.unity
     guid: 7aae73ff56c7b0a4ebbbb4355d51e8ea
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/Menu 1.unity
+    guid: 90d71166e4f784d4f8324954b276016d
+  - enabled: 1
     path: Assets/Scenes/LD 03.unity
     guid: 069c00f1d9b9a604b83416c3a64d86cb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TOGI MERGE UI.unity
     guid: 0600f875e2d3aab4db0928f26d6e35aa
   m_configObjects: {}

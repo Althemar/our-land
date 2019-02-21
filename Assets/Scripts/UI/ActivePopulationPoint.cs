@@ -46,13 +46,13 @@ public class ActivePopulationPoint : Updatable {
         if (entity.Tile.movingEntity == entity) {
             otherEntity = entity.Tile.staticEntity;
             if (otherEntity) {
-                position.x += 0.5f;
+                position.x += 1.1f;
             }
         }
         else if (entity.Tile.staticEntity == entity) {
             otherEntity = entity.Tile.movingEntity;
             if (otherEntity) {
-                position.x -= 0.5f;
+                position.x -= 1.1f;
             }
         }
 
@@ -160,7 +160,7 @@ public class ActivePopulationPoint : Updatable {
         float progress = 0;
         while (progress <= 1) {
             transform.position = Vector3.Lerp(beginPosition, targetPosition, progress);
-            progress += 0.07f;
+            progress += 5f * Time.deltaTime;
             yield return null;
         }
         transform.position = Vector3.Lerp(beginPosition, targetPosition, 1);

@@ -35,8 +35,8 @@ public class Winter : MonoBehaviour
     [SerializeField]
     public ReplaceSprite replaceLakes;
 
-   
-
+    public ParticleSystem psSnow;
+    public List<ParticleSystem> psSnowBurst;
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.W)) {
@@ -45,7 +45,20 @@ public class Winter : MonoBehaviour
     }
 
     public void BeginWinter() {
+        foreach (ParticleSystem ps in psSnowBurst) {
+            ps.Play();
+        }
+        psSnow.Play();
+        
+        StartCoroutine(WaitBeforeWinter());   
+    }
 
+    public IEnumerator WaitBeforeWinter() {
+        yield return new WaitForSeconds(6f);
+        SetWinter();
+    }
+
+    private void SetWinter() {
         AkSoundEngine.PostEvent("Play_Winter_Wind", gameObject);
         GameManager.Instance.winter = true;
         Camera.main.GetComponent<AudioAmbient>().StopAmbient();
@@ -63,12 +76,13 @@ public class Winter : MonoBehaviour
                     // Remove old addons and borders
                     tile.RemoveBorders();
                     if (tilesToReplace[tile.Tile].destroyAddons)
-                       tile.RemoveAddons();
+                        tile.RemoveAddons();
 
                     // Reinitialize tile
                     tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile].tile);
                     tile.InitializeCustomTile();
                     tile.SetAddon();
+                    tile.SetBorders();
 
                     // Trees sprites
                     if (tile.staticEntity && treesSO.Contains(tile.staticEntity.entitySO)) {
