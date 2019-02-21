@@ -69,11 +69,13 @@ public class MouseController : MonoBehaviour {
         }
         cameraman.ChangeZoomCamera(-GameManager.Input.mouseScrollDelta.y * 1.5f);
 
-        if (!harvestMode) {
+        if (!harvestMode && entitiesHarvestable.Displaying) {
             entitiesHarvestable.Clear();
+        } else if (harvestMode && !entitiesHarvestable.Displaying) {
+            entitiesHarvestable.EntitiesToHarvest();
         }
 
-        if(moveMode) {
+        if (moveMode) {
             if (GameManager.Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
                 ShowPath();
             }

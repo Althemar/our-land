@@ -93,7 +93,6 @@ public class StaticEntity : Entity {
                     float scale = Random.Range(minScale, maxScale);
                     Vector3 scaleVector = new Vector3(scale, scale, 1);
                     allSprites[index].transform.localScale = scaleVector;
-                    allSprites[index].GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
                     
 
                     allSprites.RemoveAt(index);
