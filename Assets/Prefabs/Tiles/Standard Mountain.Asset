@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50aca6163bfd9614dbfef1692afa07c5, type: 3}
-  m_Name: Swamp Mountain
+  m_Name: Standard Mountain
   m_EditorClassIdentifier: 
   go: {fileID: 0}
   canWalkThrough: 0
   walkCost: 1
-  terrainType: 3
+  terrainType: 1
   ambientRTPC: PRAIRIE
   centers:
-  - {fileID: 21300000, guid: 996d7b930ca24024399886717591093c, type: 3}
-  - {fileID: 21300000, guid: 798aabaa4e89f7b43ba4daa772f759bb, type: 3}
-  - {fileID: 21300000, guid: 935eed118431a494caba8b8441bad094, type: 3}
-  editorSprite: {fileID: 21300000, guid: 99fbfe4a9eb3c1543891c94c19745ed8, type: 3}
+  - {fileID: 21300000, guid: ec07d8074230ecb44af06a5e96126675, type: 3}
+  editorSprite: {fileID: 0}
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -45,12 +43,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 04000000
-    _keys: 04000000
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
     _values:
     - sprites:
-      - {fileID: 21300000, guid: c2c489357cff8f6478418e6ba8f5377b, type: 3}
-      - {fileID: 21300000, guid: 92a41c152997b1045a2986cc65737a6d, type: 3}
+      - {fileID: 21300000, guid: 6e5fb367cce264a4a97e81ae697129d1, type: 3}
+      - {fileID: 21300000, guid: 718f241db0e449d4fadb5af2985bb40f, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 07cdf957900687f4d9b0225fd7641271, type: 3}
+      - {fileID: 21300000, guid: 9c62738c13e5e7849a920a064758f00f, type: 3}
   bordersW:
     reorderableList:
       canAdd: 1
@@ -74,12 +75,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 04000000
-    _keys: 04000000
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
     _values:
     - sprites:
-      - {fileID: 21300000, guid: eebd5eb1b9ef69d40943a3ce30fe4abd, type: 3}
-      - {fileID: 21300000, guid: 05928e77401a1d64c81701bec5b33c31, type: 3}
+      - {fileID: 21300000, guid: a499ec4e3fe29e148b99cea9d05ba0d6, type: 3}
+      - {fileID: 21300000, guid: 3c1501a94fc560c448e01ab04d74072c, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 956bdb44bc73ea04cb3c1fabdc58dcd9, type: 3}
+      - {fileID: 21300000, guid: 5088ec622a6801a4d8993ad1d085f2dd, type: 3}
   bordersSW:
     reorderableList:
       canAdd: 1
@@ -103,11 +107,15 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 04000000
-    _keys: 04000000
+    _keyValues: 0300000004000000
+    _keys: 0300000004000000
     _values:
     - sprites:
-      - {fileID: 21300000, guid: 76f71c50c2dc8bd4d9551c79db752230, type: 3}
+      - {fileID: 21300000, guid: b61a974d487c8d544b7a456dabf48aad, type: 3}
+      - {fileID: 21300000, guid: 5c4c7ac82f450e34b8e43dc281cd3e26, type: 3}
+    - sprites:
+      - {fileID: 21300000, guid: 7b24d70949081464b93868dffb349ddb, type: 3}
+      - {fileID: 21300000, guid: 1f33567225a8527438ed9510f9621f0b, type: 3}
   addons:
     reorderableList:
       canAdd: 1
@@ -164,4 +172,4 @@ MonoBehaviour:
     _values:
     - {fileID: 4517520533362251513, guid: 1c0a80dfc332594499961d9213fc785f, type: 3}
   addonLayer: 13
-  addonSortingOffset: 0
+  addonSortingOffset: 15

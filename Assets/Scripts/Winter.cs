@@ -7,7 +7,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [Serializable]
-public class WinterTilesDic : SerializableDictionaryBase<CustomTile, CustomTile> { }
+public struct WinterChange
+{
+    public CustomTile tile;
+    public bool destroyAddons;
+}
+
+[Serializable]
+public class WinterTilesDic : SerializableDictionaryBase<CustomTile, WinterChange> { }
 
 [Serializable]
 public class ReplaceSprite : SerializableDictionaryBase<Sprite, Sprite> { }
@@ -27,6 +34,8 @@ public class Winter : MonoBehaviour
     [BoxGroup("Rivers")]
     [SerializeField]
     public ReplaceSprite replaceLakes;
+
+   
 
 
     private void Update() {
@@ -53,10 +62,11 @@ public class Winter : MonoBehaviour
 
                     // Remove old addons and borders
                     tile.RemoveBorders();
-                    tile.RemoveAddons();
+                    if (tilesToReplace[tile.Tile].destroyAddons)
+                       tile.RemoveAddons();
 
                     // Reinitialize tile
-                    tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile]);
+                    tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile].tile);
                     tile.InitializeCustomTile();
                     tile.SetAddon();
 
@@ -66,6 +76,14 @@ public class Winter : MonoBehaviour
                             foreach (Transform sprite in sr.transform) {
                                 sprite.GetComponent<TreeSprites>().SetWinter();
                             }
+                        }
+                    }
+
+                    // Update mountains
+                    foreach (Transform child in tile.addonsGameObjects.transform) {
+                        Mountain mountain = child.GetComponent<Mountain>();
+                        if (mountain) {
+                            mountain.SetWinter();
                         }
                     }
 
