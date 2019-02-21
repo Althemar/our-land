@@ -76,6 +76,7 @@ MonoBehaviour:
     _values: []
   availableTiles: []
   harvestSound: 
+  iconEntity: {fileID: 21300000, guid: 5c9303c0aac0c8048b87118e202f764d, type: 3}
   movementPoints: 0
   nbTurnsToDie: 0
   nbTurnsToBeHungry: 0
