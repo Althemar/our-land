@@ -69,6 +69,7 @@ public class Winter : MonoBehaviour
                     tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile].tile);
                     tile.InitializeCustomTile();
                     tile.SetAddon();
+                    tile.SetBorders();
 
                     // Trees sprites
                     if (tile.staticEntity && treesSO.Contains(tile.staticEntity.entitySO)) {
