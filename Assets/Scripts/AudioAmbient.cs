@@ -15,7 +15,7 @@ public class AudioAmbient : MonoBehaviour {
 
     float timeBetweenMusics = Mathf.Infinity;
 
-    [ConfigVar(Name = "audio.silence", DefaultValue = "90", Description = "Silence between musics")]
+    [ConfigVar(Name = "audio.silence", DefaultValue = "5", Description = "Silence between musics")]
     static ConfigVar silenceBetweenMusic;
 
     void Start() {
@@ -124,6 +124,9 @@ public class AudioAmbient : MonoBehaviour {
 
                 total++;
             }
+
+            if (tileData.ambientRTPC == "")
+                continue;
 
             ambientRTPCs[tileData.ambientRTPC].num++;
             ambientRTPCs[tileData.ambientRTPC].sumPos += posCam;
