@@ -36,7 +36,6 @@ public class MissionManager : MonoBehaviour
         foreach (Mission mission in currentMissions) {
             if (mission.Evaluate()) {
                 Instantiate(endMissionUI, newMissionUIParent).Initialize(mission);
-                mission.eventOnSuccess?.Invoke();
 
             }
             else if (mission.failed) {
@@ -66,6 +65,8 @@ public class MissionManager : MonoBehaviour
     }
 
     private void DisplayNextMission() {
+        previousMission.eventOnSuccess?.Invoke();
+
         StartMission(previousMission.nextMission[nextMissionIndex]);
         nextMissionIndex++;
     }

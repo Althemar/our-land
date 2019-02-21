@@ -13,7 +13,8 @@ public class InfoEntityUI : MonoBehaviour
     private EntitiesHarvestableUI entitiesHarvestable;
 
     public GameObject ressourcesPreview;
-    public ResourceTemplate ressourcesTemplate;
+    public GameObject infoEntity;
+    //public ResourceTemplate ressourcesTemplate;
 
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
         float population;
@@ -32,9 +33,11 @@ public class InfoEntityUI : MonoBehaviour
         }
 
         foreach(var res in entity.entitySO.resources) {
+            /*
             ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
             temp.icon.sprite = res.Key.icon;
             temp.value.text = "" + res.Value.gain[entity.HarvestedBonus];
+            */
         }
     }
 
