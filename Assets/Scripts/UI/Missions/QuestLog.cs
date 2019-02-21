@@ -7,6 +7,7 @@ using TMPro;
 public class QuestLog : MonoBehaviour {
     public TMP_Text title;
     public TMP_Text lore;
+    public Image loreImage;
 
     public TMP_Text mainGoalText;
     public Slider mainCompletion;
@@ -78,6 +79,7 @@ public class QuestLog : MonoBehaviour {
         }
 
         lore.text = mission.lore;
+        loreImage.sprite = mission.questImage;
     }
 
 }

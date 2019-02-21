@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 295
+  m_PreferredWidth: 270
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 7889496330864824742}
   lore: {fileID: 7524190542701052522}
+  loreImage: {fileID: 5604392795069414921}
   mainGoalText: {fileID: 7658806079134846085}
   mainCompletion: {fileID: 1510323685868025531}
   mainCompletionText: {fileID: 6518547928307354162}
@@ -5848,7 +5849,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 350
+  m_PreferredHeight: 370
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -6326,7 +6327,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 7, y: 0}
-  m_SizeDelta: {x: 300, y: 0}
+  m_SizeDelta: {x: 310, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3696496069338773835
 CanvasRenderer:
@@ -6356,18 +6357,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Sand, sand... Sand as far as the eye can see.
-
-    The frozen breath of the last winter, ruthless and unending, has put all living
-    creatures and seeds in deep sleep. Its placid coldness has forced the tribe to
-    sink blindly further and further into unknown areas, attempting to escape its
-    silent fury. And now here we stand, next to the motionless ship after a hazardous
-    landing, lost in a sea of rocks and dust.
-
-    We must continue your escape but we''ve run out of fuel. Lucky in our misfortune,
-    there seems to be a lot of dry and malignant shrubs in the surroundings.
-
-    It''s time to gather enough wood to leave this exhausted land. '
+  m_text: "The tribe is growing !\r\nThe crown folks are settling in, finding their
+    way with the rest of the clan.\r\nWe must adapt yourself in consequence to harvest
+    enough for everyone, by paying attention not to disturb the balance of the surroundings.\r\nIf
+    too many fruits are picked up at once, the Muings will leave the area and let
+    you deal with ravenous Rthuks on your own. Same thing if we're becoming greedy
+    on Muing's tasty meat.\r\nAnd if we avoid picking fruits, hunt and eat too many
+    Rthuks, the well feed Muings will outnumbered the people of the tribe, take control
+    of the ressources and, in a blink of an eye, there will be a millenial Muings
+    Reich using humans as cheap labor in the whole area.\r\nIt's been seen before.
+    Let's try to be careful."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 498140592efb0904eb1437a506cd875f, type: 2}
   m_sharedMaterial: {fileID: 21062081296124496, guid: 498140592efb0904eb1437a506cd875f,
@@ -6396,8 +6395,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 15.4
-  m_fontSizeBase: 15.4
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6437,12 +6436,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 7524190542701052522}
-    characterCount: 623
+    characterCount: 743
     spriteCount: 0
-    spaceCount: 114
-    wordCount: 114
+    spaceCount: 136
+    wordCount: 136
     linkCount: 0
-    lineCount: 16
+    lineCount: 18
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -8585,7 +8584,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -7, y: 0}
-  m_SizeDelta: {x: 260, y: 0}
+  m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3716954266666692142
 CanvasRenderer:
@@ -11556,7 +11555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 290.10013, y: -322.71}
+  m_AnchoredPosition: {x: 270.04, y: -322.71}
   m_SizeDelta: {x: 36.83, y: 643.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4855388667966765382
@@ -11749,7 +11748,7 @@ MonoBehaviour:
     m_Top: 9
     m_Bottom: 12
   m_ChildAlignment: 0
-  m_Spacing: 10.39
+  m_Spacing: 5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -14380,6 +14379,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14484,16 +14493,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
@@ -14840,6 +14839,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14945,16 +14954,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -14990,6 +14989,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15095,16 +15104,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -15140,6 +15139,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15245,16 +15254,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -15290,6 +15289,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15395,16 +15404,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -15440,6 +15439,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15545,16 +15554,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -15590,6 +15589,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8285181538575061411}
     m_Modifications:
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestEntry (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3768562123686751647, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15694,16 +15703,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_Name
-      value: QuestEntry (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4730451468750772713, guid: 93dd5737369de2545a3bc401fa3397b1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2438306989970687632, guid: 93dd5737369de2545a3bc401fa3397b1,
         type: 3}
