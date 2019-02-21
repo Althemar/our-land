@@ -14,6 +14,7 @@ public class HarvestFeedbackUI : MonoBehaviour {
 
     void ShowHarvest(MovingEntity from, Entity target) {
         if (from.movingEntitySO.eatFeedback) {
+            //Vector3 position = target.transform.position;
             Vector3 position = (from.transform.position + target.transform.position) / 2f;
             KillFeedbackUI harvested = Instantiate(from.movingEntitySO.eatFeedback, position, Quaternion.identity, this.transform).GetComponent<KillFeedbackUI>();
             harvested.Initialize();
