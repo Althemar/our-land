@@ -36,6 +36,7 @@ public class MissionManager : MonoBehaviour
         foreach (Mission mission in currentMissions) {
             if (mission.Evaluate()) {
                 Instantiate(endMissionUI, newMissionUIParent).Initialize(mission);
+                mission.eventOnSuccess?.Invoke();
 
             }
             else if (mission.failed) {

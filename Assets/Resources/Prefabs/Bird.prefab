@@ -155,3 +155,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   spriteRenderer: {fileID: 5898942397783040778}
+  animator: {fileID: 5898942397783040779}
