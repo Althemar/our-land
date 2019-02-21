@@ -7,6 +7,10 @@ using TMPro;
 
 public class PopulationSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     public Button button;
+    public Image icon;
+
+    public Image[] bonus;
+    public Sprite bonusOn, bonusOff;
 
     private Entity entity;
     private EntitiesHarvestableUI entitiesHarvestable;
@@ -20,7 +24,12 @@ public class PopulationSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
         this.entity = entity;
         this.entitiesHarvestable = entitiesHarvestable;
+        icon.sprite = entity.entitySO.iconEntity;
         button = GetComponent<Button>();
+
+        for(int i = 0; i < 3; i++) {
+            bonus[i].sprite = entity.HarvestedBonus > i ? bonusOn : bonusOff;
+        }
         
         if (entity.populationPoint)
             button.interactable = false;
@@ -45,6 +54,7 @@ public class PopulationSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void HarvestEntity() {
         if (entitiesHarvestable.motherShip.remainingPopulationPoints > 0) {
+            AkSoundEngine.PostEvent("Play_SFX_Button_PPOn", this.gameObject);
             entitiesHarvestable.activePopulationPoints.PlacePopulationPoint(entity);
         }
         entitiesHarvestable.UpdateButtons();

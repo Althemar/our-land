@@ -17,4 +17,12 @@ public class ObjectiveGoToBiome : Objective
 
         return completed;
     }
+    
+    public override int Goal() {
+        return 1;
+    }
+
+    public override int Progress() {
+        return completed ? 1 : 0;
+    }
 }

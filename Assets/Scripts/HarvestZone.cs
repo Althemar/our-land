@@ -3,23 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class HarvestZone : MonoBehaviour {
+public class FillZone : MonoBehaviour {
     private Mesh mesh;
 
-    public MotherShip ship;
-
-    void Update() {
-        if (GameManager.Instance.FrameCount == 1) {
-            List<TileProperties> tilesInRange = ship.Movable.CurrentTile.InRange(1);
-            for (int i = 0; i < tilesInRange.Count; i++) {
-                tilesInRange[i].IsInReachables = true;
-            }
-            InitMesh(tilesInRange);
-            for (int i = 0; i < tilesInRange.Count; i++) {
-                tilesInRange[i].IsInReachables = false;
-            }
-        }
-        
+    void Start() {
+        //EXAMPLE
+        List<TileProperties> tilesInRange = GameManager.Instance.motherShip.Movable.CurrentTile.InRange(1);
+        InitMesh(tilesInRange);
     }
 
     public void InitMesh(List<TileProperties> reachables) {
@@ -27,7 +17,7 @@ public class HarvestZone : MonoBehaviour {
         transform.position = new Vector3(0, 0, -0.1f);
         List<Vector3> vertices = new List<Vector3>();
 
-        foreach(TileProperties current in reachables)
+        foreach (TileProperties current in reachables)
             AddVertices(ref vertices, current);
 
         mesh.vertices = vertices.ToArray();
@@ -51,7 +41,7 @@ public class HarvestZone : MonoBehaviour {
             triangles[ti] = vi;
             triangles[ti + 1] = vi + 1;
             triangles[ti + 2] = vi + 2;
-            
+
             triangles[ti + 3] = vi + 2;
             triangles[ti + 4] = vi + 3;
             triangles[ti + 5] = vi + 4;

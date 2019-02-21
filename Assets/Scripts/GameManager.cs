@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour
             Console = 1,
             Pause = 2,
             Defeat = 4,
-            Ship = 8
+            Ship = 8,
+            Quest = 16
         }
         static Blocker blocks;
 

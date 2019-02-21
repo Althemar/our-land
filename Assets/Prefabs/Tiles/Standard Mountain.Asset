@@ -19,6 +19,7 @@ MonoBehaviour:
   ambientRTPC: PRAIRIE
   centers:
   - {fileID: 21300000, guid: ec07d8074230ecb44af06a5e96126675, type: 3}
+  editorSprite: {fileID: 0}
   bordersNW:
     reorderableList:
       canAdd: 1
@@ -172,4 +173,4 @@ MonoBehaviour:
     _keys: []
     _values: []
   addonLayer: 13
-  addonSortingOffset: 15
+  addonSortingOffset: 0

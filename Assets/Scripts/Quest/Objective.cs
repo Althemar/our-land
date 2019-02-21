@@ -33,5 +33,30 @@ public abstract class Objective : MonoBehaviour
     public virtual string GetProgressText() {
         return progressText;
     }
+    
+    public virtual int Goal() {
+        return 0;
+    }
+    
+    public virtual int Progress() {
+        return 0;
+    }
 
+
+    public virtual Sprite IconCompletion() {
+        return null;
+    }
+
+    public virtual Sprite IconReward() {
+        if(rewards.Count == 0)
+            return null;
+
+        switch (rewards[0].rewardType) {
+            case RewardType.Resource:
+                return rewards[0].resource.icon;
+            case RewardType.TechPoint:
+                return null;
+        }
+        return null;
+    }
 }

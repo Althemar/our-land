@@ -9,8 +9,6 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     public PopulationPoints activePopulationPoints;
     
     private bool displaying;
-    
-    public InfoEntityUI info;
 
     int buttonsCount = 0;
 
@@ -23,12 +21,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     void Start() {
         motherShip.OnRemainingPointsChanged += UpdateButtons;
         TurnManager.Instance.OnEndTurn += EntitiesToHarvest;
-    }
-
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 0) {
-            EntitiesToHarvest();
-        }
+        EntitiesToHarvest();
     }
 
     void OnDestroy() {
@@ -38,18 +31,6 @@ public class EntitiesHarvestableUI : MonoBehaviour {
     public void ShowInfo(TileProperties tile) {
         if (!tile) {
             return;
-        }
-        Debug.Log("ShowInfo");
-        if (tile.movingEntity) {
-            info.Initialize(tile.movingEntity, this);
-            info.gameObject.SetActive(true);
-        }
-        else if (tile.staticEntity) {
-            info.Initialize(tile.staticEntity, this);
-            info.gameObject.SetActive(true);
-        }
-        else {
-            info.gameObject.SetActive(false);
         }
     }
 
@@ -76,6 +57,7 @@ public class EntitiesHarvestableUI : MonoBehaviour {
                 AddButton(tile.movingEntity, position);
             }
         }
+        displaying = true;
     }
 
     public void UpdateButtons() {
@@ -92,7 +74,6 @@ public class EntitiesHarvestableUI : MonoBehaviour {
         button.transform.position = position;
         button.Initialize(entity, this);
         instanciate.Add(button);
-        displaying = true;
 
     }
 

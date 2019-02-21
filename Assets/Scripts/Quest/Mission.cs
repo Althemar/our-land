@@ -6,6 +6,7 @@ using UnityEngine;
 public class Mission : MonoBehaviour
 {
     public string title;
+    [Multiline]
     public string lore;
     public string accomplishedLore;
 
@@ -14,8 +15,8 @@ public class Mission : MonoBehaviour
     [BoxGroup("Turn limit")]
     public int remainingTurns = 0;
 
-    [ReorderableList]
-    public Objective[] missionObjectives;
+    public Objective mainObjectives;
+    public Objective secondaryObjectives;
 
     [ReorderableList]
     public Mission[] nextMission;
@@ -27,9 +28,8 @@ public class Mission : MonoBehaviour
     public UpdatedTurns OnRemainingTurnsUpdated;
 
     public void StartMission() {
-        foreach (Objective objective in missionObjectives) {
-            objective.StartObjective();
-        }
+        mainObjectives.StartObjective();
+        secondaryObjectives?.StartObjective();
     }
 
     public bool Evaluate() {
@@ -42,12 +42,7 @@ public class Mission : MonoBehaviour
             }
         }
 
-        bool completed = true;
-        foreach (Objective objective in missionObjectives) {
-            if (!objective.Evaluate() && !objective.optional) {
-                completed = false;
-            }
-        }
-        return completed;
+        secondaryObjectives?.Evaluate();
+        return mainObjectives.Evaluate();
     }   
 }

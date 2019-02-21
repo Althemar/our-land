@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 3136508212417770705}
   - component: {fileID: 3136508212417770704}
   - component: {fileID: 7965635613132808035}
+  - component: {fileID: 4946114938871196655}
   m_Layer: 13
   m_Name: Tree Swamp
   m_TagString: Untagged
@@ -498,9 +499,9 @@ MonoBehaviour:
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
   sprites:
-  - {fileID: 5041741626270466341}
-  - {fileID: 5141014096157214695}
-  - {fileID: 1008737847614317897}
+  - {fileID: 6853606184062165931}
+  - {fileID: 8983298809069215140}
+  - {fileID: 5900910780399741462}
   allSprites:
   - {fileID: 8317226695378181468}
   - {fileID: 2124296676868363970}
@@ -530,6 +531,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 4b35222bfe4f84d48bd62dc3034d43df, type: 2}
   entity: {fileID: 0}
+--- !u!210 &4946114938871196655
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136508212417770711}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3556701708638886230
 GameObject:
   m_ObjectHideFlags: 0

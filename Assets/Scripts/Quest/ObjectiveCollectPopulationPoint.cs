@@ -88,4 +88,12 @@ public class ObjectiveCollectPopulationPoint : Objective
         }
         
     }
+
+    public override int Goal() {
+        return goal;
+    }
+
+    public override int Progress() {
+        return count;
+    }
 }

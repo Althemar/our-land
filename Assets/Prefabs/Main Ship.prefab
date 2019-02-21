@@ -65,9 +65,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1003012043
+  m_SortingLayer: -2
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: 5397c541872f15947bcf017e4463e58a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948262360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.06, y: -0.119, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1222878119}
@@ -144,9 +144,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1003012043
+  m_SortingLayer: -2
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: 1bf88e491ba89ba44a80b2c9dd8914af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -189,7 +189,7 @@ Transform:
   - {fileID: 948262361}
   - {fileID: 91820756}
   m_Father: {fileID: 439891537792229827}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1222878120
 MonoBehaviour:
@@ -383,7 +383,6 @@ Transform:
   m_Children:
   - {fileID: 439891537379162901}
   - {fileID: 8145245198426467484}
-  - {fileID: 7253082535187625404}
   - {fileID: 2122046943174386948}
   - {fileID: 1222878119}
   m_Father: {fileID: 0}
@@ -447,9 +446,9 @@ MonoBehaviour:
   updated: 1
   updating: 0
   harvestDistance: 1
-  outline: {fileID: 439891537379162920}
+  harvestOutline: {fileID: 439891537379162920}
+  walkableOutline: {fileID: 0}
   spineShip: {fileID: 4287408554967380089}
-  populationResource: {fileID: 11400000, guid: 12ee65a766f9b9e4c93cc249de0e3017, type: 2}
   foodResource: {fileID: 11400000, guid: 91d403f7a5c860a4d9eceba18d450f23, type: 2}
   foodConsumption: 0
   fuelResource: {fileID: 11400000, guid: 092aa3f9d38cb1246a110bf1295b0a8a, type: 2}
@@ -520,97 +519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasPath: {fileID: 0}
---- !u!1 &711282313787532019
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7253082535187625404}
-  - component: {fileID: 6523955850068597663}
-  - component: {fileID: 1740391877985273052}
-  - component: {fileID: 4516394873413924380}
-  m_Layer: 14
-  m_Name: Harvest Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7253082535187625404
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711282313787532019}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 439891537792229827}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6523955850068597663
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711282313787532019}
-  m_Mesh: {fileID: 0}
---- !u!23 &1740391877985273052
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711282313787532019}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 439b87c06d4a7164daaca994e018ca16, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!114 &4516394873413924380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711282313787532019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91c5c51b66acbc14a83e7a8dc8080b40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ship: {fileID: 439891537792229826}
 --- !u!1 &6051425053731954180
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +688,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 439891537792229827}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2215473744964509181
 SpriteRenderer:

@@ -21,7 +21,7 @@ public class Flower : MonoBehaviour
             Instantiate(butterfly, transform.position, Quaternion.identity, transform);
             numberOfButterflies--;
         }
-
+        spriteRenderer.sortingLayerName = "World Layer";
         spriteRenderer.sortingOrder = -pos.y - 1;
     }
 }

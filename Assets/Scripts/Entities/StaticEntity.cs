@@ -8,7 +8,7 @@ public class StaticEntity : Entity {
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
     
-    public List<SpriteRenderer> sprites;
+    public List<GameObject> sprites;
 
     public List<SpriteRenderer> allSprites;
     public Transform spritesTransform;
@@ -16,7 +16,7 @@ public class StaticEntity : Entity {
     public bool activateAllSprites;
     public float minScale, maxScale;
 
-    SpriteRenderer activeSprite;
+    GameObject activeSprite;
 
     protected override void Awake() {
         base.Awake();
@@ -51,7 +51,7 @@ public class StaticEntity : Entity {
             return;
         }
 
-        SpriteRenderer rendererToActivate;
+        GameObject rendererToActivate;
         if (population <= 0) {
             rendererToActivate = null;
         }
@@ -74,15 +74,16 @@ public class StaticEntity : Entity {
         if (!base.Initialize(population))
             return false;
         
+        GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
+
         for (int i = 0; i < sprites.Count; i++) {
             sprites[i].gameObject.SetActive(false);
-            sprites[i].sortingOrder -= -tile.Position.y;
             //transform.position = new Vector3(transform.position.x, transform.position.y, -transform.position.y);
         }
         tile.staticEntity = this;
 
         if (spritesTransform) {
-            foreach (SpriteRenderer spritePop in sprites) {
+            foreach (GameObject spritePop in sprites) {
                 int numberOfSprites = Random.Range(1, maxNumberOfSprites + 1);
                 while (numberOfSprites > 0) {
                     numberOfSprites--;

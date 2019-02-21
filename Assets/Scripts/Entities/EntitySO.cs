@@ -74,4 +74,6 @@ public class EntitySO : ScriptableObject
    
 
     public string harvestSound;
+    
+    public Sprite iconEntity;
 }

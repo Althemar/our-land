@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 3136508212417770705}
   - component: {fileID: 3136508212417770704}
   - component: {fileID: 7965635613132808035}
+  - component: {fileID: 5359879854739055234}
   m_Layer: 13
   m_Name: Tree Desert
   m_TagString: Untagged
@@ -618,9 +619,9 @@ MonoBehaviour:
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
   sprites:
-  - {fileID: 4521687503789451777}
-  - {fileID: 8823089766510417740}
-  - {fileID: 7500465880591368864}
+  - {fileID: 7572288584068710534}
+  - {fileID: 8383688549899994171}
+  - {fileID: 4162484961218117905}
   allSprites:
   - {fileID: 5331246537440847500}
   - {fileID: 7160631991121350897}
@@ -650,6 +651,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 11400000, guid: 190cf2e5d3057f94db934fe3fe0903b2, type: 2}
   entity: {fileID: 0}
+--- !u!210 &5359879854739055234
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136508212417770711}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3395310348275876310
 GameObject:
   m_ObjectHideFlags: 0

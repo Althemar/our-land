@@ -20,6 +20,10 @@ public class BonusUI : MonoBehaviour {
 
     void Toogle() {
         bonus.ToogleActive();
+        if (bonus.IsActive)
+            AkSoundEngine.PostEvent("Play_SFX_Button_PPOn", this.gameObject);
+        else
+            AkSoundEngine.PostEvent("Play_SFX_Button_PPOff", this.gameObject);
         populationPoints.SetActive(bonus.IsActive);
     }
 

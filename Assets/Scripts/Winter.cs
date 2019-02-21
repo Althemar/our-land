@@ -60,9 +60,9 @@ public class Winter : MonoBehaviour
 
                     // Trees sprites
                     if (tile.staticEntity && treesSO.Contains(tile.staticEntity.entitySO)) {
-                        foreach (SpriteRenderer sr in tile.staticEntity.sprites) {
-                            foreach (Transform sprite in sr.transform) {
-                                sprite.GetComponent<TreeSprites>().SetWinter();
+                        foreach (GameObject sprite in tile.staticEntity.sprites) {
+                            foreach (Transform tree in sprite.transform) {
+                                tree.GetComponent<TreeSprites>().SetWinter();
                             }
                         }
                     }

@@ -41,17 +41,17 @@ public class Tents : MonoBehaviour
     private Color tmpColor;
     private int maxState;
 
-    private void Start() {
+    private void Awake() {
         pair = new SpritePair();
     }
 
-    private void Update() {
-        if (GameManager.Instance.FrameCount == 1) {
-            maxState = tentOnTiles[motherShip.Movable.CurrentTile.Tile].sprites.Count - 1;
-            UpdateTents();
-            ToggleTents();
+    private void Start() {
+        maxState = tentOnTiles[motherShip.Movable.CurrentTile.Tile].sprites.Count - 1;
+        UpdateTents();
+        ToggleTents();
+    }
 
-        }
+    private void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
             ToggleTents();
         }
@@ -78,6 +78,19 @@ public class Tents : MonoBehaviour
 
     public void ToggleTents() {
         displaying = !displaying;
+        StopAllCoroutines();
+        StartCoroutine(FadeTents());
+    }
+    
+    public void ShowTents() {
+        displaying = true;
+        StopAllCoroutines();
+        StartCoroutine(FadeTents());
+    }
+
+    public void HideTents() {
+        displaying = false;
+        StopAllCoroutines();
         StartCoroutine(FadeTents());
     }
 

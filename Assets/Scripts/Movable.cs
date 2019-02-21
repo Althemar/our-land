@@ -103,7 +103,7 @@ public class Movable : MonoBehaviour
                 progress += speed * Time.deltaTime;
             }
             
-            transform.position = Interpolate(progress);
+            transform.position = Interpolate(progress) - Vector3.forward;
 
             if(progress >= 1) {
                 progress = 0;
