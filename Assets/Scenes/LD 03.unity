@@ -596,10 +596,10 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'The wood supply is full again. Hourray !  But we''re not going to feed
-        yourself by chewing twigs... Let''s use this ship for what it was meant to
-        : flying away.  Mother Nature, thanks to her kindness, has certainly put some
-        green areas after the horizon... '
+      value: 'The wood supply is full again. Hurray !  But we''re not going to feed
+        ourselves by chewing twigs... Let''s use this ship for what it was meant for
+        : flying away.  Mother Nature, in her infinite kindness, has certainly put
+        some green areas beyond the horizon... '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -1348,14 +1348,13 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'Finally, a welcoming region !  A generous vegetation, some quiet mountains
-        away, few steel strange ancient structures that would make nice playgrounds
-        for the children. A bunch of Muings is grazing peacefully, checking with one
-        eye the presence of lone R''thuks hiding in the bushes.  The council of wise
-        persons quickly approuved staying in this place for a while. Anyway, no one
-        is thinking about being picky about the texture of the grass here since everyone
-        is freaking starving.  The adults split into several groups of explorers in
-        order to harvest food, while some of the elders and kids stays in the ship,
+      value: 'A welcoming area, finally !  A generous vegetation, some quiet mountains
+        away, few strange ancient steel structures that would make nice playgrounds
+        for the children. A bunch of Muings are grazing peacefully, eyeing towards
+        the lone R''thuk hiding in the bushes.  The Ancient Council quickly gave its
+        approval to settle here for a while. Anyway, no one is thinking about complaining
+        since everyone is starving.  The adults split into several groups of explorers
+        in order to harvest food, while some of the elders and kids stays in the ship,
         polishing the pots and playing instruments to keep predators away. '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
@@ -2534,114 +2533,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1238a476047165a4e86010a14feb41f0, type: 3}
---- !u!1001 &257339811
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1183254908}
-    m_Modifications:
-    - target: {fileID: 693870632535227330, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_Name
-      value: Objective - Winter
-      objectReference: {fileID: 0}
-    - target: {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: description
-      value: Collect 20 recource wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: goal
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: onSameSpot
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7908981100417225089, guid: 384760af961a7d841bb7cb10ca04dbb1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 384760af961a7d841bb7cb10ca04dbb1, type: 3}
---- !u!1 &257339812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 693870632535227330, guid: 384760af961a7d841bb7cb10ca04dbb1,
-    type: 3}
-  m_PrefabInstance: {fileID: 257339811}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &257339813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257339812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cade584ab26421946a8b4af564fbe91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: 
-  targetWithCamera: 0
-  progressText: 
-  optional: 0
-  rewards: []
 --- !u!1 &285657702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,16 +3166,14 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'The tribe is growing ! The crown folks are settling in, finding their
-        way with the rest of the clan. We must adapt yourself in consequence to harvest
-        enough for everyone, by paying attention not to disturb the balance of the
-        surroundings.  If too many fruits are picked up at once, the Muings will leave
-        the area and let you deal with ravenous Rthuks on your own. Same thing if
-        we''re becoming greedy on Muing''s tasty meat.  And if we avoid picking fruits,hunt
-        and eat too many Rthuks, the well feed Muings will outnumbered the people
-        of the tribe, take control of the ressources and, in a blink of an eye, there
-        will be a millenial Muings Reich using humans as cheap labor in the whole
-        area.  It''s been seen before. Let''s try to be careful. '
+      value: 'The tribe is growing ! The Crown folks are settling in, finding their
+        way with the rest of the clan. We must adapt ourselves in consequence to harvest
+        enough food for everyone. We must pay attention not to disturb the balance
+        of the surroundings.  If too many fruits are picked up at once, the Muings
+        will leave the area and let us deal with ravenous Rthuks on our own. Same
+        thing will happen if we become greedy on Muing''s tasty meat.  And if we avoid
+        picking fruits, hunt and eat too many Rthuks, the well fed Muings will outnumber
+        the people of the tribe. Let''s try to be careful. '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -12271,7 +12160,6 @@ Transform:
   - {fileID: 1812814545}
   - {fileID: 466770522}
   - {fileID: 1666791459}
-  - {fileID: 1183254908}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13657,162 +13545,6 @@ Transform:
   m_Father: {fileID: 690157273}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1183254907
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 866637032}
-    m_Modifications:
-    - target: {fileID: 3245881698951580504, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_Name
-      value: Mission 8 - Survive Winter
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580504, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: nextMission.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: missionObjectives.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: nextMission
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: missionObjectives.Array.data[0]
-      value: 
-      objectReference: {fileID: 257339813}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: title
-      value: Winter
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: lore
-      value: Help them !
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: awards
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: accomplishedLore
-      value: 'Well Done (mission 6) ! '
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: nextMission.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: maxTurnToComplete
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: turnLimit
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: remainingTurns
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: missionObjectives.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: mainObjectives
-      value: 
-      objectReference: {fileID: 257339813}
-    - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: questImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 10b2a90fe750a6c479a1647b2e36924c,
-        type: 3}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 41cfd133eea2af849bd588f50f2997b2, type: 3}
---- !u!4 &1183254908 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3245881698951580510, guid: 41cfd133eea2af849bd588f50f2997b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1183254907}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1190120910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16657,13 +16389,11 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'The fisherfolks are a population of freshwater sailors wandering trough
-        lakes and rivers. They feed themeselves from underwater creatures and algua,
-        and are able to make delicate pieces of craftmanshift from fish bones. Their
-        life could seem like a long, quiet river.  Except when they''re surrounded
-        by a bunch of vicious wood-snacker Tetrapods. They could eat the craft until
-        it sink off, letting the people struggle with all the carnivorous aquatic
-        creatures in the lake...  Let''s help them get out of this ! '
+      value: "The Fisher folks are a population of freshwater sailors wandering trough
+        lakes and rivers. They feed themselves from underwater creatures and algae,
+        and are able to make delicate crafts out of fish bones. Their life could seem
+        like a long, quiet river.  But right now they're surrounded by a bunch of
+        vicious R\u2019thuk. Let's help them get out of this ! "
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -16985,11 +16715,12 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'All the leaves are brown, and the sky is grey. Muings wool is getting
-        more thick and bushy, protecting them from the slow drop of the cold breeze.
-        Rhtuks gradually withdraws to hibernate. Fisher needs to break the ice before
-        sailing.  Winter starts to show its frozen fingers again...   It''s about
-        time to join forces to gather enough ressources before the great cold ! '
+      value: "All the leaves are brown, and the sky is grey. Muings\u2019 wool is
+        getting thicker and bushy, protecting them from the slow drop of the cold
+        breeze. R\u2019htuks gradually withdraw to hibernate. Fishermen must break
+        the ice before sailing.  Winter starts to show its frozen fingers again...
+        \  It's about time to join forces to gather enough ressources before the great
+        cold ! "
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -17005,7 +16736,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nextMission.Array.data[0]
       value: 
-      objectReference: {fileID: 1872749905}
+      objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: maxTurnToComplete
@@ -18176,7 +17907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0e44bb4d6b9a94c9749538b8cb5147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: Place a population point in the hunter house
+  description: Place a point in the hunter house
   targetWithCamera: 0
   progressText: 
   optional: 1
@@ -18480,18 +18211,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1863742179}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1872749905 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1183254907}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217062e303c728044a3d30cfe02148d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1873581108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18532,14 +18251,14 @@ PrefabInstance:
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
       propertyPath: lore
-      value: 'The vigils heard plaints coming from a narrow crevice in the mountains.
-        It could be a sign of some crown folks trapped by a rockslide.  It is said,
-        that the crown folks are part of a different population who lived on the top
-        of the highest mountains since centuries, their body shaped by the brutal
-        daily climatic changes and the thick air, harder to breath. Some even tell
-        about an extraordinary power their chamans developed, one that allows every
-        member of the tribe to bend wind to its own will...  They seem to be in trouble
-        here, we should rescue them ! '
+      value: 'The watch noticed voices crying out for help coming from a narrow crack
+        in the mountains. It could be a sign of some Crown folks trapped by a rockslide.  It
+        is said, that the Crown folks are part of a different population who have
+        lived on the top of the highest mountains for centuries. Their bodies are
+        shaped by the brutal daily climatic changes and the thick, unbreathable air.
+        Some even tell about an extraordinary power their chamans developed, one that
+        allows every member of the tribe to bend wind to their own will...  They seem
+        to be in trouble here, we should rescue them ! '
       objectReference: {fileID: 0}
     - target: {fileID: 3245881698951580505, guid: 41cfd133eea2af849bd588f50f2997b2,
         type: 3}
@@ -18995,7 +18714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0fc1b31a83c0b498241699946e4a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 20
+  description: Collect 20 food
   targetWithCamera: 0
   progressText: 
   optional: 0
@@ -19248,8 +18967,8 @@ PrefabInstance:
         last winter, ruthless and unending, has put all living creatures and seeds
         in deep sleep. Its placid coldness has forced the tribe to sink blindly further
         and further into unknown areas, attempting to escape its silent fury.  And
-        now here we stand, next to the motionless ship after a hazardous landing,
-        lost in a sea of rocks and dust. We must continue your escape but we''ve run
+        now, here we stand next to the motionless ship after a hazardous landing,
+        lost in a sea of rocks and dust. We must continue our escape but we''ve ran
         out of fuel. Lucky in our misfortune, there seems to be a lot of dry and malignant
         shrubs in the surroundings. It''s time to gather enough wood to leave this
         exhausted land. '
