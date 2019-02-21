@@ -2015,7 +2015,7 @@ PrefabInstance:
     - target: {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1,
         type: 3}
       propertyPath: description
-      value: Collect 4 recource wood
+      value: Collect 4 wood
       objectReference: {fileID: 0}
     - target: {fileID: 4681652663727651325, guid: 384760af961a7d841bb7cb10ca04dbb1,
         type: 3}
