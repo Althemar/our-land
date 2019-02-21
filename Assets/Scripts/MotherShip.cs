@@ -254,6 +254,22 @@ public class MotherShip : Updatable {
         
         inventory.AddItem(resource, amount);
     }
+    
+    private void OnMouseEnter() {
+        foreach(Material mat in spineShip.GetComponent<MeshRenderer>().materials)
+            mat.SetFloat("_Intensity", 0.5f);
+    }
+
+    private void OnMouseExit() {
+        foreach (Material mat in spineShip.GetComponent<MeshRenderer>().materials)
+            mat.SetFloat("_Intensity", 0f);
+    }
+
+    public ShipMenu shipMenu;
+    private void OnMouseDown() {
+        if (GameManager.Input.GetMouseButton(0))
+            shipMenu.Toogle();
+    }
 
     #region Harvest Outline
     public void ShowHarvestOutline() {

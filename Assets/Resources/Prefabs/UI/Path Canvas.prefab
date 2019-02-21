@@ -50,12 +50,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ce62c5ce4b48947891c0752d0456c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherShip: {fileID: 0}
   pathPoints: []
   pathTiles: []
   templatePoint: {fileID: 3148459551827397427, guid: 842cb9364e82b724bb0f5f91808c017f,
     type: 3}
   templateLine: {fileID: 4835753665901996757, guid: 5b7a233bae2234f49ba5a47a28f3bf35,
     type: 3}
+  randomPath:
+  - {fileID: 21300000, guid: 876abecee68d2fa4f87a179742217058, type: 3}
+  - {fileID: 21300000, guid: e0c30ecdf4d8e404397c942f8c363e90, type: 3}
+  - {fileID: 21300000, guid: 3aa3432dd7252cc479a0b22de03c2a4f, type: 3}
 --- !u!1 &5339675131879523166
 GameObject:
   m_ObjectHideFlags: 0

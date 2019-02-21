@@ -19,4 +19,22 @@ public class HunterBonus : Bonus {
 
     }
 
+    public override string BonusName() {
+        return "Hunters";
+    }
+
+    public override string BonusEffect(int level) {
+        if (this.level < level)
+            return "";
+        switch(level) {
+            case 1:
+                return  "<u>Rank 1 :</u>\n" +
+                        "Harvest more food\n" +
+                        "•  +" + foodBonus + " <sprite name=\"Food\"> per harvest\n\n";
+            case 2:
+                return "<u>Rank 2 :</u>\n" +
+                        "You can fish from lakes\n\n";
+        }
+        return "";
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MouseUI : MonoBehaviour {
     Image img;
-    public Sprite up, down;
+    public Sprite up, down, grab;
 
     void Start() {
         img = GetComponent<Image>();
@@ -19,5 +19,8 @@ public class MouseUI : MonoBehaviour {
             img.sprite = down;
         else
             img.sprite = up;
+
+        if (Input.GetMouseButton(1))
+            img.sprite = grab;
     }
 }

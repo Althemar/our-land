@@ -19,4 +19,22 @@ public class LumberjackBonus : Bonus {
 
     }
 
+    public override string BonusName() {
+        return "Lumberjacks";
+    }
+
+    public override string BonusEffect(int level) {
+        if (this.level < level)
+            return "";
+        switch (level) {
+            case 1:
+                return "<u>Rank 1 :</u>\n" +
+                        "Harvest more wood\n" +
+                        "•  +" + fuelBonus + " <sprite name=\"Wood\"> per harvest\n\n";
+            case 2:
+                return "<u>Rank 2 :</u>\n" +
+                        "You can plant trees\n\n";
+        }
+        return "";
+    }
 }
