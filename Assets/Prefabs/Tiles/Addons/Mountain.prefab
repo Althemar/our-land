@@ -74,12 +74,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e9df2830fded5c94aa4cb97113fb5aad, type: 2}
     - {fileID: 11400000, guid: 0a90a57f0466f1847912b9a8ea348fc2, type: 2}
     - {fileID: 11400000, guid: 66840b3bc03dc664c829d9b9c95ba9bf, type: 2}
-    - {fileID: 11400000, guid: 17fc7a785d46f6d4a88ef7cbca05944e, type: 2}
+    - {fileID: 11400000, guid: 5f50531f65afa194aa0354ca6fe7343b, type: 2}
     _keys:
     - {fileID: 11400000, guid: e9df2830fded5c94aa4cb97113fb5aad, type: 2}
     - {fileID: 11400000, guid: 0a90a57f0466f1847912b9a8ea348fc2, type: 2}
     - {fileID: 11400000, guid: 66840b3bc03dc664c829d9b9c95ba9bf, type: 2}
-    - {fileID: 11400000, guid: 17fc7a785d46f6d4a88ef7cbca05944e, type: 2}
+    - {fileID: 11400000, guid: 5f50531f65afa194aa0354ca6fe7343b, type: 2}
     _values:
     - sprites:
       - normal: {fileID: 21300000, guid: 1d45825101fb736498125acfd9398874, type: 3}

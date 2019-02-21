@@ -51,6 +51,6 @@ public class MainMenu : MonoBehaviour
             panel.color = tmpColor;
             yield return null;
         }
-        SceneManager.LoadScene("Damien");
+        SceneManager.LoadScene("LD 03");
     }
 }

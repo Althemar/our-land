@@ -44,10 +44,13 @@ public class CustomTile : TileBase
     public int addonSortingOffset = 1;
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
+#if UNITY_EDITOR
         if (!EditorApplication.isPlaying && editorSprite) {
             tileData.sprite = editorSprite;
         }
-        else if (centers.Count > 0) {
+        else
+#endif
+         if (centers.Count > 0) {
             tileData.sprite = centers[Random.Range(0, centers.Count)];
         }
         else {
