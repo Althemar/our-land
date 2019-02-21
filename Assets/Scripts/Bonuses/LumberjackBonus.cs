@@ -24,15 +24,14 @@ public class LumberjackBonus : Bonus {
     }
 
     public override string BonusEffect(int level) {
-        if (this.level < level)
-            return "";
+        string str = base.BonusEffect(level);
         switch (level) {
             case 1:
-                return "<u>Rank 1 :</u>\n" +
+                return str +
                         "Harvest more wood\n" +
                         "•  +" + fuelBonus + " <sprite name=\"Wood\"> per harvest\n\n";
             case 2:
-                return "<u>Rank 2 :</u>\n" +
+                return str +
                         "You can plant trees\n\n";
         }
         return "";

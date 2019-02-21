@@ -28,15 +28,14 @@ public class ScoutBonus : Bonus {
     }
 
     public override string BonusEffect(int level) {
-        if (this.level < level)
-            return "";
+        string str = base.BonusEffect(level);
         switch (level) {
             case 1:
-                return "<u>Rank 1 :</u>\n" +
+                return str +
                         "Get random resources\n" +
                         "•  +" + scoutRandMin + " or +" + scoutRandMax + " <sprite name=\"Wood\"> or <sprite name=\"Food\"> each turn\n\n";
             case 2:
-                return "<u>Rank 2 :</u>\n" +
+                return str +
                         "Predict winter\n\n";
         }
         return "";

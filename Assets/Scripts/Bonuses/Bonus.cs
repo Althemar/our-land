@@ -113,5 +113,21 @@ public abstract class Bonus : Updatable {
     public abstract void BonusEffectEndTurn();
 
     public abstract string BonusName();
-    public abstract string BonusEffect(int level);
+    public virtual string BonusEffect(int level) {
+        if (level == 1) {
+            if (active) {
+                return "<u><b> Rank 1 :</b></u>\n";
+            }
+            else {
+                return "<u> Rank 1 :</u>\n";
+            }
+        }
+        else if (this.level + 1 >= level) {
+            return "<u><b> Rank " + level + " :</b></u>\n";
+        }
+        else {
+            return "<u> Rank " + level + " :</u>\n";
+
+        }
+    }
 }

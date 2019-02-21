@@ -24,15 +24,14 @@ public class NavigatorBonus : Bonus {
     }
 
     public override string BonusEffect(int level) {
-        if (this.level < level)
-            return "";
+        string str = base.BonusEffect(level);
         switch (level) {
             case 1:
-                return "<u>Rank 1 :</u>\n" +
+                return str +
                         "Consume less wood\n" +
                         "•  -" + fuelReduction + " <sprite name=\"Wood\"> by cell\n\n";
             case 2:
-                return "<u>Rank 2 :</u>\n" +
+                return str +
                         "Windy tiles are now cost free\n\n";
         }
         return "";

@@ -24,15 +24,14 @@ public class CookBonus : Bonus {
     }
 
     public override string BonusEffect(int level) {
-        if (this.level < level)
-            return "";
+        string str = base.BonusEffect(level);
         switch (level) {
             case 1:
-                return "<u>Rank 1 :</u>\n" +
+                return str +
                         "Consume less food\n" +
                         "•  +" + foodConsumptionReduction + " <sprite name=\"Food\"> each turn\n\n";
             case 2:
-                return "<u>Rank 2 :</u>\n" +
+                return str +
                         "You can get wool from Muings\n\n";
         }
         return "";
