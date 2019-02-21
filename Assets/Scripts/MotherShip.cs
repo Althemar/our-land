@@ -141,6 +141,7 @@ public class MotherShip : Updatable {
 
         if (targetTile != null) {
             tents.HideTents();
+            tents.ResetState();
             reachableTilesDisplay.UndisplayReachables();
             //outline.Clear();
             BeginMove();

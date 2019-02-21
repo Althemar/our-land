@@ -48,7 +48,7 @@ public class Tents : MonoBehaviour
     private void Start() {
         maxState = tentOnTiles[motherShip.Movable.CurrentTile.Tile].sprites.Count - 1;
         UpdateTents();
-        ToggleTents();
+        ShowTents();
     }
 
     private void Update() {
@@ -67,7 +67,6 @@ public class Tents : MonoBehaviour
     public void ResetState() {
         state = 0;
         UpdateTents();
-        ToggleTents();
     }
 
     public void UpdateTents() {

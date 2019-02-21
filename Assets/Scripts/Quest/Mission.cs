@@ -9,6 +9,7 @@ public class Mission : MonoBehaviour
     [Multiline]
     public string lore;
     public string accomplishedLore;
+    public Sprite questImage;
 
     [BoxGroup("Turn limit")]
     public bool turnLimit;
