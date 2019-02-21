@@ -767,6 +767,21 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2989662441298844151, guid: da2d6442254714c8fae38dedccd34046,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
+      value: 0.07235336
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989662441298844151, guid: da2d6442254714c8fae38dedccd34046,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
+      value: 0.66280746
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704107791627976164, guid: da2d6442254714c8fae38dedccd34046,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da2d6442254714c8fae38dedccd34046, type: 3}
 --- !u!1 &94843235
@@ -3515,7 +3530,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2000
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -3682,7 +3697,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.5405388
+          value: 0.66280746
           inSlope: 0.15246494
           outSlope: 0.15246494
           tangentMode: 0
@@ -3706,7 +3721,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.08108139
+          value: 0.07235336
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -16015,6 +16030,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f527cb37157bf0c40a04eb3a6bbddc6a, type: 3}
+--- !u!198 &1620330168 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1048264368999321153, guid: da2d6442254714c8fae38dedccd34046,
+    type: 3}
+  m_PrefabInstance: {fileID: 59676391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1629903598 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8345111089638282233, guid: ff9b0729f081d2149882bd199ab08b1f,
@@ -16940,7 +16961,7 @@ MonoBehaviour:
   psSnow: {fileID: 1032871251}
   psSnowBurst:
   - {fileID: 1663405470}
-  - {fileID: 449312958}
+  - {fileID: 1620330168}
 --- !u!4 &1709018679
 Transform:
   m_ObjectHideFlags: 0
