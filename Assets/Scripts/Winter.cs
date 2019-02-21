@@ -7,7 +7,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [Serializable]
-public class WinterTilesDic : SerializableDictionaryBase<CustomTile, CustomTile> { }
+public struct WinterChange
+{
+    public CustomTile tile;
+    public bool destroyAddons;
+}
+
+[Serializable]
+public class WinterTilesDic : SerializableDictionaryBase<CustomTile, WinterChange> { }
 
 [Serializable]
 public class ReplaceSprite : SerializableDictionaryBase<Sprite, Sprite> { }
@@ -28,6 +35,8 @@ public class Winter : MonoBehaviour
     [SerializeField]
     public ReplaceSprite replaceLakes;
 
+   
+
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.W)) {
@@ -38,6 +47,8 @@ public class Winter : MonoBehaviour
     public void BeginWinter() {
 
         AkSoundEngine.PostEvent("Play_Winter_Wind", gameObject);
+        GameManager.Instance.winter = true;
+        Camera.main.GetComponent<AudioAmbient>().StopAmbient();
 
         TileProperties tile;
         Tilemap tilemap = HexagonalGrid.Instance.Tilemap;
@@ -51,10 +62,11 @@ public class Winter : MonoBehaviour
 
                     // Remove old addons and borders
                     tile.RemoveBorders();
-                    tile.RemoveAddons();
+                    if (tilesToReplace[tile.Tile].destroyAddons)
+                       tile.RemoveAddons();
 
                     // Reinitialize tile
-                    tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile]);
+                    tilemap.SetTile(tile.Position, tilesToReplace[tile.Tile].tile);
                     tile.InitializeCustomTile();
                     tile.SetAddon();
 
@@ -64,6 +76,14 @@ public class Winter : MonoBehaviour
                             foreach (Transform tree in sprite.transform) {
                                 tree.GetComponent<TreeSprites>().SetWinter();
                             }
+                        }
+                    }
+
+                    // Update mountains
+                    foreach (Transform child in tile.addonsGameObjects.transform) {
+                        Mountain mountain = child.GetComponent<Mountain>();
+                        if (mountain) {
+                            mountain.SetWinter();
                         }
                     }
 

@@ -150,14 +150,9 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues:
-    - Infinity
-    _keys:
-    - Infinity
-    _values:
-    - sprites:
-      - {fileID: 21300000, guid: 3ba9b9a3532515e4681351b7330ae287, type: 3}
-      - {fileID: 21300000, guid: e01f8485f30a4e142a4fcf3bbe131b88, type: 3}
+    _keyValues: []
+    _keys: []
+    _values: []
   addonsGO:
     reorderableList:
       canAdd: 1
@@ -165,7 +160,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -180,9 +175,12 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: []
-    _keys: []
-    _values: []
+    isExpanded: 1
+    _keyValues:
+    - Infinity
+    _keys:
+    - Infinity
+    _values:
+    - {fileID: 4517520533362251513, guid: 1c0a80dfc332594499961d9213fc785f, type: 3}
   addonLayer: 13
   addonSortingOffset: 0

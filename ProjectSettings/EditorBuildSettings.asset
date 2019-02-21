@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LD 03.unity
     guid: 069c00f1d9b9a604b83416c3a64d86cb
+  - enabled: 1
+    path: Assets/Scenes/Damien.unity
+    guid: cbcfbd5226e34674d978dd2227786417
   m_configObjects: {}
