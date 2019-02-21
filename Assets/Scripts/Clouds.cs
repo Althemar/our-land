@@ -15,7 +15,7 @@ public class Clouds : MonoBehaviour {
     void Start() {
         cloudObjects = new List<SpriteRenderer>();
 
-        for(int i = 0; i < 100; i++)
+        for(int i = 0; i < 10; i++)
             CreateCloud();
     }
 
@@ -43,7 +43,7 @@ public class Clouds : MonoBehaviour {
         renderer.sprite = clouds[Random.Range(0, clouds.Length)];
         renderer.sortingOrder = 200;
         renderer.material = productShader;
-        renderer.color = new Color(1, 1, 1, 0.5f);
+        renderer.color = new Color(1, 1, 1, 0.25f);
         cloudObjects.Add(renderer);
     }
 
