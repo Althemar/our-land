@@ -85,6 +85,7 @@ MonoBehaviour:
         maxBonus: 5
   availableTiles: []
   harvestSound: Play_SFX_Kill_Fish
+  iconEntity: {fileID: 21300000, guid: c59973e121ee0f340bd57f0917335276, type: 3}
   movementPoints: 0
   nbTurnsToDie: 0
   nbTurnsToBeHungry: 0

@@ -8,6 +8,7 @@ public class QuestMenu : MonoBehaviour {
     public CanvasReference canvasRef;
 
     public GameObject questMenu;
+    public ShipMenu ship;
     public GameObject containerList;
     public GameObject entry;
     public QuestLog log;
@@ -37,6 +38,8 @@ public class QuestMenu : MonoBehaviour {
     public void Toogle() {
         isOpen ^= true;
 
+        ship.CloseMenu();
+
         if (isOpen) {
             AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Open", this.gameObject);
             AkSoundEngine.PostEvent("Play_SFX_Button_YourQuests_Open", this.gameObject);
@@ -48,6 +51,19 @@ public class QuestMenu : MonoBehaviour {
 
         StopAllCoroutines();
         StartCoroutine(isOpen ? Open() : Close());
+    }
+
+    public void CloseMenu() {
+        if (!isOpen)
+            return;
+
+        isOpen = false;
+
+        AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Close", this.gameObject);
+        AkSoundEngine.PostEvent("Play_SFX_Button_YourQuests_Close", this.gameObject);
+
+        StopAllCoroutines();
+        StartCoroutine(Close());
     }
 
     IEnumerator Open() {

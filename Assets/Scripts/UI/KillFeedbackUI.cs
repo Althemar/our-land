@@ -7,12 +7,14 @@ using TMPro;
 public class KillFeedbackUI : MonoBehaviour
 {
     public Image sprite;
+    public string eventName;
 
     public float speed;
     public float fadeSpeed;
     public float offsetY;
 
     public void Initialize() {
+        AkSoundEngine.PostEvent(eventName, this.gameObject);
         Vector3 newPosition = transform.position;
         newPosition.y += offsetY;
         transform.position = newPosition;

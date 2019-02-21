@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 2709388376168954573}
+  eventName: Play_SFX_Mouing_Bite
   speed: 0
   fadeSpeed: 0.75
   offsetY: 0

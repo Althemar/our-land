@@ -77,3 +77,4 @@ MonoBehaviour:
   availableTiles:
   - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   harvestSound: Play_SFX_Kill_Wood
+  iconEntity: {fileID: 21300000, guid: 3d3d661413119f54a9a2766a7c715c7e, type: 3}

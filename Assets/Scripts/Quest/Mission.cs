@@ -6,6 +6,7 @@ using UnityEngine;
 public class Mission : MonoBehaviour
 {
     public string title;
+    [Multiline]
     public string lore;
     public string accomplishedLore;
 

@@ -103,6 +103,9 @@ public class MotherShip : Updatable {
         OnRemainingPointsChanged?.Invoke();
         AddToTurnManager();
         ShowHarvestOutline();
+
+        spineShip.state.SetAnimation(0, "Atterissage_" + GetAnimTerrainType(movable.CurrentTile), false);
+        spineShip.state.Update(10f);
     }
 
     private void Update() {
@@ -150,12 +153,25 @@ public class MotherShip : Updatable {
         }
     }
 
+    string GetAnimTerrainType(TileProperties tile) {
+        switch(tile.Tile.terrainType) {
+            case CustomTile.TerrainType.Grass:
+                return "Herbe";
+            case CustomTile.TerrainType.Sand:
+                return "Sand";
+            case CustomTile.TerrainType.Swamp:
+                return "Swamp";
+        }
+
+        return "Herbe";
+    }
+
     public void MovementMode() {
         spineShip.state.Complete -= AfterGrounded;
         spineShip.state.Complete -= CanMove;
         canMove = false;
 
-        spineShip.state.SetAnimation(0, "Decollage_Herbe", false);
+        spineShip.state.SetAnimation(0, "Decollage_" + GetAnimTerrainType(movable.CurrentTile), false);
         AkSoundEngine.PostEvent("Play_TakeOff", this.gameObject);
         spineShip.state.Complete += CanMove;
 
@@ -168,7 +184,7 @@ public class MotherShip : Updatable {
         spineShip.state.Complete -= CanMove;
         canMove = false;
 
-        spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
+        spineShip.state.SetAnimation(0, "Atterissage_" + GetAnimTerrainType(movable.CurrentTile), false);
         AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
 
         walkableOutline.HideOutline();
@@ -210,7 +226,7 @@ public class MotherShip : Updatable {
 
         spineShip.state.Complete -= CanMove;
         spineShip.state.ClearTrack(0);
-        spineShip.state.SetAnimation(0, "Atterissage_Herbe", false);
+        spineShip.state.SetAnimation(0, "Atterissage_" + GetAnimTerrainType(movable.CurrentTile), false);
         AkSoundEngine.PostEvent("Play_Landing", this.gameObject);
         spineShip.state.Complete += AfterGrounded;
     }

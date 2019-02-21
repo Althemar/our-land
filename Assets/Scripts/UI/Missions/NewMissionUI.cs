@@ -16,6 +16,7 @@ public class NewMissionUI : MonoBehaviour {
     public GameObject mainReward;
     public Image mainRewardIcon;
 
+    public GameObject secondaryText;
     public GameObject secondaryGoal;
     public TMP_Text secondaryGoalText;
     public Slider secondaryCompletion;
@@ -52,6 +53,7 @@ public class NewMissionUI : MonoBehaviour {
         }
 
         if (mission.secondaryObjectives) {
+            secondaryText.SetActive(true);
             secondaryGoal.SetActive(true);
             secondaryGoalText.text = "•  " + mission.secondaryObjectives.description;
             secondaryCompletion.value = (float)mission.secondaryObjectives.Progress() / (float)mission.secondaryObjectives.Goal();
@@ -74,6 +76,7 @@ public class NewMissionUI : MonoBehaviour {
             }
         }
         else {
+            secondaryText.SetActive(false);
             secondaryGoal.SetActive(false);
         }
 

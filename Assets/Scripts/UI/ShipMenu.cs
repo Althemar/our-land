@@ -7,6 +7,7 @@ public class ShipMenu : MonoBehaviour {
     public CanvasReference canvasRef;
 
     public GameObject shipMenu;
+    public QuestMenu quest;
     RectTransform menu;
     Vector3 beginPosition;
     
@@ -24,6 +25,8 @@ public class ShipMenu : MonoBehaviour {
     public void Toogle() {
         isOpen ^= true;
 
+        quest.CloseMenu();
+
         if (isOpen)
             AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Open", this.gameObject);
         else
@@ -31,6 +34,18 @@ public class ShipMenu : MonoBehaviour {
 
         StopAllCoroutines();
         StartCoroutine(isOpen ? Open() : Close());
+    }
+
+    public void CloseMenu() {
+        if (!isOpen)
+            return;
+
+        isOpen = false;
+
+        AkSoundEngine.PostEvent("Play_SFX_Button_IGMenu_Close", this.gameObject);
+
+        StopAllCoroutines();
+        StartCoroutine(Close());
     }
 
     IEnumerator Open() {

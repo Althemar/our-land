@@ -80,3 +80,4 @@ MonoBehaviour:
   availableTiles:
   - {fileID: 11400000, guid: a4f54c7e3c17b744aa750c51dd3c861c, type: 2}
   harvestSound: 
+  iconEntity: {fileID: 21300000, guid: 3d3d661413119f54a9a2766a7c715c7e, type: 3}

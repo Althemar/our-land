@@ -79,6 +79,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44067ab2a4cc13e449b200ee582b47d4, type: 2}
   - {fileID: 11400000, guid: 373040af124ab26459f41f6dcb346f5b, type: 2}
   harvestSound: Play_SFX_Kill_Rhtuk_Victory
+  iconEntity: {fileID: 21300000, guid: 5f652d3fbbf88434ca22fbee5d921092, type: 3}
   movementPoints: 2
   nbTurnsToDie: 2
   nbTurnsToBeHungry: 4
