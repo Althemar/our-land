@@ -10,7 +10,7 @@ public abstract class Bonus : Updatable {
     int activeTurns = 0;
     MotherShip ship;
 
-    protected int level = 1;
+    protected int level = 0;
     protected bool bonus;
 
     [ReorderableList]

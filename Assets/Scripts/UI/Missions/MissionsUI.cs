@@ -20,6 +20,8 @@ public class MissionsUI : MonoBehaviour {
         secondaryTransform = secondaryMission.GetComponent<RectTransform>();
         beginPositionSecondary = secondaryTransform.anchoredPosition;
         secondaryTransform.anchoredPosition = new Vector3(secondaryTransform.rect.width + 150, beginPositionSecondary.y, beginPositionSecondary.z);
+
+        
     }
 
     public void AddMission(Mission mission) {

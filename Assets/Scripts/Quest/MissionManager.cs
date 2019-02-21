@@ -65,7 +65,6 @@ public class MissionManager : MonoBehaviour
     }
 
     private void DisplayNextMission() {
-        previousMission.eventOnSuccess?.Invoke();
 
         StartMission(previousMission.nextMission[nextMissionIndex]);
         nextMissionIndex++;
@@ -73,7 +72,10 @@ public class MissionManager : MonoBehaviour
     
 
     public void EndMission(Mission mission) {
+
         if (!mission.failed) {
+            mission.eventOnSuccess?.Invoke();
+
             currentMissions.Remove(mission);
             missionsProgressUI.EndMission(mission);
             if (mission.nextMission.Length > 0) {

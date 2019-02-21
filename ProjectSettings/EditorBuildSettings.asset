@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LD 02.unity
     guid: 66183f1596e3c964b8f5713e4a856276
   - enabled: 0
-    path: Assets/Scenes/Damien LD 15-02.unity
-    guid: 7aae73ff56c7b0a4ebbbb4355d51e8ea
-  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/Scenes/Damien LD.unity
     guid: a39c37de279fdc74493f5afb8a1b578b
   - enabled: 1
