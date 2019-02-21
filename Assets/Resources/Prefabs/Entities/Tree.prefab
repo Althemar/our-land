@@ -385,7 +385,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3136508212417770711}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
@@ -411,12 +411,13 @@ MonoBehaviour:
   updating: 0
   entitySO: {fileID: 11400000, guid: dca61f1512089b544aa50ce76b5cec29, type: 2}
   population: 0
-  basePopulation: 2
+  basePopulation: 3
   reserve: 0
   activatedSkeletons: []
   remainingTurnsBeforReproduction: -1
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
+  prefabToReproduce: {fileID: 3136508212417770711}
   sprites:
   - {fileID: 1206382260137150720}
   - {fileID: 1836961887852375580}

@@ -166,7 +166,10 @@ public abstract class Entity : Updatable
             TileProperties adjacent = GetFreeAdjacentTile(type);
             if (adjacent != null) {
                 population = 2;
-                Entity entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
+                Entity entity;
+                
+                entity = Instantiate(gameObject, adjacent.transform.position, Quaternion.identity, transform.parent).GetComponent<Entity>();
+
                 entity.tile = adjacent;
 
                 if (type == EntityType.Moving) {

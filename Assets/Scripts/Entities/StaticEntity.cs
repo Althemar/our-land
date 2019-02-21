@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class StaticEntity : Entity {
     [HideInInspector]
     public StaticEntitySO staticEntitySO;
+    public GameObject prefabToReproduce;
     
     public List<GameObject> sprites;
 
@@ -88,20 +89,31 @@ public class StaticEntity : Entity {
                 while (numberOfSprites > 0) {
                     numberOfSprites--;
                     int index = Random.Range(0, allSprites.Count);
-                    allSprites[index].transform.parent = spritePop.transform;
+
+                    SpriteRenderer sprite = Instantiate(allSprites[index], allSprites[index].transform.position, Quaternion.identity, spritePop.transform).GetComponent<SpriteRenderer>();
+                    sprite.enabled = true;
+                    foreach (Transform child in sprite.transform) {
+                        child.GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    // allSprites[index].transform.parent = spritePop.transform;
 
                     float scale = Random.Range(minScale, maxScale);
                     Vector3 scaleVector = new Vector3(scale, scale, 1);
-                    allSprites[index].transform.localScale = scaleVector;
-                    allSprites[index].GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
+                    sprite.transform.localScale = scaleVector;
+                    sprite.GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
                     
 
-                    allSprites.RemoveAt(index);
+                    //allSprites.RemoveAt(index);
                 }
                 
             }
+            
             for (int i = 0; i < allSprites.Count; i++) {
-                Destroy(allSprites[i].gameObject);
+                allSprites[i].enabled = false;
+                foreach (Transform child in allSprites[i].transform) {
+                    child.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                //Destroy(allSprites[i].gameObject);
 
             }
         }

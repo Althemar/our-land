@@ -465,7 +465,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3136508212417770711}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -498,6 +498,7 @@ MonoBehaviour:
   remainingTurnsBeforReproduction: -1
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
+  prefabToReproduce: {fileID: 3136508212417770711}
   sprites:
   - {fileID: 6853606184062165931}
   - {fileID: 8983298809069215140}

@@ -160,7 +160,7 @@ public class ActivePopulationPoint : Updatable {
         float progress = 0;
         while (progress <= 1) {
             transform.position = Vector3.Lerp(beginPosition, targetPosition, progress);
-            progress += 0.07f;
+            progress += 5f * Time.deltaTime;
             yield return null;
         }
         transform.position = Vector3.Lerp(beginPosition, targetPosition, 1);

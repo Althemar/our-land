@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Mission : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Mission : MonoBehaviour
 
     [HideInInspector]
     public bool failed;
+
+    public UnityEvent eventOnSuccess;
 
     public delegate void UpdatedTurns(int turns);
     public UpdatedTurns OnRemainingTurnsUpdated;

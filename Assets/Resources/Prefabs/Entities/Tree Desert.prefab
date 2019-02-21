@@ -618,6 +618,8 @@ MonoBehaviour:
   remainingTurnsBeforReproduction: -1
   populationPoint: {fileID: 0}
   staticEntitySO: {fileID: 0}
+  prefabToReproduce: {fileID: 3136508212417770711, guid: e1dd906950d243d43b4b8d1ffc22be47,
+    type: 3}
   sprites:
   - {fileID: 7572288584068710534}
   - {fileID: 8383688549899994171}
