@@ -2,6 +2,7 @@
 	Properties{
 		_Color("Main Color", Color) = (1,1,1,0.5)
 		_GrainTex("Grain Texture", 2D) = "white" {}
+		_Speed("Speed", Float) = 1
 	}
 	SubShader {
 		Tags {
@@ -33,6 +34,7 @@
 			sampler2D _GrainTex;
 			float4 _GrainTex_ST;
 			float2 _MousePosition;
+			float _Speed;
 
 			struct v2f {
 				float4 pos : SV_POSITION;
@@ -49,14 +51,14 @@
 
 				o.color = v.color;
 
-				v.vertex.xy += (0.5 - rand(v.vertex.xy + (floor(_Time.z) * fixed2(0.5, 0.5)))) * 0.1;
+				v.vertex.xy += (0.5 - rand(v.vertex.xy + _Speed * (floor(_Time.z) * fixed2(0.5, 0.5)))) * 0.1;
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.wpos = mul(UNITY_MATRIX_M, float4(v.vertex.xyz, 1.0));
 				return o;
 			}
 
 			fixed4 frag(v2f i) : SV_Target {
-				fixed4 col = tex2D(_GrainTex, i.wpos.xy + (floor(_Time.z) * fixed2(0.5, 0)));
+				fixed4 col = tex2D(_GrainTex, i.wpos.xy + _Speed * (floor(_Time.z) * fixed2(0.5, 0)));
 
 				clip(col.r - 0.2);
 

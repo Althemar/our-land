@@ -93,14 +93,13 @@ public class StaticEntity : Entity {
                     SpriteRenderer sprite = Instantiate(allSprites[index], allSprites[index].transform.position, Quaternion.identity, spritePop.transform).GetComponent<SpriteRenderer>();
                     sprite.enabled = true;
                     foreach (Transform child in sprite.transform) {
-                        child.GetComponent<SpriteRenderer>().enabled = false;
+                        child.GetComponent<SpriteRenderer>().enabled = true;
                     }
                     // allSprites[index].transform.parent = spritePop.transform;
 
                     float scale = Random.Range(minScale, maxScale);
                     Vector3 scaleVector = new Vector3(scale, scale, 1);
                     sprite.transform.localScale = scaleVector;
-                    sprite.GetComponent<SortingGroup>().sortingOrder = -tile.Position.y;
                     
 
                     //allSprites.RemoveAt(index);
