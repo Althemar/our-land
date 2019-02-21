@@ -7,6 +7,7 @@ using TMPro;
 public class NewMissionUI : MonoBehaviour {
     public TMP_Text title;
     public TMP_Text lore;
+    public Image loreImage;
 
 
     public TMP_Text mainGoalText;
@@ -81,6 +82,7 @@ public class NewMissionUI : MonoBehaviour {
         }
 
         lore.text = mission.lore;
+        loreImage.sprite = mission.questImage;
         GameManager.Input.SetBlock(GameManager.Input.Blocker.Defeat, true);
     }
 

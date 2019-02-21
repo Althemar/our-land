@@ -7,7 +7,6 @@ public class EndMissionUI : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text lore;
-    public TMP_Text rewards;
 
     private Mission mission;
 
@@ -16,16 +15,16 @@ public class EndMissionUI : MonoBehaviour
         title.text = mission.title;
         lore.text = mission.accomplishedLore;
 
-        rewards.text = "You earned:";
+       // rewards.text = "You earned:";
         if (mission.mainObjectives.Completed) {
             foreach (Reward reward in mission.mainObjectives.rewards) {
-                rewards.text += "\n" + reward.Display();
+                //rewards.text += "\n" + reward.Display();
                 reward.GetReward();
             }
         }
         if (mission.secondaryObjectives && mission.secondaryObjectives.Completed) {
             foreach (Reward reward in mission.secondaryObjectives.rewards) {
-                rewards.text += "\n" + reward.Display();
+                //rewards.text += "\n" + reward.Display();
                 reward.GetReward();
             }
         }
