@@ -92,6 +92,7 @@ MonoBehaviour:
   text: {fileID: 3668072547097585189}
   jonction: {fileID: 21300000, guid: 6704ecf1d94db374e8252774241d7f15, type: 3}
   destination: {fileID: 21300000, guid: 1cb7000b5689d4b4e98765470a3768fe, type: 3}
+  remove: {fileID: 21300000, guid: 9e63b190bcdc4764fbca96fe728648e8, type: 3}
   pointImage: {fileID: 3148459551827397427}
   removeImage: {fileID: 6880807359859912630}
   interactable: 0

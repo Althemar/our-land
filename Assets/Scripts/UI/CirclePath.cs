@@ -10,6 +10,7 @@ public class CirclePath : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public TMP_Text text;
     public Sprite jonction;
     public Sprite destination;
+    public Sprite remove;
     public Image pointImage;
     public Image removeImage;
     public bool interactable;
@@ -31,14 +32,14 @@ public class CirclePath : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData) {
         if (interactable && motherShip.targetTile) {
             text.gameObject.SetActive(false);
-            removeImage.gameObject.SetActive(true);
+            pointImage.sprite = remove;
         }
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         if (interactable && motherShip.targetTile) {
             text.gameObject.SetActive(true);
-            removeImage.gameObject.SetActive(false);
+            pointImage.sprite = destination;
         }
     }
 
