@@ -110,11 +110,11 @@ MonoBehaviour:
         winterShadow: {fileID: 21300000, guid: 8c9895932bf28004aaabe24773a5a1a5, type: 3}
     - sprites:
       - normal: {fileID: 21300000, guid: 1d45825101fb736498125acfd9398874, type: 3}
-        shadow: {fileID: 21300000, guid: 6e6c1b012a955644cb1acaabb74bc312, type: 3}
+        shadow: {fileID: 21300000, guid: 08fe089d1b68bbc478a62d8484d36c23, type: 3}
         winter: {fileID: 21300000, guid: 00422ead95c12064e99dc98f2cc689d0, type: 3}
         winterShadow: {fileID: 21300000, guid: 6e6c1b012a955644cb1acaabb74bc312, type: 3}
       - normal: {fileID: 21300000, guid: 3ba9b9a3532515e4681351b7330ae287, type: 3}
-        shadow: {fileID: 21300000, guid: 8c9895932bf28004aaabe24773a5a1a5, type: 3}
+        shadow: {fileID: 21300000, guid: 3e0231936ce201a4faf7446c7f31c532, type: 3}
         winter: {fileID: 21300000, guid: f8d27abdb39f9544a871c909641b9e4d, type: 3}
         winterShadow: {fileID: 21300000, guid: 8c9895932bf28004aaabe24773a5a1a5, type: 3}
 --- !u!212 &4517520533362251512
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4517520534840113922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4517520533362251514}
@@ -233,8 +233,8 @@ SpriteRenderer:
   m_SortingLayerID: -577691601
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e6c1b012a955644cb1acaabb74bc312, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 08fe089d1b68bbc478a62d8484d36c23, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

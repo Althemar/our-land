@@ -65,8 +65,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 6397640701449631683}
   - component: {fileID: 1602475411773943463}
   - component: {fileID: 5232954666820235852}
+  - component: {fileID: 1094176251707355723}
   m_Layer: 13
   m_Name: Trees_01 (5)
   m_TagString: Untagged
@@ -130,7 +131,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -199,6 +200,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &1094176251707355723
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591549642084859526}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &1295711887602987491
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +238,7 @@ GameObject:
   - component: {fileID: 8832331401292694661}
   - component: {fileID: 2920109967550306549}
   - component: {fileID: 6679059207975372555}
+  - component: {fileID: 9150435821258550125}
   m_Layer: 13
   m_Name: Trees_03
   m_TagString: Untagged
@@ -250,7 +278,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -319,6 +347,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &9150435821258550125
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295711887602987491}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &1558538861184029319
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +385,7 @@ GameObject:
   - component: {fileID: 8317226695378181468}
   - component: {fileID: 3735829791893156476}
   - component: {fileID: 7397963484520882458}
+  - component: {fileID: 8926557758166058187}
   m_Layer: 13
   m_Name: Trees_01
   m_TagString: Untagged
@@ -370,7 +425,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -439,6 +494,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &8926557758166058187
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558538861184029319}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &3136508212417770711
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +532,7 @@ GameObject:
   - component: {fileID: 3136508212417770704}
   - component: {fileID: 7965635613132808035}
   - component: {fileID: 4946114938871196655}
+  - component: {fileID: 2181294048314230764}
   m_Layer: 13
   m_Name: Tree Swamp
   m_TagString: Untagged
@@ -542,6 +624,27 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!50 &2181294048314230764
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136508212417770711}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3556701708638886230
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +657,7 @@ GameObject:
   - component: {fileID: 2124296676868363970}
   - component: {fileID: 6664320000998000033}
   - component: {fileID: 9075339481802791836}
+  - component: {fileID: 1125968933576079172}
   m_Layer: 13
   m_Name: Trees_02
   m_TagString: Untagged
@@ -593,7 +697,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -662,6 +766,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &1125968933576079172
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556701708638886230}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &3710067568455372794
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,8 +896,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -792,6 +922,7 @@ GameObject:
   - component: {fileID: 6057544194177257675}
   - component: {fileID: 8644452639324842482}
   - component: {fileID: 619990379297684803}
+  - component: {fileID: 8428597652740729444}
   m_Layer: 13
   m_Name: Trees_01 (4)
   m_TagString: Untagged
@@ -831,7 +962,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -900,6 +1031,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &8428597652740729444
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4859073340120651053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &4890273060690101781
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,8 +1122,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1070,6 +1227,7 @@ GameObject:
   - component: {fileID: 2900450231645158529}
   - component: {fileID: 228296025188540509}
   - component: {fileID: 393361743464586306}
+  - component: {fileID: 477231565341995876}
   m_Layer: 13
   m_Name: Trees_01 (3)
   m_TagString: Untagged
@@ -1109,7 +1267,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1178,6 +1336,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &477231565341995876
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497441221971355783}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &6502780142356650291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,8 +1427,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1322,8 +1506,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1401,8 +1585,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1559,8 +1743,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1585,6 +1769,7 @@ GameObject:
   - component: {fileID: 4045263512273464212}
   - component: {fileID: 2467315878022732081}
   - component: {fileID: 1262020997351309336}
+  - component: {fileID: 3474965321503112454}
   m_Layer: 13
   m_Name: Trees_01 (2)
   m_TagString: Untagged
@@ -1624,7 +1809,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1693,6 +1878,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &3474965321503112454
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7709433190560049554}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &8550653349256078995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,6 +1916,7 @@ GameObject:
   - component: {fileID: 7694348347798204411}
   - component: {fileID: 6715103467209199595}
   - component: {fileID: 1468828338951630077}
+  - component: {fileID: 4884038427661880132}
   m_Layer: 13
   m_Name: Trees_01 (6)
   m_TagString: Untagged
@@ -1744,7 +1956,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1813,6 +2025,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &4884038427661880132
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8550653349256078995}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &8813657342376850692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,6 +2063,7 @@ GameObject:
   - component: {fileID: 1412732054222423475}
   - component: {fileID: 6293155750128824631}
   - component: {fileID: 8853004763654082735}
+  - component: {fileID: 2421723655124533929}
   m_Layer: 13
   m_Name: Trees_01 (1)
   m_TagString: Untagged
@@ -1864,7 +2103,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa468ceffb0bf8c498aa0a8c34c74453, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1933,6 +2172,32 @@ MonoBehaviour:
     shadow: {fileID: 0}
     winter: {fileID: 21300000, guid: b003d70feee8d34409cda11ebc68a64a, type: 3}
     winterShadow: {fileID: 0}
+--- !u!61 &2421723655124533929
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813657342376850692}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.029767454, y: 0.30098194}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.47093022, y: 0.20607233}
+    oldSize: {x: 1.024, y: 1.024}
+    newSize: {x: 1.1511111, y: 0.8088889}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79, y: 0.84}
+  m_EdgeRadius: 0
 --- !u!1 &8983298809069215140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,8 +2342,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2156,8 +2421,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -577691601
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

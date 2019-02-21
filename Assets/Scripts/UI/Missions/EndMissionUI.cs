@@ -11,6 +11,8 @@ public class EndMissionUI : MonoBehaviour
     private Mission mission;
 
     public void Initialize(Mission mission) {
+        AkSoundEngine.PostEvent("Play_SFX_Quest_End", this.gameObject);
+
         this.mission = mission;
         title.text = mission.title;
         lore.text = mission.accomplishedLore;
