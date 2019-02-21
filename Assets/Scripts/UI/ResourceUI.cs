@@ -38,7 +38,7 @@ public class ResourceUI : MonoBehaviour {
             ResourceTemplate template = pool[index++];
             template.icon.sprite = data.Key.icon;
             template.value.text = "" + data.Value;
-            template.textPanel.text = I18N.GetText(data.Key.infoboxPanel);
+            template.textPanel.text = data.Key.infoboxPanel;
             template.textPanel.spriteAsset = data.Key.textIcons;
             template.gameObject.SetActive(true);
         }

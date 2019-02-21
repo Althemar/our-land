@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wood
   icon: {fileID: 21300000, guid: bd87adeef3d02d748806c826c911fc39, type: 3}
-  infoboxPanel: infoResource
+  infoboxPanel: Wood reserve
   textIcons: {fileID: 11400000, guid: a279cc4d37ff2cf4cb997d125a65b7f8, type: 2}
   consumptionIcon: {fileID: 0}
