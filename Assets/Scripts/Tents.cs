@@ -70,9 +70,11 @@ public class Tents : MonoBehaviour
     }
 
     public void UpdateTents() {
-        pair = tentOnTiles[motherShip.Movable.CurrentTile.Tile].sprites[state];
-        tentLeft.sprite = pair.sprite1;
-        tentRight.sprite = pair.sprite2;
+        if (tentOnTiles.ContainsKey(motherShip.Movable.CurrentTile.Tile)) {
+            pair = tentOnTiles[motherShip.Movable.CurrentTile.Tile].sprites[state];
+            tentLeft.sprite = pair.sprite1;
+            tentRight.sprite = pair.sprite2;
+        }
     }
 
     public void ToggleTents() {
@@ -82,6 +84,9 @@ public class Tents : MonoBehaviour
     }
     
     public void ShowTents() {
+        if (!tentOnTiles.ContainsKey(motherShip.Movable.CurrentTile.Tile)) {
+            return;
+        }
         displaying = true;
         StopAllCoroutines();
         StartCoroutine(FadeTents());

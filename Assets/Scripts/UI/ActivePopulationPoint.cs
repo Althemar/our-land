@@ -46,13 +46,13 @@ public class ActivePopulationPoint : Updatable {
         if (entity.Tile.movingEntity == entity) {
             otherEntity = entity.Tile.staticEntity;
             if (otherEntity) {
-                position.x += 0.5f;
+                position.x += 1.1f;
             }
         }
         else if (entity.Tile.staticEntity == entity) {
             otherEntity = entity.Tile.movingEntity;
             if (otherEntity) {
-                position.x -= 0.5f;
+                position.x -= 1.1f;
             }
         }
 
