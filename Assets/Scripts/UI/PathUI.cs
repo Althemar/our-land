@@ -13,6 +13,8 @@ public class PathUI : MonoBehaviour
 
     public Image templatePoint;
     public Image templateLine;
+    
+    public Sprite[] randomPath;
 
     int sizePool = 50;
     CirclePath[] poolPoint;
@@ -90,10 +92,12 @@ public class PathUI : MonoBehaviour
                     text.text = "";
                     poolPoint[i].removeImage.gameObject.SetActive(true);
                 }
+                poolPoint[i].SetDestinationSprite();
             }
             else {
                 text.text = "";
                 poolPoint[i].removeImage.gameObject.SetActive(false);
+                poolPoint[i].SetJonctionSprite();
             }
             //text.text = Mathf.Floor(pathTiles[i].ActionPointCost).ToString() + "<sprite=0>";
 
@@ -109,7 +113,8 @@ public class PathUI : MonoBehaviour
                 Vector3 delta = pathPoints[i - 1] - pathPoints[i];
                 poolLine[i].rectTransform.sizeDelta = new Vector3(delta.magnitude, 0.245f);
                 poolLine[i].rectTransform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
-                
+                poolLine[i].sprite = randomPath[Random.Range(0, randomPath.Length)];
+
                 poolLine[i].gameObject.SetActive(true);
             }
         }
@@ -118,6 +123,7 @@ public class PathUI : MonoBehaviour
     public void SetInteractable() {
         poolPoint[0].GetComponent<Image>().raycastTarget = true;
         poolPoint[0].interactable = true;
+        poolPoint[0].SetDestinationSprite();
     }
 
     private bool FreeWindMovement(TileProperties current, TileProperties next) {

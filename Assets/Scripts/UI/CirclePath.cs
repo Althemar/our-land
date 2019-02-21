@@ -8,6 +8,9 @@ using TMPro;
 public class CirclePath : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler 
 {
     public TMP_Text text;
+    public Sprite jonction;
+    public Sprite destination;
+    public Image pointImage;
     public Image removeImage;
     public bool interactable;
     public MotherShip motherShip;
@@ -15,6 +18,14 @@ public class CirclePath : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void InitCirclePath() {
         text.gameObject.SetActive(true);
         removeImage.gameObject.SetActive(false);
+    }
+
+    public void SetJonctionSprite() {
+        pointImage.sprite = jonction;
+    }
+    
+    public void SetDestinationSprite() {
+        pointImage.sprite = destination;
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
