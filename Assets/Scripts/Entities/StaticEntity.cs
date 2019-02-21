@@ -126,5 +126,39 @@ public class StaticEntity : Entity {
 
     public override EntityType GetEntityType() {
         return EntityType.Static;
+
+    }
+
+    private void OnMouseEnter() {
+        for (int i = 0; i < sprites.Count; i++) {
+            foreach (SpriteRenderer renderer in sprites[i].GetComponentsInChildren<SpriteRenderer>()) {
+                renderer.material.SetFloat("_Intensity", 0.5f);
+            }
+        }
+        if (activateAllSprites) {
+            for (int i = 0; i < allSprites.Count; i++) {
+                if (allSprites[i] == null)
+                    continue;
+                allSprites[i].material.SetFloat("_Intensity", 0.5f);
+            }
+            return;
+        }
+    }
+
+    private void OnMouseExit() {
+        for (int i = 0; i < sprites.Count; i++) {
+            foreach (SpriteRenderer renderer in sprites[i].GetComponentsInChildren<SpriteRenderer>()) {
+                renderer.material.SetFloat("_Intensity", 0f);
+            }
+        }
+
+        if (activateAllSprites) {
+            for (int i = 0; i < allSprites.Count; i++) {
+                if (allSprites[i] == null)
+                    continue;
+                allSprites[i].material.SetFloat("_Intensity", 0f);
+            }
+            return;
+        }
     }
 }
