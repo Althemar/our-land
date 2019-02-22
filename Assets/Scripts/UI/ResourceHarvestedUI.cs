@@ -13,15 +13,34 @@ public class ResourceHarvestedUI : MonoBehaviour
     public float fadeSpeed;
     public float offsetY;
 
-    public void Initialize(ResourceType resource, float count) {
+    bool canUpdate = false;
+
+    public void Initialize(ResourceType resource, float count, float delay) {
+        if(delay > 0) {
+            image.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
+            StartCoroutine(DelayedInit(resource, count, delay));
+            return;
+        }
         image.sprite = resource.icon;
         text.text = "+ " + count;
         Vector3 newPosition = transform.position;
         newPosition.y += offsetY;
         transform.position = newPosition;
+        canUpdate = true;
+    }
+
+    IEnumerator DelayedInit(ResourceType resource, float count, float delay) {
+        yield return new WaitForSeconds(delay);
+        image.gameObject.SetActive(true);
+        text.gameObject.SetActive(true);
+        Initialize(resource, count, 0);
     }
 
     public void Update() {
+        if(!canUpdate)
+            return;
+
         Vector3 newPosition = transform.position;
         newPosition.y += speed * Time.deltaTime;
         transform.position = newPosition;

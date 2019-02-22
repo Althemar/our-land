@@ -123,12 +123,9 @@ public class ActivePopulationPoint : Updatable {
     }
 
     public void DisplayHarvestedResources(Entity entity) {
-        StartCoroutine(DisplayHarvestedResourcesCoroutine(entity));
-    }
-
-    public IEnumerator DisplayHarvestedResourcesCoroutine(Entity entity) {
         ResourcesToHarvest resources = entity.entitySO.resources;
         Vector3 position = entity.transform.position;
+        float delay = 0f;
         foreach (KeyValuePair<ResourceType, ArrayRessources> resource in resources) {
             ResourceHarvestedUI harvested = Instantiate(PopulationPoints.Instance.resourceGainedPrefab, position, Quaternion.identity, transform.parent).GetComponent<ResourceHarvestedUI>();
 
@@ -138,8 +135,8 @@ public class ActivePopulationPoint : Updatable {
                 gain += Random.Range(bonus.minBonus, bonus.maxBonus + 1);
             }
 
-            harvested.Initialize(resource.Key, gain);
-            yield return new WaitForSeconds(1);
+            harvested.Initialize(resource.Key, gain, delay);
+            delay += 0.8f;
         }
     }
 
