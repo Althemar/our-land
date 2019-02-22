@@ -308,11 +308,17 @@ public class MovingEntity : Entity {
         for (int i = 0; i < activatedSkeletons.Count; i++) {
             activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0.5f);
         }
+        if (InfoEntityUI.Instance.currentEntity != this) {
+            InfoEntityUI.Instance.Initialize(this);
+        }
     }
 
     private void OnMouseExit() {
         for (int i = 0; i < activatedSkeletons.Count; i++) {
             activatedSkeletons[i].GetComponent<MeshRenderer>().material.SetFloat("_Intensity", 0f);
+        }
+        if (InfoEntityUI.Instance.currentEntity == this) {
+            InfoEntityUI.Instance.Clear();
         }
     }
 

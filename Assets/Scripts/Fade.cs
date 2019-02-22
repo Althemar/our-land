@@ -35,8 +35,6 @@ public class Fade : MonoBehaviour
 
     private void Update() {
         if (logo && Input.GetKeyDown(KeyCode.F)) {
-            AkSoundEngine.PostEvent("END", gameObject);
-
             displayLogo = true;
             StartCoroutine(FadeImage(false));
         }

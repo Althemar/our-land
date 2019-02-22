@@ -9,14 +9,26 @@ public class InfoEntityUI : MonoBehaviour
 {
     public TMP_Text text;
 
-    private Entity entity;
-    private EntitiesHarvestableUI entitiesHarvestable;
+    [HideInInspector]
+    public Entity currentEntity;
 
     public GameObject ressourcesPreview;
-    public GameObject infoEntity;
+    public GameObject ressourcesTemplate;
     //public ResourceTemplate ressourcesTemplate;
 
-    public void Initialize(Entity entity, EntitiesHarvestableUI entitiesHarvestable) {
+    public static InfoEntityUI Instance;
+
+    private Image background;
+
+    private void Start() {
+        Instance = this;
+        background = GetComponent<Image>();
+    }
+
+    public void Initialize(Entity entity) {
+        background.enabled = true;
+        currentEntity = entity;
+
         float population;
         if (entity.population < 0) {
             population = 1;
@@ -25,19 +37,26 @@ public class InfoEntityUI : MonoBehaviour
             population = Mathf.Floor(entity.population);
         }
         text.text = "" + population + " " + entity.entitySO.name;
-        this.entity = entity;
-        this.entitiesHarvestable = entitiesHarvestable;
 
         foreach(Transform trans in ressourcesPreview.transform) {
             Destroy(trans.gameObject);
         }
 
         foreach(var res in entity.entitySO.resources) {
-            /*
-            ResourceTemplate temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
-            temp.icon.sprite = res.Key.icon;
-            temp.value.text = "" + res.Value.gain[entity.HarvestedBonus];
-            */
+            
+            GameObject temp = Instantiate(ressourcesTemplate, ressourcesPreview.transform);
+            temp.transform.GetChild(0).GetComponent<TMP_Text>().text = "" + res.Value.gain[entity.HarvestedBonus];
+            temp.transform.GetChild(1).GetComponent<Image>().sprite = res.Key.icon;
+            
+        }
+    }
+
+    public void Clear() {
+        background.enabled = false;
+        currentEntity = null;
+        text.text = "";
+        foreach (Transform trans in ressourcesPreview.transform) {
+            Destroy(trans.gameObject);
         }
     }
 

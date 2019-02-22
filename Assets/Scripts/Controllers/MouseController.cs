@@ -89,6 +89,7 @@ public class MouseController : MonoBehaviour {
             }
         }
         
+        
         OutlineHex();
     }
 

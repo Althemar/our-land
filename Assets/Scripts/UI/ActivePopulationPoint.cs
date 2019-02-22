@@ -123,25 +123,10 @@ public class ActivePopulationPoint : Updatable {
     }
 
     public void DisplayHarvestedResources(Entity entity) {
-        StartCoroutine(DisplayHarvestedResourcesCoroutine(entity));
+        Instantiate(PopulationPoints.Instance.displayResourceGainedPrefab, entity.transform.position, Quaternion.identity, transform.parent).Display(entity) ;
     }
 
-    public IEnumerator DisplayHarvestedResourcesCoroutine(Entity entity) {
-        ResourcesToHarvest resources = entity.entitySO.resources;
-        Vector3 position = entity.transform.position;
-        foreach (KeyValuePair<ResourceType, ArrayRessources> resource in resources) {
-            ResourceHarvestedUI harvested = Instantiate(PopulationPoints.Instance.resourceGainedPrefab, position, Quaternion.identity, transform.parent).GetComponent<ResourceHarvestedUI>();
-
-            int gain = resource.Value.gain[entity.HarvestedBonus];
-            if (entity.entitySO.randomBonus.ContainsKey(resource.Key)) {
-                RandomBonus bonus = entity.entitySO.randomBonus[resource.Key].randomBonus[entity.HarvestedBonus];
-                gain += Random.Range(bonus.minBonus, bonus.maxBonus + 1);
-            }
-
-            harvested.Initialize(resource.Key, gain);
-            yield return new WaitForSeconds(1);
-        }
-    }
+    
 
     public void RemovePopulationPoint() {
         AkSoundEngine.PostEvent("Play_SFX_Button_PPOff", this.gameObject);
@@ -160,7 +145,7 @@ public class ActivePopulationPoint : Updatable {
         float progress = 0;
         while (progress <= 1) {
             transform.position = Vector3.Lerp(beginPosition, targetPosition, progress);
-            progress += 5f * Time.deltaTime;
+            progress += 4f * Time.deltaTime;
             yield return null;
         }
         transform.position = Vector3.Lerp(beginPosition, targetPosition, 1);
