@@ -6,6 +6,7 @@ public class PopulationPoints : MonoBehaviour {
     public MotherShip motherShip;
     public GameObject populationPointPrefab;
     public GameObject resourceGainedPrefab;
+    public DisplayGainedResources displayResourceGainedPrefab;
     private SimplePool<ActivePopulationPoint> populationPointsPool;
 
     public static PopulationPoints Instance;

@@ -129,6 +129,9 @@ public class StaticEntity : Entity {
     }
 
     private void OnMouseEnter() {
+        if (InfoEntityUI.Instance.currentEntity != this) {
+            InfoEntityUI.Instance.Initialize(this);
+        }
         for (int i = 0; i < sprites.Count; i++) {
             foreach (SpriteRenderer renderer in sprites[i].GetComponentsInChildren<SpriteRenderer>()) {
                 renderer.material.SetFloat("_Intensity", 0.5f);
@@ -142,9 +145,13 @@ public class StaticEntity : Entity {
             }
             return;
         }
+        
     }
 
     private void OnMouseExit() {
+        if (InfoEntityUI.Instance.currentEntity == this) {
+            InfoEntityUI.Instance.Clear();
+        }
         for (int i = 0; i < sprites.Count; i++) {
             foreach (SpriteRenderer renderer in sprites[i].GetComponentsInChildren<SpriteRenderer>()) {
                 renderer.material.SetFloat("_Intensity", 0f);
@@ -159,5 +166,6 @@ public class StaticEntity : Entity {
             }
             return;
         }
+        
     }
 }
