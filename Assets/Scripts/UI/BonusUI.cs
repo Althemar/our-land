@@ -27,9 +27,12 @@ public class BonusUI : MonoBehaviour {
 
     void UpdateBonusUI() {
         progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n";
+        progressText.text += "<size=13>";
         progressText.text += bonus.BonusEffect(1);
         progressText.text += bonus.BonusEffect(2);
         progressText.text += bonus.BonusEffect(3);
+        progressText.text += "</size>";
+
 
         progressSlider.value = bonus.Progress;
     }
@@ -38,9 +41,12 @@ public class BonusUI : MonoBehaviour {
         bonus.ToogleActive();
 
         progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n";
+        progressText.text += "<size=13>";
         progressText.text += bonus.BonusEffect(1);
         progressText.text += bonus.BonusEffect(2);
         progressText.text += bonus.BonusEffect(3);
+        progressText.text += "</size>";
+
 
         progressSlider.value = bonus.Progress;
 

@@ -9563,7 +9563,8 @@ MonoBehaviour:
     type: 3}
   resourceGainedPrefab: {fileID: 6641214869133636042, guid: 0b613010ce9f8b245a8ef4c64302cd16,
     type: 3}
-  displayResourceGainedPrefab: {fileID: 0}
+  displayResourceGainedPrefab: {fileID: 1324188879481403331, guid: ff5bb7e6f43835e49b3b528f9f78a26c,
+    type: 3}
 --- !u!114 &637304550 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3370455237133370202, guid: e7e159a4617c3dd409f32ee4c9aa4cef,

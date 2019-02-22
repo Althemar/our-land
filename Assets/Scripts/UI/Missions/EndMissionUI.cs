@@ -6,7 +6,6 @@ using TMPro;
 public class EndMissionUI : MonoBehaviour
 {
     public TMP_Text title;
-    public TMP_Text lore;
 
     private Mission mission;
 

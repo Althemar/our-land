@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f36ee55967f34b4dbc30a67574414a5, type: 3}
   m_Name: Tree Desert
   m_EditorClassIdentifier: 
-  name: Tree Desert
+  name: Desert tree
   populationMax: 1
   nbTurnsBeforeReproduction: 0
   reproduceAtEachHarvest: 0

@@ -23,6 +23,7 @@ public class InfoEntityUI : MonoBehaviour
     private void Start() {
         Instance = this;
         background = GetComponent<Image>();
+        Clear();
     }
 
     public void Initialize(Entity entity) {
