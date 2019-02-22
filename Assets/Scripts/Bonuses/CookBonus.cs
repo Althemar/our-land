@@ -29,10 +29,10 @@ public class CookBonus : Bonus {
             case 1:
                 return str +
                         "Consume less food\n" +
-                        "•  +" + foodConsumptionReduction + " <sprite name=\"Food\"> each turn\n\n";
+                        "•  +" + foodConsumptionReduction + " <sprite name=\"Food\"> each turn\n";
             case 2:
                 return str +
-                        "You can get wool from Muings\n\n";
+                        "You can get wool from Muings\n";
         }
         return "";
     }

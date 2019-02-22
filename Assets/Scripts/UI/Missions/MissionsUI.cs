@@ -48,22 +48,22 @@ public class MissionsUI : MonoBehaviour {
         float progress = 0;
         Vector3 currentPos = missionTransform.anchoredPosition;
         while (progress <= 1) {
-            missionTransform.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(0, beginPosition.y, beginPosition.z), progress);
+            missionTransform.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(21, beginPosition.y, beginPosition.z), progress);
             progress += Time.deltaTime * 5;
             yield return null;
         }
-        missionTransform.anchoredPosition = new Vector3(0, beginPosition.y, beginPosition.z);
+        missionTransform.anchoredPosition = new Vector3(21, beginPosition.y, beginPosition.z);
     }
 
     IEnumerator OpenSecondary() {
         float progress = 0;
         Vector3 currentPos = secondaryTransform.anchoredPosition;
         while (progress <= 1) {
-            secondaryTransform.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(0, beginPositionSecondary.y, beginPositionSecondary.z), progress);
+            secondaryTransform.anchoredPosition = Vector3.Lerp(currentPos, new Vector3(21, beginPositionSecondary.y, beginPositionSecondary.z), progress);
             progress += Time.deltaTime * 5;
             yield return null;
         }
-        secondaryTransform.anchoredPosition = new Vector3(0, beginPositionSecondary.y, beginPositionSecondary.z);
+        secondaryTransform.anchoredPosition = new Vector3(21, beginPositionSecondary.y, beginPositionSecondary.z);
     }
 
     IEnumerator Close() {

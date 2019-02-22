@@ -29,10 +29,10 @@ public class LumberjackBonus : Bonus {
             case 1:
                 return str +
                         "Harvest more wood\n" +
-                        "•  +" + fuelBonus + " <sprite name=\"Wood\"> per harvest\n\n";
+                        "•  +" + fuelBonus + " <sprite name=\"Wood\"> per harvest\n";
             case 2:
                 return str +
-                        "You can plant trees\n\n";
+                        "You can plant trees\n";
         }
         return "";
     }

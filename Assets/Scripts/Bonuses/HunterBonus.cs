@@ -29,10 +29,10 @@ public class HunterBonus : Bonus {
             case 1:
                 return str +
                         "Harvest more food\n" +
-                        "•  +" + foodBonus + " <sprite name=\"Food\"> per harvest\n\n";
+                        "•  +" + foodBonus + " <sprite name=\"Food\"> per harvest\n";
             case 2:
                 return str +
-                        "You can fish from lakes\n\n";
+                        "You can fish from lakes\n";
         }
         return "";
     }

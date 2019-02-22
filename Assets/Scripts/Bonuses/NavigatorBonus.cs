@@ -29,10 +29,10 @@ public class NavigatorBonus : Bonus {
             case 1:
                 return str +
                         "Consume less wood\n" +
-                        "•  -" + fuelReduction + " <sprite name=\"Wood\"> by cell\n\n";
+                        "•  -" + fuelReduction + " <sprite name=\"Wood\"> by cell\n";
             case 2:
                 return str +
-                        "Windy tiles are now cost free\n\n";
+                        "Windy tiles are now cost free\n";
         }
         return "";
     }

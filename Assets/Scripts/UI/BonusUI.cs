@@ -13,10 +13,20 @@ public class BonusUI : MonoBehaviour {
     
     void Start() {
         GetComponent<Button>().onClick.AddListener(Toogle);
+
+        GameManager.Instance.motherShip.OnTurnBegin += UpdateBonusUI;
+    }
+
+    void OnDestroy() {
+        GameManager.Instance.motherShip.OnTurnBegin -= UpdateBonusUI;
     }
 
     void OnEnable() {
-        progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n\n";
+        UpdateBonusUI();
+    }
+
+    void UpdateBonusUI() {
+        progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n";
         progressText.text += bonus.BonusEffect(1);
         progressText.text += bonus.BonusEffect(2);
         progressText.text += bonus.BonusEffect(3);
@@ -25,12 +35,9 @@ public class BonusUI : MonoBehaviour {
     }
 
     void Toogle() {
-
-       
-
         bonus.ToogleActive();
 
-        progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n\n";
+        progressText.text = "<size=15><b>" + bonus.BonusName() + "</b></size>\n";
         progressText.text += bonus.BonusEffect(1);
         progressText.text += bonus.BonusEffect(2);
         progressText.text += bonus.BonusEffect(3);
@@ -42,8 +49,6 @@ public class BonusUI : MonoBehaviour {
         else
             AkSoundEngine.PostEvent("Play_SFX_Button_PPOff", this.gameObject);
         populationPoints.SetActive(bonus.IsActive);
-
-
     }
 
 }

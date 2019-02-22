@@ -32,11 +32,11 @@ public class ScoutBonus : Bonus {
         switch (level) {
             case 1:
                 return str +
-                        "Get random resources\n" +
-                        "•  +" + scoutRandMin + " or +" + scoutRandMax + " <sprite name=\"Wood\"> or <sprite name=\"Food\"> each turn\n\n";
+                        "Random resources\n" +
+                        "•  +" + scoutRandMin + " or +" + scoutRandMax + " <sprite name=\"Wood\"> or <sprite name=\"Food\"> each turn\n";
             case 2:
                 return str +
-                        "Predict winter\n\n";
+                        "Predict winter\n";
         }
         return "";
     }
