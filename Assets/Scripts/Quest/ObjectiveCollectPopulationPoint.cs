@@ -90,10 +90,20 @@ public class ObjectiveCollectPopulationPoint : Objective
     }
 
     public override int Goal() {
-        return goal;
+        if (!optional) {
+            return goal;
+        }
+        else {
+            return maximumWood;
+        }
     }
 
     public override int Progress() {
-        return count;
+        if (!optional) {
+            return count;
+        }
+        else {
+            return usedWood;
+        }
     }
 }
